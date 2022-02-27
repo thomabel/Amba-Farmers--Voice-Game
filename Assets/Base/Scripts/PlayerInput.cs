@@ -1,37 +1,35 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// Processes player input.
 public class PlayerInput : MonoBehaviour
 {
     public Camera cam;
     public Movement movement;
     public Interact interact;
-    private Vector2 input_move;
-    private GameObject last_interacted;
 
+    private Vector2 move_input;
+    private void Awake()
+    {
+        move_input = new Vector2();
+    }
     private void Update()
     {
-        movement.Move(input_move, cam.transform.eulerAngles.y);
+        movement.Move(move_input, cam.transform.eulerAngles.y);
     }
+
+    // Movement input check.
     public void OnMove(InputAction.CallbackContext context)
     {
-        input_move = context.ReadValue<Vector2>();
+        move_input = context.ReadValue<Vector2>();
     }
+    // Interact input check.
     public void OnInteract(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            var mpos = Mouse.current.position.ReadValue();
-            var ray = cam.ScreenPointToRay(mpos);
-            
-            last_interacted = interact.Use(ray);
-            Debug.Log("hit: " + last_interacted.name);
-
-            var inter = last_interacted.GetComponent<IInteractable>();
-            if (inter != null)
-            {
-                inter.Interact();
-            }
+            interact.Use();
+            //interact.Use(cam.ScreenPointToRay(Mouse.current.position.ReadValue()));
         }
     }
 }

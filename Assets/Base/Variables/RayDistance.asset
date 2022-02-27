@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7f24bacd4a57fa48b4f7b918f5f4606, type: 3}
-  m_Name: InteractDistance
+  m_Name: RayDistance
   m_EditorClassIdentifier: 
-  Value: 10
+  Value: 100

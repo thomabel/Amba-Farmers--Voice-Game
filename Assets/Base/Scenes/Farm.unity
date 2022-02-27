@@ -184,6 +184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: 737fd54312451534f905ef866f490c4f, type: 3}
   m_PointAction: {fileID: 0}
   m_MoveAction: {fileID: -4212019604735406168, guid: 737fd54312451534f905ef866f490c4f, type: 3}
@@ -1141,7 +1142,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1335021906}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -1459,48 +1460,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5000978703520966237, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
-      propertyPath: cam
-      value: 
-      objectReference: {fileID: 963194227}
     - target: {fileID: 5796186942019268451, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
       propertyPath: cam
       value: 
       objectReference: {fileID: 963194227}
-    - target: {fileID: 5881731333814138759, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
-      propertyPath: debug_color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5881731333814138759, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
-      propertyPath: debug_color.b
-      value: 0.6431373
-      objectReference: {fileID: 0}
-    - target: {fileID: 5881731333814138759, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
-      propertyPath: debug_color.g
-      value: 0.6901961
-      objectReference: {fileID: 0}
-    - target: {fileID: 5881731333814138759, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
-      propertyPath: interact_distance.Variable
-      value: 
-      objectReference: {fileID: 11400000, guid: 14f3dec2023975843915b0a6ecdaa3ac, type: 2}
-    - target: {fileID: 5881731333814138759, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
-      propertyPath: interact_distance.UseConstant
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8288165898822397585, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
-      propertyPath: move_speed.Variable
-      value: 
-      objectReference: {fileID: 11400000, guid: a572bdadcb96b9a448907ef3fff2f7b6, type: 2}
-    - target: {fileID: 8288165898822397585, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
-      propertyPath: deadzone.ConstantValue
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 8288165898822397585, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
-      propertyPath: move_speed.UseConstant
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5000978703520966237, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
 --- !u!1001 &5734759512473713604
 PrefabInstance:
