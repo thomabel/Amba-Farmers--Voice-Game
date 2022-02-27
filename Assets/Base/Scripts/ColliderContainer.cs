@@ -8,6 +8,7 @@ public class ColliderContainer : MonoBehaviour
     private HashSet<Collider> colliders = new HashSet<Collider>();
     public HashSet<Collider> Colliders { get { return colliders; } }
 
+<<<<<<< HEAD
     public Collider GetClosest(Vector3 origin, float min_distance)
     {
         Collider closest = null;
@@ -23,6 +24,8 @@ public class ColliderContainer : MonoBehaviour
         return closest;
     }
 
+=======
+>>>>>>> 991bea8 (fix movement & interact)
     private void OnTriggerEnter(Collider other)
     {
         colliders.Add(other); //hashset automatically handles duplicates
