@@ -1,11 +1,14 @@
-### Amba Farmers's Voice Mobile Game
+# Amba Farmers's Voice Mobile Game
 
-# Team Lead
+### Team Lead
+
 Thomas Abel
-# Team Members
-Mohamed-Amin Cheaito
-Felina Kang
-Jacob Meziere
-Daniel Tsegaw
-Huidong Wang
-Sandy Wood
+
+### Team Members
+
+Mohamed-Amin Cheaito <br>
+Felina Kang <br>
+Jacob Meziere <br>
+Daniel Tsegaw <br>
+Huidong Wang <br>
+Sandy Wood <br>
