@@ -1,7 +1,10 @@
 using UnityEngine;
 using Currency = System.Int32;
 
-[CreateAssetMenu]
+[CreateAssetMenu(
+    fileName = "account",
+    menuName = "Financials/Account"
+    )]
 public class Account : ScriptableObject
 {
     [SerializeField] private Currency balance;
@@ -31,6 +34,10 @@ public class Account : ScriptableObject
     }
     public Currency Interest()
     {
-        return Credit((int)(annual_rate / annual_periods * balance));
+        if (annual_periods != 0)
+        {
+            return Credit((int)(annual_rate / annual_periods * balance));
+        }
+        return balance;
     }
 }

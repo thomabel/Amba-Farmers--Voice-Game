@@ -20,17 +20,7 @@ public class Interact : MonoBehaviour
     {
         if (container.Colliders != null)
         {
-            Collider closest = null;
-            var dist = interact_distance.Value;
-            foreach (Collider col in container.Colliders)
-            {
-                if (Vector3.Distance(transform.position, col.transform.position) 
-                    <= dist)
-                {
-                    closest = col;
-                }
-            }
-
+            Collider closest = container.GetClosest(transform.position, interact_distance.Value);
             if (closest != null)
             {
                 return InteractCheck(closest.gameObject);
