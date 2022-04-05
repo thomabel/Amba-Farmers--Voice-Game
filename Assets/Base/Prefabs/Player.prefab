@@ -242,9 +242,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   container: {fileID: 6256269239915840408}
   ray_distance:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 08cd4ab8e8036114cb9887e9acef1bad, type: 2}
+    UseConstant: 1
+    ConstantValue: 100
+    Variable: {fileID: 0}
   interact_distance:
     UseConstant: 1
     ConstantValue: 1
