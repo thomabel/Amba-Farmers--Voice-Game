@@ -20,6 +20,9 @@ public class Interact : MonoBehaviour
     {
         if (container.Colliders != null)
         {
+<<<<<<< HEAD
+            Collider closest = container.GetClosest(transform.position, interact_distance.Value);
+=======
             Collider closest = null;
             var dist = interact_distance.Value;
             foreach (Collider col in container.Colliders)
@@ -31,6 +34,7 @@ public class Interact : MonoBehaviour
                 }
             }
 
+>>>>>>> 991bea8 (fix movement & interact)
             if (closest != null)
             {
                 return InteractCheck(closest.gameObject);
