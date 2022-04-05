@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7f24bacd4a57fa48b4f7b918f5f4606, type: 3}
-  m_Name: InteractDistance
+  m_Script: {fileID: 11500000, guid: c4d4055688bae414c99df3efe359d778, type: 3}
+  m_Name: Player Checking Account
   m_EditorClassIdentifier: 
-  Value: 10
+  balance: 0
+  debt_floor: 0
+  annual_rate: 0
+  annual_periods: 0
