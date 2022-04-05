@@ -246,9 +246,9 @@ MonoBehaviour:
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 08cd4ab8e8036114cb9887e9acef1bad, type: 2}
   interact_distance:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 14f3dec2023975843915b0a6ecdaa3ac, type: 2}
+    UseConstant: 1
+    ConstantValue: 1
+    Variable: {fileID: 0}
   debug_color: {r: 0, g: 0.6901961, b: 0.6431373, a: 1}
   last_interacted: {fileID: 0}
 --- !u!114 &6256269239915840408
