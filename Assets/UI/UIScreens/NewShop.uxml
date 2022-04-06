@@ -3,12 +3,12 @@
     <ui:VisualElement name="MainContainer" class="Container" style="display: flex;">
         <ui:VisualElement name="TopLabels" class="TopLabels">
             <ui:VisualElement name="MarketLabelContaner" class="MarketLabelContaner">
-                <ui:Label text="Market" display-tooltip-when-elided="true" name="MarketLabel" class="MarketLabel" />
+                <ui:Label text="Market" display-tooltip-when-elided="true" name="MarketLabel" class="MarketLabel" style="font-size: 50%;" />
             </ui:VisualElement>
             <ui:VisualElement name="MoneyContainer" class="MoneyContainer">
                 <ui:VisualElement name="MoneyBorder" class="MoneyBorder">
-                    <ui:Label text="$" display-tooltip-when-elided="true" name="MoneySignLabel" class="MoneySignLabel" />
-                    <ui:Label text="1000000000000" display-tooltip-when-elided="true" name="MoneyLabel" class="MoneyLabel" />
+                    <ui:Label text="$" display-tooltip-when-elided="true" name="MoneySignLabel" usage-hints="None" class="MoneySignLabel" />
+                    <ui:Label text="1000000000000" display-tooltip-when-elided="true" name="MoneyLabel" usage-hints="None" class="MoneyLabel" style="font-size: 50px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
@@ -36,7 +36,7 @@
                     <ui:Label text="Items List" display-tooltip-when-elided="true" name="ItemsListText" class="ItemsListText" />
                 </ui:VisualElement>
                 <ui:VisualElement name="CheckoutItemListContainer" class="CheckoutItemListContainer">
-                    <ui:ScrollView vertical-scroller-visibility="AlwaysVisible" horizontal-scroller-visibility="Hidden" name="CheckoutScrollViewList" class="CheckoutScrollViewList" />
+                    <ui:ScrollView vertical-scroller-visibility="AlwaysVisible" horizontal-scroller-visibility="Hidden" name="CheckoutScrollViewList" class="CheckoutScrollViewList" style="margin-top: 10px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement style="width: 35%; height: 100%; display: flex; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px;">

@@ -332,7 +332,7 @@
     -unity-text-align: middle-center;
     color: rgb(255, 255, 255);
     -unity-font-style: bold;
-    font-size: 80px;
+    font-size: 50px;
     white-space: normal;
 }
 
@@ -354,7 +354,7 @@
 }
 
 .ItemsListText {
-    font-size: 35px;
+    font-size: 30px;
     -unity-font-style: bold;
     -unity-text-align: upper-center;
     width: 100%;
