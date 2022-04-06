@@ -1,9 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(
-    fileName = "stringvar",
-    menuName = "Variables/String"
-    )]
+[CreateAssetMenu]
 public class StringVariable : ScriptableObject
 {
     public string Value;

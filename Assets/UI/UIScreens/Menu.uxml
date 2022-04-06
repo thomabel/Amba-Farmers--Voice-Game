@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="/Assets/PhoneButtonStyles.uss" />
+    <ui:VisualElement name="HeadElement" style="width: 100%; height: 100%; background-color: rgb(14, 14, 14); align-items: center; justify-content: flex-start; background-image: none; display: flex;">
+        <ui:VisualElement name="VisualElement" style="width: 40%; height: 70%; background-image: url(&apos;/Assets/UI/Textures/AFVLogo.png&apos;); -unity-background-scale-mode: scale-to-fit;" />
+        <ui:VisualElement name="ButtonsSection" style="width: 100%; height: 40%; flex-direction: row;">
+            <ui:VisualElement class="ButtonVisualElement">
+                <ui:Button display-tooltip-when-elided="true" usage-hints="None" name="Start_Button" class="MenuButtons">
+                    <ui:Label text="Start Game" display-tooltip-when-elided="true" class="LabelButton" />
+                </ui:Button>
+            </ui:VisualElement>
+            <ui:VisualElement class="ButtonVisualElement" style="width: 48%; height: 100%; align-items: center; justify-content: center;">
+                <ui:Button display-tooltip-when-elided="true" usage-hints="None" name="NewMap" class="MenuButtons">
+                    <ui:Label text="Options" display-tooltip-when-elided="true" class="LabelButton" style="font-size: 50%; width: 100%; background-color: rgba(49, 108, 45, 0); color: rgb(0, 0, 0); -unity-font-style: bold-and-italic; -unity-text-outline-color: rgb(241, 16, 0); -unity-text-outline-width: 0;" />
+                </ui:Button>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
