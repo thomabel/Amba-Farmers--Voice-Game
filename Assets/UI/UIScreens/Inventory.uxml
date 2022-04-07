@@ -1,9 +1,37 @@
-<?xml version="1.0" encoding="utf-8"?>
-<engine:UXML
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:engine="UnityEngine.UIElements"
-    xmlns:editor="UnityEditor.UIElements"
-    xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
->
-    
-</engine:UXML>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="/Assets/UI/Styles/Inventory.uss" />
+    <ui:VisualElement name="Container2" class="Container" style="display: flex;">
+        <ui:VisualElement name="Inventory2" class="InventoryContainer">
+            <ui:VisualElement name="HeaderContainer" class="HeaderContainer">
+                <ui:Label text="Inventory" display-tooltip-when-elided="true" name="Header2" style="font-size: 30px; color: rgb(255, 197, 0); margin-bottom: 10px; border-bottom-color: rgb(64, 74, 82); border-bottom-width: 0; -unity-font-style: bold; -unity-text-align: middle-center; height: 100%; width: 100%;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="InventoryBody" class="InventoryBody">
+                <ui:VisualElement name="SlotContainer2" style="flex-grow: 1; flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: center; width: 80%; height: auto;">
+                    <ui:ScrollView mode="VerticalAndHorizontal" show-horizontal-scroller="false" show-vertical-scroller="true" vertical-scroller-visibility="AlwaysVisible" name="InventoryScrollView" class="InventoryScrollView" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; height: 95%;">
+                        <ui:VisualElement class="Row" style="display: none;">
+                            <ui:Button display-tooltip-when-elided="true" class="SlotIcon ItemButton" style="width: 100px; height: 100%; background-color: rgb(9, 19, 21); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); color: rgb(255, 255, 255); background-image: url(&apos;/Assets/UI/Textures/Banana.png&apos;); -unity-background-scale-mode: scale-to-fit; opacity: 1;" />
+                            <ui:Button display-tooltip-when-elided="true" class="ItemButton SlotIcon" style="background-image: url(&apos;/Assets/UI/Textures/Avocado.png&apos;);" />
+                            <ui:Button display-tooltip-when-elided="true" class="SlotIcon2 SlotIcon" style="width: 100px; height: 100%; background-color: rgb(9, 19, 21); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); color: rgb(255, 255, 255); visibility: visible; -unity-background-scale-mode: scale-to-fit; background-image: url(&apos;/Assets/UI/Textures/AdobeStock_301972378.png&apos;); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px;" />
+                            <ui:Button text="Button" display-tooltip-when-elided="true" class="ItemButton SlotIcon" style="width: 100px; height: 100%; background-color: rgb(9, 19, 21); border-left-color: rgb(48, 48, 48); border-right-color: rgb(48, 48, 48); border-top-color: rgb(48, 48, 48); border-bottom-color: rgb(48, 48, 48); color: rgb(255, 255, 255); visibility: visible; display: flex;" />
+                            <ui:Button text="Button" display-tooltip-when-elided="true" class="SlotIcon ItemButton" />
+                        </ui:VisualElement>
+                    </ui:ScrollView>
+                </ui:VisualElement>
+                <ui:VisualElement style="width: 25%; height: 100%; align-items: center; justify-content: center;">
+                    <ui:VisualElement name="ItemInfo" class="ItemInfoContainer" style="height: 65%; margin-left: 15px; margin-right: 15px; margin-top: 15px; margin-bottom: 15px; align-items: stretch; justify-content: center; flex-direction: column; width: 100%;">
+                        <ui:VisualElement style="width: 100%; height: 10%; align-items: center; justify-content: center;">
+                            <ui:Label text="Item Name" display-tooltip-when-elided="true" name="ItemName" class="ItemNameLabel" style="width: 100%; height: 100%; font-size: 32px; -unity-text-align: middle-center; -unity-font-style: bold;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                            <ui:Label text="Quantity:" display-tooltip-when-elided="true" style="font-size: 28px; color: rgb(255, 255, 255); height: 100%; width: 50%; -unity-text-align: middle-center; -unity-font-style: bold;" />
+                            <ui:Label text="50" display-tooltip-when-elided="true" name="QuantityNum" style="font-size: 24px; color: rgb(255, 255, 255); height: 100%; width: 50%; -unity-text-align: middle-center;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="ContainerButton" style="flex-direction: row; padding-left: 1px; padding-right: 2px; padding-top: 10px; padding-bottom: 0;">
+                            <ui:Button text="Equip" display-tooltip-when-elided="true" name="EquipButton" style="flex-grow: 1; height: 52px; font-size: 24px; background-color: rgb(255, 197, 0); border-left-color: rgb(255, 197, 0); border-right-color: rgb(255, 197, 0); border-top-color: rgb(255, 197, 0); border-bottom-color: rgb(255, 197, 0); color: rgb(0, 0, 0); -unity-font-style: bold;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
