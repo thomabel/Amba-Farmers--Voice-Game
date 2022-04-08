@@ -39,12 +39,17 @@
                     <ui:ScrollView vertical-scroller-visibility="AlwaysVisible" horizontal-scroller-visibility="Hidden" name="CheckoutScrollViewList" class="CheckoutScrollViewList" style="margin-top: 10px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement style="width: 35%; height: 100%; display: flex; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px;">
-                <ui:VisualElement style="width: 100%; height: 50%; align-items: center; justify-content: center;">
-                    <ui:Label text="Items Sold Total" display-tooltip-when-elided="true" style="font-size: 24px; -unity-font-style: bold; color: rgb(255, 255, 255); -unity-text-align: upper-center; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;" />
-                    <ui:VisualElement class="TotalsContainer" />
+            <ui:VisualElement name="TotalContainer" class="TotalContainer" style="align-items: center; justify-content: space-between;">
+                <ui:VisualElement name="TotalLabelContainer" class="TotalLabelContainer" style="height: 50%; justify-content: flex-end;">
+                    <ui:Label text="Total" display-tooltip-when-elided="true" name="TotalLabel" class="TotalLabel" style="height: 10%; -unity-text-align: middle-center; width: 90%; flex-grow: 0;" />
+                    <ui:VisualElement name="SubTotal" class="TotalsContainer" style="width: 95%; height: 20%; flex-direction: row; align-items: center; justify-content: center;">
+                        <ui:Label text="$" display-tooltip-when-elided="true" class="MoneySignLabel" style="font-size: 50px;" />
+                        <ui:Label text="10000000000000000" display-tooltip-when-elided="true" name="SubtotalLabel" class="MoneyLabel" style="font-size: 24px; -unity-text-align: middle-center;" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement style="width: 100%; height: 50%;" />
+                <ui:VisualElement name="CheckoutButtonContaier" class="TotalLabelContainer CheckoutButtonContaier">
+                    <ui:Button text="Checkout" display-tooltip-when-elided="true" name="CheckoutActualButton" class="CheckoutActualButton" />
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="NoItems" class="CheckoutContent NoItemsContainer" style="display: none;">

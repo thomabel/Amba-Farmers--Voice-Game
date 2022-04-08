@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+
+
+
+
 public class InventoryController : MonoBehaviour
 {
     private VisualElement root;
     private VisualElement ScrollViewSection;
     [SerializeField]
     private Card [] Inventory;
+
+    //private Button FocusedButton;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +35,7 @@ public class InventoryController : MonoBehaviour
 
             Button InventoryItem = new Button();
             InventoryItem.clickable.clickedWithEventInfo += ItemClicked;
+            
             InventoryItem.name = i.ToString();
             InventoryItem.AddToClassList("SlotIcon");
             InventoryItem.AddToClassList("ItemButton");
@@ -60,11 +67,16 @@ public class InventoryController : MonoBehaviour
     }
     void ItemClicked(EventBase obj)
     {
+        Debug.Log(obj);
+
+        //FocusedButton = (Button)obj.target;
         var button = (Button)obj.target;
         Label QuantityNum = root.Q<Label>("QuantityNum");
         Label ItemName = root.Q<Label>("ItemName");
         ItemName.text = Inventory[int.Parse(button.name)].name;
         QuantityNum.text = Inventory[int.Parse(button.name)].quantity.ToString();
     }
+
+
 
 }

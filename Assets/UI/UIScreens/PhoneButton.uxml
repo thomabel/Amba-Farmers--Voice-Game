@@ -1,23 +1,24 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="/Assets/UI/Styles/PhoneButtonStyles.uss" />
-    <ui:VisualElement style="width: 100%; height: 100%; opacity: 1;">
-        <ui:Button display-tooltip-when-elided="true" name="Button" style="width: 100%; height: 100%; background-color: rgba(88, 88, 88, 0); display: none;">
-            <ui:VisualElement name="VisualElement" style="width: 100%; height: 100%; justify-content: center; align-items: center; background-color: rgba(0, 0, 0, 0);">
-                <ui:VisualElement style="width: 400px; height: 800px; align-items: center; background-color: rgb(5, 5, 5); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-top-left-radius: 50px; border-bottom-left-radius: 50px; border-top-right-radius: 50px; border-bottom-right-radius: 50px; justify-content: space-between; padding-top: 0; cursor: initial; visibility: visible; overflow: visible;">
-                    <ui:VisualElement style="width: 90%; height: 70%; margin-top: 0; background-color: rgb(255, 255, 255); border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; padding-top: 0; align-items: center; top: 7%;">
-                        <ui:Label text="Apps" display-tooltip-when-elided="true" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; background-color: rgba(2, 2, 2, 0); color: rgb(0, 0, 0); font-size: 30px; -unity-font-style: bold-and-italic; -unity-text-outline-width: 0; -unity-text-outline-color: rgb(255, 255, 255); text-shadow: 0 0 0 rgb(236, 12, 12);" />
-                        <ui:ScrollView horizontal-scroller-visibility="Hidden" focusable="false" style="width: 95%; height: 400px; top: 0; align-items: center; justify-content: space-around; flex-direction: column;">
-                            <ui:Button text="Shop" display-tooltip-when-elided="true" style="width: 90%; height: 100px; -unity-text-align: middle-center; color: rgb(255, 255, 255); background-color: rgb(89, 89, 89); font-size: 50px;" />
-                            <ui:Button text="Button" display-tooltip-when-elided="true" style="width: 90%; height: 100px; -unity-text-align: middle-center;" />
-                            <ui:Button text="Button" display-tooltip-when-elided="true" style="width: 90%; height: 100px; -unity-text-align: middle-center;" />
-                            <ui:Button text="Button" display-tooltip-when-elided="true" style="width: 90%; height: 100px; -unity-text-align: middle-center;" />
-                            <ui:Button text="Button" display-tooltip-when-elided="true" style="width: 90%; height: 100px; -unity-text-align: middle-center;" />
-                            <ui:Button text="Button" display-tooltip-when-elided="true" style="width: 90%; height: 100px; -unity-text-align: middle-center;" />
+    <ui:VisualElement name="PhoneContainer" class="PhoneContainer" style="width: 100%; height: 100%;">
+        <ui:Button display-tooltip-when-elided="true" name="RealPhoneButtonContainer" class="RealPhoneButtonContainer" style="display: none;">
+            <ui:VisualElement name="RealPhoneContainer" class="RealPhoneContainer">
+                <ui:VisualElement name="RealPhone" class="RealPhone">
+                    <ui:VisualElement name="RealPhoneScreen" class="RealPhoneScreen">
+                        <ui:Label text="Apps" display-tooltip-when-elided="true" name="AppsLabel" class="AppsLabel" />
+                        <ui:ScrollView horizontal-scroller-visibility="Hidden" focusable="false" name="RealPhoneScrollView" class="RealPhoneScrollView" style="align-items: center; justify-content: space-between;">
+                            <ui:VisualElement name="TwoAppContainer" class="TwoAppContainer">
+                                <ui:Button text="Shop" display-tooltip-when-elided="true" name="ShopApp" class="AppButtons" />
+                                <ui:Button text="Button" display-tooltip-when-elided="true" class="AppButtons" style="width: 50%; height: 100%;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="TwoAppContainer">
+                                <ui:Button text="Button" display-tooltip-when-elided="true" class="AppButtons" />
+                            </ui:VisualElement>
                         </ui:ScrollView>
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:Button>
-        <ui:Button display-tooltip-when-elided="true" name="phoneButton" class="PhoneButton" style="width: 10%; top: 84%; left: 89%; background-image: url(&apos;/Assets/UI/Textures/Phone.png&apos;);" />
+        <ui:Button display-tooltip-when-elided="true" name="phoneButton" class="PhoneButton" style="width: 10%; top: 84%; left: 89%; background-image: url(&apos;/Assets/UI/Textures/Phone.png&apos;); display: flex;" />
     </ui:VisualElement>
 </ui:UXML>

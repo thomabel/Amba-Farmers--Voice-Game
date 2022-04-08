@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-using System;
 
 public class NewShopController : MonoBehaviour
 {
@@ -17,7 +16,6 @@ public class NewShopController : MonoBehaviour
     public Label inCartLabel;
     public Label StatusPicture;
 
-
     public Texture2D Checkmark;
     public Texture2D X;
     private VisualElement root;
@@ -25,15 +23,15 @@ public class NewShopController : MonoBehaviour
     public Button checkout;
 
     public Button CheckoutBackButton;
+    public Account player;
 
     public TextField quantityField;
-
-
     public Card[] PlantCards;
-
     public int total=0;
 
+    //public ScriptableObject player = ScriptableObject.CreateInstance("Account");
     private List<int> buyList;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,8 +44,11 @@ public class NewShopController : MonoBehaviour
         //Debug.Log(int.TryParse(quantityField.text, out n));
         //Debug.Log(n + 1);
 
+        root.Q<Button>("CheckoutActualButton").clicked+=CheckoutOperation;
+
         ScrollViewSection = root.Q<VisualElement>("ScrollView");
 
+        root.Q<Label>("MoneyLabel").text = player.Balance().ToString();
         for (int i = 0; i < PlantCards.Length; ++i)
         {
             CardButton = new Button();
@@ -99,6 +100,7 @@ public class NewShopController : MonoBehaviour
 
 
             ScrollViewSection.Add(CardButton);
+            PlantCards[i].quantity = 1;
 
         }
 
@@ -111,7 +113,10 @@ public class NewShopController : MonoBehaviour
     }
     void Update()
     {
-        
+        //root = GetComponent<UIDocument>().rootVisualElement;
+        root.Q<Label>("MoneyLabel").text = player.Balance().ToString();
+        root.Q<Label>("SubtotalLabel").text = total.ToString();
+        //Debug.Log("hi");
     }
 
 
@@ -120,7 +125,7 @@ public class NewShopController : MonoBehaviour
         var button = (Button)obj.target;
         Card tmp = ScriptableObject.CreateInstance<Card>();
         tmp.name = PlantCards[int.Parse(button.name)].name;
-        Debug.Log("tmp = " +tmp.name);
+        Debug.Log("tmp = " + tmp.name);
         Debug.Log(PlantCards[int.Parse(button.name)].name);
 
         Label Status = root.Q<Label>("Status" + int.Parse(button.name));
@@ -162,7 +167,10 @@ public class NewShopController : MonoBehaviour
         CheckNoItems();
 
         Debug.Log(buyList.Count);
+        total = 0;
         CheckoutItemWrapper();
+        root.Q<Label>("SubtotalLabel").text = total.ToString();
+
 
     }
 
@@ -211,13 +219,41 @@ public class NewShopController : MonoBehaviour
             TextField Quantity = new TextField();
             Quantity.AddToClassList("Quantity");
             Quantity.maxLength = 4;
-            Quantity.value = "1";
+            //Quantity.value = "1";
+            Quantity.value = PlantCards[ListType[i]].quantity.ToString();
+            Quantity.name = "Q"+ ListType[i];
+            Quantity.RegisterValueChangedCallback((evt) => {
+                TextField tmp = (TextField)evt.target;
+                Debug.Log(tmp.value);
+                int n = 0;
+                Debug.Log(int.TryParse(tmp.value, out n));
+                int num = int.Parse(tmp.name.Substring(1));
+
+                if (int.TryParse(tmp.value, out n))
+                {
+                    
+                    total -= (PlantCards[num].quantity * PlantCards[num].cost);
+                    PlantCards[num].quantity = int.Parse(tmp.value);
+                    total += (PlantCards[num].quantity * PlantCards[num].cost);
+                }
+                else
+                {
+                    
+                    total -= (PlantCards[num].quantity * PlantCards[num].cost);
+                    Debug.Log("QUANTITY = " + PlantCards[num].quantity.ToString());
+                    PlantCards[num].quantity = 0;
+                    Debug.Log("Total = " + total.ToString());
+                    
+                }
+                //Debug.Log(tmp.GetFirstAncestorOfType<Button>().name);
+
+            });
 
             QuantityContainer.Add(Quantity);
 
             checkoutCard.Add(QuantityContainer);
             CheckoutScrollView.Add(checkoutCard);
-            total += PlantCards[ListType[i]].cost;
+            total += PlantCards[ListType[i]].cost * PlantCards[ListType[i]].quantity;
 
         }
 
@@ -235,19 +271,28 @@ public class NewShopController : MonoBehaviour
         Debug.Log(button.name);
 
 
-
         int num = int.Parse(button.name.Substring(1));
         Label Change = root.Q<Label>("Status" + button.name.Substring(1));
         Change.style.backgroundImage = X;
+        
         buyList.Remove(num);
         Debug.Log(button.GetFirstAncestorOfType<VisualElement>().name);
         VisualElement tmp = button.GetFirstAncestorOfType<VisualElement>();
         VisualElement CheckoutScrollView = root.Q<VisualElement>("CheckoutScrollViewList");
         CheckoutScrollView.Remove(tmp);
 
+        total -= PlantCards[num].cost * PlantCards[num].quantity;
+        root.Q<Label>("SubtotalLabel").text = total.ToString();
+        PlantCards[num].quantity = 1;
+
+
         CheckNoItems();
 
         //Button tmp = root.Q<Button>("ScrollView");
 
+    }
+    void CheckoutOperation()
+    {
+        player.Debit(total);
     }
 }

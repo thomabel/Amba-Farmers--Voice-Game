@@ -292,7 +292,7 @@
 
 .TotalsContainer {
     width: 95%;
-    height: 30%;
+    height: 20%;
     background-color: rgb(255, 255, 255);
     border-left-width: 0;
     border-right-width: 0;
@@ -477,4 +477,76 @@
     color: rgb(140, 40, 40);
     -unity-font-style: bold;
     opacity: 0.6;
+}
+
+.TotalContainer {
+    width: 35%;
+    height: 100%;
+    display: flex;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-left-width: 2px;
+}
+
+.TotalLabelContainer {
+    width: 100%;
+    height: 50%;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.TotalLabel {
+    font-size: 24px;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+    -unity-text-align: middle-center;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.CheckoutButtonContaier {
+    width: 100%;
+    justify-content: center;
+}
+
+.CheckoutActualButton {
+    width: 92%;
+    height: 20%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: rgb(245, 166, 0);
+    font-size: 24px;
+    color: rgb(0, 0, 0);
+    -unity-font-style: bold;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+}
+
+.CheckoutActualButton:active {
+    width: 92%;
+    height: 20%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: rgb(245, 166, 0);
+    font-size: 24px;
+    color: rgb(0, 0, 0);
+    -unity-font-style: bold;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    opacity: 0.6;
+    display: flex;
 }
