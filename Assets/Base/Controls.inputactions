@@ -9,7 +9,7 @@
                     "name": "Move",
                     "type": "Value",
                     "id": "2149828d-b4d3-4554-a5dc-f4d6b3afb405",
-                    "expectedControlType": "Analog",
+                    "expectedControlType": "Stick",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -26,7 +26,7 @@
             ],
             "bindings": [
                 {
-                    "name": "2D Vector",
+                    "name": "Keyboard",
                     "id": "e62b0a60-8523-4d0a-b60a-98f64785f937",
                     "path": "2DVector(mode=2)",
                     "interactions": "",
@@ -82,6 +82,17 @@
                 },
                 {
                     "name": "",
+                    "id": "95e27837-7e0e-46d3-b042-de9e033e82d6",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "be8322cd-8266-4b34-9e00-dcbec6029dcb",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -95,6 +106,17 @@
                     "name": "",
                     "id": "30776e21-09d9-442c-8c91-05acee2db336",
                     "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fd4df9bd-025b-4302-acfb-5636bba325bb",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

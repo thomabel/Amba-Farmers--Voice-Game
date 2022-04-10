@@ -1664,16 +1664,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 963194227}
     - target: {fileID: 5881731333814138759, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
-      propertyPath: ray_distance.Variable
+      propertyPath: interact_distance.Variable
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5881731333814138759, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
-      propertyPath: ray_distance.UseConstant
+      propertyPath: interact_distance.UseConstant
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5881731333814138759, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
-      propertyPath: ray_distance.ConstantValue
-      value: 100
+      propertyPath: interact_distance.ConstantValue
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
