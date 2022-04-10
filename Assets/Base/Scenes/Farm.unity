@@ -1464,18 +1464,6 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 963194227}
-    - target: {fileID: 5881731333814138759, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
-      propertyPath: ray_distance.Variable
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5881731333814138759, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
-      propertyPath: ray_distance.UseConstant
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5881731333814138759, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
-      propertyPath: ray_distance.ConstantValue
-      value: 100
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
 --- !u!1001 &5734759512473713604
