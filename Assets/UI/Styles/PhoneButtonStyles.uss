@@ -20,7 +20,7 @@
 .PhoneButton:active {
     width: 15%;
     height: 15%;
-    background-image: url('/Assets/Base/Textures/Phone.png');
+    background-image: url('/Assets/UI/Textures/Phone.png');
     opacity: 0.5;
     background-color: rgba(255, 255, 255, 0);
     -unity-background-image-tint-color: rgb(255, 255, 255);
