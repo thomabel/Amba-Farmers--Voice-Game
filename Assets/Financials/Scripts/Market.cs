@@ -1,8 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Market : MonoBehaviour
+[CreateAssetMenu(
+    fileName = "market",
+    menuName = "Financials/Market"
+    )]
+public class Market : ScriptableObject
 {
+    public List<MarketWrapper> Items;
     [SerializeField] List<MarketWrapper> inventory;
 
     public List<MarketWrapper>.Enumerator GetEnumerator()
