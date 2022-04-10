@@ -15,7 +15,7 @@
         <ui:VisualElement name="Content" style="width: 100%; height: 85%; flex-direction: row;">
             <ui:VisualElement name="BuySellContainer" class="BuySellContainer" style="justify-content: space-around; align-items: stretch;">
                 <ui:Button text="BUY" display-tooltip-when-elided="true" name="BuyButton" class="Button" style="height: 48%;" />
-                <ui:Button text="SELL" display-tooltip-when-elided="true" name="SellButton" class="Button ButtonCurrent" style="height: 48%;" />
+                <ui:Button text="SELL" display-tooltip-when-elided="true" name="SellButton" class="Button ButtonCurrent ButtonUnActive" style="height: 48%;" />
             </ui:VisualElement>
             <ui:VisualElement usage-hints="DynamicTransform" name="ScrollContainer" class="ScrollContainer">
                 <ui:ScrollView horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="AlwaysVisible" name="ScrollView" class="ScrollView" />
@@ -49,6 +49,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="CheckoutButtonContaier" class="TotalLabelContainer CheckoutButtonContaier">
                     <ui:Button text="Checkout" display-tooltip-when-elided="true" name="CheckoutActualButton" class="CheckoutActualButton" />
+                    <ui:Label text="No Sufficient Funds" display-tooltip-when-elided="true" name="CheckoutMessage" style="width: 70%; height: 20%; -unity-text-align: middle-center; white-space: normal; background-color: rgb(255, 255, 255); border-left-color: rgb(255, 0, 0); border-right-color: rgb(255, 0, 0); border-top-color: rgb(255, 0, 0); border-bottom-color: rgb(255, 0, 0); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; margin-top: 10px; color: rgb(0, 0, 0); -unity-font-style: bold; font-size: 24px; display: none;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

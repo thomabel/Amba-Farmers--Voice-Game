@@ -8,8 +8,13 @@ public class PhoneButtonController : MonoBehaviour
     private VisualElement root;
     public Button Phone;
     public Button PhoneButton;
+
+    private Button ShopButton;
+
+    public GameObject ShopApp;
+
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         root = GetComponent<UIDocument>().rootVisualElement;
 
@@ -20,7 +25,11 @@ public class PhoneButtonController : MonoBehaviour
         PhoneButton = root.Q<Button>("phoneButton");
         PhoneButton.clicked += Pressed2;
 
+        ShopButton = root.Q<Button>("ShopApp");
+        ShopButton.clicked += ShopButtonPressed;
+
     }
+
     void Pressed()
     {
         Phone.style.display = DisplayStyle.None;
@@ -29,5 +38,11 @@ public class PhoneButtonController : MonoBehaviour
     {
         Phone.style.display = DisplayStyle.Flex;
     }
-
+    void ShopButtonPressed()
+    {
+        
+        Debug.Log(ShopApp);
+        ShopApp.SetActive(true);
+        this.gameObject.SetActive(false);
+    }
 }

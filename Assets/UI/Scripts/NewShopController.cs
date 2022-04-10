@@ -33,7 +33,7 @@ public class NewShopController : MonoBehaviour
     private List<int> buyList;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         buyList = new List<int>();
         //PlantCards = Resources.LoadAll<Card>("Cards/Plant");
@@ -225,6 +225,9 @@ public class NewShopController : MonoBehaviour
             Quantity.RegisterValueChangedCallback((evt) => {
                 TextField tmp = (TextField)evt.target;
                 Debug.Log(tmp.value);
+                VisualElement parent1 = tmp.GetFirstAncestorOfType<VisualElement>();
+                VisualElement parent2 = parent1.GetFirstAncestorOfType<VisualElement>();
+                Debug.Log(parent2.ElementAt(0).name[0]);
                 int n = 0;
                 Debug.Log(int.TryParse(tmp.value, out n));
                 int num = int.Parse(tmp.name.Substring(1));
@@ -293,6 +296,16 @@ public class NewShopController : MonoBehaviour
     }
     void CheckoutOperation()
     {
-        player.Debit(total);
+
+        if (total > player.Balance())
+        {
+            root.Q<Label>("CheckoutMessage").text = "No Sufficient Funds";
+            root.Q<Label>("CheckoutMessage").style.display = DisplayStyle.Flex;
+        }
+        else
+        {
+            root.Q<Label>("CheckoutMessage").style.display = DisplayStyle.None;
+            player.Debit(total);
+        }
     }
 }
