@@ -1,0 +1,24 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="/Assets/UI/Styles/PhoneButtonStyles.uss" />
+    <ui:VisualElement name="PhoneContainer" class="PhoneContainer" style="width: 100%; height: 100%;">
+        <ui:Button display-tooltip-when-elided="true" name="RealPhoneButtonContainer" class="RealPhoneButtonContainer" style="display: none;">
+            <ui:VisualElement name="RealPhoneContainer" class="RealPhoneContainer">
+                <ui:VisualElement name="RealPhone" class="RealPhone">
+                    <ui:VisualElement name="RealPhoneScreen" class="RealPhoneScreen">
+                        <ui:Label text="Apps" display-tooltip-when-elided="true" name="AppsLabel" class="AppsLabel" />
+                        <ui:ScrollView horizontal-scroller-visibility="Hidden" focusable="false" name="RealPhoneScrollView" class="RealPhoneScrollView" style="align-items: center; justify-content: space-between;">
+                            <ui:VisualElement name="TwoAppContainer" class="TwoAppContainer">
+                                <ui:Button text="Shop" display-tooltip-when-elided="true" name="ShopApp" class="AppButtons" />
+                                <ui:Button text="Button" display-tooltip-when-elided="true" class="AppButtons" style="width: 50%; height: 100%;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="TwoAppContainer">
+                                <ui:Button text="Button" display-tooltip-when-elided="true" class="AppButtons" />
+                            </ui:VisualElement>
+                        </ui:ScrollView>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:Button>
+        <ui:Button display-tooltip-when-elided="true" name="phoneButton" class="PhoneButton" style="width: 10%; top: 84%; left: 89%; background-image: url(&apos;/Assets/UI/Textures/Phone.png&apos;); display: flex;" />
+    </ui:VisualElement>
+</ui:UXML>
