@@ -1443,7 +1443,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cae29d4e224bc47fd9d6c9f4578eb3c7, type: 2}
   - {fileID: 11400000, guid: bff88aeec629a4482a2482268d5d37c7, type: 2}
   - {fileID: 11400000, guid: b0cd453f7b4494730a4d607c6e288335, type: 2}
+  ToolCards:
+  - {fileID: 11400000, guid: 95c1fcc6c434a4756b25fd855eed0548, type: 2}
+  LivestockCards:
+  - {fileID: 11400000, guid: 825ce2c4caa3043ee88cb1774e23b528, type: 2}
   total: 0
+  PhoneGameObject: {fileID: 2055118915}
 --- !u!1 &1964340072
 GameObject:
   m_ObjectHideFlags: 0
@@ -1539,6 +1544,53 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1964340072}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2044245415
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2044245417}
+  - component: {fileID: 2044245416}
+  m_Layer: 5
+  m_Name: TimeDateWeather
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &2044245416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044245415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f21c074d86024caca2a0034ce4f53f73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 59e97d61ace50452ebbb17d6b07a6f09, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 5561e83b569ba45ff88933ee59e5fd18, type: 3}
+  m_SortingOrder: 0
+--- !u!4 &2044245417
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044245415}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2055118915
 GameObject:
   m_ObjectHideFlags: 0

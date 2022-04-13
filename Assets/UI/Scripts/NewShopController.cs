@@ -27,15 +27,32 @@ public class NewShopController : MonoBehaviour
 
     public TextField quantityField;
     public Card[] PlantCards;
+    public Card[] ToolCards;
+    public Card[] LivestockCards;
+
+
+
     public int total=0;
 
+    public GameObject PhoneGameObject;
+
     //public ScriptableObject player = ScriptableObject.CreateInstance("Account");
-    private List<int> buyList;
+    private List<int> PlantBuyList;
+    private List<int> ToolBuyList;
+    private List<int> LivestockBuyList;
+
+
+
+    private string currentTab;
 
     // Start is called before the first frame update
     void OnEnable()
     {
-        buyList = new List<int>();
+
+        PlantBuyList = new List<int>();
+        ToolBuyList = new List<int>();
+        LivestockBuyList = new List<int>();
+
         //PlantCards = Resources.LoadAll<Card>("Cards/Plant");
         root = GetComponent<UIDocument>().rootVisualElement;
         //quantityField = root.Q<TextField>("Quantity");
@@ -43,12 +60,28 @@ public class NewShopController : MonoBehaviour
         //https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/strings/how-to-determine-whether-a-string-represents-a-numeric-value
         //Debug.Log(int.TryParse(quantityField.text, out n));
         //Debug.Log(n + 1);
+        currentTab = "ToolTab";
+
+        root.Q<Button>("ToolTab").style.opacity = 1;
+        root.Q<Button>("ToolTab").clickable.clickedWithEventInfo += ClickedTabs;
+
+        root.Q<Button>("PlantTab").clickable.clickedWithEventInfo += ClickedTabs;
+
+        root.Q<Button>("LivestockTab").clickable.clickedWithEventInfo += ClickedTabs;
+
+
+
+
+        //Setting up clickedTabs
 
         root.Q<Button>("CheckoutActualButton").clicked+=CheckoutOperation;
+
+        root.Q<Button>("BackButtonToFarm").clicked += BackButtonToFarm;
 
         ScrollViewSection = root.Q<VisualElement>("ScrollView");
 
         root.Q<Label>("MoneyLabel").text = player.Balance().ToString();
+        /*
         for (int i = 0; i < PlantCards.Length; ++i)
         {
             CardButton = new Button();
@@ -103,13 +136,81 @@ public class NewShopController : MonoBehaviour
             PlantCards[i].quantity = 1;
 
         }
-
+        */
+        DisplayCards("T");
         checkout = root.Q<Button>("CheckoutButton");
         checkout.clicked += CheckoutButtonPressed;
 
         CheckoutBackButton = root.Q<Button>("CheckoutBackButton");
         CheckoutBackButton.clicked += CheckoutBackButtonPressed;
 
+    }
+    void DisplayCards(string ItemsToDisplay)
+    {
+        ScrollViewSection.Clear();
+        if (ItemsToDisplay.Equals("P")) DisplayCards(PlantCards, PlantBuyList);
+        else if (ItemsToDisplay.Equals("T")) DisplayCards(ToolCards, ToolBuyList);
+        else DisplayCards(LivestockCards, LivestockBuyList);
+
+    }
+    void DisplayCards(Card [] ItemCards, List<int> BuyOrSellList)
+    {
+        for (int i = 0; i < ItemCards.Length; ++i)
+        {
+            CardButton = new Button();
+            CardButton.name = i.ToString();
+            CardButton.AddToClassList("CardButton");
+            CardButton.clickable.clickedWithEventInfo += Pressed;
+
+            PictureContainer = new VisualElement();
+            PictureContainer.AddToClassList("PictureContainer");
+
+            Picture = new Label();
+            Picture.AddToClassList("Picture");
+            Picture.style.backgroundImage = ItemCards[i].picture;
+            PictureContainer.Add(Picture);
+
+            InfoContainer = new VisualElement();
+            InfoContainer.AddToClassList("InfoContainer");
+
+            Name = new Label();
+            Name.text = ItemCards[i].name;
+            Name.AddToClassList("Name");
+
+            Price = new Label();
+            Price.text = "$" + ItemCards[i].cost.ToString();
+            Price.AddToClassList("Price");
+
+            InfoContainer.Add(Name);
+            InfoContainer.Add(Price);
+
+            StatusContainer = new VisualElement();
+            StatusContainer.AddToClassList("Status");
+
+            inCartLabel = new Label();
+            inCartLabel.text = "In Cart";
+            inCartLabel.AddToClassList("InCartLabel");
+
+            StatusPicture = new Label();
+            StatusPicture.name = "Status" + i.ToString();
+            StatusPicture.AddToClassList("StatusPicture");
+            if(BuyOrSellList.Contains(i))
+                StatusPicture.style.backgroundImage = Checkmark;
+            else StatusPicture.style.backgroundImage = X;
+
+            StatusContainer.Add(inCartLabel);
+            StatusContainer.Add(StatusPicture);
+
+
+            CardButton.Add(PictureContainer);
+            CardButton.Add(InfoContainer);
+            CardButton.Add(StatusContainer);
+
+
+            ScrollViewSection.Add(CardButton);
+            ItemCards[i].quantity = 1;
+
+        }
     }
     void Update()
     {
@@ -123,29 +224,37 @@ public class NewShopController : MonoBehaviour
     void Pressed(EventBase obj)
     {
         var button = (Button)obj.target;
-        Card tmp = ScriptableObject.CreateInstance<Card>();
-        tmp.name = PlantCards[int.Parse(button.name)].name;
-        Debug.Log("tmp = " + tmp.name);
+        //Card tmp = ScriptableObject.CreateInstance<Card>();
+        //tmp.name = PlantCards[int.Parse(button.name)].name;
+        //Debug.Log("tmp = " + tmp.name);
         Debug.Log(PlantCards[int.Parse(button.name)].name);
 
-        Label Status = root.Q<Label>("Status" + int.Parse(button.name));
+        if (currentTab.Equals("PlantTab")) Pressed(PlantBuyList,button.name);
+        else if (currentTab.Equals("ToolTab")) Pressed(ToolBuyList, button.name);
+        else Pressed(LivestockBuyList, button.name);
+        
+
+    }
+
+    void Pressed(List<int> ItemType, string itemName)
+    {
+        Label Status = root.Q<Label>("Status" + int.Parse(itemName));
         if (Status.style.backgroundImage == X)
         {
             Status.style.backgroundImage = Checkmark;
-            buyList.Add(int.Parse(button.name));
+            ItemType.Add(int.Parse(itemName));
 
         }
         else
         {
             Status.style.backgroundImage = X;
-            buyList.Remove(int.Parse(button.name));
+            ItemType.Remove(int.Parse(itemName));
         }
-
     }
 
     void CheckNoItems()
     {
-        if (buyList.Count == 0)
+        if (PlantBuyList.Count == 0 && ToolBuyList.Count == 0 && LivestockBuyList.Count == 0)
         {
             root.Q<VisualElement>("CheckoutContent").style.display = DisplayStyle.None;
             root.Q<VisualElement>("NoItems").style.display = DisplayStyle.Flex;
@@ -166,7 +275,7 @@ public class NewShopController : MonoBehaviour
 
         CheckNoItems();
 
-        Debug.Log(buyList.Count);
+        Debug.Log(PlantBuyList.Count);
         total = 0;
         CheckoutItemWrapper();
         root.Q<Label>("SubtotalLabel").text = total.ToString();
@@ -184,7 +293,7 @@ public class NewShopController : MonoBehaviour
         CheckoutScrollView.Clear();
     }
 
-    void checkoutItemsDisplay(List<int> ListType, string BuyOrSell)
+    void checkoutItemsDisplay(List<int> ListType, string BuyOrSell, string typeofItem, Card[] items )
     {
         VisualElement CheckoutScrollView = root.Q<VisualElement>("CheckoutScrollViewList");
         string ChosenType = "";
@@ -200,14 +309,14 @@ public class NewShopController : MonoBehaviour
             Button RemoveItem = new Button();
             RemoveItem.text = "X";
             RemoveItem.AddToClassList("RemoveItemButton");
-            RemoveItem.name = BuyOrSell + ListType[i];
+            RemoveItem.name = BuyOrSell + typeofItem + ListType[i];
             RemoveItem.clickable.clickedWithEventInfo += CancelCheckoutItem;
             checkoutCard.Add(RemoveItem);
 
             VisualElement CheckoutItemInfoContainer = new VisualElement();
             CheckoutItemInfoContainer.AddToClassList("CheckoutItemNameContainer");
             Label CheckoutItemInfoLabel = new Label();
-            CheckoutItemInfoLabel.text = ChosenType + " " + PlantCards[ListType[i]].name +" "+ "$" + PlantCards[ListType[i]].cost.ToString();
+            CheckoutItemInfoLabel.text = ChosenType + " " + items[ListType[i]].name +" "+ "$" + items[ListType[i]].cost.ToString();
             CheckoutItemInfoLabel.AddToClassList("CheckoutItemInfoLabel");
             CheckoutItemInfoContainer.Add(CheckoutItemInfoLabel);
 
@@ -220,8 +329,8 @@ public class NewShopController : MonoBehaviour
             Quantity.AddToClassList("Quantity");
             Quantity.maxLength = 4;
             //Quantity.value = "1";
-            Quantity.value = PlantCards[ListType[i]].quantity.ToString();
-            Quantity.name = "Q"+ ListType[i];
+            Quantity.value = items[ListType[i]].quantity.ToString();
+            Quantity.name = "Q"+ typeofItem + ListType[i];
             Quantity.RegisterValueChangedCallback((evt) => {
                 TextField tmp = (TextField)evt.target;
                 Debug.Log(tmp.value);
@@ -230,21 +339,22 @@ public class NewShopController : MonoBehaviour
                 Debug.Log(parent2.ElementAt(0).name[0]);
                 int n = 0;
                 Debug.Log(int.TryParse(tmp.value, out n));
-                int num = int.Parse(tmp.name.Substring(1));
+                Debug.Log("LENGTH = " + items.Length.ToString());
+                int num = int.Parse(tmp.name.Substring(2));
 
                 if (int.TryParse(tmp.value, out n))
                 {
                     
-                    total -= (PlantCards[num].quantity * PlantCards[num].cost);
-                    PlantCards[num].quantity = int.Parse(tmp.value);
-                    total += (PlantCards[num].quantity * PlantCards[num].cost);
+                    total -= (items[num].quantity * items[num].cost);
+                    items[num].quantity = int.Parse(tmp.value);
+                    total += (items[num].quantity * items[num].cost);
                 }
                 else
                 {
                     
-                    total -= (PlantCards[num].quantity * PlantCards[num].cost);
-                    Debug.Log("QUANTITY = " + PlantCards[num].quantity.ToString());
-                    PlantCards[num].quantity = 0;
+                    total -= (items[num].quantity * items[num].cost);
+                    Debug.Log("QUANTITY = " + items[num].quantity.ToString());
+                    items[num].quantity = 0;
                     Debug.Log("Total = " + total.ToString());
                     
                 }
@@ -256,7 +366,7 @@ public class NewShopController : MonoBehaviour
 
             checkoutCard.Add(QuantityContainer);
             CheckoutScrollView.Add(checkoutCard);
-            total += PlantCards[ListType[i]].cost * PlantCards[ListType[i]].quantity;
+            total += items[ListType[i]].cost * items[ListType[i]].quantity;
 
         }
 
@@ -264,21 +374,65 @@ public class NewShopController : MonoBehaviour
 
     void CheckoutItemWrapper()
     {
-        checkoutItemsDisplay(buyList, "B");
+        checkoutItemsDisplay(PlantBuyList, "B", "P",PlantCards);
+        checkoutItemsDisplay(ToolBuyList, "B", "T", ToolCards);
+        checkoutItemsDisplay(LivestockBuyList, "B", "L", LivestockCards);
     }
 
+    void CancelCheckoutItem(Button button, List<int> buyorSellList, Card[] typeOfItem, char type )
+    {
+        int num = int.Parse(button.name.Substring(2));
+
+        if (currentTab[0].Equals(type)){
+            Label Change = root.Q<Label>("Status" + button.name.Substring(2));
+            Change.style.backgroundImage = X;
+        }
+
+        buyorSellList.Remove(num);
+        Debug.Log(button.GetFirstAncestorOfType<VisualElement>().name);
+        VisualElement tmp = button.GetFirstAncestorOfType<VisualElement>();
+        VisualElement CheckoutScrollView = root.Q<VisualElement>("CheckoutScrollViewList");
+        CheckoutScrollView.Remove(tmp);
+
+        total -= typeOfItem[num].cost * typeOfItem[num].quantity;
+        root.Q<Label>("SubtotalLabel").text = total.ToString();
+        typeOfItem[num].quantity = 1;
+
+        CheckNoItems();
+
+    }
     void CancelCheckoutItem(EventBase obj)
     {
         var button = (Button)obj.target;
 
         Debug.Log(button.name);
 
+        char purchaseType = button.name[0];
+        char ItemType = button.name[1];
 
-        int num = int.Parse(button.name.Substring(1));
+
+        if (purchaseType.Equals('B'))
+        {
+            if (ItemType.Equals('P')) CancelCheckoutItem(button, PlantBuyList, PlantCards, 'P');
+            else if (ItemType.Equals('T')) CancelCheckoutItem(button, ToolBuyList, ToolCards,'T');
+            else CancelCheckoutItem(button, LivestockBuyList, LivestockCards, 'L');
+        }
+        /*
+        else
+        {
+
+            if (ItemType.Equals('P')) CancelCheckoutItem(button, PlantBuyList, PlantCards);
+            else if (ItemType.Equals('T')) CancelCheckoutItem(button, ToolBuyList, ToolCards);
+            else CancelCheckoutItem(button, LivestockBuyList, LivestockCards);
+        }
+        */
+
+        //int num = int.Parse(button.name.Substring(2));
+        /*
         Label Change = root.Q<Label>("Status" + button.name.Substring(1));
         Change.style.backgroundImage = X;
-        
-        buyList.Remove(num);
+
+        PlantBuyList.Remove(num);
         Debug.Log(button.GetFirstAncestorOfType<VisualElement>().name);
         VisualElement tmp = button.GetFirstAncestorOfType<VisualElement>();
         VisualElement CheckoutScrollView = root.Q<VisualElement>("CheckoutScrollViewList");
@@ -287,9 +441,10 @@ public class NewShopController : MonoBehaviour
         total -= PlantCards[num].cost * PlantCards[num].quantity;
         root.Q<Label>("SubtotalLabel").text = total.ToString();
         PlantCards[num].quantity = 1;
+        */
 
 
-        CheckNoItems();
+        //CheckNoItems();
 
         //Button tmp = root.Q<Button>("ScrollView");
 
@@ -306,6 +461,29 @@ public class NewShopController : MonoBehaviour
         {
             root.Q<Label>("CheckoutMessage").style.display = DisplayStyle.None;
             player.Debit(total);
+        }
+    }
+
+    void BackButtonToFarm()
+    {
+        PhoneGameObject.SetActive(true);
+        this.gameObject.SetActive(false);
+    }
+
+    void ClickedTabs(EventBase obj)
+    {
+        var button = (Button)obj.target;
+        Debug.Log(button.name);
+
+        if(!(currentTab.Equals(button.name))) {
+            root.Q<Button>(currentTab).style.opacity = (StyleFloat).5;
+            root.Q<Button>(button.name).style.opacity = 1;
+            currentTab = button.name;
+
+            if (currentTab.Equals("PlantTab")) DisplayCards("P");
+            else if(currentTab.Equals("ToolTab")) DisplayCards("T");
+            else DisplayCards("L");
+
         }
     }
 }

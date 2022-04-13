@@ -2,8 +2,9 @@
     <Style src="/Assets/UI/Styles/NewShop.uss" />
     <ui:VisualElement name="MainContainer" class="Container" style="display: flex;">
         <ui:VisualElement name="TopLabels" class="TopLabels">
-            <ui:VisualElement name="MarketLabelContaner" class="MarketLabelContaner">
-                <ui:Label text="Market" display-tooltip-when-elided="true" name="MarketLabel" class="MarketLabel" style="font-size: 50%;" />
+            <ui:VisualElement name="MarketLabelContaner" class="MarketLabelContaner" style="flex-direction: row;">
+                <ui:Button display-tooltip-when-elided="true" name="BackButtonToFarm" class="BackButtonToFarm" />
+                <ui:Label text="Market" display-tooltip-when-elided="true" name="MarketLabel" class="MarketLabel" style="font-size: 50%; width: 85%; height: 100%; -unity-text-align: middle-center;" />
             </ui:VisualElement>
             <ui:VisualElement name="MoneyContainer" class="MoneyContainer">
                 <ui:VisualElement name="MoneyBorder" class="MoneyBorder">
@@ -12,7 +13,12 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="Content" style="width: 100%; height: 85%; flex-direction: row;">
+        <ui:VisualElement name="TabButtonContainer" class="TabButtonContainer">
+            <ui:Button display-tooltip-when-elided="true" name="ToolTab" class="ToolTab" style="border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255);" />
+            <ui:Button display-tooltip-when-elided="true" name="PlantTab" class="PlantTab" style="border-left-color: rgb(253, 253, 253); border-right-color: rgb(253, 253, 253); border-top-color: rgb(253, 253, 253); border-bottom-color: rgb(253, 253, 253);" />
+            <ui:Button display-tooltip-when-elided="true" name="LivestockTab" class="LivestockTab" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Content" class="ContentContainer">
             <ui:VisualElement name="BuySellContainer" class="BuySellContainer" style="justify-content: space-around; align-items: stretch;">
                 <ui:Button text="BUY" display-tooltip-when-elided="true" name="BuyButton" class="Button" style="height: 48%;" />
                 <ui:Button text="SELL" display-tooltip-when-elided="true" name="SellButton" class="Button ButtonCurrent ButtonUnActive" style="height: 48%;" />

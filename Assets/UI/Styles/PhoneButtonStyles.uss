@@ -1,5 +1,5 @@
 .PhoneButton {
-    width: 15%;
+    width: 10%;
     height: 15%;
     background-image: url('/Assets/UI/Textures/Phone.png');
     opacity: 1;
@@ -11,10 +11,10 @@
     border-right-color: rgba(255, 255, 255, 0);
     border-top-color: rgba(255, 255, 255, 0);
     border-bottom-color: rgba(255, 255, 255, 0);
-    left: 84%;
-    top: 84%;
+    left: 89%;
+    top: 0;
     right: 0;
-    bottom: 0;
+    bottom: 84%;
 }
 
 .PhoneButton:active {
