@@ -34,11 +34,11 @@ public class Animal : MonoBehaviour, IInteractable
 
     public AnimalSO.Health GetHealthStatus()
     {
-        if (health >= 75f)
+        if (health >= animalData.METER_HIGH)
             return AnimalSO.Health.Healthy;
-        else if (health >= 50f)
+        else if (health >= animalData.METER_MID)
             return AnimalSO.Health.Good;
-        else if (health >= 25f)
+        else if (health >= animalData.METER_LOW)
             return AnimalSO.Health.Poor;
         else
             return AnimalSO.Health.Ill;
@@ -46,7 +46,6 @@ public class Animal : MonoBehaviour, IInteractable
 
     void Start() 
     {
-
         id = this.gameObject.GetInstanceID();
         Debug.Log(id + " - I am a " + animalData._species.ToString() + "!");
     }

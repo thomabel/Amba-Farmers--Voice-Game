@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ShelterData", menuName = "Animals/Shelter", order = 0)]
+[CreateAssetMenu(fileName = "ShelterData", menuName = "Animals/Shelter", order = 1)]
 public class ShelterSO : ScriptableObject
 {
     public enum Cleanliness { Filthy, Poor, Okay, Good, Clean };
