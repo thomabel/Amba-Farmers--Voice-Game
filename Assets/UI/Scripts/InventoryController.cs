@@ -11,20 +11,31 @@ public class InventoryController : MonoBehaviour
 {
     private VisualElement root;
     private VisualElement ScrollViewSection;
+    /*
     [SerializeField]
     private Card [] Inventory;
+    */
+    [SerializeField]
+    private InventoryList inventory;
 
+    [SerializeField]
+    private Inventory player;
+
+    private Button currentPressedItem;
     //private Button FocusedButton;
     // Start is called before the first frame update
-    void Start()
+
+    void OnEnable ()
     {
+        int length = inventory.length();
+        currentPressedItem = null;
         VisualElement Current = new VisualElement();
         Current.AddToClassList("Row");
 
         root = GetComponent<UIDocument>().rootVisualElement;
         ScrollViewSection = root.Q<VisualElement>("InventoryScrollView");
         int count = 0;
-        for(int i = 0; i < Inventory.Length; ++i)
+        for(int i = 0; i < length; ++i)
         {
 
             if(i != 0 && count % 5 == 0)
@@ -40,7 +51,7 @@ public class InventoryController : MonoBehaviour
             InventoryItem.AddToClassList("SlotIcon");
             InventoryItem.AddToClassList("ItemButton");
 
-            InventoryItem.style.backgroundImage = Inventory[i].picture;
+            InventoryItem.style.backgroundImage = inventory.FindCardIndex(i).picture;
 
             Current.Add(InventoryItem);
             ScrollViewSection.Add(Current);
@@ -49,8 +60,8 @@ public class InventoryController : MonoBehaviour
         }
 
         int extra = 0;
-        if (Inventory.Length % 5 != 0)
-            extra = 5 - (Inventory.Length % 5);
+        if (length % 5 != 0)
+            extra = 5 - (length % 5);
 
         for (int i = 0; i < extra; ++i)
         {
@@ -68,13 +79,29 @@ public class InventoryController : MonoBehaviour
     void ItemClicked(EventBase obj)
     {
         Debug.Log(obj);
-
+        //Debug.Log(player.Equip());
+        root.Q<VisualElement>("ItemInfo").style.display = DisplayStyle.Flex;
         //FocusedButton = (Button)obj.target;
         var button = (Button)obj.target;
+
+        //player.Equip(Inventory[int.Parse(button.name)].gameobject);
+
+        if (currentPressedItem == null)
+            currentPressedItem = button;
+        else
+        {
+            currentPressedItem.style.opacity = (StyleFloat).5;
+            currentPressedItem = button;
+        }
+        currentPressedItem.style.opacity = 1;
+
         Label QuantityNum = root.Q<Label>("QuantityNum");
         Label ItemName = root.Q<Label>("ItemName");
-        ItemName.text = Inventory[int.Parse(button.name)].name;
-        QuantityNum.text = Inventory[int.Parse(button.name)].quantity.ToString();
+
+        Card CurrentCard = inventory.FindCardIndex(int.Parse(button.name));
+
+        ItemName.text = CurrentCard.name;
+        QuantityNum.text = CurrentCard.quantity.ToString();
     }
 
 

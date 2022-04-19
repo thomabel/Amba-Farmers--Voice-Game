@@ -8,4 +8,5 @@ public class Card : ScriptableObject
     public int cost;
     public int quantity = 1;
     public Texture2D picture;
+    public GameObject gameobject;
 }

@@ -41,6 +41,9 @@ public class NewShopController : MonoBehaviour
     private List<int> ToolBuyList;
     private List<int> LivestockBuyList;
 
+    [SerializeField]
+    private InventoryList Inventory;
+
 
 
     private string currentTab;
@@ -227,12 +230,18 @@ public class NewShopController : MonoBehaviour
         //Card tmp = ScriptableObject.CreateInstance<Card>();
         //tmp.name = PlantCards[int.Parse(button.name)].name;
         //Debug.Log("tmp = " + tmp.name);
-        Debug.Log(PlantCards[int.Parse(button.name)].name);
+
+        //Debug.Log(PlantCards[int.Parse(button.name)].name);
+        /*
+        if (currentTab.Equals("PlantTab")) Debug.Log(PlantCards[int.Parse(button.name)].name);
+        else if (currentTab.Equals("ToolTab")) Debug.Log(ToolCards[int.Parse(button.name)].name);
+        else Debug.Log(LivestockCards[int.Parse(button.name)].name);
+        */
+
 
         if (currentTab.Equals("PlantTab")) Pressed(PlantBuyList,button.name);
         else if (currentTab.Equals("ToolTab")) Pressed(ToolBuyList, button.name);
-        else Pressed(LivestockBuyList, button.name);
-        
+        else Pressed(LivestockBuyList, button.name);    
 
     }
 
@@ -449,6 +458,14 @@ public class NewShopController : MonoBehaviour
         //Button tmp = root.Q<Button>("ScrollView");
 
     }
+    void addtoInventory(List<int> BoughtList, Card[] BoughtCardInfo )
+    {
+        for(int i =0; i< BoughtList.Count; ++i)
+        {
+            Inventory.Add(BoughtCardInfo[BoughtList[i]]);
+            
+        }
+    }
     void CheckoutOperation()
     {
 
@@ -461,9 +478,14 @@ public class NewShopController : MonoBehaviour
         {
             root.Q<Label>("CheckoutMessage").style.display = DisplayStyle.None;
             player.Debit(total);
+            addtoInventory(PlantBuyList, PlantCards);
+            addtoInventory(ToolBuyList, ToolCards);
+            addtoInventory(LivestockBuyList, LivestockCards);
+
+
         }
     }
-
+    
     void BackButtonToFarm()
     {
         PhoneGameObject.SetActive(true);
