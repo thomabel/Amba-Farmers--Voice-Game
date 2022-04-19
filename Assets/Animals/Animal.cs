@@ -5,34 +5,47 @@ using UnityEngine;
 public class Animal : MonoBehaviour, IInteractable
 {
     [SerializeField] public AnimalSO animalData;
-    [SerializeField] public AnimalDataSO.Sex sex;
-    [SerializeField] public int age;
-    [SerializeField] public float hunger;
-    [SerializeField] public float thirst;
-    [SerializeField] public float health;
-    [SerializeField] public float happiness;
-    [SerializeField] public float weight;
-    //GameObject shelter;
-    [SerializeField] public int id;
+    [SerializeField] public AnimalSO.Sex sex;       // Sex of this animal
+    [SerializeField] public int age;                // Animal's current age in days
+    [SerializeField] public float hunger;           // Animal's current hunger
+    [SerializeField] public float thirst;           // Animal's current thirst
+    [SerializeField] public float health;           // Animal's current health
+    [SerializeField] public float happiness;        // Animal's current happiness
+    [SerializeField] public float weight;           // Animal's current weight in kg
+    [SerializeField] Shelter shelter;               // Shelter the animal belongs to
+    [SerializeField] public int id;                 // ID of this animal's GameObject
 
     void IInteractable.Interact() 
     {
-        Debug.Log(id + " - Hunger: " + GetHungerLevel().ToString());
+        Debug.Log(id + " - Hunger: " + GetHungerStatus().ToString());
+        Debug.Log(id + " - Thirst: " + GetThirstStatus().ToString());
+        Debug.Log(id + " - Health: " + GetHealthStatus().ToString());
     }
 
-    public AnimalDataSO.Hunger GetHungerLevel()
+    public AnimalSO.Hunger GetHungerStatus()
     {
-        return (AnimalDataSO.Hunger) (hunger / 25);
+        return (AnimalSO.Hunger) (hunger / 25);
     }
     
-    public AnimalDataSO.Thirst GetThirstLevel()
+    public AnimalSO.Thirst GetThirstStatus()
     {
-        return (AnimalDataSO.Thirst) (thirst / 25);
+        return (AnimalSO.Thirst) (thirst / 25);
+    }
+
+    public AnimalSO.Health GetHealthStatus()
+    {
+        if (health >= 75f)
+            return AnimalSO.Health.Healthy;
+        else if (health >= 50f)
+            return AnimalSO.Health.Good;
+        else if (health >= 25f)
+            return AnimalSO.Health.Poor;
+        else
+            return AnimalSO.Health.Ill;
     }
 
     void Start() 
     {
-        
 
         id = this.gameObject.GetInstanceID();
         Debug.Log(id + " - I am a " + animalData._species.ToString() + "!");
