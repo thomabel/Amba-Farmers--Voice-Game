@@ -7,29 +7,69 @@ public class PlayerInput : MonoBehaviour
     public Camera cam;
     public Movement movement;
     public Interact interact;
+    public Inventory inventory;
+    public Equipment equipment;
 
     private Vector2 move_input;
-    private void Awake()
+    private bool moving;
+
+    private void Start()
     {
         move_input = new Vector2();
+        moving = false;
     }
     private void Update()
     {
-        movement.Move(move_input, cam.transform.eulerAngles.y);
+        if (moving)
+        {
+            movement.Move(move_input, cam.transform.eulerAngles.y);
+        }
     }
 
-    // Movement input check.
     public void OnMove(InputAction.CallbackContext context)
     {
-        move_input = context.ReadValue<Vector2>();
+        if (context.performed)
+        {
+            moving = true;
+            move_input = context.ReadValue<Vector2>();
+        }
+        else if (context.canceled)
+        {
+            moving = false;
+        }
     }
-    // Interact input check.
     public void OnInteract(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            interact.Use();
-            //interact.Use(cam.ScreenPointToRay(Mouse.current.position.ReadValue()));
+            var obj = interact.Use();
+            interact.Use(cam.ScreenPointToRay(Mouse.current.position.ReadValue()));
+
+            if (obj != null)
+            {
+                equipment.Pickup(obj);
+            }
+        }
+    }
+    public void OnToolUse(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            equipment.Tool.Use();
+        }
+    }
+    public void OnItemUse(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            equipment.Item.Use();
+        }
+    }
+    public void OnInventoryOpen(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            inventory.Open();
         }
     }
 }
