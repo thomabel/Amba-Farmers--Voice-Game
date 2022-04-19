@@ -8,6 +8,7 @@ public class PlayerInput : MonoBehaviour
     public Movement movement;
     public Interact interact;
     public Inventory inventory;
+    public Equipment equipment;
 
     private Vector2 move_input;
     private bool moving;
@@ -42,11 +43,11 @@ public class PlayerInput : MonoBehaviour
         if (context.performed)
         {
             var obj = interact.Use();
-            //interact.Use(cam.ScreenPointToRay(Mouse.current.position.ReadValue()));
+            interact.Use(cam.ScreenPointToRay(Mouse.current.position.ReadValue()));
 
             if (obj != null)
             {
-                inventory.Equip(obj);
+                equipment.Pickup(obj);
             }
         }
     }
@@ -54,14 +55,14 @@ public class PlayerInput : MonoBehaviour
     {
         if (context.performed)
         {
-            inventory.Tool.Use();
+            equipment.Tool.Use();
         }
     }
     public void OnItemUse(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            inventory.Item.Use();
+            equipment.Item.Use();
         }
     }
     public void OnInventoryOpen(InputAction.CallbackContext context)
