@@ -2,9 +2,8 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] private int size;
-    private IStorable[] items;
-    private IEquippable equip;
+    [SerializeField] int size;
+    GameObject[] items;
 
     public int Size
     {
@@ -15,26 +14,44 @@ public class Inventory : MonoBehaviour
     {
         if (items == null)
         {
-            items = new IStorable[size];
+            items = new GameObject[size];
         }
     }
 
-    public bool Equip(IEquippable equipment)
+
+
+    /// <summary>
+    /// Opens the UI inventory menu.
+    /// </summary>
+    public void Open()
     {
-        if (equipment != null)
+
+    }
+
+    /// <summary>
+    /// Adds item to the inventory in the first free spot.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns>Success of the add.</returns>
+    public int Add(GameObject item)
+    {
+        for (int i = 0; i < size; i++)
         {
-            equip = equipment;
+            if (items[i] == null)
+            {
+                items[i] = item;
+                return i;
+            }
         }
-        return false;
+        return -1;
     }
-    public IEquippable Drop()
-    {
-        var equ = equip;
-        equip = null;
-        return equ;
-    }
-
-    public bool Insert(int index, IStorable item)
+    /// <summary>
+    /// Insert the item into storage at the specified location.
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="item"></param>
+    /// <returns>Success of insertion.</returns>
+    public bool Insert(int index, GameObject item)
     {
         if (check_index(index) && items[index] == null)
         {
@@ -43,7 +60,12 @@ public class Inventory : MonoBehaviour
         }
         return false;
     }
-    public IStorable Remove(int index)
+    /// <summary>
+    /// Remove the item from the specified location.
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns>The removed item.</returns>
+    public GameObject Remove(int index)
     {
         if (check_index(index))
         {
@@ -53,7 +75,12 @@ public class Inventory : MonoBehaviour
         }
         return null;
     }
-    public IStorable Retrieve(int index)
+    /// <summary>
+    /// Returns the item in the given slot.
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns>The stored item.</returns>
+    public GameObject Retrieve(int index)
     {
         if (check_index(index))
         {
@@ -61,8 +88,9 @@ public class Inventory : MonoBehaviour
         }
         return null;
     }
-
-    private bool check_index(int index)
+    
+    // Make sure the index is correct.
+    public bool check_index(int index)
     {
         return index >= 0 && index < size;
     }

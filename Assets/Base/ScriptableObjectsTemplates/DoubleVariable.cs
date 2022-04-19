@@ -1,9 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(
-    fileName = "doublevar",
-    menuName = "Variables/Double"
-    )]
+[CreateAssetMenu]
 public class DoubleVariable : ScriptableObject
 {
     public double Value;
