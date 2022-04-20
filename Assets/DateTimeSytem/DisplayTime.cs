@@ -44,8 +44,8 @@ public class DisplayTime : MonoBehaviour
 		if (hours.Value >=24){
 			hours.Value = 0;
 		}
-
-	}
+		accumulator = 0;
+	}	
 	text.text = "" + hours.Value + ":" + minutes.Value.ToString("D2") + ":" + seconds.Value.ToString("D2"); 
 	
     }
