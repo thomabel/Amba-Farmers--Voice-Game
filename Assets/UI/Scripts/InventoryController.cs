@@ -11,10 +11,7 @@ public class InventoryController : MonoBehaviour
 {
     private VisualElement root;
     private VisualElement ScrollViewSection;
-    /*
-    [SerializeField]
-    private Card [] Inventory;
-    */
+
     [SerializeField]
     private InventoryList inventory;
 
@@ -79,11 +76,12 @@ public class InventoryController : MonoBehaviour
     void ItemClicked(EventBase obj)
     {
         Debug.Log(obj);
-        //Debug.Log(player.Equip());
         root.Q<VisualElement>("ItemInfo").style.display = DisplayStyle.Flex;
         //FocusedButton = (Button)obj.target;
         var button = (Button)obj.target;
 
+        //Debug.Log(player.Add(inventory[int.Parse(button.name)]));
+       
         //player.Equip(Inventory[int.Parse(button.name)].gameobject);
 
         if (currentPressedItem == null)
@@ -100,8 +98,10 @@ public class InventoryController : MonoBehaviour
 
         Card CurrentCard = inventory.FindCardIndex(int.Parse(button.name));
 
+        Debug.Log(CurrentCard.gameobject);
         ItemName.text = CurrentCard.name;
         QuantityNum.text = CurrentCard.quantity.ToString();
+        player.Add(CurrentCard.gameobject);
     }
 
 

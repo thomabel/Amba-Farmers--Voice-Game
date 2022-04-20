@@ -237,3 +237,30 @@
     background-color: rgb(202, 202, 202);
     opacity: 0.6;
 }
+
+.BackButtonToApps {
+    background-image: url('/Assets/UI/Textures/Back.png');
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(88, 88, 88, 0);
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
+    width: 15%;
+    height: 100%;
+    align-items: auto;
+}
+
+.BackButtonToApps:active {
+    background-image: url('/Assets/UI/Textures/Back.png');
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(88, 88, 88, 0);
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
+    width: 15%;
+    height: 100%;
+    align-items: auto;
+    opacity: 0.6;
+}

@@ -462,7 +462,12 @@ public class NewShopController : MonoBehaviour
     {
         for(int i =0; i< BoughtList.Count; ++i)
         {
-            Inventory.Add(BoughtCardInfo[BoughtList[i]]);
+            if (Inventory.CardExists(BoughtCardInfo[BoughtList[i]]))
+            {
+                BoughtCardInfo[BoughtList[i]].quantity += 1;
+
+            }
+            else Inventory.Add(BoughtCardInfo[BoughtList[i]]);
             
         }
     }

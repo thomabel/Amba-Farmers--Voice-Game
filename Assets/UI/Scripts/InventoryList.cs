@@ -29,4 +29,8 @@ public class InventoryList : ScriptableObject
     {
         return Inventory[i];
     }
+    public bool CardExists(Card checkCard)
+    {
+        return Inventory.Contains(checkCard);
+    }
 }

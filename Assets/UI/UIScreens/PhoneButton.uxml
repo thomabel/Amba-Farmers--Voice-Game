@@ -4,12 +4,22 @@
         <ui:Button display-tooltip-when-elided="true" name="RealPhoneButtonContainer" class="RealPhoneButtonContainer" style="display: none;">
             <ui:VisualElement name="RealPhoneContainer" class="RealPhoneContainer">
                 <ui:VisualElement name="RealPhone" class="RealPhone">
-                    <ui:VisualElement name="RealPhoneScreen" class="RealPhoneScreen">
+                    <ui:VisualElement name="RealPhoneScreen" class="RealPhoneScreen" style="display: flex;">
+                        <ui:VisualElement name="BackButtonContainer" style="width: 100%; height: 10%; display: none;">
+                            <ui:Button display-tooltip-when-elided="true" name="BackButtonToApps" class="BackButtonToApps" style="display: flex;" />
+                        </ui:VisualElement>
                         <ui:Label text="Apps" display-tooltip-when-elided="true" name="AppsLabel" class="AppsLabel" />
-                        <ui:ScrollView horizontal-scroller-visibility="Hidden" focusable="false" name="RealPhoneScrollView" class="RealPhoneScrollView" style="align-items: center; justify-content: space-between;">
+                        <ui:VisualElement name="FinancialContent" style="flex-grow: 0; width: 95%; height: 80%; margin-top: 15px; display: none;">
+                            <ui:Label text="Accounting Balance" display-tooltip-when-elided="true" enable-rich-text="true" name="AccountingBalanceLabel" style="flex-grow: 0; height: 5%; color: rgb(0, 0, 0); font-size: 20px; margin-bottom: 5px;" />
+                            <ui:VisualElement style="width: 100%; height: 25%; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; -unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgb(221, 221, 221); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-left-width: 3px; border-right-width: 3px; border-top-width: 3px; border-bottom-width: 3px; flex-direction: row;">
+                                <ui:Label text="$" display-tooltip-when-elided="true" style="width: 20%; background-color: rgba(0, 0, 0, 0); color: rgb(183, 178, 6); font-size: 50px; -unity-font-style: bold; border-right-color: rgb(0, 0, 0); border-right-width: 2px;" />
+                                <ui:Label text="100" display-tooltip-when-elided="true" name="AccountingBalance" style="width: 80%; -unity-text-align: middle-center; font-size: 20px; color: rgb(0, 0, 0); -unity-font-style: bold;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:ScrollView horizontal-scroller-visibility="Hidden" focusable="false" name="RealPhoneScrollView" class="RealPhoneScrollView" style="align-items: center; justify-content: space-between; display: flex;">
                             <ui:VisualElement name="TwoAppContainer" class="TwoAppContainer">
                                 <ui:Button text="Shop" display-tooltip-when-elided="true" name="ShopApp" class="AppButtons" />
-                                <ui:Button text="Button" display-tooltip-when-elided="true" class="AppButtons" style="width: 50%; height: 100%;" />
+                                <ui:Button text="Financials" display-tooltip-when-elided="true" name="FinancialsApp" class="AppButtons" style="width: 50%; height: 100%;" />
                             </ui:VisualElement>
                             <ui:VisualElement class="TwoAppContainer">
                                 <ui:Button text="Button" display-tooltip-when-elided="true" class="AppButtons" />
