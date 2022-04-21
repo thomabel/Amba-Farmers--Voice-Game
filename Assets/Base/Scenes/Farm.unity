@@ -355,6 +355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: 3e077b6989a0e4625be5c8bbcdfe50f9, type: 2}
   player: {fileID: 587454056}
+  playerObject: {fileID: 2127678608}
 --- !u!1 &345468437
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,7 +894,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1372538282953322442, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
   m_PrefabInstance: {fileID: 5000978703216393676}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2127678608}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 159455164520834419d4456a0a1e9844, type: 3}
@@ -2022,6 +2023,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShopApp: {fileID: 1814474574}
   player: {fileID: 11400000, guid: c7bdde6092d69164f8be235724038485, type: 2}
+--- !u!1 &2127678608 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5000978703520966211, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
+  m_PrefabInstance: {fileID: 5000978703216393676}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5000978703216393676
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -58,6 +58,8 @@ public class NewShopController : MonoBehaviour
 
         //PlantCards = Resources.LoadAll<Card>("Cards/Plant");
         root = GetComponent<UIDocument>().rootVisualElement;
+        root.Focus();
+
         //quantityField = root.Q<TextField>("Quantity");
         //int n = 0;
         //https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/strings/how-to-determine-whether-a-string-represents-a-numeric-value
@@ -147,6 +149,11 @@ public class NewShopController : MonoBehaviour
         CheckoutBackButton = root.Q<Button>("CheckoutBackButton");
         CheckoutBackButton.clicked += CheckoutBackButtonPressed;
 
+    }
+
+    public void roothide()
+    {
+        root.style.display = DisplayStyle.None;
     }
     void DisplayCards(string ItemsToDisplay)
     {

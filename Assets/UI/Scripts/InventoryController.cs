@@ -18,6 +18,8 @@ public class InventoryController : MonoBehaviour
     [SerializeField]
     private Inventory player;
 
+    [SerializeField]
+    GameObject playerObject;
     private Button currentPressedItem;
     //private Button FocusedButton;
     // Start is called before the first frame update
@@ -30,6 +32,9 @@ public class InventoryController : MonoBehaviour
         Current.AddToClassList("Row");
 
         root = GetComponent<UIDocument>().rootVisualElement;
+        root.Focus();
+
+
         ScrollViewSection = root.Q<VisualElement>("InventoryScrollView");
         int count = 0;
         for(int i = 0; i < length; ++i)
@@ -81,7 +86,8 @@ public class InventoryController : MonoBehaviour
         var button = (Button)obj.target;
 
         //Debug.Log(player.Add(inventory[int.Parse(button.name)]));
-       
+
+        //Instantiate(inventory[int.Parse(button.name)].gameobject, player.transform);
         //player.Equip(Inventory[int.Parse(button.name)].gameobject);
 
         if (currentPressedItem == null)
@@ -99,6 +105,9 @@ public class InventoryController : MonoBehaviour
         Card CurrentCard = inventory.FindCardIndex(int.Parse(button.name));
 
         Debug.Log(CurrentCard.gameobject);
+
+        Debug.Log(player.transform.position);
+        Instantiate(CurrentCard.gameobject, playerObject.transform.position + new Vector3(0, 0, 4), Quaternion.identity);
         ItemName.text = CurrentCard.name;
         QuantityNum.text = CurrentCard.quantity.ToString();
         player.Add(CurrentCard.gameobject);

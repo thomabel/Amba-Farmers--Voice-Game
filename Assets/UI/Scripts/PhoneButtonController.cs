@@ -21,6 +21,7 @@ public class PhoneButtonController : MonoBehaviour
     void OnEnable()
     {
         root = GetComponent<UIDocument>().rootVisualElement;
+        root.Focus();
 
         Phone = root.Q<Button>("RealPhoneButtonContainer");
 
