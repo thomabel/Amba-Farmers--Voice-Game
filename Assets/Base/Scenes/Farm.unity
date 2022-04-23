@@ -2023,6 +2023,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1372538282953322442, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
+      propertyPath: size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5000978702549307974, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -2223,7 +2227,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5425516747715325081, guid: 48a44350b6dbd4e46aedbca69e79c0f7, type: 3}
       propertyPath: m_CollisionDetection
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48a44350b6dbd4e46aedbca69e79c0f7, type: 3}
