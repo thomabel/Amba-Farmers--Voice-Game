@@ -4,28 +4,14 @@ using UnityEngine;
 
 public class ColliderContainer : MonoBehaviour
 {
-
+    public Collider RecentlyAdded;
     private HashSet<Collider> colliders = new HashSet<Collider>();
     public HashSet<Collider> Colliders { get { return colliders; } }
-
-    public Collider GetClosest(Vector3 origin, float min_distance)
-    {
-        Collider closest = null;
-        foreach (Collider col in colliders)
-        {
-            var dist = Vector3.Distance(origin, col.transform.position);
-            if (dist <= min_distance)
-            {
-                min_distance = dist;
-                closest = col;
-            }
-        }
-        return closest;
-    }
 
     private void OnTriggerEnter(Collider other)
     {
         colliders.Add(other); //hashset automatically handles duplicates
+        RecentlyAdded = other;
     }
 
     private void OnTriggerExit(Collider other)
@@ -33,4 +19,18 @@ public class ColliderContainer : MonoBehaviour
         colliders.Remove(other);
     }
 
+    public Collider GetClosest(Vector3 pos, float maximum)
+    {
+        Collider closest = null;
+        foreach (Collider collider in Colliders)
+        {
+            var dist = Vector3.Distance(pos, collider.transform.position);
+            if (dist <= maximum)
+            {
+                closest = collider;
+                maximum = dist;
+            }
+        }
+        return closest;
+    }
 }

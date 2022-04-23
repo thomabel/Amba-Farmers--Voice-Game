@@ -4,6 +4,7 @@ public class GrowBox : MonoBehaviour, IInteractable
 {
     public FloatReference scale_factor;
 
+
     void IInteractable.Interact()
     {
         var manip = transform.localScale;
