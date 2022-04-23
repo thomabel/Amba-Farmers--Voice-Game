@@ -41,14 +41,6 @@ public class TerrainData : MonoBehaviour
                 current.nutrients = 0.0f;
             }
         }
-
-        GetTileData(new Vector3(0.0f, 0, 0.0f));
-        GetTileData(new Vector3(0.4f, 0, -0.4f));
-        GetTileData(new Vector3(-0.4f, 0, -0.4f));
-        GetTileData(new Vector3(-0.4f, 0, 0.4f));
-        GetTileData(new Vector3(0.4f, 0, 0.4f));
-        SetTileData(new Vector3(0.4f, 0, 0.4f), new Data(true, 2f, 3f));
-        GetTileData(new Vector3(0.4f, 0, 0.4f));
     }
 
 
@@ -83,7 +75,8 @@ public class TerrainData : MonoBehaviour
         {
             int tilled = new_data.tilled ? 1 : 0;
             Data tile_data = terrain_data[i, k];
-            terrain_data[i, k] = new Data(new_data.tilled, new_data.water, new_data.nutrients);
+            terrain_data[i,k] = new Data(new_data.tilled, new_data.water, new_data.nutrients);
+            tile_data = terrain_data[i, k];
 
             Debug.Log("SetTileData: " + tile + " [" + i + "," + k + "] : (" + tilled + "," + tile_data.water + "," + tile_data.nutrients + ")");
         }
@@ -99,7 +92,8 @@ public class TerrainData : MonoBehaviour
         {
             int tilled = new_data ? 1 : 0;
             Data tile_data = terrain_data[i, k];
-            tile_data = new Data(new_data, tile_data.water, tile_data.nutrients);
+            terrain_data[i,k] = new Data(new_data, tile_data.water, tile_data.nutrients);
+            tile_data = terrain_data[i, k];
 
             Debug.Log("SetTilled: " + tile + " [" + i + "," + k + "] : (" + tilled + "," + tile_data.water + "," + tile_data.nutrients + ")");
         }
@@ -115,7 +109,8 @@ public class TerrainData : MonoBehaviour
         {
             Data tile_data = terrain_data[i, k];
             int tilled = tile_data.tilled ? 1 : 0;
-            tile_data = new Data(tile_data.tilled, new_data, tile_data.nutrients);
+            terrain_data[i,k] = new Data(tile_data.tilled, new_data, tile_data.nutrients);
+            tile_data = terrain_data[i, k];
 
             Debug.Log("SetWater: " + tile + " [" + i + "," + k + "] : (" + tilled + "," + tile_data.water + "," + tile_data.nutrients + ")");
         }
@@ -131,7 +126,8 @@ public class TerrainData : MonoBehaviour
         {
             Data tile_data = terrain_data[i, k];
             int tilled = tile_data.tilled ? 1 : 0;
-            tile_data = new Data(tile_data.tilled, tile_data.water, new_data);
+            terrain_data[i,k] = new Data(tile_data.tilled, tile_data.water, new_data);
+            tile_data = terrain_data[i, k];
 
             Debug.Log("SetNutrients: " + tile + " [" + i + "," + k + "] : (" + tilled + "," + tile_data.water + "," + tile_data.nutrients + ")");
         }
