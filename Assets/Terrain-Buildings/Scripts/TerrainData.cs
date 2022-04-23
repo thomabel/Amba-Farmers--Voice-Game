@@ -60,14 +60,14 @@ public class TerrainData : MonoBehaviour
 
         if (i >= array_size || i < 0 || k >= array_size || k < 0)
         {
-            Debug.Log("[" + 0 + "," + 0 + "] : (0,0,0)");
+            Debug.Log("GetTileData(outofbounds): [" + 0 + "," + 0 + "] : (0,0,0)");
             return null_data;
         }
         else
         {
             Data tile_data = terrain_data[i,k];
             int tilled = tile_data.tilled ? 1 : 0;
-            Debug.Log("[" + i + "," + k + "] : (" + tilled + "," + tile_data.water + "," + tile_data.nutrients + ")");
+            Debug.Log("GetTileData: [" + i + "," + k + "] : (" + tilled + "," + tile_data.water + "," + tile_data.nutrients + ")");
 
             return terrain_data[i, k];
         }
@@ -82,10 +82,58 @@ public class TerrainData : MonoBehaviour
         if (i < array_size && i >= 0 && k < array_size && k >= 0)
         {
             int tilled = new_data.tilled ? 1 : 0;
-            terrain_data[i, k] = new Data(new_data.tilled, new_data.water, new_data.nutrients);
             Data tile_data = terrain_data[i, k];
+            terrain_data[i, k] = new Data(new_data.tilled, new_data.water, new_data.nutrients);
 
-            Debug.Log("[" + i + "," + k + "] : (" + tilled + "," + tile_data.water + "," + tile_data.nutrients + ")");
+            Debug.Log("SetTileData: [" + i + "," + k + "] : (" + tilled + "," + tile_data.water + "," + tile_data.nutrients + ")");
+        }
+    }
+
+
+    //just sets the tilled value
+    public void SetTilled(Vector3 tile, bool new_data)
+    {
+        (int i, int k) = GetTile(tile);
+
+        if (i < array_size && i >= 0 && k < array_size && k >= 0)
+        {
+            int tilled = new_data ? 1 : 0;
+            Data tile_data = terrain_data[i, k];
+            tile_data = new Data(new_data, tile_data.water, tile_data.nutrients);
+
+            Debug.Log("SetTilled: [" + i + "," + k + "] : (" + tilled + "," + tile_data.water + "," + tile_data.nutrients + ")");
+        }
+    }
+
+
+    //just sets the water value
+    public void SetWater(Vector3 tile, float new_data)
+    {
+        (int i, int k) = GetTile(tile);
+
+        if (i < array_size && i >= 0 && k < array_size && k >= 0)
+        {
+            Data tile_data = terrain_data[i, k];
+            int tilled = tile_data.tilled ? 1 : 0;
+            tile_data = new Data(tile_data.tilled, new_data, tile_data.nutrients);
+
+            Debug.Log("SetWater: [" + i + "," + k + "] : (" + tilled + "," + tile_data.water + "," + tile_data.nutrients + ")");
+        }
+    }
+
+
+    //just sets the nutrients value
+    public void SetNutrients(Vector3 tile, float new_data)
+    {
+        (int i, int k) = GetTile(tile);
+
+        if (i < array_size && i >= 0 && k < array_size && k >= 0)
+        {
+            Data tile_data = terrain_data[i, k];
+            int tilled = tile_data.tilled ? 1 : 0;
+            tile_data = new Data(tile_data.tilled, tile_data.water, new_data);
+
+            Debug.Log("SetNutrients: [" + i + "," + k + "] : (" + tilled + "," + tile_data.water + "," + tile_data.nutrients + ")");
         }
     }
 
