@@ -9,6 +9,7 @@ public class Hoe : MonoBehaviour, IInteractable, IEquippable
     }
     void IEquippable.Use()
     {
+        
         Debug.Log("Used a hoe!");
     }
 }
