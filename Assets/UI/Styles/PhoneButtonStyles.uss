@@ -264,3 +264,55 @@
     align-items: auto;
     opacity: 0.6;
 }
+
+.TimeWeatherContainer {
+    width: 30%;
+    top: auto;
+    bottom: 13%;
+    height: 20%;
+    margin-left: 15px;
+    background-color: rgb(255, 255, 255);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    flex-direction: row;
+    border-left-color: rgb(241, 0, 0);
+    border-right-color: rgb(241, 0, 0);
+    border-top-color: rgb(241, 0, 0);
+    border-bottom-color: rgb(241, 0, 0);
+}
+
+.TimeControlButtons {
+}
+
+.TimeControlButtons:active {
+    opacity: 0.6;
+}
+
+.TimeWeatherContainer:active {
+    width: 30%;
+    top: auto;
+    bottom: 13%;
+    height: 20%;
+    margin-left: 15px;
+    background-color: rgb(255, 255, 255);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    flex-direction: row;
+    border-left-color: rgb(241, 0, 0);
+    border-right-color: rgb(241, 0, 0);
+    border-top-color: rgb(241, 0, 0);
+    border-bottom-color: rgb(241, 0, 0);
+    opacity: 0.6;
+}

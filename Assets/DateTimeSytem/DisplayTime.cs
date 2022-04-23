@@ -11,7 +11,7 @@ public class DisplayTime : MonoBehaviour
     public int startMinute;
     public float accumulator;
     
-    public Text text;
+    //public Text text;
     public IntVariable hours;
     public IntVariable minutes;
     public IntVariable seconds;
@@ -22,7 +22,7 @@ public class DisplayTime : MonoBehaviour
 	hours.Value = startHour;
 	minutes.Value = startSecond;
 	seconds.Value = startMinute;	
-	text.text = "" + hours.Value + ":" + minutes.Value + ":" + seconds.Value.ToString("D2"); 
+	//text.text = "" + hours.Value + ":" + minutes.Value + ":" + seconds.Value.ToString("D2"); 
 	//timeDisplay.GetComponent<Text>().text = "" + hour + ":" + minutes + ":" + seconds;
     }
 
@@ -46,7 +46,12 @@ public class DisplayTime : MonoBehaviour
 		}
 		accumulator-=1;
 	}	
-	text.text = "" + hours.Value + ":" + minutes.Value.ToString("D2") + ":" + seconds.Value.ToString("D2"); 
+	//text.text = "" + hours.Value + ":" + minutes.Value.ToString("D2") + ":" + seconds.Value.ToString("D2"); 
 	
     }
+
+	public string TimeDisplay() {
+		return ("" + hours.Value + ":" + minutes.Value.ToString("D2") + ":" + seconds.Value.ToString("D2"));
+
+	}
 }

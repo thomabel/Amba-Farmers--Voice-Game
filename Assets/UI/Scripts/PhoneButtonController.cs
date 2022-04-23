@@ -15,6 +15,12 @@ public class PhoneButtonController : MonoBehaviour
 
     public GameObject ShopApp;
 
+    private Label Time;
+
+    [SerializeField]
+    private DisplayTime DateModule;
+
+
     [SerializeField]
     private Account player;
     // Start is called before the first frame update
@@ -38,8 +44,13 @@ public class PhoneButtonController : MonoBehaviour
 
         root.Q<Button>("BackButtonToApps").clicked += BackButtonToAppsPressed;
 
-    }
+        Time = root.Q<Label>("Time");
 
+    }
+    private void Update()
+    {
+        Time.text = DateModule.TimeDisplay();
+    }
     void Pressed()
     {
         Phone.style.display = DisplayStyle.None;

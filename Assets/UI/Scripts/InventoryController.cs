@@ -107,9 +107,10 @@ public class InventoryController : MonoBehaviour
         Debug.Log(CurrentCard.gameobject);
 
         Debug.Log(player.transform.position);
-        Instantiate(CurrentCard.gameobject, playerObject.transform.position + new Vector3(0, 0, 4), Quaternion.identity);
+        //Instantiate(CurrentCard.gameobject);
+        Instantiate(CurrentCard.gameobject, playerObject.transform.position + new Vector3(0, 2, 2), Quaternion.identity);
         ItemName.text = CurrentCard.name;
-        QuantityNum.text = CurrentCard.quantity.ToString();
+        QuantityNum.text = CurrentCard.InventoryQuantity.ToString();
         player.Add(CurrentCard.gameobject);
     }
 

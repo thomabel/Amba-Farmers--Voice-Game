@@ -13,7 +13,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="TabButtonContainer" class="TabButtonContainer">
+        <ui:VisualElement name="TabButtonContainer" class="TabButtonContainer" style="display: flex; visibility: visible;">
             <ui:Button display-tooltip-when-elided="true" name="ToolTab" class="ToolTab" style="border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255);" />
             <ui:Button display-tooltip-when-elided="true" name="PlantTab" class="PlantTab" style="border-left-color: rgb(253, 253, 253); border-right-color: rgb(253, 253, 253); border-top-color: rgb(253, 253, 253); border-bottom-color: rgb(253, 253, 253);" />
             <ui:Button display-tooltip-when-elided="true" name="LivestockTab" class="LivestockTab" />
@@ -35,9 +35,16 @@
         <ui:VisualElement name="CheckoutTitle" class="CheckoutTitle">
             <ui:Button display-tooltip-when-elided="true" name="CheckoutBackButton" class="CheckoutBackButton" />
             <ui:Label text=" Checkout" display-tooltip-when-elided="true" name="CheckoutTitleLabel" class="CheckoutTitleLabel" />
+            <ui:VisualElement name="CheckoutBalanceContainer" class="MoneyBorder" style="width: 42%;">
+                <ui:Label text="$" display-tooltip-when-elided="true" name="CheckoutMoneyLabelBalance" class="MoneySignLabel" />
+                <ui:Label text="100" display-tooltip-when-elided="true" name="CheckoutPlayerBalance" class="MoneyLabel" />
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="CheckoutContent" class="CheckoutContent" style="display: flex;">
-            <ui:VisualElement name="ItemsListContainer" class="ItemsListContainer">
+            <ui:VisualElement name="ItemsPurchased" style="width: 65%; height: 100%; align-items: center; justify-content: center; display: none;">
+                <ui:Label text="Success! Inventory and Balance have been updated accordingly!" display-tooltip-when-elided="true" name="PurchasedMessage" style="font-size: 90px; white-space: normal; -unity-text-align: upper-center; -unity-font-style: bold; color: rgb(65, 245, 22); letter-spacing: 0; -unity-text-outline-width: 0; -unity-text-outline-color: rgb(229, 0, 0); text-shadow: 0 0 0 rgb(238, 0, 0);" />
+            </ui:VisualElement>
+            <ui:VisualElement name="ItemsListContainer" class="ItemsListContainer" style="display: flex;">
                 <ui:VisualElement name="ItemsListLabel" class="ItemsListLabel">
                     <ui:Label text="Items List" display-tooltip-when-elided="true" name="ItemsListText" class="ItemsListText" />
                 </ui:VisualElement>
@@ -46,16 +53,23 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="TotalContainer" class="TotalContainer" style="align-items: center; justify-content: space-between;">
-                <ui:VisualElement name="TotalLabelContainer" class="TotalLabelContainer" style="height: 50%; justify-content: flex-end;">
-                    <ui:Label text="Total" display-tooltip-when-elided="true" name="TotalLabel" class="TotalLabel" style="height: 10%; -unity-text-align: middle-center; width: 90%; flex-grow: 0;" />
-                    <ui:VisualElement name="SubTotal" class="TotalsContainer" style="width: 95%; height: 20%; flex-direction: row; align-items: center; justify-content: center;">
-                        <ui:Label text="$" display-tooltip-when-elided="true" class="MoneySignLabel" style="font-size: 50px;" />
+                <ui:VisualElement name="SoldTotalLabelContainer" class="TotalLabelContainer" style="height: 35%; justify-content: center;">
+                    <ui:Label text="Sold Total" display-tooltip-when-elided="true" name="SoldTotalLabel" class="TotalLabel" style="height: 10%; -unity-text-align: middle-center; width: 90%; flex-grow: 0;" />
+                    <ui:VisualElement name="SoldSubTotal" class="TotalsContainer" style="width: 95%; height: 30%; flex-direction: row; align-items: center; justify-content: center;">
+                        <ui:Label text="$" display-tooltip-when-elided="true" name="SoldMoneySign" class="MoneySignLabel" style="font-size: 50px;" />
+                        <ui:Label text="10000000000000000" display-tooltip-when-elided="true" name="SoldSubtotalLabel" class="MoneyLabel" style="font-size: 24px; -unity-text-align: middle-center;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="TotalLabelContainer" class="TotalLabelContainer" style="height: 35%; justify-content: flex-start;">
+                    <ui:Label text="Bought Total" display-tooltip-when-elided="true" name="TotalLabel" class="TotalLabel" style="height: 10%; -unity-text-align: middle-center; width: 90%; flex-grow: 0;" />
+                    <ui:VisualElement name="SubTotal" class="TotalsContainer" style="width: 95%; height: 30%; flex-direction: row; align-items: center; justify-content: center;">
+                        <ui:Label text="$" display-tooltip-when-elided="true" name="BoughtMoneySIgn" class="MoneySignLabel" style="font-size: 50px;" />
                         <ui:Label text="10000000000000000" display-tooltip-when-elided="true" name="SubtotalLabel" class="MoneyLabel" style="font-size: 24px; -unity-text-align: middle-center;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="CheckoutButtonContaier" class="TotalLabelContainer CheckoutButtonContaier">
+                <ui:VisualElement name="CheckoutButtonContaier" class="TotalLabelContainer CheckoutButtonContaier" style="height: 30%; justify-content: space-between;">
                     <ui:Button text="Checkout" display-tooltip-when-elided="true" name="CheckoutActualButton" class="CheckoutActualButton" />
-                    <ui:Label text="No Sufficient Funds" display-tooltip-when-elided="true" name="CheckoutMessage" style="width: 70%; height: 20%; -unity-text-align: middle-center; white-space: normal; background-color: rgb(255, 255, 255); border-left-color: rgb(255, 0, 0); border-right-color: rgb(255, 0, 0); border-top-color: rgb(255, 0, 0); border-bottom-color: rgb(255, 0, 0); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; margin-top: 10px; color: rgb(0, 0, 0); -unity-font-style: bold; font-size: 24px; display: none;" />
+                    <ui:Label text="No Sufficient Funds" display-tooltip-when-elided="true" name="CheckoutMessage" style="width: 70%; height: 30%; -unity-text-align: middle-center; white-space: normal; background-color: rgb(255, 255, 255); border-left-color: rgb(255, 0, 0); border-right-color: rgb(255, 0, 0); border-top-color: rgb(255, 0, 0); border-bottom-color: rgb(255, 0, 0); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; margin-top: 10px; color: rgb(0, 0, 0); -unity-font-style: bold; font-size: 24px; display: none; margin-bottom: 0; bottom: 30px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
