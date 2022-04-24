@@ -5,39 +5,50 @@ using UnityEngine.UIElements;
 
 public class NewShopController : MonoBehaviour
 {
-    public VisualElement ScrollViewSection;
-    public Button CardButton;
-    public VisualElement PictureContainer;
-    public VisualElement InfoContainer;
-    public VisualElement StatusContainer;
-    public Label Picture;
-    public Label Name;
-    public Label Price;
-    public Label inCartLabel;
-    public Label StatusPicture;
+    private VisualElement ScrollViewSection;
+    private Button CardButton;
+    private VisualElement PictureContainer;
+    private VisualElement InfoContainer;
+    private VisualElement StatusContainer;
+    private Label Picture;
+    private Label Name;
+    private Label Price;
+    private Label inCartLabel;
+    private Label StatusPicture;
 
-    public Texture2D Checkmark;
-    public Texture2D X;
+    [SerializeField]
+    private Texture2D Checkmark;
+    [SerializeField]
+    private Texture2D X;
+
     private VisualElement root;
 
-    public Button checkout;
+    private Button checkout;
 
-    public Button CheckoutBackButton;
-    public Account player;
+    private Button CheckoutBackButton;
 
-    public TextField quantityField;
-    public Card[] PlantCards;
-    public Card[] ToolCards;
-    public Card[] LivestockCards;
+    [SerializeField]
+    private Account player;
 
-    public Card[] SellCards;
+    private TextField quantityField;
+
+    [SerializeField]
+    private Card[] PlantCards;
+    [SerializeField]
+    private Card[] ToolCards;
+    [SerializeField]
+    private Card[] LivestockCards;
+
+    [SerializeField]
+    private Card[] SellCards;
 
 
 
     private int total=0;
     private int SellTotal = 0;
 
-    public GameObject PhoneGameObject;
+    [SerializeField]
+    private GameObject PhoneGameObject;
 
     //public ScriptableObject player = ScriptableObject.CreateInstance("Account");
     private List<int> PlantBuyList;
