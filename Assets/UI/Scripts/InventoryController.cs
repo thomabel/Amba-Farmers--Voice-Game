@@ -21,6 +21,11 @@ public class InventoryController : MonoBehaviour
     [SerializeField]
     GameObject playerObject;
     private Button currentPressedItem;
+
+    [SerializeField]
+    private Inventory PlayerInventory;
+    [SerializeField]
+    private Equipment PlayerEquipment;
     //private Button FocusedButton;
     // Start is called before the first frame update
 
@@ -33,6 +38,8 @@ public class InventoryController : MonoBehaviour
 
         root = GetComponent<UIDocument>().rootVisualElement;
         root.Focus();
+
+        root.Q<Button>("EquipButton").clickable.clickedWithEventInfo += EquipButtonClicked;
 
 
         ScrollViewSection = root.Q<VisualElement>("InventoryScrollView");
@@ -54,11 +61,15 @@ public class InventoryController : MonoBehaviour
             InventoryItem.AddToClassList("ItemButton");
 
             InventoryItem.style.backgroundImage = inventory.FindCardIndex(i).picture;
-
+            //InventoryItem.style.backgroundImage = null;
             Current.Add(InventoryItem);
             ScrollViewSection.Add(Current);
 
             count += 1;
+
+            PlayerInventory.Insert(i, inventory.FindCardIndex(i).item_prefab);
+
+
         }
 
         int extra = 0;
@@ -76,6 +87,13 @@ public class InventoryController : MonoBehaviour
             InventoryItem.style.visibility = Visibility.Hidden;
             Current.Add(InventoryItem);
         }
+
+    }
+    void EquipButtonClicked(EventBase obj)
+    {
+        var button = (Button)obj.target;
+        PlayerEquipment.EquipTool(Instantiate(inventory.FindCardIndex(int.Parse(currentPressedItem.name)).item_prefab));
+        PlayerEquipment.EquipItem(int.Parse(currentPressedItem.name));
 
     }
     void ItemClicked(EventBase obj)
@@ -109,7 +127,7 @@ public class InventoryController : MonoBehaviour
 
         Debug.Log(player.transform.position);
         //Instantiate(CurrentCard.gameobject);
-        Instantiate(CurrentCard.item_prefab, playerObject.transform.position + new Vector3(0, 1, 2), Quaternion.identity);
+        Instantiate(CurrentCard.item_prefab, playerObject.transform.position + new Vector3(0, 2, 2), Quaternion.identity);
         ItemName.text = CurrentCard.name;
         QuantityNum.text = CurrentCard.quantity.ToString();
         

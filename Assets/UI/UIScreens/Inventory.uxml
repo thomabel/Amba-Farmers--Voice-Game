@@ -28,12 +28,15 @@
                                 <ui:Label text="50" display-tooltip-when-elided="true" name="QuantityNum" style="font-size: 24px; color: rgb(255, 255, 255); height: 100%; width: 50%; -unity-text-align: middle-center;" />
                             </ui:VisualElement>
                             <ui:VisualElement name="ContainerButton" style="flex-direction: row; padding-left: 1px; padding-right: 2px; padding-top: 10px; padding-bottom: 0;">
-                                <ui:Button text="Equip" display-tooltip-when-elided="true" name="EquipButton" style="flex-grow: 1; height: 52px; font-size: 24px; background-color: rgb(255, 197, 0); border-left-color: rgb(255, 197, 0); border-right-color: rgb(255, 197, 0); border-top-color: rgb(255, 197, 0); border-bottom-color: rgb(255, 197, 0); color: rgb(0, 0, 0); -unity-font-style: bold;" />
+                                <ui:Button text="Equip" display-tooltip-when-elided="true" name="EquipButton" class="EquipButton" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement style="height: 30%; width: 100%; border-top-color: rgb(255, 197, 0); border-left-color: rgb(255, 197, 0); border-right-color: rgb(255, 197, 0); border-bottom-color: rgb(255, 197, 0); border-top-width: 1px;" />
+                <ui:VisualElement style="height: 30%; width: 100%; border-top-color: rgb(255, 197, 0); border-left-color: rgb(255, 197, 0); border-right-color: rgb(255, 197, 0); border-bottom-color: rgb(255, 197, 0); border-top-width: 1px; flex-direction: row; align-items: center; justify-content: space-around;">
+                    <ui:Label text="Equipped Seed" display-tooltip-when-elided="true" style="font-size: 70px; -unity-font-style: bold; left: 10px; color: rgb(255, 255, 255);" />
+                    <ui:VisualElement class="SlotIcon ItemButton" style="flex-grow: 0; height: 90%; width: 15%;" />
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

@@ -356,6 +356,8 @@ MonoBehaviour:
   inventory: {fileID: 11400000, guid: 3e077b6989a0e4625be5c8bbcdfe50f9, type: 2}
   player: {fileID: 587454056}
   playerObject: {fileID: 2127678608}
+  PlayerInventory: {fileID: 587454056}
+  PlayerEquipment: {fileID: 2127678610}
 --- !u!1 &345468437
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,6 +784,10 @@ PrefabInstance:
     - target: {fileID: 4460790687387043157, guid: 48a44350b6dbd4e46aedbca69e79c0f7, type: 3}
       propertyPath: m_Size.y
       value: 1.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460790687387043157, guid: 48a44350b6dbd4e46aedbca69e79c0f7, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5425516747715325081, guid: 48a44350b6dbd4e46aedbca69e79c0f7, type: 3}
       propertyPath: m_UseGravity
@@ -2023,6 +2029,17 @@ MonoBehaviour:
   hours: {fileID: 11400000, guid: 0f635fc52d4ff162c9afb295625868be, type: 2}
   minutes: {fileID: 11400000, guid: c7616399032d8122ebbde1147989ef7f, type: 2}
   seconds: {fileID: 11400000, guid: 96c82ae3e108bfe4b9cc6b7d6f87fa5d, type: 2}
+--- !u!114 &2127678610 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 68358369854966711, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
+  m_PrefabInstance: {fileID: 5000978703216393676}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127678608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e93de2c4d37baa41b7fde6827ce57fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5000978703216393676
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2223,6 +2240,10 @@ PrefabInstance:
     - target: {fileID: 4460790687387043157, guid: 48a44350b6dbd4e46aedbca69e79c0f7, type: 3}
       propertyPath: m_Size.y
       value: 1.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460790687387043157, guid: 48a44350b6dbd4e46aedbca69e79c0f7, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5425516747715325081, guid: 48a44350b6dbd4e46aedbca69e79c0f7, type: 3}
       propertyPath: m_UseGravity

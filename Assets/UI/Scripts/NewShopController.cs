@@ -61,10 +61,10 @@ public class NewShopController : MonoBehaviour
     private List<int> SellList;
 
 
-    private Dictionary<int, int> PlantQuantity = new Dictionary<int, int>();
-    private Dictionary<int, int> ToolQuantity = new Dictionary<int, int>();
-    private Dictionary<int, int> LiveStockQuantity = new Dictionary<int, int>();
-    private Dictionary<int, int> SellQuantity = new Dictionary<int, int>();
+    private Dictionary<int, int> PlantQuantity;
+    private Dictionary<int, int> ToolQuantity;
+    private Dictionary<int, int> LiveStockQuantity;
+    private Dictionary<int, int> SellQuantity;
 
     [SerializeField]
     Market market;
@@ -94,8 +94,12 @@ public class NewShopController : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
+        PlantQuantity = new Dictionary<int, int>();
+        ToolQuantity = new Dictionary<int, int>();
+        LiveStockQuantity = new Dictionary<int, int>();
+        SellQuantity = new Dictionary<int, int>();
 
-        PlantBuyList = new List<int>();
+    PlantBuyList = new List<int>();
         ToolBuyList = new List<int>();
         LivestockBuyList = new List<int>();
         SellList = new List<int>();
@@ -386,7 +390,7 @@ public class NewShopController : MonoBehaviour
             Quantity.AddToClassList("Quantity");
             Quantity.maxLength = 4;
             //Quantity.value = "1";
-            Quantity.value = QuantityMap[i].ToString();
+            Quantity.value = QuantityMap[ListType[i]].ToString();
             Quantity.name = "Q"+ typeofItem + ListType[i];
             Quantity.RegisterValueChangedCallback((evt) => {
 
@@ -441,8 +445,8 @@ public class NewShopController : MonoBehaviour
             checkoutCard.Add(QuantityContainer);
             CheckoutScrollView.Add(checkoutCard);
 
-            if (!BuyOrSell.Equals("S")) total += items[ListType[i]].GetPrice() * QuantityMap[i];
-            else SellTotal += items[ListType[i]].GetPrice() * QuantityMap[i];
+            if (!BuyOrSell.Equals("S")) total += items[ListType[i]].GetPrice() * QuantityMap[ListType[i]];
+            else SellTotal += items[ListType[i]].GetPrice() * QuantityMap[ListType[i]];
             /*
             if (!BuyOrSell.Equals("S")) total += items[ListType[i]].GetPrice() * items[ListType[i]].quantity;
             else SellTotal += items[ListType[i]].GetPrice() * items[ListType[i]].quantity;
@@ -523,7 +527,7 @@ public class NewShopController : MonoBehaviour
         {
             if (Inventory.CardExists(BoughtCardInfo[BoughtList[i]]))
             {
-                BoughtCardInfo[BoughtList[i]].quantity += QuantityMap[i];
+                BoughtCardInfo[BoughtList[i]].quantity += QuantityMap[BoughtList[i]];
 
             }
             else
@@ -531,7 +535,7 @@ public class NewShopController : MonoBehaviour
                 if (BoughtCardInfo[BoughtList[i]].quantity != 0)
                 {
                     Inventory.Add(BoughtCardInfo[BoughtList[i]]);
-                    BoughtCardInfo[BoughtList[i]].quantity += QuantityMap[i];
+                    BoughtCardInfo[BoughtList[i]].quantity = QuantityMap[BoughtList[i]];
 
                 }
             }
@@ -555,7 +559,7 @@ public class NewShopController : MonoBehaviour
 
             addtoInventory(PlantBuyList, market.Plants,PlantQuantity);
             addtoInventory(ToolBuyList, market.Tools,ToolQuantity);
-            addtoInventory(LivestockBuyList, market.Animals,LiveStockQuantity);
+           //addtoInventory(LivestockBuyList, market.Animals,LiveStockQuantity);
 
             if (total != 0 || SellTotal != 0)
             {

@@ -13,10 +13,16 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
+        if (items.Length == 0)
+        {
+            items = new GameObject[size];
+        }
+        /*
         if (items == null)
         {
             items = new GameObject[size];
         }
+        */
     }
 
 
