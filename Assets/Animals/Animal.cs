@@ -6,7 +6,7 @@ public class Animal : MonoBehaviour, IInteractable
 {
     public enum Species { Pig, Goat, Chicken, Rabbit };
     public enum Diet { Herbivore, Omnivore }
-    public enum Sex { Male, Female };
+    public enum Sex { Female, Male };
     public enum Age { Baby, Adolescent, Adult };
     public enum Hunger { Starving, Hungry, Good, Full };
     public enum Thirst { Dehydrated, Thirsty, Good, Full };
@@ -18,46 +18,65 @@ public class Animal : MonoBehaviour, IInteractable
     public static float STATUS_HIGH = 80f;
     public static float STATUS_MID = 40f;
     public static float STATUS_LOW = 20f;
+    [SerializeField] public float scaleMin;
+    [SerializeField] public float scaleMax;
 
-    public Diet diet;          // What kind of diet does this animal have (will change once food gets implemented)?
-    [SerializeField] public float weightMin;    // Lower bound for weight of this animal
-    [SerializeField] public float weightMax;    // Upper bound for weight of this animal
+    public Diet diet;                                       // What kind of diet does this animal have (will change once food gets implemented)?
+    [SerializeField] public float weightMin;                // Lower bound for weight of this animal
+    [SerializeField] public float weightMax;                // Upper bound for weight of this animal
 
-    [SerializeField] public float consumptionRateFood;     // How much does this animal eat per day in kg?
+    [SerializeField] public float decayRateFood;            // How quickly does this animal get hungry?
+    [SerializeField] public float decayRateWater;           // How quickly does this animal get thirsty?
+    [SerializeField] public float consumptionRateFood;      // How much does this animal eat per day in kg?
     [SerializeField] public float consumptionRateWater;     // How much does this animal drink per day in liters?
     [SerializeField] public int timesToEatPerDay;
     [SerializeField] public int timesToDrinkPerDay;
 
-    [SerializeField] public Species species;        // Species of this animal
-    [SerializeField] public Sex sex;                // Sex of this animal
-    [SerializeField] public int age;                // Animal's current age in days
-    [SerializeField] public float hunger;           // Animal's current hunger
-    [SerializeField] public float thirst;           // Animal's current thirst
-    [SerializeField] public float health;           // Animal's current health
-    [SerializeField] public float happiness;        // Animal's current happiness
-    [SerializeField] public float weight;           // Animal's current weight in kg
-    [SerializeField] public Shelter shelter;        // Shelter this animal belongs to
-    [SerializeField] public int id;                 // ID of this animal's GameObject
-    [SerializeField] public int lastTimeEaten;      // Time when animal last ate
+    [SerializeField] public Species species;                // Species of this animal
+    [SerializeField] public Sex sex;                        // Sex of this animal
+    [SerializeField] public int age;                        // Animal's current age in days
+    [SerializeField] public float hunger;                   // Animal's current hunger
+    [SerializeField] public float thirst;                   // Animal's current thirst
+    [SerializeField] public float health;                   // Animal's current health
+    [SerializeField] public float happiness;                // Animal's current happiness
+    [SerializeField] public float weight;                   // Animal's current weight in kg
+    [SerializeField] public int id;                         // Object ID of this animal
+    [SerializeField] public float lastTimeEaten;            // Time when animal last ate
+    [SerializeField] public float lastTimeDrank;            // Time when animal last drank
 
+    [SerializeField] public Shelter shelter;                // Shelter this animal belongs to
     [SerializeField] public FloatVariable seconds;
 
     void Start()
     {
         id = this.GetInstanceID();
-        sex = (Sex) Random.Range(0,1);
-        lastTimeEaten = (int) seconds.Value;
+        InitAnimal(2);
+        lastTimeEaten = seconds.Value;
+        lastTimeDrank = seconds.Value;
+    }
+
+    public void InitAnimal(int givenAge, int givenSex = -1)
+    {
+        if (givenSex == 0 || givenSex == 1)
+            sex = (Sex) givenSex;
+        else
+            sex = (Sex) Random.Range(0, 1);
+        age = givenAge;
+        hunger = 100f;
+        thirst = 100f;
+        health = 100f;
+        happiness = 100f;
     }
 
     void Update()
     {
-        if (seconds.Value - lastTimeEaten > 2)
+        if (seconds.Value - lastTimeEaten > 5f)
         {
-            this.AccumulateHungerThirst();
+            this.DecayHungerAndThirst();
             if (GetHungerStatus() == Hunger.Hungry)
-                this.Eat();
+                Eat();
             if (GetThirstStatus() == Thirst.Thirsty)
-                this.Drink();
+                Drink();
         }
     }
 
@@ -78,48 +97,53 @@ public class Animal : MonoBehaviour, IInteractable
     {
         float foodValue = 20f;
         float fillValue = 40f;
-        Debug.Log(id + " - Attempting to eat from shelter");
+        // Debug.Log(id + " - Attempting to eat from shelter");
+        lastTimeEaten = (int) seconds.Value;
         if (shelter != null)
         {
-            Debug.Log(id + " - Eating from shelter " + shelter.GetInstanceID());
-            float eaten = shelter.ConsumeFood(consumptionRateFood / 2);     // amount of food actually eaten
+            // Debug.Log(id + " - Eating from shelter " + shelter.GetInstanceID());
+            float eaten = shelter.ConsumeFood(consumptionRateFood);     // amount of food actually eaten
             if (eaten > 0)
             {
-                hunger += fillValue;
+                hunger += (eaten / foodValue) * fillValue;
                 if (hunger > 100f)
                     hunger = 100f;
-                weight += foodValue;
+                weight += eaten;
+                
             }
         }
     }
 
     void Drink()
     {
-        float fillValue = 20f;
-        Debug.Log(id + " - Attempting to drink from shelter");
+        // Debug.Log(id + " - Attempting to drink from shelter");
+        lastTimeDrank = (int) seconds.Value;
         if (shelter != null)
         {
-            Debug.Log(id + " - Drinking from shelter " + shelter.GetInstanceID());
-            float drank = shelter.ConsumeWater(consumptionRateWater / 5);     // amount of food actually eaten
+            // Debug.Log(id + " - Drinking from shelter " + shelter.GetInstanceID());
+            float drank = shelter.ConsumeWater(consumptionRateWater);     // amount of water actually drank
             if (drank > 0)
             {
-                thirst += fillValue;
+                thirst += drank;
                 if (thirst > 100f)
                     thirst = 100f;
             }
         }
     }
 
-    void AccumulateHungerThirst()
+    void DecayHungerAndThirst()
     {
-        float starveValue = 10f;
-        float thirstValue = 10f;
-        hunger -= starveValue;
+        hunger -= decayRateFood;
         if (hunger < 0f)
             hunger = 0f;
-        thirst -= thirstValue;
+        thirst -= decayRateWater;
         if (thirst < 0f)
             thirst = 0f;
+    }
+
+    void Grow()
+    {
+        // change consumption rate based on current age and weight
     }
 
     private float[] GetStats()

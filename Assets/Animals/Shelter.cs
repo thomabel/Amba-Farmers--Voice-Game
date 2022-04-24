@@ -5,10 +5,10 @@ using UnityEngine;
 public class Shelter : MonoBehaviour, IInteractable
 {
     public enum Cleanliness { Filthy, Poor, Okay, Good, Clean };
-    public static Animal.Species species;
-    public static int animalCapacity;
-    public static float foodCapacity;
-    public static float waterCapacity;
+    [SerializeField] public Animal.Species species;
+    [SerializeField] public int animalCapacity;
+    [SerializeField] public float foodCapacity;
+    [SerializeField] public float waterCapacity;
 
     [SerializeField] public Inventory shelterInv;       // Inventory for this shelter
     [SerializeField] public List<Animal> population;    // List of animals currently occupying this shelter
