@@ -9,13 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d24b3d64f807f7f419ab037d9d69a0f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 55c6dbff04b4a44e7b6b0947f22f6550, type: 3}
   m_Name: Hoe
   m_EditorClassIdentifier: 
-  display_name: Hoe
-  item_prefab: {fileID: 3338131928499158807, guid: 48a44350b6dbd4e46aedbca69e79c0f7, type: 3}
-  value: 0
+  name: Hoe
+  cost: 200
   quantity: 1
   picture: {fileID: 2800000, guid: 524da0fb2b68b47969acdaf000770a3b, type: 3}
-  supply: 0
-  demand: 0
+  gameobject: {fileID: 3338131928499158807, guid: 48a44350b6dbd4e46aedbca69e79c0f7, type: 3}
