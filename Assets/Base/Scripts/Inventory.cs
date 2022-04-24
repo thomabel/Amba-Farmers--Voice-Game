@@ -3,6 +3,7 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     [SerializeField] int size;
+    [SerializeField]
     GameObject[] items;
 
     public int Size

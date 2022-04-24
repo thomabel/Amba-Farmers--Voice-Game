@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Papaya
   m_EditorClassIdentifier: 
   name: Papaya
-  cost: 10000000
-  quantity: 0
+  cost: 600
+  quantity: 1
   picture: {fileID: 2800000, guid: 9a4a558fc515d44f884a9bf66ea8aa27, type: 3}
+  gameobject: {fileID: 0}
