@@ -5,17 +5,10 @@ public class Equipment : MonoBehaviour
     public Inventory inventory;
     public Vector3 tool_offset;
 
-    [SerializeField] GameObject item;
-    [SerializeField] GameObject tool;
-
-    public IStorable Item
-    {
-        get { return item.GetComponent<IStorable>(); }
-    }
-    public IEquippable Tool
-    {
-        get { return tool.GetComponent<IEquippable>(); }
-    }
+    public GameObject item;
+    public IStorable Item;
+    public GameObject tool;
+    public IEquippable Tool;
 
     /// <summary>
     /// General method for picking up inventory items.
@@ -52,6 +45,7 @@ public class Equipment : MonoBehaviour
         if (inventory.check_index(index))
         {
             item = inventory.Retrieve(index);
+            Item = item.GetComponent<IStorable>();
         }
     }
 
@@ -73,6 +67,7 @@ public class Equipment : MonoBehaviour
                     DropTool();
                 }
                 tool = item;
+                Tool = equip;
                 equip_position(transform, true, tool_offset);
                 return true;
             }
@@ -89,6 +84,7 @@ public class Equipment : MonoBehaviour
         {
             equip_position(null, false, transform.position + tool_offset);
             tool = null;
+            Tool = null;
             return true;
         }
         return false;
