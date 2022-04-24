@@ -102,15 +102,19 @@ public class InventoryController : MonoBehaviour
         Label QuantityNum = root.Q<Label>("QuantityNum");
         Label ItemName = root.Q<Label>("ItemName");
 
-        Card CurrentCard = inventory.FindCardIndex(int.Parse(button.name));
+        
+        MarketWrapper CurrentCard = inventory.FindCardIndex(int.Parse(button.name));
 
-        Debug.Log(CurrentCard.gameobject);
+        Debug.Log(CurrentCard.item_prefab);
 
         Debug.Log(player.transform.position);
         //Instantiate(CurrentCard.gameobject);
-        Instantiate(CurrentCard.gameobject, playerObject.transform.position + new Vector3(0, 0, 2), Quaternion.identity);
+        Instantiate(CurrentCard.item_prefab, playerObject.transform.position + new Vector3(0, 1, 2), Quaternion.identity);
         ItemName.text = CurrentCard.name;
-        QuantityNum.text = CurrentCard.InventoryQuantity.ToString();
+        QuantityNum.text = CurrentCard.quantity.ToString();
+        
+
+
         //player.Add(CurrentCard.gameobject);
     }
 

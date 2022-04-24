@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a261082b59a520e4890f456ccee0a547, type: 3}
+  m_Name: market
+  m_EditorClassIdentifier: 
+  Plants:
+  - {fileID: 11400000, guid: acc1dfed09831490ea3af24ff8fd0246, type: 2}
+  Animals:
+  - {fileID: 11400000, guid: 48525f29256b3464b816a35de834158d, type: 2}
+  Tools:
+  - {fileID: 11400000, guid: df171af3c47f99d49962e5e400b45524, type: 2}

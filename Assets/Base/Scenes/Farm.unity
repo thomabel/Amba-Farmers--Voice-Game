@@ -1788,19 +1788,11 @@ MonoBehaviour:
   Checkmark: {fileID: 2800000, guid: c7503fbf80f5c4869bb0bff93945c4d0, type: 3}
   X: {fileID: 2800000, guid: 5c97fd75f7cfe46cdaafc7ea20f0010f, type: 3}
   player: {fileID: 11400000, guid: c7bdde6092d69164f8be235724038485, type: 2}
-  PlantCards:
-  - {fileID: 11400000, guid: 4b5e3b6249546416795cfdc9ada20348, type: 2}
-  - {fileID: 11400000, guid: cae29d4e224bc47fd9d6c9f4578eb3c7, type: 2}
-  - {fileID: 11400000, guid: bff88aeec629a4482a2482268d5d37c7, type: 2}
-  - {fileID: 11400000, guid: b0cd453f7b4494730a4d607c6e288335, type: 2}
-  ToolCards:
-  - {fileID: 11400000, guid: 95c1fcc6c434a4756b25fd855eed0548, type: 2}
-  LivestockCards:
-  - {fileID: 11400000, guid: 825ce2c4caa3043ee88cb1774e23b528, type: 2}
   SellCards:
-  - {fileID: 11400000, guid: 95c1fcc6c434a4756b25fd855eed0548, type: 2}
-  - {fileID: 11400000, guid: bff88aeec629a4482a2482268d5d37c7, type: 2}
+  - {fileID: 11400000, guid: df171af3c47f99d49962e5e400b45524, type: 2}
+  - {fileID: 11400000, guid: acc1dfed09831490ea3af24ff8fd0246, type: 2}
   PhoneGameObject: {fileID: 2055118915}
+  market: {fileID: 11400000, guid: afb579fdefb244b96b444e559dd6efa5, type: 2}
   Inventory: {fileID: 11400000, guid: 3e077b6989a0e4625be5c8bbcdfe50f9, type: 2}
 --- !u!1 &1964340072
 GameObject:

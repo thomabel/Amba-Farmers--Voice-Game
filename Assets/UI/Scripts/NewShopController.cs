@@ -32,15 +32,18 @@ public class NewShopController : MonoBehaviour
 
     private TextField quantityField;
 
+    /*
     [SerializeField]
     private Card[] PlantCards;
     [SerializeField]
     private Card[] ToolCards;
     [SerializeField]
     private Card[] LivestockCards;
+    */
 
     [SerializeField]
-    private Card[] SellCards;
+    private List<MarketWrapper> SellCards;
+    //private Card[] SellCards;
 
 
 
@@ -57,6 +60,14 @@ public class NewShopController : MonoBehaviour
 
     private List<int> SellList;
 
+
+    private Dictionary<int, int> PlantQuantity = new Dictionary<int, int>();
+    private Dictionary<int, int> ToolQuantity = new Dictionary<int, int>();
+    private Dictionary<int, int> LiveStockQuantity = new Dictionary<int, int>();
+    private Dictionary<int, int> SellQuantity = new Dictionary<int, int>();
+
+    [SerializeField]
+    Market market;
 
 
     [SerializeField]
@@ -171,15 +182,15 @@ public class NewShopController : MonoBehaviour
     void DisplayCards(string ItemsToDisplay)
     {
         ScrollViewSection.Clear();
-        if (ItemsToDisplay.Equals("P")) DisplayCards(PlantCards, PlantBuyList);
-        else if (ItemsToDisplay.Equals("T")) DisplayCards(ToolCards, ToolBuyList);
-        else if(ItemsToDisplay.Equals("L")) DisplayCards(LivestockCards, LivestockBuyList);
+        if (ItemsToDisplay.Equals("P")) DisplayCards(market.Plants, PlantBuyList);
+        else if (ItemsToDisplay.Equals("T")) DisplayCards(market.Tools, ToolBuyList);
+        else if(ItemsToDisplay.Equals("L")) DisplayCards(market.Animals, LivestockBuyList);
         else DisplayCards(SellCards, SellList);
 
     }
-    void DisplayCards(Card [] ItemCards, List<int> BuyOrSellList)
+    void DisplayCards(List<MarketWrapper> ItemCards, List<int> BuyOrSellList)
     {
-        for (int i = 0; i < ItemCards.Length; ++i)
+        for (int i = 0; i < ItemCards.Count; ++i)
         {
             CardButton = new Button();
             CardButton.name = i.ToString();
@@ -198,11 +209,11 @@ public class NewShopController : MonoBehaviour
             InfoContainer.AddToClassList("InfoContainer");
 
             Name = new Label();
-            Name.text = ItemCards[i].name;
+            Name.text = ItemCards[i].display_name;
             Name.AddToClassList("Name");
 
             Price = new Label();
-            Price.text = "$" + ItemCards[i].cost.ToString();
+            Price.text = "$" + ItemCards[i].GetPrice().ToString();
             Price.AddToClassList("Price");
 
             InfoContainer.Add(Name);
@@ -232,7 +243,7 @@ public class NewShopController : MonoBehaviour
 
 
             ScrollViewSection.Add(CardButton);
-            ItemCards[i].quantity = 1;
+            //ItemCards[i].quantity = 1;
 
         }
     }
@@ -261,29 +272,30 @@ public class NewShopController : MonoBehaviour
         */
         if (!isBuy)
         {
-            Pressed(SellList, button.name);
+            Pressed(SellList, button.name, SellQuantity);
             return;
         }
 
-        if (currentTab.Equals("PlantTab")) Pressed(PlantBuyList,button.name);
-        else if (currentTab.Equals("ToolTab")) Pressed(ToolBuyList, button.name);
-        else Pressed(LivestockBuyList, button.name);    
+        if (currentTab.Equals("PlantTab")) Pressed(PlantBuyList,button.name, PlantQuantity);
+        else if (currentTab.Equals("ToolTab")) Pressed(ToolBuyList, button.name, ToolQuantity);
+        else Pressed(LivestockBuyList, button.name, LiveStockQuantity);    
 
     }
 
-    void Pressed(List<int> ItemType, string itemName)
+    void Pressed(List<int> ItemType, string itemName, Dictionary<int,int> QuantityMap)
     {
         Label Status = root.Q<Label>("Status" + int.Parse(itemName));
         if (Status.style.backgroundImage == X)
         {
             Status.style.backgroundImage = Checkmark;
             ItemType.Add(int.Parse(itemName));
-
+            QuantityMap.Add(int.Parse(itemName), 1);
         }
         else
         {
             Status.style.backgroundImage = X;
             ItemType.Remove(int.Parse(itemName));
+            QuantityMap.Remove(int.Parse(itemName));
         }
     }
 
@@ -338,7 +350,7 @@ public class NewShopController : MonoBehaviour
 
     }
 
-    void checkoutItemsDisplay(List<int> ListType, string BuyOrSell, string typeofItem, Card[] items )
+    void checkoutItemsDisplay(List<int> ListType, string BuyOrSell, string typeofItem, List<MarketWrapper> items, Dictionary<int,int> QuantityMap)
     {
         VisualElement CheckoutScrollView = root.Q<VisualElement>("CheckoutScrollViewList");
         string ChosenType = "";
@@ -361,7 +373,7 @@ public class NewShopController : MonoBehaviour
             VisualElement CheckoutItemInfoContainer = new VisualElement();
             CheckoutItemInfoContainer.AddToClassList("CheckoutItemNameContainer");
             Label CheckoutItemInfoLabel = new Label();
-            CheckoutItemInfoLabel.text = ChosenType + " " + items[ListType[i]].name +" "+ "$" + items[ListType[i]].cost.ToString();
+            CheckoutItemInfoLabel.text = ChosenType + " " + items[ListType[i]].display_name +" "+ "$" + items[ListType[i]].GetPrice().ToString();
             CheckoutItemInfoLabel.AddToClassList("CheckoutItemInfoLabel");
             CheckoutItemInfoContainer.Add(CheckoutItemInfoLabel);
 
@@ -374,7 +386,7 @@ public class NewShopController : MonoBehaviour
             Quantity.AddToClassList("Quantity");
             Quantity.maxLength = 4;
             //Quantity.value = "1";
-            Quantity.value = items[ListType[i]].quantity.ToString();
+            Quantity.value = QuantityMap[i].ToString();
             Quantity.name = "Q"+ typeofItem + ListType[i];
             Quantity.RegisterValueChangedCallback((evt) => {
 
@@ -389,26 +401,35 @@ public class NewShopController : MonoBehaviour
                 Debug.Log(parent2.ElementAt(0).name[0]);
                 int n = 0;
                 Debug.Log(int.TryParse(tmp.value, out n));
-                Debug.Log("LENGTH = " + items.Length.ToString());
+                Debug.Log("LENGTH = " + items.Count.ToString());
                 int num = int.Parse(tmp.name.Substring(2));
 
                 if (int.TryParse(tmp.value, out n))
                 {
-                    
-                    totaltmp -= (items[num].quantity * items[num].cost);
+                    totaltmp -= (QuantityMap[num] * items[num].GetPrice());
+                    QuantityMap[num] = int.Parse(tmp.value);
+                    totaltmp += (QuantityMap[num] * items[num].GetPrice());
+                    /*
+                    totaltmp -= (items[num].quantity * items[num].GetPrice());
                     items[num].quantity = int.Parse(tmp.value);
-                    totaltmp += (items[num].quantity * items[num].cost);
+                    totaltmp += (items[num].quantity * items[num].GetPrice());
+                    */
                 }
                 else
                 {
-                    
-                    totaltmp -= (items[num].quantity * items[num].cost);
+                    totaltmp -= (QuantityMap[num] * items[num].GetPrice());
+                    QuantityMap[num] = 0;
+                    if (!tmp.value.Equals(""))
+                        tmp.value = "0";
+                    /*
+                    totaltmp -= (items[num].quantity * items[num].GetPrice());
                     Debug.Log("QUANTITY = " + items[num].quantity.ToString());
                     items[num].quantity = 0;
                     if(!tmp.value.Equals(""))
                         tmp.value = "0";
                     Debug.Log("Total = " + total.ToString());
-                    
+                    */
+
                 }
                 //Debug.Log(tmp.GetFirstAncestorOfType<Button>().name);
                 if (!BuyOrSell.Equals("S")) total = totaltmp;
@@ -420,8 +441,12 @@ public class NewShopController : MonoBehaviour
             checkoutCard.Add(QuantityContainer);
             CheckoutScrollView.Add(checkoutCard);
 
-            if (!BuyOrSell.Equals("S")) total += items[ListType[i]].cost * items[ListType[i]].quantity;
-            else SellTotal += items[ListType[i]].cost * items[ListType[i]].quantity;
+            if (!BuyOrSell.Equals("S")) total += items[ListType[i]].GetPrice() * QuantityMap[i];
+            else SellTotal += items[ListType[i]].GetPrice() * QuantityMap[i];
+            /*
+            if (!BuyOrSell.Equals("S")) total += items[ListType[i]].GetPrice() * items[ListType[i]].quantity;
+            else SellTotal += items[ListType[i]].GetPrice() * items[ListType[i]].quantity;
+            */
             //total += items[ListType[i]].cost * items[ListType[i]].quantity;
 
         }
@@ -430,14 +455,14 @@ public class NewShopController : MonoBehaviour
 
     void CheckoutItemWrapper()
     {
-        checkoutItemsDisplay(PlantBuyList, "B", "P",PlantCards);
-        checkoutItemsDisplay(ToolBuyList, "B", "T", ToolCards);
-        checkoutItemsDisplay(LivestockBuyList, "B", "L", LivestockCards);
-        checkoutItemsDisplay(SellList, "S", "S", SellCards);
+        checkoutItemsDisplay(PlantBuyList, "B", "P",market.Plants, PlantQuantity);
+        checkoutItemsDisplay(ToolBuyList, "B", "T", market.Tools, ToolQuantity);
+        checkoutItemsDisplay(LivestockBuyList, "B", "L", market.Animals, LiveStockQuantity);
+        checkoutItemsDisplay(SellList, "S", "S", SellCards, SellQuantity);
 
     }
 
-    void CancelCheckoutItem(Button button, List<int> buyorSellList, Card[] typeOfItem, char type )
+    void CancelCheckoutItem(Button button, List<int> buyorSellList, List<MarketWrapper> typeOfItem, char type, Dictionary<int,int> QuantityMap )
     {
         int num = int.Parse(button.name.Substring(2));
 
@@ -452,11 +477,18 @@ public class NewShopController : MonoBehaviour
         VisualElement CheckoutScrollView = root.Q<VisualElement>("CheckoutScrollViewList");
         CheckoutScrollView.Remove(tmp);
 
-        if (type.Equals('S')) SellTotal -= typeOfItem[num].cost * typeOfItem[num].quantity;
-        else total -= typeOfItem[num].cost * typeOfItem[num].quantity;
+        if (type.Equals('S')) SellTotal -= typeOfItem[num].GetPrice() * QuantityMap[num];
+        else total -= typeOfItem[num].GetPrice() * QuantityMap[num];
+
+        QuantityMap.Remove(num);
+        /*
+        if (type.Equals('S')) SellTotal -= typeOfItem[num].GetPrice() * typeOfItem[num].quantity;
+        else total -= typeOfItem[num].GetPrice() * typeOfItem[num].quantity;
+        */
 
         //root.Q<Label>("SubtotalLabel").text = total.ToString();
-        typeOfItem[num].quantity = 1;
+
+        //typeOfItem[num].quantity = 1;
 
         CheckNoItems();
 
@@ -473,53 +505,25 @@ public class NewShopController : MonoBehaviour
 
         if (purchaseType.Equals('B'))
         {
-            if (ItemType.Equals('P')) CancelCheckoutItem(button, PlantBuyList, PlantCards, 'P');
-            else if (ItemType.Equals('T')) CancelCheckoutItem(button, ToolBuyList, ToolCards,'T');
-            else CancelCheckoutItem(button, LivestockBuyList, LivestockCards, 'L');
+            if (ItemType.Equals('P')) CancelCheckoutItem(button, PlantBuyList, market.Plants, 'P', PlantQuantity);
+            else if (ItemType.Equals('T')) CancelCheckoutItem(button, ToolBuyList, market.Tools,'T', ToolQuantity);
+            else CancelCheckoutItem(button, LivestockBuyList, market.Animals, 'L', LiveStockQuantity);
         }
         else
         {
-            CancelCheckoutItem(button, SellList, SellCards, 'S');
+            CancelCheckoutItem(button, SellList, SellCards, 'S',SellQuantity);
         }
-        /*
-        else
-        {
 
-            if (ItemType.Equals('P')) CancelCheckoutItem(button, PlantBuyList, PlantCards);
-            else if (ItemType.Equals('T')) CancelCheckoutItem(button, ToolBuyList, ToolCards);
-            else CancelCheckoutItem(button, LivestockBuyList, LivestockCards);
-        }
-        */
-
-        //int num = int.Parse(button.name.Substring(2));
-        /*
-        Label Change = root.Q<Label>("Status" + button.name.Substring(1));
-        Change.style.backgroundImage = X;
-
-        PlantBuyList.Remove(num);
-        Debug.Log(button.GetFirstAncestorOfType<VisualElement>().name);
-        VisualElement tmp = button.GetFirstAncestorOfType<VisualElement>();
-        VisualElement CheckoutScrollView = root.Q<VisualElement>("CheckoutScrollViewList");
-        CheckoutScrollView.Remove(tmp);
-
-        total -= PlantCards[num].cost * PlantCards[num].quantity;
-        root.Q<Label>("SubtotalLabel").text = total.ToString();
-        PlantCards[num].quantity = 1;
-        */
-
-
-        //CheckNoItems();
-
-        //Button tmp = root.Q<Button>("ScrollView");
 
     }
-    void addtoInventory(List<int> BoughtList, Card[] BoughtCardInfo )
+    void addtoInventory(List<int> BoughtList, List<MarketWrapper> BoughtCardInfo, Dictionary<int,int> QuantityMap)
     {
+        
         for(int i =0; i< BoughtList.Count; ++i)
         {
             if (Inventory.CardExists(BoughtCardInfo[BoughtList[i]]))
             {
-                BoughtCardInfo[BoughtList[i]].InventoryQuantity += BoughtCardInfo[BoughtList[i]].quantity;
+                BoughtCardInfo[BoughtList[i]].quantity += QuantityMap[i];
 
             }
             else
@@ -527,12 +531,13 @@ public class NewShopController : MonoBehaviour
                 if (BoughtCardInfo[BoughtList[i]].quantity != 0)
                 {
                     Inventory.Add(BoughtCardInfo[BoughtList[i]]);
-                    BoughtCardInfo[BoughtList[i]].InventoryQuantity += BoughtCardInfo[BoughtList[i]].quantity;
+                    BoughtCardInfo[BoughtList[i]].quantity += QuantityMap[i];
 
                 }
             }
             
         }
+        
     }
     void CheckoutOperation()
     {
@@ -548,9 +553,9 @@ public class NewShopController : MonoBehaviour
             player.Debit(total);
             player.Credit(SellTotal);
 
-            addtoInventory(PlantBuyList, PlantCards);
-            addtoInventory(ToolBuyList, ToolCards);
-            addtoInventory(LivestockBuyList, LivestockCards);
+            addtoInventory(PlantBuyList, market.Plants,PlantQuantity);
+            addtoInventory(ToolBuyList, market.Tools,ToolQuantity);
+            addtoInventory(LivestockBuyList, market.Animals,LiveStockQuantity);
 
             if (total != 0 || SellTotal != 0)
             {
@@ -562,6 +567,11 @@ public class NewShopController : MonoBehaviour
             ToolBuyList.Clear();
             LivestockBuyList.Clear();
             SellList.Clear();
+
+            LiveStockQuantity.Clear();
+            PlantQuantity.Clear();
+            ToolQuantity.Clear();
+            SellQuantity.Clear();
 
 
         }
