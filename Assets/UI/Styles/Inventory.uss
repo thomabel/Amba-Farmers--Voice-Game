@@ -64,6 +64,7 @@
     border-right-width: 1px;
     border-top-width: 1px;
     border-bottom-width: 1px;
+    opacity: 0.5;
 }
 
 .Row {
@@ -156,26 +157,7 @@
     border-right-width: 1px;
     border-top-width: 1px;
     border-bottom-width: 1px;
-    opacity: 0.6;
-}
-
-.ItemButton:focus {
-    width: 100px;
-    height: 100%;
-    background-color: rgb(9, 19, 21);
-    border-left-color: rgb(250, 0, 0);
-    border-right-color: rgb(250, 0, 0);
-    border-top-color: rgb(250, 0, 0);
-    border-bottom-color: rgb(250, 0, 0);
-    color: rgb(255, 255, 255);
-    visibility: visible;
-    background-image: none;
-    -unity-background-scale-mode: scale-to-fit;
-    border-left-width: 1px;
-    border-right-width: 1px;
-    border-top-width: 1px;
-    border-bottom-width: 1px;
-    opacity: 0.6;
+    opacity: 0.4;
 }
 
 .ItemNameLabel {

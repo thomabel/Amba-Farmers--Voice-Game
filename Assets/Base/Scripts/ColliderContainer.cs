@@ -8,10 +8,18 @@ public class ColliderContainer : MonoBehaviour
     private HashSet<Collider> colliders = new HashSet<Collider>();
     public HashSet<Collider> Colliders { get { return colliders; } }
 
+    public StringVariable NearByObjectName;
+
     private void OnTriggerEnter(Collider other)
     {
         colliders.Add(other); //hashset automatically handles duplicates
         RecentlyAdded = other;
+        Debug.Log(other.gameObject.CompareTag("Plant"));
+        if (other.gameObject.CompareTag("Plant"))
+            NearByObjectName.Value = other.gameObject.name;
+        else
+            NearByObjectName.Value = null;
+
     }
 
     private void OnTriggerExit(Collider other)

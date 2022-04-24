@@ -5,32 +5,25 @@ public class Equipment : MonoBehaviour
     public Inventory inventory;
     public Vector3 tool_offset;
 
-    [SerializeField] GameObject item;
-    [SerializeField] GameObject tool;
-
-    public IStorable Item
-    {
-        get { return item.GetComponent<IStorable>(); }
-    }
-    public IEquippable Tool
-    {
-        get { return tool.GetComponent<IEquippable>(); }
-    }
+    public GameObject item_obj;
+    public IStorable Item;
+    public GameObject tool_obj;
+    public IEquippable Tool;
 
     /// <summary>
     /// General method for picking up inventory items.
     /// </summary>
-    /// <param name="item"></param>
-    public void Pickup(GameObject item)
+    /// <param name="thing"></param>
+    public void Pickup(GameObject thing)
     {
-        if (item != null)
+        if (thing != null)
         {
-            var store = item.GetComponent<IStorable>();
+            var store = thing.GetComponent<IStorable>();
             if (store != null)
             {
-                int i = inventory.Add(item);
-                item.SetActive(false);
-                if (item == null)
+                int i = inventory.Add(thing);
+                thing.SetActive(false);
+                if (item_obj == null)
                 {
                     EquipItem(i);
                 }
@@ -38,7 +31,7 @@ public class Equipment : MonoBehaviour
             }
             else
             {
-                EquipTool(item);
+                EquipTool(thing);
             }
         }
     }
@@ -51,7 +44,9 @@ public class Equipment : MonoBehaviour
     {
         if (inventory.check_index(index))
         {
-            item = inventory.Retrieve(index);
+            item_obj = inventory.Retrieve(index);
+            Item = item_obj.GetComponent<IStorable>();
+            item_obj.transform.parent = transform;
         }
     }
 
@@ -68,11 +63,12 @@ public class Equipment : MonoBehaviour
             var equip = item.GetComponent<IEquippable>();
             if (equip != null)
             {
-                if (item != tool)
+                if (item != tool_obj)
                 {
                     DropTool();
                 }
-                tool = item;
+                tool_obj = item;
+                Tool = equip;
                 equip_position(transform, true, tool_offset);
                 return true;
             }
@@ -85,10 +81,11 @@ public class Equipment : MonoBehaviour
     /// <returns>Success of drop.</returns>
     public bool DropTool()
     {
-        if (tool != null)
+        if (tool_obj != null)
         {
             equip_position(null, false, transform.position + tool_offset);
-            tool = null;
+            tool_obj = null;
+            Tool = null;
             return true;
         }
         return false;
@@ -98,18 +95,18 @@ public class Equipment : MonoBehaviour
     private void equip_position(Transform parent, bool kinematic, Vector3 position)
     {
         // Disables collision.
-        var col = tool.GetComponentsInChildren<Collider>();
+        var col = tool_obj.GetComponentsInChildren<Collider>();
         foreach (Collider c in col)
         {
             c.isTrigger = kinematic;
         }
 
         // Controls if item is moving with physics.
-        var rig = tool.GetComponent<Rigidbody>();
+        var rig = tool_obj.GetComponent<Rigidbody>();
         rig.isKinematic = kinematic;
 
         // Changes position of tool.
-        var trn = tool.transform;
+        var trn = tool_obj.transform;
         if (parent != null)
         {
             trn.parent = parent;
