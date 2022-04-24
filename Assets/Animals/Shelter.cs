@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class Shelter : MonoBehaviour, IInteractable
 {
-    [SerializeField] public ShelterSO shelterData;
-    [SerializeField] public Inventory shelterInv;       // Inventory for this shelter
+    public enum Cleanliness { Filthy, Poor, Okay, Good, Clean };
+    public static Animal.Species species;
+    public static int animalCapacity;
+    public static float foodCapacity;
+    public static float waterCapacity;
 
+    [SerializeField] public Inventory shelterInv;       // Inventory for this shelter
+    [SerializeField] public List<Animal> population;    // List of animals currently occupying this shelter
     [SerializeField] public float foodStock;            // Food in shelter in kg
     [SerializeField] public float waterStock;           // Water in shelter in liters
-
-    [SerializeField] public List<Animal> population;    // List of animals currently occupying this shelter
 
     void Start()
     {
@@ -24,8 +27,45 @@ public class Shelter : MonoBehaviour, IInteractable
         
     }
 
-    void UpdateFoodWaterStock() {
+    public List<Animal> GetPopulationList()
+    {
+        return population;
+    }
 
+    public float ConsumeFood(float amountConsumed)
+    {
+        float foodLeftover = foodStock - amountConsumed;
+        // check inventory for food type and amount
+        // remove required amount or as much as possible
+        // just using number in foodStock for now
+        if (foodLeftover >= 0)
+        {
+            foodStock -= amountConsumed;
+            return amountConsumed;
+        }
+        else
+        {
+            foodStock = 0;
+            return amountConsumed + foodLeftover;
+        }
+    }
+
+    public float ConsumeWater(float amountConsumed)
+    {
+        float waterLeftover = waterStock - amountConsumed;
+        // check inventory for food type and amount
+        // remove required amount or as much as possible
+        // just using number in foodStock for now
+        if (waterLeftover >= 0)
+        {
+            waterStock -= amountConsumed;
+            return amountConsumed;
+        }
+        else
+        {
+            waterStock = 0;
+            return amountConsumed + waterLeftover;
+        }
     }
 
     public int GetShelterPop()
@@ -35,7 +75,7 @@ public class Shelter : MonoBehaviour, IInteractable
 
     public bool CheckShelterFull() 
     {
-        if (population.Capacity == shelterData._animalCapacity)
+        if (population.Capacity == animalCapacity)
             return true;
         else
             return false;
@@ -47,7 +87,7 @@ public class Shelter : MonoBehaviour, IInteractable
 
         if (CheckShelterFull() == true)
         {
-            if (animal.animalData._species == shelterData._species)
+            if (animal.species == species)
             {
                 population.Add(animal);
                 success = true;
