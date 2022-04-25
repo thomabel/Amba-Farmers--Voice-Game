@@ -15,4 +15,6 @@ MonoBehaviour:
   name: Avocado
   cost: 500
   quantity: 1
+  InventoryQuantity: 2
   picture: {fileID: 2800000, guid: df6edd45905ca4ecfa7d090cfaed6c4c, type: 3}
+  gameobject: {fileID: 4094665397092055618, guid: 522cd870d937d884dbfbf430df2810b5, type: 3}
