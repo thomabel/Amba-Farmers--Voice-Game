@@ -1,6 +1,7 @@
 using UnityEngine;
+using System.Collections;
 
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviour, IEnumerable, IInteractable
 {
     [SerializeField] int size;
     GameObject[] items;
@@ -19,21 +20,15 @@ public class Inventory : MonoBehaviour
         
     }
 
-
-
-    /// <summary>
-    /// Opens the UI inventory menu.
-    /// </summary>
-    public void Open()
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return items.GetEnumerator();
+    }
+    void IInteractable.Interact()
     {
 
     }
 
-    /// <summary>
-    /// Adds item to the inventory in the first free spot.
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns>Success of the add.</returns>
     public int Add(GameObject item)
     {
         for (int i = 0; i < size; i++)
@@ -46,12 +41,6 @@ public class Inventory : MonoBehaviour
         }
         return -1;
     }
-    /// <summary>
-    /// Insert the item into storage at the specified location.
-    /// </summary>
-    /// <param name="index"></param>
-    /// <param name="item"></param>
-    /// <returns>Success of insertion.</returns>
     public bool Insert(int index, GameObject item)
     {
         if (check_index(index) && items[index] == null)
@@ -61,11 +50,6 @@ public class Inventory : MonoBehaviour
         }
         return false;
     }
-    /// <summary>
-    /// Remove the item from the specified location.
-    /// </summary>
-    /// <param name="index"></param>
-    /// <returns>The removed item.</returns>
     public GameObject Remove(int index)
     {
         if (check_index(index))
@@ -76,11 +60,6 @@ public class Inventory : MonoBehaviour
         }
         return null;
     }
-    /// <summary>
-    /// Returns the item in the given slot.
-    /// </summary>
-    /// <param name="index"></param>
-    /// <returns>The stored item.</returns>
     public GameObject Retrieve(int index)
     {
         if (check_index(index))
@@ -90,7 +69,6 @@ public class Inventory : MonoBehaviour
         return null;
     }
     
-    // Make sure the index is correct.
     public bool check_index(int index)
     {
         return index >= 0 && index < size;

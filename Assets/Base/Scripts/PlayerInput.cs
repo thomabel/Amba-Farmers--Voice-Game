@@ -55,21 +55,27 @@ public class PlayerInput : MonoBehaviour
     {
         if (context.performed)
         {
-            equipment.Tool.Use();
+            if (equipment.Tool != null)
+            {
+                equipment.Tool.Use();
+            }
         }
     }
     public void OnItemUse(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            equipment.Item.Use();
+            if (equipment.Item != null)
+            {
+                equipment.Item.Use();
+            }
         }
     }
     public void OnInventoryOpen(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            inventory.Open();
+            // TODO: Open inventory here.
         }
     }
 }
