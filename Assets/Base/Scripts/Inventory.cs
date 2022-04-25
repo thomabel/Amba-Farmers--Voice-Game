@@ -3,7 +3,6 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     [SerializeField] int size;
-    [SerializeField]
     GameObject[] items;
 
     public int Size
@@ -13,16 +12,11 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        if (items.Length == 0)
-        {
-            items = new GameObject[size];
-        }
-        /*
         if (items == null)
         {
             items = new GameObject[size];
         }
-        */
+        
     }
 
 
