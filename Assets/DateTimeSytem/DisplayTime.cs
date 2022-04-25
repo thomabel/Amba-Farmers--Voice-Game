@@ -24,6 +24,7 @@ public class DisplayTime : MonoBehaviour
 	seconds.Value = startMinute;	
 	text.text = "" + hours.Value + ":" + minutes.Value + ":" + seconds.Value.ToString("D2"); 
 	//timeDisplay.GetComponent<Text>().text = "" + hour + ":" + minutes + ":" + seconds;
+   	accumulator = 0; 
     }
 
     // Update is called once per frame
