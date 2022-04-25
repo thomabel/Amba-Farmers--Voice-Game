@@ -75,7 +75,7 @@ public class PlayerInput : MonoBehaviour
     {
         if (context.performed)
         {
-            inventory.Open();
+            // TODO: Open inventory here.
         }
     }
 }
