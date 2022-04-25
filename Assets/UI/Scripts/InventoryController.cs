@@ -67,7 +67,7 @@ public class InventoryController : MonoBehaviour
 
             count += 1;
 
-            PlayerInventory.Insert(i, inventory.FindCardIndex(i).item_prefab);
+            //PlayerInventory.Insert(i, inventory.FindCardIndex(i).item_prefab);
 
 
         }
@@ -125,12 +125,25 @@ public class InventoryController : MonoBehaviour
 
         Debug.Log(CurrentCard.item_prefab);
 
-        Debug.Log(player.transform.position);
-        //Instantiate(CurrentCard.gameobject);
+        //Debug.Log(player.transform.position);
+
+
+
+        GameObject tmp = Instantiate(CurrentCard.item_prefab);
+
+        tmp.AddComponent<TypeLabel>();
+
+        TypeLabel tmpLabel = tmp.GetComponent<TypeLabel>();
+        tmpLabel.Type = CurrentCard.type;
+
+
+
+        /*
         Instantiate(CurrentCard.item_prefab, playerObject.transform.position + new Vector3(0, 2, 2), Quaternion.identity);
         ItemName.text = CurrentCard.name;
         QuantityNum.text = CurrentCard.quantity.ToString();
-        
+        */
+
 
 
         //player.Add(CurrentCard.gameobject);

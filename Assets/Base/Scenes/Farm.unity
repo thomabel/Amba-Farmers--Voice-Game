@@ -354,9 +354,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: 3e077b6989a0e4625be5c8bbcdfe50f9, type: 2}
-  player: {fileID: 587454056}
+  player: {fileID: 0}
   playerObject: {fileID: 555023749}
-  PlayerInventory: {fileID: 587454056}
+  PlayerInventory: {fileID: 0}
   PlayerEquipment: {fileID: 555023750}
 --- !u!1 &345468437
 GameObject:
@@ -821,6 +821,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e93de2c4d37baa41b7fde6827ce57fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &555023751 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1372538282953322442, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
+  m_PrefabInstance: {fileID: 5000978703216393676}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555023749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 159455164520834419d4456a0a1e9844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &555023758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -840,17 +851,6 @@ MonoBehaviour:
   hours: {fileID: 11400000, guid: 0f635fc52d4ff162c9afb295625868be, type: 2}
   minutes: {fileID: 11400000, guid: c7616399032d8122ebbde1147989ef7f, type: 2}
   seconds: {fileID: 11400000, guid: 96c82ae3e108bfe4b9cc6b7d6f87fa5d, type: 2}
---- !u!114 &587454056 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1372538282953322442, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
-  m_PrefabInstance: {fileID: 5000978703216393676}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 555023749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 159455164520834419d4456a0a1e9844, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &627355832
 GameObject:
   m_ObjectHideFlags: 0
@@ -1155,13 +1155,14 @@ GameObject:
   m_Component:
   - component: {fileID: 851174411}
   - component: {fileID: 851174410}
+  - component: {fileID: 851174412}
   m_Layer: 5
   m_Name: UIDocument
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &851174410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1192,6 +1193,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &851174412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851174409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1028b5083e0314900af752942ba1bff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InventoryOne: {fileID: 555023751}
+  InventoryTwo: {fileID: 1052422598}
+  PlayerInvList: {fileID: 11400000, guid: 3e077b6989a0e4625be5c8bbcdfe50f9, type: 2}
+  HouseInvList: {fileID: 11400000, guid: 30c1479d202354bfb8e72300994baff2, type: 2}
+  market: {fileID: 11400000, guid: afb579fdefb244b96b444e559dd6efa5, type: 2}
 --- !u!1 &917601504
 GameObject:
   m_ObjectHideFlags: 0
@@ -1340,6 +1358,24 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 9.81
     Variable: {fileID: 11400000, guid: 45bf8ed4edb86774e9cc067588d49318, type: 2}
+--- !u!1 &1052422597 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5734759510965973885, guid: 2daf1a462f906bb4993b5827ce7b3663, type: 3}
+  m_PrefabInstance: {fileID: 5734759512473713604}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1052422598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052422597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 159455164520834419d4456a0a1e9844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: 5
 --- !u!1 &1146765976
 GameObject:
   m_ObjectHideFlags: 0
@@ -1716,6 +1752,7 @@ MonoBehaviour:
   PhoneGameObject: {fileID: 2055118915}
   market: {fileID: 11400000, guid: afb579fdefb244b96b444e559dd6efa5, type: 2}
   Inventory: {fileID: 11400000, guid: 3e077b6989a0e4625be5c8bbcdfe50f9, type: 2}
+  PlayerInv: {fileID: 555023751}
 --- !u!1 &1964340072
 GameObject:
   m_ObjectHideFlags: 0

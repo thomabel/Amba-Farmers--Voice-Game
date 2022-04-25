@@ -4,6 +4,7 @@ using System.Collections;
 public class Inventory : MonoBehaviour, IEnumerable, IInteractable
 {
     [SerializeField] int size;
+
     Item[] items;
 
     public int Size
@@ -17,7 +18,12 @@ public class Inventory : MonoBehaviour, IEnumerable, IInteractable
         {
             items = new Item[size];
         }
-        
+        /*
+        for(int i = 0; i< size; ++i)
+        {
+            items[i] = null;
+        }
+        */
     }
 
     IEnumerator IEnumerable.GetEnumerator()

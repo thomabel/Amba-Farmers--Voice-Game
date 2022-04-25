@@ -7,33 +7,37 @@
                 <ui:Label text="Inventories" display-tooltip-when-elided="true" style="width: 95%; height: 100%; -unity-text-align: upper-center; font-size: 36px; -unity-font-style: bold; color: rgb(255, 255, 255); padding-right: 15%;" />
             </ui:VisualElement>
             <ui:VisualElement name="Body" class="InventoryBody">
-                <ui:VisualElement name="Inventory1" class="InventorySectionContainers">
-                    <ui:Label text="Player" display-tooltip-when-elided="true" style="width: 90%; -unity-text-align: middle-center; height: 10%; font-size: 36px; -unity-font-style: bold; color: rgb(255, 255, 255);" />
+                <ui:VisualElement name="Inventory1" class="InventorySectionContainers" style="width: 35%;">
+                    <ui:Label text="Player" display-tooltip-when-elided="true" name="Label1" style="width: 90%; -unity-text-align: middle-center; height: 10%; font-size: 36px; -unity-font-style: bold; color: rgb(255, 255, 255);" />
                     <ui:ScrollView mode="Vertical" horizontal-scroller-visibility="Auto" vertical-scroller-visibility="AlwaysVisible" name="ScrollView1" class="InventoryScrollView" style="flex-direction: column; align-items: flex-start; height: 90%;">
                         <ui:VisualElement class="Row">
-                            <ui:Button text="Button" display-tooltip-when-elided="true" class="SlotIcon ItemButton" style="height: 90%;" />
-                            <ui:Button text="Button" display-tooltip-when-elided="true" class="SlotIcon ItemButton" style="height: 90%;" />
+                            <ui:Button text="Button" display-tooltip-when-elided="true" class="SlotIcon ItemButton SmallerItemButton" />
+                            <ui:Button text="Button" display-tooltip-when-elided="true" class="SlotIcon ItemButton SmallerItemButton" />
                         </ui:VisualElement>
                     </ui:ScrollView>
                 </ui:VisualElement>
-                <ui:VisualElement name="Inventory1Info" class="InventorySectionContainers" style="width: 25%; height: 100%; align-items: center; margin-top: 10px; flex-grow: 0;">
-                    <ui:VisualElement style="width: 80%; height: 48%; border-left-color: rgb(255, 197, 0); border-right-color: rgb(255, 197, 0); border-top-color: rgb(255, 197, 0); border-bottom-color: rgb(255, 197, 0); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; margin-top: 10px; align-items: center;">
+                <ui:VisualElement name="Inventory1Info" class="InventorySectionContainers InvnfoContainer">
+                    <ui:VisualElement style="width: 80%; height: 48%; border-left-color: rgb(255, 197, 0); border-right-color: rgb(255, 197, 0); border-top-color: rgb(255, 197, 0); border-bottom-color: rgb(255, 197, 0); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; margin-top: 10px; align-items: center; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;">
                         <ui:Label text="Label" display-tooltip-when-elided="true" name="NameOfIten" class="ItemNameLabel" style="white-space: normal; font-size: 24px;" />
-                        <ui:Button text="Transfer" display-tooltip-when-elided="true" class="TransferButton" />
-                        <ui:Button text="Swap" display-tooltip-when-elided="true" class="SwapButton" />
+                        <ui:VisualElement style="width: 100%; height: 30%; flex-direction: row; margin-top: 10%; justify-content: space-around; align-items: center;">
+                            <ui:Button text="Transfer" display-tooltip-when-elided="true" class="TransferButton" />
+                            <ui:Button text="Swap" display-tooltip-when-elided="true" class="SwapButton" />
+                        </ui:VisualElement>
+                        <ui:VisualElement style="width: 100%; height: 30%; flex-direction: row; margin-top: 10%; justify-content: space-around; align-items: center;">
+                            <ui:Button text="Equip" display-tooltip-when-elided="true" class="SwapButton" style="background-color: rgb(140, 202, 106);" />
+                        </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement style="width: 80%; height: 48%; border-left-color: rgb(255, 197, 0); border-right-color: rgb(255, 197, 0); border-top-color: rgb(255, 197, 0); border-bottom-color: rgb(255, 197, 0); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; margin-top: 10px;" />
                 </ui:VisualElement>
-                <ui:VisualElement name="Inventory2" class="InventorySectionContainers" style="width: 25%; height: 100%;">
-                    <ui:Label text="Player" display-tooltip-when-elided="true" style="width: 90%; -unity-text-align: middle-center; height: 10%; font-size: 36px; -unity-font-style: bold; color: rgb(255, 255, 255);" />
-                    <ui:ScrollView mode="Vertical" horizontal-scroller-visibility="Auto" vertical-scroller-visibility="AlwaysVisible" name="ScrollView1" class="InventoryScrollView" style="flex-direction: column; align-items: flex-start; height: 90%; margin-left: 10px;">
+                <ui:VisualElement name="Inventory2" class="InventorySectionContainers" style="width: 35%; height: 100%;">
+                    <ui:Label text="Player" display-tooltip-when-elided="true" name="Label2" style="width: 90%; -unity-text-align: middle-center; height: 10%; font-size: 36px; -unity-font-style: bold; color: rgb(255, 255, 255);" />
+                    <ui:ScrollView mode="Vertical" horizontal-scroller-visibility="Auto" vertical-scroller-visibility="AlwaysVisible" name="ScrollView2" class="InventoryScrollView" style="flex-direction: column; align-items: flex-start; height: 90%; margin-left: 10px;">
                         <ui:VisualElement class="Row">
                             <ui:Button text="Button" display-tooltip-when-elided="true" class="SlotIcon ItemButton" style="height: 90%;" />
                             <ui:Button text="Button" display-tooltip-when-elided="true" class="SlotIcon ItemButton" style="height: 90%;" />
                         </ui:VisualElement>
                     </ui:ScrollView>
                 </ui:VisualElement>
-                <ui:VisualElement name="Inventory2Info" class="InventorySectionContainers" style="width: 25%; height: 100%;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

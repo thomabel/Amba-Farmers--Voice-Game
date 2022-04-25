@@ -195,23 +195,27 @@
 }
 
 .InventorySectionContainers {
-    width: 25%;
+    width: 35%;
     height: 100%;
-    border-left-color: rgba(255, 197, 0, 255);
-    border-right-color: rgba(255, 197, 0, 255);
-    border-top-color: rgba(255, 197, 0, 255);
-    border-bottom-color: rgba(255, 197, 0, 255);
+    border-left-color: rgb(255, 197, 0);
+    border-right-color: rgb(255, 197, 0);
+    border-top-color: rgb(255, 197, 0);
+    border-bottom-color: rgb(255, 197, 0);
     border-right-width: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .TransferButton {
-    width: 90%;
-    height: 20%;
-    margin-top: 10%;
+    width: 40%;
+    height: 100%;
+    margin-top: 0;
     background-color: rgb(255, 197, 0);
     color: rgb(0, 0, 0);
     -unity-font-style: bold;
-    font-size: 22px;
+    font-size: 18px;
     border-left-color: rgb(0, 0, 0);
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
@@ -223,13 +227,13 @@
 }
 
 .SwapButton {
-    width: 90%;
-    height: 20%;
-    margin-top: 10%;
+    width: 40%;
+    height: 100%;
+    margin-top: 0;
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
     -unity-font-style: bold;
-    font-size: 22px;
+    font-size: 18px;
     border-left-color: rgb(0, 0, 0);
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
@@ -241,13 +245,13 @@
 }
 
 .TransferButton:active {
-    width: 90%;
-    height: 20%;
-    margin-top: 10%;
+    width: 40%;
+    height: 100%;
+    margin-top: 0;
     background-color: rgb(255, 197, 0);
     color: rgb(0, 0, 0);
     -unity-font-style: bold;
-    font-size: 22px;
+    font-size: 18px;
     border-left-color: rgb(0, 0, 0);
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
@@ -260,13 +264,13 @@
 }
 
 .SwapButton:active {
-    width: 90%;
-    height: 20%;
-    margin-top: 10%;
+    width: 40%;
+    height: 100%;
+    margin-top: 0;
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
     -unity-font-style: bold;
-    font-size: 22px;
+    font-size: 18px;
     border-left-color: rgb(0, 0, 0);
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
@@ -275,5 +279,28 @@
     border-right-width: 1px;
     border-top-width: 1px;
     border-bottom-width: 1px;
+    opacity: 0.6;
+}
+
+.SmallerItemButton {
+    height: 100%;
+    -unity-background-scale-mode: scale-to-fit;
+    background-image: none;
+    width: 100px;
+}
+
+.InvnfoContainer {
+    width: 30%;
+    height: 100%;
+    align-items: center;
+    margin-top: 10px;
+    flex-grow: 0;
+}
+
+.SmallerItemButton:active {
+    height: 100%;
+    -unity-background-scale-mode: scale-to-fit;
+    background-image: none;
+    width: 100px;
     opacity: 0.6;
 }

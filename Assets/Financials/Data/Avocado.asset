@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24b3d64f807f7f419ab037d9d69a0f1, type: 3}
   m_Name: Avocado
   m_EditorClassIdentifier: 
+  type: 1
   display_name: Avocado
   item_prefab: {fileID: 4094665397092055618, guid: 522cd870d937d884dbfbf430df2810b5, type: 3}
   value: 0
-  quantity: 5
+  qty_type: 0
   picture: {fileID: 2800000, guid: df6edd45905ca4ecfa7d090cfaed6c4c, type: 3}
   supply: 0
   demand: 0
