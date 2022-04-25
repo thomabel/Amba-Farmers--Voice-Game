@@ -81,6 +81,7 @@ public class Plant: MonoBehaviour
 
     void ApplyHealthStatusVisuals()
     {
+        /*
         Material newMaterial;
 
         if (currentHealthStatus == healthStatus.Dead)
@@ -98,7 +99,8 @@ public class Plant: MonoBehaviour
             newMaterial = Resources.Load<Material>("Healthy Plant");
             gameObject.GetComponent<Renderer>().material = newMaterial;
         }
-
+        */
+        return
     }
 
     void UpdateHealthStatus()
@@ -218,11 +220,13 @@ public class Plant: MonoBehaviour
         {
             case growthStages.Seedling:
                 {
+                    /*
                     float xPos = transform.position.x;
                     float zPos = transform.position.z;
                     float yPosNew = 0.1f;
                     transform.localScale = new Vector3(0.1f, yPosNew, 0.1f);
                     transform.position = new Vector3(xPos, yPosNew, zPos);
+                    */
                     break;
                 }
             case growthStages.Vegetative:
