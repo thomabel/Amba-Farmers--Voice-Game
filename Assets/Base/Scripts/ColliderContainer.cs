@@ -24,6 +24,10 @@ public class ColliderContainer : MonoBehaviour
         Collider closest = null;
         foreach (Collider collider in Colliders)
         {
+            if (collider == null)
+            {
+                continue;
+            }
             var dist = Vector3.Distance(pos, collider.transform.position);
             if (dist <= maximum)
             {
