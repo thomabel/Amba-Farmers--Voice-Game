@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Plant: MonoBehaviour
+public class Plant: MonoBehaviour, IInteractable
 {
     // The position of the sun
     private Transform sunPosition;
@@ -43,7 +43,8 @@ public class Plant: MonoBehaviour
     public enum growthStages
     {
         Seedling,
-        Vegetative,
+        Vegetative1,
+        Vegetative2,
         Flowering,
         Fruiting,
         Harvest
@@ -81,7 +82,6 @@ public class Plant: MonoBehaviour
 
     void ApplyHealthStatusVisuals()
     {
-        /*
         Material newMaterial;
 
         if (currentHealthStatus == healthStatus.Dead)
@@ -99,8 +99,7 @@ public class Plant: MonoBehaviour
             newMaterial = Resources.Load<Material>("Healthy Plant");
             gameObject.GetComponent<Renderer>().material = newMaterial;
         }
-        */
-        return
+        return;
     }
 
     void UpdateHealthStatus()
@@ -220,16 +219,14 @@ public class Plant: MonoBehaviour
         {
             case growthStages.Seedling:
                 {
-                    /*
                     float xPos = transform.position.x;
                     float zPos = transform.position.z;
                     float yPosNew = 0.1f;
                     transform.localScale = new Vector3(0.1f, yPosNew, 0.1f);
                     transform.position = new Vector3(xPos, yPosNew, zPos);
-                    */
                     break;
                 }
-            case growthStages.Vegetative:
+            case growthStages.Vegetative1:
                 {
                     float xPos = transform.position.x;
                     float zPos = transform.position.z;
@@ -310,6 +307,27 @@ public class Plant: MonoBehaviour
     void GetNutrientLevel()
     {
         nutrientLevel = 50;
+    }
+
+    void IInteractable.Interact()
+    {
+        Harvest();
+    }
+
+    void Harvest()
+    {
+        Debug.Log("Harvest");
+        if (currentGrowthStage != growthStages.Harvest)
+        {
+            return;
+        }
+        Vector3 fruitPlacement = new Vector3();
+        fruitPlacement = transform.position;
+        fruitPlacement += new Vector3(-1.0F, 0F, -1.0F);
+        Fruit newFruitbasket = Instantiate(Resources.Load("Fruit", typeof(Fruit)), fruitPlacement, Quaternion.identity) as Fruit;
+        newFruitbasket.fruitMass = 5f;
+        newFruitbasket.fruitName = "Corn";
+        Destroy(gameObject);
     }
 }
 
