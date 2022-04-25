@@ -13,8 +13,9 @@ public class ColliderContainer : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         colliders.Add(other); //hashset automatically handles duplicates
+
+        // For UI
         RecentlyAdded = other;
-        Debug.Log(other.gameObject.CompareTag("Plant"));
         if (other.gameObject.CompareTag("Plant"))
             NearByObjectName.Value = other.gameObject.name;
         else

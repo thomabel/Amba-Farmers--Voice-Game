@@ -1,15 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(
-    fileName = "market",
-    menuName = "Financials/Market"
-    )]
-public class Market : ScriptableObject
+public class Market : MonoBehaviour
 {
+    public List<Inventory> Inventories;
     public List<MarketWrapper> Reference;
     public Dictionary<Financials.GoodType, MarketWrapper> Comparator;
-    public HashSet<Inventory> Inventories;
 
     public struct Sellable
     {
