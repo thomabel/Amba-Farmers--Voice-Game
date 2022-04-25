@@ -11,12 +11,23 @@ public class PhoneButtonController : MonoBehaviour
 
     private Button ShopButton;
 
+    private Button FinancialsApp;
+
     public GameObject ShopApp;
 
+    private Label Time;
+
+    [SerializeField]
+    private DisplayTime DateModule;
+
+
+    [SerializeField]
+    private Account player;
     // Start is called before the first frame update
     void OnEnable()
     {
         root = GetComponent<UIDocument>().rootVisualElement;
+        root.Focus();
 
         Phone = root.Q<Button>("RealPhoneButtonContainer");
 
@@ -28,8 +39,18 @@ public class PhoneButtonController : MonoBehaviour
         ShopButton = root.Q<Button>("ShopApp");
         ShopButton.clicked += ShopButtonPressed;
 
-    }
+        FinancialsApp = root.Q<Button>("FinancialsApp");
+        FinancialsApp.clicked += FinancialsAppPressed;
 
+        root.Q<Button>("BackButtonToApps").clicked += BackButtonToAppsPressed;
+
+        Time = root.Q<Label>("Time");
+
+    }
+    private void Update()
+    {
+        Time.text = DateModule.TimeDisplay();
+    }
     void Pressed()
     {
         Phone.style.display = DisplayStyle.None;
@@ -44,5 +65,31 @@ public class PhoneButtonController : MonoBehaviour
         Debug.Log(ShopApp);
         ShopApp.SetActive(true);
         this.gameObject.SetActive(false);
+    }
+
+    void BackButtonToAppsPressed()
+    {
+        StyleSet(DisplayStyle.None, DisplayStyle.Flex);
+        root.Q<Label>("AppsLabel").text = "Apps";
+    }
+    void FinancialsAppPressed()
+    {
+
+        StyleSet(DisplayStyle.Flex, DisplayStyle.None);
+
+
+        root.Q<Label>("AppsLabel").text = "Financials";
+        root.Q<Label>("AccountingBalance").text = player.Balance().ToString();
+    }
+    void StyleSet(DisplayStyle Financial, DisplayStyle ScrollContainer)
+    {
+        root.Q<ScrollView>("RealPhoneScrollView").style.display = ScrollContainer;
+
+        root.Q<VisualElement>("BackButtonContainer").style.display = Financial;
+
+        root.Q<VisualElement>("FinancialContent").style.display = Financial;
+
+        //AppScrollView.style.display = ScrollContainer;
+
     }
 }

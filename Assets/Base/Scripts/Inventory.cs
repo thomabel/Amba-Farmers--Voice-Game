@@ -4,6 +4,7 @@ using System.Collections;
 public class Inventory : MonoBehaviour, IEnumerable, IInteractable
 {
     [SerializeField] int size;
+    [SerializeField]
     GameObject[] items;
 
     public int Size
