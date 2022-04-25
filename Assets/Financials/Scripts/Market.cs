@@ -7,12 +7,17 @@ using System.Collections.Generic;
     )]
 public class Market : ScriptableObject
 {
-    public List<MarketWrapper> Plants;
-    public List<MarketWrapper> Animals;
-    public List<MarketWrapper> Tools;
+    public List<MarketWrapper> Reference;
+    public Dictionary<Financials.GoodType, MarketWrapper> Comparator;
+    public HashSet<Inventory> Inventories;
 
-    public List<Inventory> Inventories;
-    public List<GameObject> Sellables;
+    public struct Sellable
+    {
+        public MarketWrapper wrap;
+        public Inventory inv;
+        public int index;
+    }
+    public List<Sellable> Sellables;
 
     public void PopulateSellables()
     {
@@ -23,16 +28,11 @@ public class Market : ScriptableObject
                 var s = g.GetComponent<Plant>();
                 if (s != null)
                 {
-                    Sellables.Add(g);
+                    //Sellables.Add(g);
 
                     // Check enum here to match type?
                 }
             }
         }
-    }
-
-    public struct a
-    {
-        float r;
     }
 }
