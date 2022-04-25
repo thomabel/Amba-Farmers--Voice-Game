@@ -70,7 +70,7 @@ public class Equipment : MonoBehaviour
         var equip = tool.GetComponent<IEquippable>();
         if (equip != null)
         {
-            if (tool != tool_obj.obj)
+            if (tool_obj != null && tool != tool_obj.obj)
             {
                 DropTool();
             }
