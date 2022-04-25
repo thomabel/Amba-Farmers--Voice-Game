@@ -4,8 +4,7 @@ using System.Collections;
 public class Inventory : MonoBehaviour, IEnumerable, IInteractable
 {
     [SerializeField] int size;
-    [SerializeField]
-    GameObject[] items;
+    Item[] items;
 
     public int Size
     {
@@ -16,7 +15,7 @@ public class Inventory : MonoBehaviour, IEnumerable, IInteractable
     {
         if (items == null)
         {
-            items = new GameObject[size];
+            items = new Item[size];
         }
     }
 
@@ -29,7 +28,7 @@ public class Inventory : MonoBehaviour, IEnumerable, IInteractable
 
     }
 
-    public int Add(GameObject item)
+    public int Add(Item item)
     {
         for (int i = 0; i < size; i++)
         {
@@ -41,7 +40,8 @@ public class Inventory : MonoBehaviour, IEnumerable, IInteractable
         }
         return -1;
     }
-    public bool Insert(int index, GameObject item)
+
+    public bool Insert(int index, Item item)
     {
         if (check_index(index) && items[index] == null)
         {
@@ -50,7 +50,8 @@ public class Inventory : MonoBehaviour, IEnumerable, IInteractable
         }
         return false;
     }
-    public GameObject Remove(int index)
+
+    public Item Remove(int index)
     {
         if (check_index(index))
         {
@@ -60,7 +61,8 @@ public class Inventory : MonoBehaviour, IEnumerable, IInteractable
         }
         return null;
     }
-    public GameObject Retrieve(int index)
+
+    public Item Retrieve(int index)
     {
         if (check_index(index))
         {

@@ -7,15 +7,16 @@ using Currency = System.Int32;
     )]
 public class MarketWrapper : ScriptableObject
 {
+    public Financials.GoodType type;
     public string display_name;
     public GameObject item_prefab;
     public Currency value;
-    public int quantity = 1;
+    public Base.QuantityType qty_type;
     public Texture2D picture;
     public float supply, demand;
 
-    public Currency GetPrice()
+    public Currency PriceOf()
     {
-        return 1;
+        return value;
     }
 }
