@@ -607,12 +607,11 @@ public class NewShopController : MonoBehaviour
 
     }
 
-    void addSeedInventory(List<int> BoughtList, List<MarketWrapper> BoughtCardInfo, Dictionary<int, int> QuantityMap)
+    void addToolAndSeedInventory(List<int> BoughtList, List<MarketWrapper> BoughtCardInfo, Dictionary<int, int> QuantityMap, int StartInventory)
     {
         int maxInventories = market.Inventories.Count;
 
-        int currentInventory = 0;
-        for (int i = 0; i < BoughtList.Count && currentInventory < maxInventories; ++i)
+        for (int i = 0; i < BoughtList.Count && StartInventory < maxInventories; ++i)
         {
             Item tmp = new Item();
             tmp.obj = Instantiate(BoughtCardInfo[BoughtList[i]].item_prefab);
@@ -623,23 +622,20 @@ public class NewShopController : MonoBehaviour
             TypeLabel tmpLabel = tmp.obj.GetComponent<TypeLabel>();
             tmpLabel.Type = BoughtCardInfo[BoughtList[i]].type;
 
-            if (!market.Inventories[currentInventory].DuplicateItems(tmp))
+            if (!market.Inventories[StartInventory].DuplicateItems(tmp))
             {
-                if (market.Inventories[currentInventory].Add(tmp) == -1)
-                    ++currentInventory;
+                if (market.Inventories[StartInventory].Add(tmp) == -1)
+                {
+                    ++StartInventory;
+                    //TODO NO SPACE then REFUND THEM
+                    market.Inventories[StartInventory].Add(tmp);
+                }
             }
 
         }
 
     }
     
-    void addToolInventory(List<int> BoughtList, List<MarketWrapper> BoughtCardInfo, Dictionary<int, int> QuantityMap)
-    {
-        return;
-    }
-    
-
-
     void CheckoutOperation()
     {
 
@@ -654,8 +650,8 @@ public class NewShopController : MonoBehaviour
             player.Debit(total);
             player.Credit(SellTotal);
 
-            addSeedInventory(PlantBuyList, Plants,PlantQuantity);
-            addToolInventory(ToolBuyList, Tools,ToolQuantity);
+            addToolAndSeedInventory(PlantBuyList, Plants,PlantQuantity,0);
+            addToolAndSeedInventory(ToolBuyList, Tools,ToolQuantity,1);
            //addtoInventory(LivestockBuyList, Animals,LiveStockQuantity);
 
             if (total != 0 || SellTotal != 0)

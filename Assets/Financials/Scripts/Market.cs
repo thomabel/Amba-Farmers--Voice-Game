@@ -47,9 +47,9 @@ public class Market : MonoBehaviour
 
     private void Start()
     {
-        PopulateComparator();
+        //PopulateComparator();
     }
-
+    /*
     private void PopulateComparator()
     {
         foreach (MarketWrapper wrap in Reference)
@@ -57,4 +57,5 @@ public class Market : MonoBehaviour
             Comparator.Add(wrap.type, wrap);
         }
     }
+    */
 }
