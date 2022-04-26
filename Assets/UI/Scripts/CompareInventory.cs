@@ -88,7 +88,23 @@ public class CompareInventory : MonoBehaviour
 
         Item2.index = -1;
 
+        Item tmp = new Item();
 
+
+        tmp.obj = Instantiate(market.Reference[4].item_prefab);
+
+        tmp.obj.AddComponent<TypeLabel>();
+
+        TypeLabel tmpLabel = tmp.obj.GetComponent<TypeLabel>();
+
+
+        tmpLabel.Type = market.Reference[4].type;
+
+
+        tmp.quantity = 2;
+
+
+        InventoryTwo.Add(tmp);
         //allocateInventory(PlayerInvList, InventoryOne);
         //allocateInventory(HouseInvList, InventoryTwo);
 
