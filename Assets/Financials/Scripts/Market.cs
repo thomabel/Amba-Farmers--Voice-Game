@@ -9,26 +9,52 @@ public class Market : MonoBehaviour
 
     public struct Sellable
     {
-        public MarketWrapper wrap;
         public Inventory inv;
         public int index;
+        public MarketWrapper wrap;
+
+        public Sellable(Inventory inv, int index, MarketWrapper wrap)
+        {
+            this.inv = inv;
+            this.index = index;
+            this.wrap = wrap;
+        }
     }
     public List<Sellable> Sellables;
 
     public void PopulateSellables()
     {
-        foreach (Inventory i in Inventories)
+        foreach (Inventory inv in Inventories)
         {
-            foreach (GameObject g in i)
+            for(int i = 0; i < inv.Size; i++)
             {
-                var s = g.GetComponent<Plant>();
-                if (s != null)
-                {
-                    //Sellables.Add(g);
+                var item = inv[i];
+                if (item == null)
+                    continue;
 
-                    // Check enum here to match type?
-                }
+                var type = item.obj.GetComponent<TypeLabel>();
+                if (type == null)
+                    continue;
+
+                MarketWrapper wrap;
+                if (!Comparator.TryGetValue(type.Type, out wrap))
+                    continue;
+
+                Sellables.Add(new Sellable(inv, i, wrap));
             }
+        }
+    }
+
+    private void Start()
+    {
+        PopulateComparator();
+    }
+
+    private void PopulateComparator()
+    {
+        foreach (MarketWrapper wrap in Reference)
+        {
+            Comparator.Add(wrap.type, wrap);
         }
     }
 }

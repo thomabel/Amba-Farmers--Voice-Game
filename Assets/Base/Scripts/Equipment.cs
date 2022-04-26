@@ -7,6 +7,7 @@ public class Equipment : MonoBehaviour
 
     public Item item_obj;
     public IStorable Item;
+    public int item_index;
 
     public Item tool_obj;
     public IEquippable Tool;
@@ -21,6 +22,7 @@ public class Equipment : MonoBehaviour
         {
             return;
         }
+
         var store = thing.GetComponent<IStorable>();
         if (store != null)
         {
@@ -45,14 +47,37 @@ public class Equipment : MonoBehaviour
     /// Equips the item at index into the item equip slot.
     /// </summary>
     /// <param name="index"></param>
-    public void EquipItem(int index)
+    /// <returns>Success of equip</returns>
+    public bool EquipItem(int index)
     {
-        if (inventory.check_index(index))
+        item_obj = inventory.Retrieve(index);
+        if (item_obj == null)
         {
-            item_obj = inventory.Retrieve(index);
-            Item = item_obj.obj.GetComponent<IStorable>();
-            item_obj.obj.transform.parent = transform;
+            return false;
         }
+
+        Item = item_obj.obj.GetComponent<IStorable>();
+        item_obj.obj.transform.parent = transform;
+        item_index = index;
+        return true;
+    }
+
+    /// <summary>
+    /// Drops the equipped item on to the ground.
+    /// </summary>
+    /// <returns>Success of drop.</returns>
+    public bool DropItem()
+    {
+        if (item_obj == null)
+        {
+            return false;
+        }
+
+        var item = inventory.Remove(item_index);
+        item.obj.transform.parent = null;
+        item.obj.SetActive(true);
+
+        return true;
     }
 
     /// <summary>
@@ -70,18 +95,19 @@ public class Equipment : MonoBehaviour
         var equip = tool.GetComponent<IEquippable>();
         if (equip != null)
         {
-            if (tool_obj != null && tool != tool_obj.obj)
-            {
-                DropTool();
-            }
-            tool_obj = create_item(tool);
-            Tool = equip;
-            equip_position(transform, true, tool_offset);
-
-            return true;
+            return false;
         }
 
-        return false;
+        if (tool_obj != null && tool != tool_obj.obj)
+        {
+            DropTool();
+        }
+
+        tool_obj = create_item(tool);
+        Tool = equip;
+        equip_position(transform, true, tool_offset);
+
+        return true;
     }
    
     /// <summary>
@@ -92,12 +118,14 @@ public class Equipment : MonoBehaviour
     {
         if (tool_obj != null)
         {
-            equip_position(null, false, transform.position + tool_offset);
-            tool_obj = null;
-            Tool = null;
-            return true;
+            return false;
         }
-        return false;
+        
+        equip_position(null, false, transform.position + tool_offset);
+        tool_obj = null;
+        Tool = null;
+
+        return true;
     }
 
     // Sets up the positioning of the tool.
