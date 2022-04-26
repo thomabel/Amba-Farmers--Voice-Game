@@ -34,6 +34,17 @@ public class Inventory : MonoBehaviour, IEnumerable, IInteractable
         return;
     }
 
+    public int FreeSpace()
+    {
+        int free = 0;
+        for (int i = 0; i < size; i++)
+        {
+            if (items[i] == null)
+                free++;
+        }
+        return free;
+    }
+
     public int Add(Item item)
     {
         for (int i = 0; i < size; i++)

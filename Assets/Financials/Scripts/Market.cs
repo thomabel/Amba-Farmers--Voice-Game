@@ -22,6 +22,16 @@ public class Market : MonoBehaviour
     }
     public List<Sellable> Sellables;
 
+    public int FreeSpace()
+    {
+        int free = 0;
+        foreach (Inventory i in Inventories)
+        {
+            free += i.FreeSpace();
+        }
+        return free;
+    }
+
     public void PopulateSellables()
     {
         foreach (Inventory inv in Inventories)
@@ -47,9 +57,11 @@ public class Market : MonoBehaviour
 
     private void Start()
     {
-        //PopulateComparator();
+        Comparator = new Dictionary<Financials.GoodType, MarketWrapper>();
+        Sellables = new List<Sellable>();
+        PopulateComparator();
     }
-    /*
+    
     private void PopulateComparator()
     {
         foreach (MarketWrapper wrap in Reference)
@@ -57,5 +69,5 @@ public class Market : MonoBehaviour
             Comparator.Add(wrap.type, wrap);
         }
     }
-    */
+    
 }
