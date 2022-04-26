@@ -50,6 +50,7 @@ public class Interact : MonoBehaviour
         }
         return null;
     }
+
     // Use ray to find a gameobject.
     private GameObject get_pointed(Ray ray)
     {
@@ -61,20 +62,24 @@ public class Interact : MonoBehaviour
         }
         return null;
     }
+
     // Check that the object is interactable.
     private IInteractable check_interact(GameObject check)
     {
-        if (check != null)
+        if (check == null)
         {
-            var inter = check.GetComponent<IInteractable>();
-            if (inter != null)
-            {
-                inter.Interact();
-                last_interacted = check;
-                Debug.Log("interact: " + last_interacted.name);
-                return inter;
-            }
+            return null;
         }
-        return null;
+
+        var inter = check.GetComponent<IInteractable>();
+        if (inter == null)
+        {
+            return null;
+        }
+
+        inter.Interact();
+        last_interacted = check;
+        Debug.Log("Interacted with " + last_interacted.name + '.');
+        return inter;
     }
 }
