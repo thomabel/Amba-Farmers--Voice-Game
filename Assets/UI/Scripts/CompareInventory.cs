@@ -51,6 +51,8 @@ public class CompareInventory : MonoBehaviour
     }
 
     //For testing... Inventories should most likely already be filled
+
+    /*
     private void allocateInventory(InventoryList invList, Inventory inventory)
     {
         for (int i = 0; i < invList.length(); ++i)
@@ -75,6 +77,7 @@ public class CompareInventory : MonoBehaviour
         }
 
     }
+    */
     void OnEnable()
     {
         Item1 = new InvAndIndexInfo();
@@ -86,8 +89,8 @@ public class CompareInventory : MonoBehaviour
         Item2.index = -1;
 
 
-        allocateInventory(PlayerInvList, InventoryOne);
-        allocateInventory(HouseInvList, InventoryTwo);
+        //allocateInventory(PlayerInvList, InventoryOne);
+        //allocateInventory(HouseInvList, InventoryTwo);
 
 
         root = GetComponent<UIDocument>().rootVisualElement;

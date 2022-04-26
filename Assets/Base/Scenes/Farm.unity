@@ -354,8 +354,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: 3e077b6989a0e4625be5c8bbcdfe50f9, type: 2}
-  player: {fileID: 587454056}
+  player: {fileID: 0}
   playerObject: {fileID: 0}
+  PlayerInventory: {fileID: 0}
+  PlayerEquipment: {fileID: 0}
 --- !u!1 &345468437
 GameObject:
   m_ObjectHideFlags: 0
@@ -721,7 +723,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &540931723
 RectTransform:
   m_ObjectHideFlags: 0
@@ -808,23 +810,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5000978703520966211, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
   m_PrefabInstance: {fileID: 5000978703216393676}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &555023750 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 68358369854966711, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
-  m_PrefabInstance: {fileID: 5000978703216393676}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 555023749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e93de2c4d37baa41b7fde6827ce57fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &555023751 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1372538282953322442, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
   m_PrefabInstance: {fileID: 5000978703216393676}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 555023749}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 159455164520834419d4456a0a1e9844, type: 3}
@@ -1207,7 +1198,7 @@ MonoBehaviour:
   InventoryTwo: {fileID: 1052422598}
   PlayerInvList: {fileID: 11400000, guid: 3e077b6989a0e4625be5c8bbcdfe50f9, type: 2}
   HouseInvList: {fileID: 11400000, guid: 30c1479d202354bfb8e72300994baff2, type: 2}
-  market: {fileID: 11400000, guid: afb579fdefb244b96b444e559dd6efa5, type: 2}
+  market: {fileID: 1666174810}
 --- !u!1 &917601504
 GameObject:
   m_ObjectHideFlags: 0
@@ -1676,6 +1667,57 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1359399175}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1666174809
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1666174811}
+  - component: {fileID: 1666174810}
+  m_Layer: 0
+  m_Name: Market
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1666174810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666174809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a261082b59a520e4890f456ccee0a547, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Inventories:
+  - {fileID: 555023751}
+  - {fileID: 1052422598}
+  Reference:
+  - {fileID: 11400000, guid: 64f6a7548f7bd4007b8d133b9118c04e, type: 2}
+  - {fileID: 11400000, guid: acc1dfed09831490ea3af24ff8fd0246, type: 2}
+  - {fileID: 11400000, guid: df171af3c47f99d49962e5e400b45524, type: 2}
+  - {fileID: 11400000, guid: 48525f29256b3464b816a35de834158d, type: 2}
+--- !u!4 &1666174811
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666174809}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1748987786 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5000978702549307974, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
@@ -1748,7 +1790,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: df171af3c47f99d49962e5e400b45524, type: 2}
   - {fileID: 11400000, guid: acc1dfed09831490ea3af24ff8fd0246, type: 2}
   PhoneGameObject: {fileID: 2055118915}
-  market: {fileID: 11400000, guid: afb579fdefb244b96b444e559dd6efa5, type: 2}
+  market: {fileID: 1666174810}
   Inventory: {fileID: 11400000, guid: 3e077b6989a0e4625be5c8bbcdfe50f9, type: 2}
   PlayerInv: {fileID: 555023751}
 --- !u!1 &1964340072
@@ -1910,7 +1952,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2055118916
 MonoBehaviour:
   m_ObjectHideFlags: 0

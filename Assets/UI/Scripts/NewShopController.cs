@@ -581,9 +581,65 @@ public class NewShopController : MonoBehaviour
             }
             
         }
+
+             Item tmp = new Item();
+
+
+            tmp.obj = Instantiate(invList.FindCardIndex(i).item_prefab);
+
+            tmp.obj.AddComponent<TypeLabel>();
+
+            TypeLabel tmpLabel = tmp.obj.GetComponent<TypeLabel>();
+
+
+            tmpLabel.Type = invList.FindCardIndex(i).type;
+
+
+            tmp.quantity = 2;
+
+
+            inventory.Add(tmp);
+
+
+
+
         */
-        
+
     }
+
+    void addSeedInventory(List<int> BoughtList, List<MarketWrapper> BoughtCardInfo, Dictionary<int, int> QuantityMap)
+    {
+        int maxInventories = market.Inventories.Count;
+
+        int currentInventory = 0;
+        for (int i = 0; i < BoughtList.Count && currentInventory < maxInventories; ++i)
+        {
+            Item tmp = new Item();
+            tmp.obj = Instantiate(BoughtCardInfo[BoughtList[i]].item_prefab);
+            tmp.quantity = QuantityMap[BoughtList[i]];
+
+            tmp.obj.AddComponent<TypeLabel>();
+
+            TypeLabel tmpLabel = tmp.obj.GetComponent<TypeLabel>();
+            tmpLabel.Type = BoughtCardInfo[BoughtList[i]].type;
+
+            if (!market.Inventories[currentInventory].DuplicateItems(tmp))
+            {
+                if (market.Inventories[currentInventory].Add(tmp) == -1)
+                    ++currentInventory;
+            }
+
+        }
+
+    }
+    
+    void addToolInventory(List<int> BoughtList, List<MarketWrapper> BoughtCardInfo, Dictionary<int, int> QuantityMap)
+    {
+        return;
+    }
+    
+
+
     void CheckoutOperation()
     {
 
@@ -598,8 +654,8 @@ public class NewShopController : MonoBehaviour
             player.Debit(total);
             player.Credit(SellTotal);
 
-            addtoInventory(PlantBuyList, Plants,PlantQuantity);
-            addtoInventory(ToolBuyList, Tools,ToolQuantity);
+            addSeedInventory(PlantBuyList, Plants,PlantQuantity);
+            addToolInventory(ToolBuyList, Tools,ToolQuantity);
            //addtoInventory(LivestockBuyList, Animals,LiveStockQuantity);
 
             if (total != 0 || SellTotal != 0)

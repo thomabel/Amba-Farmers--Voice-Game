@@ -18,12 +18,6 @@ public class Inventory : MonoBehaviour, IEnumerable, IInteractable
         {
             items = new Item[size];
         }
-        /*
-        for(int i = 0; i< size; ++i)
-        {
-            items[i] = null;
-        }
-        */
     }
 
     IEnumerator IEnumerable.GetEnumerator()
@@ -81,5 +75,19 @@ public class Inventory : MonoBehaviour, IEnumerable, IInteractable
     public bool check_index(int index)
     {
         return index >= 0 && index < size;
+    }
+
+    public bool DuplicateItems(Item item)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            if (items[i] != null && items[i].obj.GetComponent<TypeLabel>().Type == item.obj.GetComponent<TypeLabel>().Type)
+            {
+                items[i].quantity += item.quantity;
+                return true;
+            }
+        }
+        return false;
+
     }
 }
