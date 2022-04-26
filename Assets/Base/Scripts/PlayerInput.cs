@@ -45,10 +45,18 @@ public class PlayerInput : MonoBehaviour
             var obj = interact.Use();
             interact.Use(cam.ScreenPointToRay(Mouse.current.position.ReadValue()));
 
-            if (obj != null)
+            if (obj == null)
             {
-                equipment.Pickup(obj);
+                return;
             }
+
+            var inv = obj.GetComponent<Inventory>();
+            if (inv != null)
+            {
+                // Call UI inventory swap.
+                return;
+            }
+            equipment.Pickup(obj);
         }
     }
     public void OnToolUse(InputAction.CallbackContext context)

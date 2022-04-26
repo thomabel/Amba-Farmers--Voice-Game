@@ -20,13 +20,18 @@ public class Inventory : MonoBehaviour, IEnumerable, IInteractable
         }
     }
 
+    public Item this[int i]
+    {
+        get { return items[i]; }
+        set { items[i] = value; }
+    }
     IEnumerator IEnumerable.GetEnumerator()
     {
         return items.GetEnumerator();
     }
     void IInteractable.Interact()
     {
-
+        return;
     }
 
     public int Add(Item item)
@@ -72,7 +77,7 @@ public class Inventory : MonoBehaviour, IEnumerable, IInteractable
         return null;
     }
     
-    public bool check_index(int index)
+    private bool check_index(int index)
     {
         return index >= 0 && index < size;
     }
