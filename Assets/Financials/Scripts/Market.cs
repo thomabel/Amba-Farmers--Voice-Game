@@ -28,7 +28,7 @@ public class Market : MonoBehaviour
         {
             for(int i = 0; i < inv.Size; i++)
             {
-                var item = inv.Retrieve(i);
+                var item = inv[i];
                 if (item == null)
                     continue;
 
