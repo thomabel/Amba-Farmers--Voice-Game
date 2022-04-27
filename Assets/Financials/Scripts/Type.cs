@@ -9,6 +9,9 @@ namespace Financials
         Tool_Hoe,
         Seed_Corn,
         Fruit_Corn,
+        Animal_Pig,
+        Animal_Goat,
+        Animal_Chicken,
 
     }
 }
