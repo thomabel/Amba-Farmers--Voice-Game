@@ -1,14 +1,72 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(
-    fileName = "market",
-    menuName = "Financials/Market"
-    )]
-public class Market : ScriptableObject
+public class Market : MonoBehaviour
 {
-    public List<MarketWrapper> Plants;
-    public List<MarketWrapper> Animals;
-    public List<MarketWrapper> Tools;
+    public List<Inventory> Inventories;
+    public List<MarketWrapper> Reference;
+    public Dictionary<Financials.GoodType, MarketWrapper> Comparator;
 
+    public struct Sellable
+    {
+        public Inventory inv;
+        public int index;
+        public MarketWrapper wrap;
+
+        public Sellable(Inventory inv, int index, MarketWrapper wrap)
+        {
+            this.inv = inv;
+            this.index = index;
+            this.wrap = wrap;
+        }
+    }
+    public List<Sellable> Sellables;
+
+    public int FreeSpace()
+    {
+        int free = 0;
+        foreach (Inventory i in Inventories)
+        {
+            free += i.FreeSpace();
+        }
+        return free;
+    }
+
+    public void PopulateSellables()
+    {
+        foreach (Inventory inv in Inventories)
+        {
+            for(int i = 0; i < inv.Size; i++)
+            {
+                var item = inv[i];
+                if (item == null)
+                    continue;
+
+                var type = item.obj.GetComponent<TypeLabel>();
+                if (type == null)
+                    continue;
+
+                MarketWrapper wrap;
+                if (!Comparator.TryGetValue(type.Type, out wrap))
+                    continue;
+
+                Sellables.Add(new Sellable(inv, i, wrap));
+            }
+        }
+    }
+
+    private void Start()
+    {
+        Comparator = new Dictionary<Financials.GoodType, MarketWrapper>();
+        Sellables = new List<Sellable>();
+        PopulateComparator();
+    }
+
+    private void PopulateComparator()
+    {
+        foreach (MarketWrapper wrap in Reference)
+        {
+            Comparator.Add(wrap.type, wrap);
+        }
+    }
 }

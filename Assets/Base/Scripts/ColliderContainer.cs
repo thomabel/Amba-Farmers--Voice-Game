@@ -13,8 +13,9 @@ public class ColliderContainer : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         colliders.Add(other); //hashset automatically handles duplicates
+
+        // For UI
         RecentlyAdded = other;
-        Debug.Log(other.gameObject.CompareTag("Plant"));
         if (other.gameObject.CompareTag("Plant"))
             NearByObjectName.Value = other.gameObject.name;
         else
@@ -32,6 +33,10 @@ public class ColliderContainer : MonoBehaviour
         Collider closest = null;
         foreach (Collider collider in Colliders)
         {
+            if (collider == null)
+            {
+                continue;
+            }
             var dist = Vector3.Distance(pos, collider.transform.position);
             if (dist <= maximum)
             {

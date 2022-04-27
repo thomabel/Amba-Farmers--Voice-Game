@@ -5,9 +5,11 @@ public class Equipment : MonoBehaviour
     public Inventory inventory;
     public Vector3 tool_offset;
 
-    public GameObject item_obj;
+    public Item item_obj;
     public IStorable Item;
-    public GameObject tool_obj;
+    public int item_index;
+
+    public Item tool_obj;
     public IEquippable Tool;
 
     /// <summary>
@@ -16,65 +18,98 @@ public class Equipment : MonoBehaviour
     /// <param name="thing"></param>
     public void Pickup(GameObject thing)
     {
-        if (thing != null)
+        if (thing == null)
         {
-            var store = thing.GetComponent<IStorable>();
-            if (store != null)
-            {
-                int i = inventory.Add(thing);
-                thing.SetActive(false);
-                if (item_obj == null)
-                {
-                    EquipItem(i);
-                }
-
-            }
-            else
-            {
-                EquipTool(thing);
-            }
+            return;
         }
+
+        var store = thing.GetComponent<IStorable>();
+        if (store != null)
+        {
+            var wrap = create_item(thing);
+            int i = inventory.Add(wrap);
+            wrap.obj.SetActive(false);
+
+            if (item_obj == null)
+            {
+                EquipItem(i);
+            }
+
+        }
+        else
+        {
+            EquipTool(thing);
+        }
+        return;
     }
 
     /// <summary>
     /// Equips the item at index into the item equip slot.
     /// </summary>
     /// <param name="index"></param>
-    public void EquipItem(int index)
+    /// <returns>Success of equip</returns>
+    public bool EquipItem(int index)
     {
-        if (inventory.check_index(index))
+        item_obj = inventory.Retrieve(index);
+        if (item_obj == null)
         {
-            item_obj = inventory.Retrieve(index);
-            Item = item_obj.GetComponent<IStorable>();
-            item_obj.transform.parent = transform;
+            return false;
         }
+
+        Item = item_obj.obj.GetComponent<IStorable>();
+        item_obj.obj.transform.parent = transform;
+        item_index = index;
+        return true;
     }
 
+    /// <summary>
+    /// Drops the equipped item on to the ground.
+    /// </summary>
+    /// <returns>Success of drop.</returns>
+    public bool DropItem()
+    {
+        if (item_obj == null)
+        {
+            return false;
+        }
+
+        var item = inventory.Remove(item_index);
+        item.obj.transform.parent = null;
+        item.obj.SetActive(true);
+
+        return true;
+    }
 
     /// <summary>
     /// Assign the given equipment into the slot. Must have IEquippable.
     /// </summary>
-    /// <param name="item"></param>
+    /// <param name="tool"></param>
     /// <returns>Success of equip.</returns>
-    public bool EquipTool(GameObject item)
+    public bool EquipTool(GameObject tool)
     {
-        if (item != null)
+        if (tool == null)
         {
-            var equip = item.GetComponent<IEquippable>();
-            if (equip != null)
-            {
-                if (item != tool_obj)
-                {
-                    DropTool();
-                }
-                tool_obj = item;
-                Tool = equip;
-                equip_position(transform, true, tool_offset);
-                return true;
-            }
+            return false;
         }
-        return false;
+
+        var equip = tool.GetComponent<IEquippable>();
+        if (equip != null)
+        {
+            return false;
+        }
+
+        if (tool_obj != null && tool != tool_obj.obj)
+        {
+            DropTool();
+        }
+
+        tool_obj = create_item(tool);
+        Tool = equip;
+        equip_position(transform, true, tool_offset);
+
+        return true;
     }
+   
     /// <summary>
     /// Drops the equipment on the ground.
     /// </summary>
@@ -83,30 +118,32 @@ public class Equipment : MonoBehaviour
     {
         if (tool_obj != null)
         {
-            equip_position(null, false, transform.position + tool_offset);
-            tool_obj = null;
-            Tool = null;
-            return true;
+            return false;
         }
-        return false;
+        
+        equip_position(null, false, transform.position + tool_offset);
+        tool_obj = null;
+        Tool = null;
+
+        return true;
     }
 
     // Sets up the positioning of the tool.
     private void equip_position(Transform parent, bool kinematic, Vector3 position)
     {
         // Disables collision.
-        var col = tool_obj.GetComponentsInChildren<Collider>();
+        var col = tool_obj.obj.GetComponentsInChildren<Collider>();
         foreach (Collider c in col)
         {
             c.isTrigger = kinematic;
         }
 
         // Controls if item is moving with physics.
-        var rig = tool_obj.GetComponent<Rigidbody>();
+        var rig = tool_obj.obj.GetComponent<Rigidbody>();
         rig.isKinematic = kinematic;
 
         // Changes position of tool.
-        var trn = tool_obj.transform;
+        var trn = tool_obj.obj.transform;
         if (parent != null)
         {
             trn.parent = parent;
@@ -118,5 +155,16 @@ public class Equipment : MonoBehaviour
             trn.parent = parent;
         }
 
+    }
+
+    // Create a new Item from a GameObject.
+    private Item create_item(GameObject thing)
+    {
+        var wrap = new Item();
+        wrap.obj = thing;
+        var qty = thing.GetComponent<Quantity>();
+        wrap.quantity = qty == null ? 1 : qty.Value;
+
+        return wrap;
     }
 }

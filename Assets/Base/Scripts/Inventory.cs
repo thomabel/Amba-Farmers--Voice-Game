@@ -1,10 +1,10 @@
 using UnityEngine;
+using System.Collections;
 
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviour, IEnumerable, IInteractable
 {
     [SerializeField] int size;
-    [SerializeField]
-    GameObject[] items;
+    Item[] items;
 
     public int Size
     {
@@ -15,26 +15,36 @@ public class Inventory : MonoBehaviour
     {
         if (items == null)
         {
-            items = new GameObject[size];
+            items = new Item[size];
         }
     }
 
-
-
-    /// <summary>
-    /// Opens the UI inventory menu.
-    /// </summary>
-    public void Open()
+    public Item this[int i]
     {
-
+        get { return items[i]; }
+        set { items[i] = value; }
+    }
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return items.GetEnumerator();
+    }
+    void IInteractable.Interact()
+    {
+        return;
     }
 
-    /// <summary>
-    /// Adds item to the inventory in the first free spot.
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns>Success of the add.</returns>
-    public int Add(GameObject item)
+    public int FreeSpace()
+    {
+        int free = 0;
+        for (int i = 0; i < size; i++)
+        {
+            if (items[i] == null)
+                free++;
+        }
+        return free;
+    }
+
+    public int Add(Item item)
     {
         for (int i = 0; i < size; i++)
         {
@@ -46,13 +56,8 @@ public class Inventory : MonoBehaviour
         }
         return -1;
     }
-    /// <summary>
-    /// Insert the item into storage at the specified location.
-    /// </summary>
-    /// <param name="index"></param>
-    /// <param name="item"></param>
-    /// <returns>Success of insertion.</returns>
-    public bool Insert(int index, GameObject item)
+
+    public bool Insert(int index, Item item)
     {
         if (check_index(index) && items[index] == null)
         {
@@ -61,12 +66,8 @@ public class Inventory : MonoBehaviour
         }
         return false;
     }
-    /// <summary>
-    /// Remove the item from the specified location.
-    /// </summary>
-    /// <param name="index"></param>
-    /// <returns>The removed item.</returns>
-    public GameObject Remove(int index)
+
+    public Item Remove(int index)
     {
         if (check_index(index))
         {
@@ -76,12 +77,8 @@ public class Inventory : MonoBehaviour
         }
         return null;
     }
-    /// <summary>
-    /// Returns the item in the given slot.
-    /// </summary>
-    /// <param name="index"></param>
-    /// <returns>The stored item.</returns>
-    public GameObject Retrieve(int index)
+
+    public Item Retrieve(int index)
     {
         if (check_index(index))
         {
@@ -90,8 +87,7 @@ public class Inventory : MonoBehaviour
         return null;
     }
     
-    // Make sure the index is correct.
-    public bool check_index(int index)
+    private bool check_index(int index)
     {
         return index >= 0 && index < size;
     }
