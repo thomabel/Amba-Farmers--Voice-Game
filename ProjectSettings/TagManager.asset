@@ -6,8 +6,6 @@ TagManager:
   tags:
   - Shop
   - Plant
-  - Bucket
-  - Water
   layers:
   - Default
   - TransparentFX
