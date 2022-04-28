@@ -354,8 +354,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: 3e077b6989a0e4625be5c8bbcdfe50f9, type: 2}
-  player: {fileID: 0}
+  player: {fileID: 555023751}
   playerObject: {fileID: 0}
+  market: {fileID: 1666174810}
   PlayerInventory: {fileID: 0}
   PlayerEquipment: {fileID: 0}
 --- !u!1 &345468437
@@ -507,6 +508,7 @@ GameObject:
   - component: {fileID: 378541957}
   - component: {fileID: 378541956}
   - component: {fileID: 378541955}
+  - component: {fileID: 378541962}
   m_Layer: 0
   m_Name: Seed
   m_TagString: Untagged
@@ -632,6 +634,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &378541962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378541954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfde4d85b794e7e4c9035ccc9e4a9a43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 1
 --- !u!1001 &426596189
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -810,6 +825,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5000978703520966211, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
   m_PrefabInstance: {fileID: 5000978703216393676}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &555023750 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 68358369854966711, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
+  m_PrefabInstance: {fileID: 5000978703216393676}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555023749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e93de2c4d37baa41b7fde6827ce57fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &555023751 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1372538282953322442, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
@@ -1199,6 +1225,7 @@ MonoBehaviour:
   PlayerInvList: {fileID: 11400000, guid: 3e077b6989a0e4625be5c8bbcdfe50f9, type: 2}
   HouseInvList: {fileID: 11400000, guid: 30c1479d202354bfb8e72300994baff2, type: 2}
   market: {fileID: 1666174810}
+  PlayerEquipment: {fileID: 555023750}
 --- !u!1 &917601504
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24b3d64f807f7f419ab037d9d69a0f1, type: 3}
   m_Name: Seed Corn
   m_EditorClassIdentifier: 
-  type: 5
+  type: 8
   display_name: Corn
   item_prefab: {fileID: 8759900201963628373, guid: d2d4b0ea32435d042a919657caa878f4, type: 3}
   value: 0

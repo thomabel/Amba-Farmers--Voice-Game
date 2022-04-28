@@ -165,6 +165,7 @@
     color: rgb(255, 255, 255);
     -unity-text-align: upper-center;
     flex-wrap: wrap;
+    width: 100%;
 }
 
 .EquipButton {
@@ -302,5 +303,29 @@
     -unity-background-scale-mode: scale-to-fit;
     background-image: none;
     width: 100px;
+    opacity: 0.6;
+}
+
+.EquippedItems {
+    border-left-color: rgb(248, 0, 0);
+    border-right-color: rgb(248, 0, 0);
+    border-top-color: rgb(248, 0, 0);
+    border-bottom-color: rgb(248, 0, 0);
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+    opacity: 0.6;
+}
+
+.EquippedItems:active {
+    border-left-color: rgb(248, 0, 0);
+    border-right-color: rgb(248, 0, 0);
+    border-top-color: rgb(248, 0, 0);
+    border-bottom-color: rgb(248, 0, 0);
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-top-width: 4px;
+    border-bottom-width: 4px;
     opacity: 0.6;
 }

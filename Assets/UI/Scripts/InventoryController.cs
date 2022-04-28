@@ -21,6 +21,9 @@ public class InventoryController : MonoBehaviour
     [SerializeField]
     GameObject playerObject;
     private Button currentPressedItem;
+    [SerializeField]
+    private Market market;
+
 
     [SerializeField]
     private Inventory PlayerInventory;
@@ -31,7 +34,7 @@ public class InventoryController : MonoBehaviour
 
     void OnEnable ()
     {
-        int length = inventory.length();
+        //int length = inventory.length();
         currentPressedItem = null;
         VisualElement Current = new VisualElement();
         Current.AddToClassList("Row");
@@ -44,6 +47,7 @@ public class InventoryController : MonoBehaviour
 
         ScrollViewSection = root.Q<VisualElement>("InventoryScrollView");
         int count = 0;
+        int length = player.Size;
         for(int i = 0; i < length; ++i)
         {
 
@@ -59,8 +63,9 @@ public class InventoryController : MonoBehaviour
             InventoryItem.name = i.ToString();
             InventoryItem.AddToClassList("SlotIcon");
             InventoryItem.AddToClassList("ItemButton");
-
-            InventoryItem.style.backgroundImage = inventory.FindCardIndex(i).picture;
+            Item tmpobj = player.Retrieve(i);
+            if(tmpobj == null) InventoryItem.style.backgroundImage = null;
+            else InventoryItem.style.backgroundImage = findReference(tmpobj.obj.GetComponent<TypeLabel>().Type).picture;
             //InventoryItem.style.backgroundImage = null;
             Current.Add(InventoryItem);
             ScrollViewSection.Add(Current);
@@ -88,6 +93,17 @@ public class InventoryController : MonoBehaviour
             Current.Add(InventoryItem);
         }
 
+    }
+    MarketWrapper findReference(Financials.GoodType tmp)
+    {
+        for (int i = 0; i < market.Reference.Count; ++i)
+        {
+            if (market.Reference[i].type == tmp)
+            {
+                return market.Reference[i];
+            }
+        }
+        return null;
     }
     void EquipButtonClicked(EventBase obj)
     {

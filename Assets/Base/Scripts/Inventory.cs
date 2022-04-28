@@ -100,6 +100,7 @@ public class Inventory : MonoBehaviour, IEnumerable, IInteractable
             if (items[i] != null && items[i].obj.GetComponent<TypeLabel>().Type == item.obj.GetComponent<TypeLabel>().Type)
             {
                 items[i].quantity += item.quantity;
+                items[i].obj.GetComponent<Quantity>().Value += item.quantity;
                 return true;
             }
         }

@@ -13,6 +13,8 @@ public class NewShopController : MonoBehaviour
     private Label Picture;
     private Label Name;
     private Label Price;
+    private Label InventoryName;
+
     private Label inCartLabel;
     private Label StatusPicture;
 
@@ -179,15 +181,15 @@ public class NewShopController : MonoBehaviour
     {
         for(int i = 0; i < market.Reference.Count; ++i)
         {
-            if(market.Reference[i].type >= Financials.GoodType.Tool_Hoe && market.Reference[i].type <= Financials.GoodType.Tool_Hoe)
+            if(market.Reference[i].type > Financials.GoodType.Tool_Start && market.Reference[i].type < Financials.GoodType.Tool_End)
             {
                 Tools.Add(market.Reference[i]);
             }
-            else if(market.Reference[i].type >= Financials.GoodType.Seed_Avocado && market.Reference[i].type <= Financials.GoodType.Seed_Corn)
+            else if(market.Reference[i].type > Financials.GoodType.Seed_Start && market.Reference[i].type < Financials.GoodType.Seed_End)
             {
                 Plants.Add(market.Reference[i]);
             }
-            else if (market.Reference[i].type >= Financials.GoodType.Animal_Pig && market.Reference[i].type <= Financials.GoodType.Animal_Pig)
+            else if (market.Reference[i].type > Financials.GoodType.Animal_Start && market.Reference[i].type < Financials.GoodType.Animal_End)
             {
                 Animals.Add(market.Reference[i]);
             }
@@ -321,8 +323,13 @@ public class NewShopController : MonoBehaviour
             Price.text = "$" + ItemCards[i].wrap.PriceOf().ToString();
             Price.AddToClassList("Price");
 
+            InventoryName = new Label();
+            InventoryName.text = ItemCards[i].inv.gameObject.name + "\n" + "Inventory";
+            InventoryName.AddToClassList("InventoryName");
+
             InfoContainer.Add(Name);
             InfoContainer.Add(Price);
+            InfoContainer.Add(InventoryName);
 
             StatusContainer = new VisualElement();
             StatusContainer.AddToClassList("Status");
@@ -734,15 +741,20 @@ public class NewShopController : MonoBehaviour
             Item tmp = new Item();
             tmp.obj = Instantiate(BoughtCardInfo[BoughtList[i]].item_prefab);
             tmp.obj.SetActive(false);
-            tmp.quantity = QuantityMap[BoughtList[i]];
 
+            tmp.quantity = QuantityMap[BoughtList[i]];
             tmp.obj.AddComponent<TypeLabel>();
 
             TypeLabel tmpLabel = tmp.obj.GetComponent<TypeLabel>();
             tmpLabel.Type = BoughtCardInfo[BoughtList[i]].type;
 
+            tmp.obj.AddComponent<Quantity>();
+            Quantity tmpQuantity = tmp.obj.GetComponent<Quantity>();
+            tmpQuantity.Value = QuantityMap[BoughtList[i]];
+
             if (!market.Inventories[StartInventory].DuplicateItems(tmp))
             {
+
                 if (market.Inventories[StartInventory].Add(tmp) == -1)
                 {
                     ++StartInventory;
