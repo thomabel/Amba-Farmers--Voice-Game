@@ -93,14 +93,14 @@ public class Inventory : MonoBehaviour, IEnumerable, IInteractable
         return index >= 0 && index < size;
     }
 
-    public bool DuplicateItems(Item item)
+    public bool DuplicateItems(Financials.GoodType ItemType, float Quantity)
     {
         for (int i = 0; i < size; i++)
         {
-            if (items[i] != null && items[i].obj.GetComponent<TypeLabel>().Type == item.obj.GetComponent<TypeLabel>().Type)
+            if (items[i] != null && items[i].obj.GetComponent<TypeLabel>().Type == ItemType)
             {
-                items[i].quantity += item.quantity;
-                items[i].obj.GetComponent<Quantity>().Value += item.quantity;
+                items[i].quantity += Quantity;
+                items[i].obj.GetComponent<Quantity>().Value += Quantity;
                 return true;
             }
         }

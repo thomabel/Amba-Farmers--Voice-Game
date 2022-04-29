@@ -24,21 +24,24 @@
                             <ui:Label text="Item" display-tooltip-when-elided="true" style="-unity-text-align: upper-left; width: 15%; height: 70%; font-size: 20px; -unity-font-style: bold; color: rgb(255, 255, 255);" />
                         </ui:VisualElement>
                         <ui:VisualElement class="Row" style="border-left-color: rgb(255, 197, 0); border-right-color: rgb(255, 197, 0); border-top-color: rgb(255, 197, 0); border-bottom-color: rgb(255, 197, 0); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;">
-                            <ui:Button display-tooltip-when-elided="true" name="ToolButton" class="SlotIcon ItemButton SmallerItemButton EquippedItems" style="background-image: none;" />
+                            <ui:Button display-tooltip-when-elided="true" name="ToolButton" class="SlotIcon ItemButton SmallerItemButton EquippedItems" style="background-image: none; display: flex;" />
                             <ui:Button display-tooltip-when-elided="true" name="ItemButton" class="SlotIcon ItemButton SmallerItemButton EquippedItems" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="QuanInfoContainer" style="width: 80%; height: 48%; border-left-color: rgb(255, 197, 0); border-right-color: rgb(255, 197, 0); border-top-color: rgb(255, 197, 0); border-bottom-color: rgb(255, 197, 0); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; margin-top: 10px; align-items: center; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; justify-content: flex-start; display: flex;">
                         <ui:Label text="Label" display-tooltip-when-elided="true" name="NameOfItem" class="ItemNameLabel" style="white-space: normal; font-size: 24px; -unity-font-style: bold-and-italic; height: 20%; -unity-text-align: middle-center;" />
-                        <ui:VisualElement name="VisualElement" style="width: 100%; height: 30%; flex-direction: row; margin-top: 0; justify-content: space-around; align-items: center; color: rgb(255, 255, 255);">
+                        <ui:VisualElement name="TypeLabelContainers" style="width: 100%; height: 30%; flex-direction: row; margin-top: 0; justify-content: space-around; align-items: center; color: rgb(255, 255, 255);">
                             <ui:Label text="Type:" display-tooltip-when-elided="true" style="font-size: 24px; -unity-font-style: bold;" />
                             <ui:Label text="Label" display-tooltip-when-elided="true" name="TypeLabel" style="font-size: 24px;" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="VisualElement" style="width: 100%; height: 30%; flex-direction: row; margin-top: 0; justify-content: space-around; align-items: center; color: rgb(255, 255, 255);">
+                        <ui:VisualElement name="QuantityContainers" style="width: 100%; height: 30%; flex-direction: row; margin-top: 0; justify-content: space-around; align-items: center; color: rgb(255, 255, 255);">
                             <ui:Label text="Quantity:" display-tooltip-when-elided="true" style="font-size: 24px; -unity-font-style: bold;" />
                             <ui:Label text="Label" display-tooltip-when-elided="true" name="QuantityValue" style="font-size: 24px;" />
                         </ui:VisualElement>
-                        <ui:Button text="Equip" display-tooltip-when-elided="true" name="Equip" class="EquipButton" style="width: 90%; height: 20%;" />
+                        <ui:VisualElement name="ToolContainerButtons" style="width: 90%; height: 20%; display: none;">
+                            <ui:Button text="Send" display-tooltip-when-elided="true" name="ToolButton" class="EquipButton" style="background-color: rgb(185, 27, 24); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); color: rgb(255, 255, 255); white-space: normal; font-size: 20px;" />
+                        </ui:VisualElement>
+                        <ui:Button text="Equip" display-tooltip-when-elided="true" name="Equip" class="EquipButton" style="width: 90%; height: 20%; display: flex;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="Inventory2" class="InventorySectionContainers" style="width: 35%; height: 100%; align-items: center;">

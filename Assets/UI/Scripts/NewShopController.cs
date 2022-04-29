@@ -738,22 +738,23 @@ public class NewShopController : MonoBehaviour
 
         for (int i = 0; i < BoughtList.Count && StartInventory < maxInventories; ++i)
         {
-            Item tmp = new Item();
-            tmp.obj = Instantiate(BoughtCardInfo[BoughtList[i]].item_prefab);
-            tmp.obj.SetActive(false);
+            
 
-            tmp.quantity = QuantityMap[BoughtList[i]];
-            tmp.obj.AddComponent<TypeLabel>();
-
-            TypeLabel tmpLabel = tmp.obj.GetComponent<TypeLabel>();
-            tmpLabel.Type = BoughtCardInfo[BoughtList[i]].type;
-
-            tmp.obj.AddComponent<Quantity>();
-            Quantity tmpQuantity = tmp.obj.GetComponent<Quantity>();
-            tmpQuantity.Value = QuantityMap[BoughtList[i]];
-
-            if (!market.Inventories[StartInventory].DuplicateItems(tmp))
+            if (!market.Inventories[StartInventory].DuplicateItems(BoughtCardInfo[BoughtList[i]].type, QuantityMap[BoughtList[i]]))
             {
+                Item tmp = new Item();
+                tmp.obj = Instantiate(BoughtCardInfo[BoughtList[i]].item_prefab);
+                tmp.obj.SetActive(false);
+
+                tmp.quantity = QuantityMap[BoughtList[i]];
+                tmp.obj.AddComponent<TypeLabel>();
+
+                TypeLabel tmpLabel = tmp.obj.GetComponent<TypeLabel>();
+                tmpLabel.Type = BoughtCardInfo[BoughtList[i]].type;
+
+                tmp.obj.AddComponent<Quantity>();
+                Quantity tmpQuantity = tmp.obj.GetComponent<Quantity>();
+                tmpQuantity.Value = QuantityMap[BoughtList[i]];
 
                 if (market.Inventories[StartInventory].Add(tmp) == -1)
                 {
