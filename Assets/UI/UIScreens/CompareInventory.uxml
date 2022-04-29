@@ -24,7 +24,7 @@
                             <ui:Label text="Item" display-tooltip-when-elided="true" style="-unity-text-align: upper-left; width: 15%; height: 70%; font-size: 20px; -unity-font-style: bold; color: rgb(255, 255, 255);" />
                         </ui:VisualElement>
                         <ui:VisualElement class="Row" style="border-left-color: rgb(255, 197, 0); border-right-color: rgb(255, 197, 0); border-top-color: rgb(255, 197, 0); border-bottom-color: rgb(255, 197, 0); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;">
-                            <ui:Button display-tooltip-when-elided="true" name="ToolButton" class="SlotIcon ItemButton SmallerItemButton EquippedItems" style="background-image: none; display: flex;" />
+                            <ui:Button display-tooltip-when-elided="true" name="ToolButton" class="SlotIcon ItemButton SmallerItemButton EquippedItems" style="background-image: none; display: flex; background-color: rgb(9, 19, 21);" />
                             <ui:Button display-tooltip-when-elided="true" name="ItemButton" class="SlotIcon ItemButton SmallerItemButton EquippedItems" />
                         </ui:VisualElement>
                     </ui:VisualElement>
@@ -39,9 +39,13 @@
                             <ui:Label text="Label" display-tooltip-when-elided="true" name="QuantityValue" style="font-size: 24px;" />
                         </ui:VisualElement>
                         <ui:VisualElement name="ToolContainerButtons" style="width: 90%; height: 20%; display: none;">
-                            <ui:Button text="Send" display-tooltip-when-elided="true" name="ToolButton" class="EquipButton" style="background-color: rgb(185, 27, 24); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); color: rgb(255, 255, 255); white-space: normal; font-size: 20px;" />
+                            <ui:Button text="Send to Inventory" display-tooltip-when-elided="true" name="ToolButton" class="EquipButton ToolButtonSendInventory" />
                         </ui:VisualElement>
-                        <ui:Button text="Equip" display-tooltip-when-elided="true" name="Equip" class="EquipButton" style="width: 90%; height: 20%; display: flex;" />
+                        <ui:Button text="Equip" display-tooltip-when-elided="true" name="Equip" class="EquipButton" style="width: 90%; height: 20%; display: none;" />
+                        <ui:VisualElement name="ItemContainerButtons" style="width: 90%; height: 20%; flex-direction: row; justify-content: space-between;">
+                            <ui:Button text="Button" display-tooltip-when-elided="true" name="ItemPlayerInventory" class="ItemButtons" />
+                            <ui:Button text="Button" display-tooltip-when-elided="true" name="ItemHouseInventory" class="ItemButtons" style="width: 48%;" />
+                        </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="Inventory2" class="InventorySectionContainers" style="width: 35%; height: 100%; align-items: center;">
