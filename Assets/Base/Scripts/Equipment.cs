@@ -26,10 +26,7 @@ public class Equipment : MonoBehaviour
         var store = thing.GetComponent<IStorable>();
         if (store != null)
         {
-            var wrap = create_item(thing);
-            int i = inventory.Add(wrap);
-            wrap.obj.SetActive(false);
-
+            int i = inventory.Add(thing);
             if (item_obj == null)
             {
                 EquipItem(i);
@@ -93,7 +90,7 @@ public class Equipment : MonoBehaviour
         }
 
         var equip = tool.GetComponent<IEquippable>();
-        if (equip != null)
+        if (equip == null)
         {
             return false;
         }
@@ -103,7 +100,7 @@ public class Equipment : MonoBehaviour
             DropTool();
         }
 
-        tool_obj = create_item(tool);
+        tool_obj = inventory.create_item(tool);
         Tool = equip;
         equip_position(transform, true, tool_offset);
 
@@ -155,16 +152,5 @@ public class Equipment : MonoBehaviour
             trn.parent = parent;
         }
 
-    }
-
-    // Create a new Item from a GameObject.
-    private Item create_item(GameObject thing)
-    {
-        var wrap = new Item();
-        wrap.obj = thing;
-        var qty = thing.GetComponent<Quantity>();
-        wrap.quantity = qty == null ? 1 : qty.Value;
-
-        return wrap;
     }
 }

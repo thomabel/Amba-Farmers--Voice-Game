@@ -181,15 +181,15 @@ public class NewShopController : MonoBehaviour
     {
         for(int i = 0; i < market.Reference.Count; ++i)
         {
-            if(market.Reference[i].type > Financials.GoodType.Tool_Start && market.Reference[i].type < Financials.GoodType.Tool_End)
+            if(market.Reference[i].type > Base.GoodType.Tool_Start && market.Reference[i].type < Base.GoodType.Tool_End)
             {
                 Tools.Add(market.Reference[i]);
             }
-            else if(market.Reference[i].type > Financials.GoodType.Seed_Start && market.Reference[i].type < Financials.GoodType.Seed_End)
+            else if(market.Reference[i].type > Base.GoodType.Seed_Start && market.Reference[i].type < Base.GoodType.Seed_End)
             {
                 Plants.Add(market.Reference[i]);
             }
-            else if (market.Reference[i].type > Financials.GoodType.Animal_Start && market.Reference[i].type < Financials.GoodType.Animal_End)
+            else if (market.Reference[i].type > Base.GoodType.Animal_Start && market.Reference[i].type < Base.GoodType.Animal_End)
             {
                 Animals.Add(market.Reference[i]);
             }

@@ -7,7 +7,7 @@ using Currency = System.Int32;
     )]
 public class MarketWrapper : ScriptableObject
 {
-    public Financials.GoodType type;
+    public Base.GoodType type;
     public string display_name;
     public GameObject item_prefab;
     public Currency value;

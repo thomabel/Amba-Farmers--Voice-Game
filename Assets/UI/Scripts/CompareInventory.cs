@@ -39,7 +39,7 @@ public class CompareInventory : MonoBehaviour
         public Inventory inventory;
         public int index;
         public int InvNum;
-        public Financials.GoodType type;
+        public Base.GoodType type;
     };
 
     /*
@@ -60,7 +60,7 @@ public class CompareInventory : MonoBehaviour
     
 
 
-    MarketWrapper findReference(Financials.GoodType tmp)
+    MarketWrapper findReference(Base.GoodType tmp)
     {
         for (int i = 0; i < market.Reference.Count; ++i)
         {
@@ -362,17 +362,17 @@ public class CompareInventory : MonoBehaviour
             Current.Add(InventoryItem);
         }
     }
-    string getTypeLabel(Financials.GoodType typeOfItem)
+    string getTypeLabel(Base.GoodType typeOfItem)
     {
-        if (typeOfItem > Financials.GoodType.Tool_Start && typeOfItem < Financials.GoodType.Tool_End)
+        if (typeOfItem > Base.GoodType.Tool_Start && typeOfItem < Base.GoodType.Tool_End)
         {
             return "Tool";
         }
-        else if (typeOfItem > Financials.GoodType.Seed_Start && typeOfItem < Financials.GoodType.Seed_End)
+        else if (typeOfItem > Base.GoodType.Seed_Start && typeOfItem < Base.GoodType.Seed_End)
         {
             return "Seed";
         }
-        else if (typeOfItem > Financials.GoodType.Animal_Start && typeOfItem < Financials.GoodType.Animal_End)
+        else if (typeOfItem > Base.GoodType.Animal_Start && typeOfItem < Base.GoodType.Animal_End)
         {
             return "Animal";
         }
@@ -612,8 +612,8 @@ public class CompareInventory : MonoBehaviour
         Debug.Log(Item2.InvNum);
         Debug.Log(Item2.type);
         if ((Item1.InvNum == 1 || Item2.InvNum == 1) &&
-            (Item1.type > Financials.GoodType.Tool_Start && Item1.type < Financials.GoodType.Tool_End ||
-            (Item2.type > Financials.GoodType.Tool_Start && Item2.type < Financials.GoodType.Tool_End)))
+            (Item1.type > Base.GoodType.Tool_Start && Item1.type < Base.GoodType.Tool_End ||
+            (Item2.type > Base.GoodType.Tool_Start && Item2.type < Base.GoodType.Tool_End)))
 
         {
             Debug.Log("IN");
@@ -622,8 +622,8 @@ public class CompareInventory : MonoBehaviour
             Item1.InvNum = 0;
             Item2.InvNum = 0;
 
-            Item1.type = Financials.GoodType.Tool_Start;
-            Item2.type = Financials.GoodType.Tool_Start;
+            Item1.type = Base.GoodType.Tool_Start;
+            Item2.type = Base.GoodType.Tool_Start;
 
             ScrollViewOne.Clear();
             ScrollViewTwo.Clear();
