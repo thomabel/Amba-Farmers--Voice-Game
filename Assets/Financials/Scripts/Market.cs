@@ -3,9 +3,11 @@ using System.Collections.Generic;
 
 public class Market : MonoBehaviour
 {
+    public Account player_checking;
+    public Inventory player_inventory;
     public List<Inventory> Inventories;
     public List<MarketWrapper> Reference;
-    public Dictionary<Financials.GoodType, MarketWrapper> Comparator;
+    public Dictionary<Base.GoodType, MarketWrapper> Comparator;
 
     public struct Sellable
     {
@@ -21,6 +23,45 @@ public class Market : MonoBehaviour
         }
     }
     public List<Sellable> Sellables;
+
+    public bool BuyItem(MarketWrapper item, float quantity)
+    {
+        var cost = Mathf.Round(item.PriceOf() * quantity);
+        if (cost > player_checking.Balance())
+        {
+            return false;
+        }
+
+        player_checking.Debit((int)cost);
+
+        var obj = Instantiate(item.item_prefab);
+
+        foreach (Inventory i in Inventories)
+        {
+            if (i.Add(obj) >= 0)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool SellItem(Sellable item, float quantity)
+    {
+        if (quantity > item.inv[item.index].quantity)
+        {
+            return false;
+        }
+
+        player_checking.Credit((int)(item.wrap.PriceOf() * quantity));
+
+        var obj = item.inv.Remove(item.index);
+        Destroy(obj.obj);
+        Sellables.Remove(item);
+
+        return true;
+    }
 
     public int FreeSpace()
     {
@@ -57,17 +98,11 @@ public class Market : MonoBehaviour
 
     private void Start()
     {
-        Comparator = new Dictionary<Financials.GoodType, MarketWrapper>();
+        Comparator = new Dictionary<Base.GoodType, MarketWrapper>();
         Sellables = new List<Sellable>();
-        PopulateComparator();
-    }
-    
-    private void PopulateComparator()
-    {
         foreach (MarketWrapper wrap in Reference)
         {
             Comparator.Add(wrap.type, wrap);
         }
     }
-    
 }

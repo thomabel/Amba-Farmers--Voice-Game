@@ -128,7 +128,7 @@ public class InventoryController : MonoBehaviour
         ItemInfo.style.display = DisplayStyle.None;
 
     }
-    MarketWrapper findReference(Financials.GoodType tmp)
+    MarketWrapper findReference(Base.GoodType tmp)
     {
         for (int i = 0; i < market.Reference.Count; ++i)
         {
