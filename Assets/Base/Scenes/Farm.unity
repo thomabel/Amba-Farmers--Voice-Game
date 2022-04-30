@@ -353,12 +353,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 695329ea868a34a62b6bc65891f36506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 11400000, guid: 3e077b6989a0e4625be5c8bbcdfe50f9, type: 2}
   player: {fileID: 555023751}
-  playerObject: {fileID: 0}
   market: {fileID: 1666174810}
-  PlayerInventory: {fileID: 0}
-  PlayerEquipment: {fileID: 0}
+  PlayerEquipment: {fileID: 555023750}
 --- !u!1 &345468437
 GameObject:
   m_ObjectHideFlags: 0
@@ -2097,7 +2094,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1372538282953322442, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
       propertyPath: size
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5000978702549307974, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
       propertyPath: m_RootOrder

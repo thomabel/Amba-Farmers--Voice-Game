@@ -178,13 +178,14 @@ public class CompareInventory : MonoBehaviour
 
         ItemContainerButtons = root.Q<VisualElement>("ItemContainerButtons");
         ItemPlayerInventory = root.Q<Button>("ItemPlayerInventory");
-        ItemPlayerInventory.text = "Add " + "\n" + InventoryOne.gameObject.name + " Inventory";
+        //ItemPlayerInventory.text = "Add " + "\n" + InventoryOne.gameObject.name + " Inventory";
+        ItemPlayerInventory.text = "Add\n <";
         ItemPlayerInventory.clickable.clickedWithEventInfo += AddtoInventory;
 
         ItemHouseInventory = root.Q<Button>("ItemHouseInventory");
         ItemHouseInventory.clickable.clickedWithEventInfo += AddtoInventory;
-        ItemHouseInventory.text = "Add " + "\n" + InventoryTwo.gameObject.name + " Inventory";
-
+        //ItemHouseInventory.text = "Add " + "\n" + InventoryTwo.gameObject.name + " Inventory";
+        ItemHouseInventory.text = "Add\n >";
 
 
     }
@@ -212,6 +213,8 @@ public class CompareInventory : MonoBehaviour
 
         }
         EquipItemButton.style.opacity = (StyleFloat).6;
+        EquipItemButton.style.backgroundImage = null;
+        equipItemPressed = false;
 
         Display(InventoryOne, ScrollViewOne, "1");
         Display(InventoryTwo, ScrollViewTwo, "2");
@@ -230,6 +233,8 @@ public class CompareInventory : MonoBehaviour
             DisplayEquippable();
         }
         EquipToolButton.style.opacity = (StyleFloat).6;
+        EquipToolButton.style.backgroundImage = null;
+        equipItemPressed = false;
         root.Q<VisualElement>("QuanInfoContainer").style.display = DisplayStyle.None;
     }
     void equipPressed(EventBase obj)
@@ -237,7 +242,7 @@ public class CompareInventory : MonoBehaviour
         var button = (Button)obj.target;
         string name = button.name;
 
-        if (equipItemPressed && currentEquip == name)
+        if (equipItemPressed && currentEquip.Equals(name))
         {
             button.style.opacity = (StyleFloat).6;
             equipItemPressed = false;
@@ -384,9 +389,16 @@ public class CompareInventory : MonoBehaviour
             Item1.inventory.Insert(Item1.index, PreviousEquipItem);
             Item1.index = -1;
             Item1.InvNum = 0;
+
+            currentEquip = "Item";
+            InfoboxDisplay(PlayerEquipment.item_obj);
             ToolInfoContainer.style.display = DisplayStyle.None;
             ItemContainerButtons.style.display = DisplayStyle.Flex;
             EquipButton.style.display = DisplayStyle.None;
+
+            EquipToolButton.style.opacity = (StyleFloat).6;
+            EquipItemButton.style.opacity = 1;
+
         }
         else if (getTypeLabel(Item1.type) == "Tool" || getTypeLabel(Item1.type) == "Fruit")
         {
@@ -408,9 +420,15 @@ public class CompareInventory : MonoBehaviour
             Item1.index = -1;
             Item1.InvNum = 0;
 
+            currentEquip = "Tool";
+            InfoboxDisplay(PlayerEquipment.tool_obj);
             ToolInfoContainer.style.display = DisplayStyle.Flex;
             ItemContainerButtons.style.display = DisplayStyle.None;
             EquipButton.style.display = DisplayStyle.None;
+
+            EquipToolButton.style.opacity = 1;
+            EquipItemButton.style.opacity = (StyleFloat).6;
+            
         }
         ScrollViewOne.Clear();
         ScrollViewTwo.Clear();
@@ -418,6 +436,7 @@ public class CompareInventory : MonoBehaviour
         Display(InventoryTwo, ScrollViewTwo, "2");
 
         DisplayEquippable();
+        equipItemPressed = true;
     }
 
 
@@ -601,6 +620,10 @@ public class CompareInventory : MonoBehaviour
             Item2.index = -1;
             Item1.InvNum = 0;
             Item2.InvNum = 0;
+
+            Item1.type = Financials.GoodType.Tool_Start;
+            Item2.type = Financials.GoodType.Tool_Start;
+
             ScrollViewOne.Clear();
             ScrollViewTwo.Clear();
             Display(InventoryOne, ScrollViewOne, "1");

@@ -43,8 +43,8 @@
                         </ui:VisualElement>
                         <ui:Button text="Equip" display-tooltip-when-elided="true" name="Equip" class="EquipButton" style="width: 90%; height: 20%; display: none;" />
                         <ui:VisualElement name="ItemContainerButtons" style="width: 90%; height: 20%; flex-direction: row; justify-content: space-between;">
-                            <ui:Button text="Button" display-tooltip-when-elided="true" name="ItemPlayerInventory" class="ItemButtons" />
-                            <ui:Button text="Button" display-tooltip-when-elided="true" name="ItemHouseInventory" class="ItemButtons" style="width: 48%;" />
+                            <ui:Button display-tooltip-when-elided="true" name="ItemPlayerInventory" class="ItemButtons" style="font-size: 18px;" />
+                            <ui:Button display-tooltip-when-elided="true" name="ItemHouseInventory" class="ItemButtons" style="width: 48%; font-size: 18px;" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>

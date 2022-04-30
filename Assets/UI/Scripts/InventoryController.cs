@@ -12,23 +12,24 @@ public class InventoryController : MonoBehaviour
     private VisualElement root;
     private VisualElement ScrollViewSection;
 
-    [SerializeField]
-    private InventoryList inventory;
 
     [SerializeField]
     private Inventory player;
 
-    [SerializeField]
-    GameObject playerObject;
     private Button currentPressedItem;
     [SerializeField]
     private Market market;
 
 
-    [SerializeField]
-    private Inventory PlayerInventory;
+    private Button EquippedItem;
+
     [SerializeField]
     private Equipment PlayerEquipment;
+
+    private VisualElement ItemInfo;
+
+    private Button addInvButton;
+
     //private Button FocusedButton;
     // Start is called before the first frame update
 
@@ -42,7 +43,20 @@ public class InventoryController : MonoBehaviour
         root = GetComponent<UIDocument>().rootVisualElement;
         root.Focus();
 
+        ItemInfo = root.Q<VisualElement>("ItemInfo");
         root.Q<Button>("EquipButton").clickable.clickedWithEventInfo += EquipButtonClicked;
+        
+        EquippedItem = root.Q<Button>("EquippedItem");
+        EquippedItem.clickable.clickedWithEventInfo += ItemClicked;
+
+        findItemAndDisplay(PlayerEquipment.item_obj, ref EquippedItem);
+
+        addInvButton = root.Q<Button>("AddInvButton");
+        addInvButton.clicked += addInvClicked;
+        /*
+        if(value != null)
+            EquippedItem.style.backgroundImage = new StyleBackground(value.picture);
+        */
 
 
         ScrollViewSection = root.Q<VisualElement>("InventoryScrollView");
@@ -94,6 +108,26 @@ public class InventoryController : MonoBehaviour
         }
 
     }
+
+    void addInvClicked()
+    {
+        int index = player.Add(PlayerEquipment.item_obj);
+        if (index == -1)
+        {
+            root.Q<VisualElement>("SpaceErrorWarning").style.display = DisplayStyle.Flex;
+            addInvButton.style.display = DisplayStyle.None;
+            return;
+        }
+        EquippedItem.style.backgroundImage = null;
+        PlayerEquipment.item_obj = null;
+        EquippedItem.style.opacity = (StyleFloat).5;
+
+        Button InvIndexToChange = root.Q<Button>(index.ToString());
+
+        findItemAndDisplay(player.Retrieve(index), ref InvIndexToChange);
+        ItemInfo.style.display = DisplayStyle.None;
+
+    }
     MarketWrapper findReference(Financials.GoodType tmp)
     {
         for (int i = 0; i < market.Reference.Count; ++i)
@@ -105,17 +139,66 @@ public class InventoryController : MonoBehaviour
         }
         return null;
     }
+
+    void findItemAndDisplay(Item FindObj, ref Button button)
+    {
+        if (FindObj == null)
+        {
+            button.style.backgroundImage = null;
+            return;
+        }
+
+        MarketWrapper value;
+        bool checkIfItemExists = market.Comparator.TryGetValue(FindObj.obj.GetComponent<TypeLabel>().Type, out value);
+        if (checkIfItemExists) button.style.backgroundImage = new StyleBackground(value.picture);
+        else button.style.backgroundImage = null;
+    }
+    /*
+    void findItemAndDisplay(Item FindObj, ref VisualElement button)
+    {
+        if (FindObj == null)
+        {
+            button.style.backgroundImage = null;
+            return;
+        }
+
+        MarketWrapper value;
+        bool checkIfItemExists = market.Comparator.TryGetValue(FindObj.obj.GetComponent<TypeLabel>().Type, out value);
+        if (checkIfItemExists) button.style.backgroundImage = new StyleBackground(value.picture);
+        else button.style.backgroundImage = null;
+    }
+
+    */
+
+
     void EquipButtonClicked(EventBase obj)
     {
         var button = (Button)obj.target;
-        PlayerEquipment.EquipTool(Instantiate(inventory.FindCardIndex(int.Parse(currentPressedItem.name)).item_prefab));
-        PlayerEquipment.EquipItem(int.Parse(currentPressedItem.name));
+        int index = int.Parse(currentPressedItem.name);
+        //PlayerEquipment.EquipTool(Instantiate(inventory.FindCardIndex(int.Parse(currentPressedItem.name)).item_prefab));
+
+        Item previousItem = PlayerEquipment.item_obj;
+        PlayerEquipment.inventory = player;
+        PlayerEquipment.EquipItem(index);
+        player.Remove(index);
+        player.Insert(index, previousItem);
+
+
+        
+        findItemAndDisplay(player.Retrieve(index), ref currentPressedItem);
+        //currentPressedItem.style.backgroundImage = null;
+
+        findItemAndDisplay(PlayerEquipment.item_obj, ref EquippedItem);
+
+        currentPressedItem.style.opacity = (StyleFloat).5;
+        currentPressedItem = null;
+        ItemInfo.style.display = DisplayStyle.None;
 
     }
     void ItemClicked(EventBase obj)
     {
         Debug.Log(obj);
-        root.Q<VisualElement>("ItemInfo").style.display = DisplayStyle.Flex;
+        ItemInfo.style.display = DisplayStyle.Flex;
         //FocusedButton = (Button)obj.target;
         var button = (Button)obj.target;
 
@@ -126,43 +209,60 @@ public class InventoryController : MonoBehaviour
 
         if (currentPressedItem == null)
             currentPressedItem = button;
+        else if (currentPressedItem.name.Equals(button.name))
+        {
+            currentPressedItem.style.opacity = (StyleFloat).5;
+            ItemInfo.style.display = DisplayStyle.None;
+            currentPressedItem = null;
+            return;
+
+        }
         else
         {
             currentPressedItem.style.opacity = (StyleFloat).5;
             currentPressedItem = button;
         }
-        currentPressedItem.style.opacity = 1;
 
-        Label QuantityNum = root.Q<Label>("QuantityNum");
-        Label ItemName = root.Q<Label>("ItemName");
+        int index;
+        bool isequippable = button.name.Equals("EquippedItem");
 
-        
-        MarketWrapper CurrentCard = inventory.FindCardIndex(int.Parse(button.name));
+        Item CurrentCard;
+        if (isequippable) CurrentCard = PlayerEquipment.item_obj;
+        else
+        {
+            index = int.Parse(currentPressedItem.name);
+            CurrentCard = player.Retrieve(index);           
+        }
 
-        Debug.Log(CurrentCard.item_prefab);
+        ItemInfo = root.Q<VisualElement>("ItemInfo");
+        if (CurrentCard != null)
+        {
+            ItemInfo.style.display = DisplayStyle.Flex;
+            MarketWrapper value;
+            bool checkIfItemExists = market.Comparator.TryGetValue(CurrentCard.obj.GetComponent<TypeLabel>().Type, out value);
+            if (checkIfItemExists)
+            {
+                currentPressedItem.style.opacity = 1;
+                Label QuantityNum = root.Q<Label>("QuantityNum");
+                Label ItemName = root.Q<Label>("ItemName");
+                ItemName.text = value.display_name;
+                QuantityNum.text = CurrentCard.obj.GetComponent<Quantity>().Value.ToString();
+                if (isequippable)
+                {
+                    root.Q<VisualElement>("ContainerButton").style.display = DisplayStyle.None;
+                    root.Q<VisualElement>("AddInventoryContainer").style.display = DisplayStyle.Flex;
+                    root.Q<VisualElement>("SpaceErrorWarning").style.display = DisplayStyle.None;
+                    addInvButton.style.display = DisplayStyle.Flex;
+                }
+                else
+                {
+                    root.Q<VisualElement>("ContainerButton").style.display = DisplayStyle.Flex;
+                    root.Q<VisualElement>("AddInventoryContainer").style.display = DisplayStyle.None;
+                }
+            }
+        }
+        else ItemInfo.style.display = DisplayStyle.None;
 
-        //Debug.Log(player.transform.position);
-
-
-
-        GameObject tmp = Instantiate(CurrentCard.item_prefab);
-
-        tmp.AddComponent<TypeLabel>();
-
-        TypeLabel tmpLabel = tmp.GetComponent<TypeLabel>();
-        tmpLabel.Type = CurrentCard.type;
-
-
-
-        /*
-        Instantiate(CurrentCard.item_prefab, playerObject.transform.position + new Vector3(0, 2, 2), Quaternion.identity);
-        ItemName.text = CurrentCard.name;
-        QuantityNum.text = CurrentCard.quantity.ToString();
-        */
-
-
-
-        //player.Add(CurrentCard.gameobject);
     }
 
 
