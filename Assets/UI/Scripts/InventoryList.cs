@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(fileName = "New Inventory", menuName = "Inventory")]
+[CreateAssetMenu(fileName = "New InventoryList", menuName = "InventoryList")]
 public class InventoryList : ScriptableObject
 {
     [SerializeField]
-    private List<Card> Inventory;
+    private List<MarketWrapper> Inventory;
 
-    public void Add(Card BoughtCard)
+    public void Add(MarketWrapper BoughtCard)
     {
         /*
         Card tmp = CreateInstance<Card>();
@@ -25,11 +25,11 @@ public class InventoryList : ScriptableObject
     {
         return Inventory.Count;
     }
-    public Card FindCardIndex(int i)
+    public MarketWrapper FindCardIndex(int i)
     {
         return Inventory[i];
     }
-    public bool CardExists(Card checkCard)
+    public bool CardExists(MarketWrapper checkCard)
     {
         return Inventory.Contains(checkCard);
     }

@@ -4,6 +4,7 @@ using System.Collections;
 public class Inventory : MonoBehaviour, IEnumerable, IInteractable
 {
     [SerializeField] int size;
+
     Item[] items;
 
     public int Size
@@ -90,5 +91,20 @@ public class Inventory : MonoBehaviour, IEnumerable, IInteractable
     private bool check_index(int index)
     {
         return index >= 0 && index < size;
+    }
+
+    public bool DuplicateItems(Financials.GoodType ItemType, float Quantity)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            if (items[i] != null && items[i].obj.GetComponent<TypeLabel>().Type == ItemType)
+            {
+                items[i].quantity += Quantity;
+                items[i].obj.GetComponent<Quantity>().Value += Quantity;
+                return true;
+            }
+        }
+        return false;
+
     }
 }

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d24b3d64f807f7f419ab037d9d69a0f1, type: 3}
-  m_Name: Hoe
+  m_Name: Pig
   m_EditorClassIdentifier: 
-  type: 1
-  display_name: Hoe
-  item_prefab: {fileID: 3338131928499158807, guid: 48a44350b6dbd4e46aedbca69e79c0f7, type: 3}
+  type: 11
+  display_name: Pig
+  item_prefab: {fileID: 4094665397092055618, guid: 522cd870d937d884dbfbf430df2810b5, type: 3}
   value: 0
-  qty_type: 0
-  picture: {fileID: 2800000, guid: 524da0fb2b68b47969acdaf000770a3b, type: 3}
+  qty_type: 1
+  picture: {fileID: 2800000, guid: 0d413f00e472246439873efd57956def, type: 3}
   supply: 0
   demand: 0

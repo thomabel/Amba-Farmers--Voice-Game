@@ -61,7 +61,7 @@ public class Market : MonoBehaviour
         Sellables = new List<Sellable>();
         PopulateComparator();
     }
-
+    
     private void PopulateComparator()
     {
         foreach (MarketWrapper wrap in Reference)
@@ -69,4 +69,5 @@ public class Market : MonoBehaviour
             Comparator.Add(wrap.type, wrap);
         }
     }
+    
 }

@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24b3d64f807f7f419ab037d9d69a0f1, type: 3}
   m_Name: Banana
   m_EditorClassIdentifier: 
+  type: 5
   display_name: Banana
-  item_prefab: {fileID: 0}
+  item_prefab: {fileID: 4094665397092055618, guid: 522cd870d937d884dbfbf430df2810b5, type: 3}
   value: 0
-  quantity: 1
+  qty_type: 0
   picture: {fileID: 2800000, guid: cd857c3ec2dff430192519d99929782c, type: 3}
   supply: 0
   demand: 0
