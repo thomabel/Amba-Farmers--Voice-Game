@@ -198,7 +198,7 @@ public class CompareInventory : MonoBehaviour
             Item itemObj = PlayerEquipment.item_obj;
             if (itemObj != null)
             {
-                InventoryOne.Add(PlayerEquipment.item_obj);
+                if (InventoryOne.Add(PlayerEquipment.item_obj) == -1) return;
                 PlayerEquipment.item_obj = null;
             }
         }
@@ -207,7 +207,8 @@ public class CompareInventory : MonoBehaviour
             Item itemobj = PlayerEquipment.item_obj;
             if (itemobj != null)
             {
-                InventoryTwo.Add(PlayerEquipment.item_obj);
+
+                if (InventoryTwo.Add(PlayerEquipment.item_obj) == -1) return;
                 PlayerEquipment.item_obj = null;
             }
 
@@ -226,7 +227,7 @@ public class CompareInventory : MonoBehaviour
     {
         if (PlayerEquipment.tool_obj != null)
         {
-            InventoryTwo.Add(PlayerEquipment.tool_obj);
+            if(InventoryTwo.Add(PlayerEquipment.tool_obj) == -1) return;
             PlayerEquipment.tool_obj = null;
             Display(InventoryOne, ScrollViewOne, "1");
             Display(InventoryTwo, ScrollViewTwo, "2");
