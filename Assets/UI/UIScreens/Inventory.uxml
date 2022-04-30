@@ -27,13 +27,20 @@
                                 <ui:Label text="Quantity:" display-tooltip-when-elided="true" style="font-size: 28px; color: rgb(255, 255, 255); height: 100%; width: 50%; -unity-text-align: middle-center; -unity-font-style: bold;" />
                                 <ui:Label text="50" display-tooltip-when-elided="true" name="QuantityNum" style="font-size: 24px; color: rgb(255, 255, 255); height: 100%; width: 50%; -unity-text-align: middle-center;" />
                             </ui:VisualElement>
-                            <ui:VisualElement name="ContainerButton" style="flex-direction: row; padding-left: 1px; padding-right: 2px; padding-top: 10px; padding-bottom: 0;">
-                                <ui:Button text="Equip" display-tooltip-when-elided="true" name="EquipButton" style="flex-grow: 1; height: 52px; font-size: 24px; background-color: rgb(255, 197, 0); border-left-color: rgb(255, 197, 0); border-right-color: rgb(255, 197, 0); border-top-color: rgb(255, 197, 0); border-bottom-color: rgb(255, 197, 0); color: rgb(0, 0, 0); -unity-font-style: bold;" />
+                            <ui:VisualElement name="ContainerButton" style="flex-direction: row; padding-left: 1px; padding-right: 2px; padding-top: 10px; padding-bottom: 0; display: flex;">
+                                <ui:Button text="Equip" display-tooltip-when-elided="true" name="EquipButton" class="EquipButton" style="display: flex;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="AddInventoryContainer" style="display: none; border-left-color: rgb(236, 0, 0); border-right-color: rgb(236, 0, 0); border-top-color: rgb(236, 0, 0); border-bottom-color: rgb(236, 0, 0); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;">
+                                <ui:Button text="Add to Inventory" display-tooltip-when-elided="true" name="AddInvButton" class="EquipButton InfoButton" style="color: rgb(255, 255, 255); display: flex;" />
+                                <ui:Label text="No Space" display-tooltip-when-elided="true" name="SpaceErrorWarning" style="font-size: 30px; -unity-text-align: middle-center; -unity-font-style: bold; color: rgb(197, 8, 8); background-color: rgb(255, 255, 255); height: 52px; display: none; border-left-color: rgb(255, 0, 0); border-right-color: rgb(255, 0, 0); border-top-color: rgb(255, 0, 0); border-bottom-color: rgb(255, 0, 0); border-left-width: 4px; border-right-width: 4px; border-top-width: 4px; border-bottom-width: 4px;" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement style="height: 30%; width: 100%; border-top-color: rgb(255, 197, 0); border-left-color: rgb(255, 197, 0); border-right-color: rgb(255, 197, 0); border-bottom-color: rgb(255, 197, 0); border-top-width: 1px;" />
+                <ui:VisualElement style="height: 30%; width: 100%; border-top-color: rgb(255, 197, 0); border-left-color: rgb(255, 197, 0); border-right-color: rgb(255, 197, 0); border-bottom-color: rgb(255, 197, 0); border-top-width: 1px; flex-direction: row; align-items: center; justify-content: space-around;">
+                    <ui:Label text="Equipped Item" display-tooltip-when-elided="true" style="font-size: 70px; -unity-font-style: bold; left: 10px; color: rgb(255, 255, 255);" />
+                    <ui:Button display-tooltip-when-elided="true" name="EquippedItem" class="SlotIcon ItemButton EquipItemSlot" />
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
