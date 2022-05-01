@@ -9,6 +9,7 @@ public class PlayerInput : MonoBehaviour
     public Interact interact;
     public Inventory inventory;
     public Equipment equipment;
+    public Inventory house;
 
     private Vector2 move_input;
     private bool moving;
@@ -43,17 +44,25 @@ public class PlayerInput : MonoBehaviour
         if (context.performed)
         {
             var obj = interact.Use();
-            interact.Use(cam.ScreenPointToRay(Mouse.current.position.ReadValue()));
+            //interact.Use(cam.ScreenPointToRay(Mouse.current.position.ReadValue()));
 
             if (obj == null)
             {
                 return;
+            }
+            Debug.Log(obj.name);
+
+            var fruit = obj.GetComponent<Fruit>();
+            if (fruit != null)
+            {
+                house.Add(obj);
             }
 
             var inv = obj.GetComponent<Inventory>();
             if (inv != null)
             {
                 // Call UI inventory swap.
+                Debug.Log("Inventory Swap");
                 return;
             }
             equipment.Pickup(obj);

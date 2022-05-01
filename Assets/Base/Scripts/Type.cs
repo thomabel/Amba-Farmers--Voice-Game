@@ -1,5 +1,5 @@
 
-namespace Financials 
+namespace Base 
 {
     /// <summary>
     /// A list of all goods that can be bought or sold on the market.
