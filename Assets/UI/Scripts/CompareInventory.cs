@@ -123,7 +123,7 @@ public class CompareInventory : MonoBehaviour
         TypeLabel tmpLabel = tmp.obj.GetComponent<TypeLabel>();
 
 
-        tmpLabel.Type = market.Reference[4].type;
+        tmpLabel.Type = Financials.GoodType.Fruit_Corn;
 
         tmp.quantity = 2;
         tmp.obj.AddComponent<Quantity>();
@@ -132,8 +132,11 @@ public class CompareInventory : MonoBehaviour
 
 
 
-        InventoryTwo.Add(tmp);
+        InventoryOne.Add(tmp);
         */
+        
+
+
         //allocateInventory(PlayerInvList, InventoryOne);
         //allocateInventory(HouseInvList, InventoryTwo);
 
