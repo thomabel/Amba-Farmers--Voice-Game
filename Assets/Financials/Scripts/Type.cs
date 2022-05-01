@@ -19,7 +19,9 @@ namespace Financials
         Animal_Start,
         Animal_Pig,
         Animal_End,
+        Fruit_Start,
         Fruit_Corn,
+        Fruit_End,
 
     }
 }
