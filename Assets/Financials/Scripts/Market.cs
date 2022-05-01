@@ -32,8 +32,12 @@ public class Market : MonoBehaviour
             return false;
         }
 
-        player_checking.Debit((int)cost);
+        if (FreeSpace() == 0)
+        {
+            return false;
+        }
 
+        player_checking.Debit((int)cost);
         var obj = Instantiate(item.item_prefab);
 
         foreach (Inventory i in Inventories)
