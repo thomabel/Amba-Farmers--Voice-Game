@@ -732,13 +732,27 @@ public class NewShopController : MonoBehaviour
     }
 
 
-    void addToolAndSeedInventory(List<int> BoughtList, List<MarketWrapper> BoughtCardInfo, Dictionary<int, int> QuantityMap, int StartInventory)
+    void Checkout(List<int> BoughtList, List<MarketWrapper> BoughtCardInfo, Dictionary<int, int> QuantityMap, int StartInventory)
     {
-        int maxInventories = market.Inventories.Count;
+        //int maxInventories = market.Inventories.Count;
+        
+        foreach(int element in BoughtList)
+            market.BuyItem(BoughtCardInfo[element], QuantityMap[element]);
 
-        for (int i = 0; i < BoughtList.Count && StartInventory < maxInventories; ++i)
+       
+
+
+
+
+
+
+
+        /*
+        for (int i = 0; i < BoughtList.Count; ++i)
         {
-            
+            market.BuyItem(BoughtCardInfo[BoughtList[i]], QuantityMap[BoughtList[i]]);
+        */
+            /*
 
             if (!market.Inventories[StartInventory].DuplicateItems(BoughtCardInfo[BoughtList[i]].type, QuantityMap[BoughtList[i]]))
             {
@@ -763,9 +777,26 @@ public class NewShopController : MonoBehaviour
                     market.Inventories[StartInventory].Add(tmp);
                 }
             }
+            */
+
+        //}
+        /*
+        for(int i = 0; i < SellList.Count; ++i)
+        {
+            market.SellItem(market.Sellables[SellList[i]], SellQuantity[SellList[i]]);
+        }
+        */
+
+    }
+
+    void checkoutSell()
+    {
+        foreach (int element in SellList)
+        {
+            Debug.Log("Sell " + element);
+            market.SellItem(market.Sellables[element], SellQuantity[element]);
 
         }
-
     }
     
     void CheckoutOperation()
@@ -779,11 +810,11 @@ public class NewShopController : MonoBehaviour
         else
         {
             root.Q<Label>("CheckoutMessage").style.display = DisplayStyle.None;
-            player.Debit(total);
-            player.Credit(SellTotal);
 
-            addToolAndSeedInventory(PlantBuyList, Plants,PlantQuantity,0);
-            addToolAndSeedInventory(ToolBuyList, Tools,ToolQuantity,1);
+
+            Checkout(PlantBuyList, Plants,PlantQuantity,0);
+            Checkout(ToolBuyList, Tools,ToolQuantity,1);
+            checkoutSell();
            //addtoInventory(LivestockBuyList, Animals,LiveStockQuantity);
 
             if (total != 0 || SellTotal != 0)
