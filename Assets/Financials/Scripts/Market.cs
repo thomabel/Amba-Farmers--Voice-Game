@@ -7,15 +7,32 @@ using System.Collections.Generic;
     )]
 public class Market : ScriptableObject
 {
-    public List<MarketWrapper> Items;
-    [SerializeField] List<MarketWrapper> inventory;
+    public List<MarketWrapper> Plants;
+    public List<MarketWrapper> Animals;
+    public List<MarketWrapper> Tools;
 
-    public List<MarketWrapper>.Enumerator GetEnumerator()
+    public List<Inventory> Inventories;
+    public List<GameObject> Sellables;
+
+    public void PopulateSellables()
     {
-        return inventory.GetEnumerator();
+        foreach (Inventory i in Inventories)
+        {
+            foreach (GameObject g in i)
+            {
+                var s = g.GetComponent<Plant>();
+                if (s != null)
+                {
+                    Sellables.Add(g);
+
+                    // Check enum here to match type?
+                }
+            }
+        }
     }
-    public MarketWrapper GetItem(int index)
+
+    public struct a
     {
-        return inventory[index];
+        float r;
     }
 }

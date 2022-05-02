@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: d1a28644e7cf02ff2a53dd4ea39c592a
+=======
+guid: a14b49cb3f51bca44ae14e4b14a13d0c
+>>>>>>> refs/remotes/origin/dateTime
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
