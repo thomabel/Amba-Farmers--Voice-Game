@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79edd078745a12243810021e629ff50c, type: 3}
   m_Name: inventory swap
   m_EditorClassIdentifier: 
-  first: {fileID: 0}
+  first: {fileID: 11400000, guid: d3f57a5f20bb8f84a95a209984973a2c, type: 2}
   second: {fileID: 0}

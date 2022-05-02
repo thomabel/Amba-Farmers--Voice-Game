@@ -12,38 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 159455164520834419d4456a0a1e9844, type: 3}
   m_Name: inventory_House
   m_EditorClassIdentifier: 
-  items:
-  - obj: {fileID: 0}
-    quantity: 0
-  - obj: {fileID: 0}
-    quantity: 0
-  - obj: {fileID: 0}
-    quantity: 0
-  - obj: {fileID: 0}
-    quantity: 0
-  - obj: {fileID: 0}
-    quantity: 0
-  - obj: {fileID: 0}
-    quantity: 0
-  - obj: {fileID: 0}
-    quantity: 0
-  - obj: {fileID: 0}
-    quantity: 0
-  - obj: {fileID: 0}
-    quantity: 0
-  - obj: {fileID: 0}
-    quantity: 0
-  - obj: {fileID: 0}
-    quantity: 0
-  - obj: {fileID: 0}
-    quantity: 0
-  - obj: {fileID: 0}
-    quantity: 0
-  - obj: {fileID: 0}
-    quantity: 0
-  - obj: {fileID: 0}
-    quantity: 0
-  - obj: {fileID: 0}
-    quantity: 0
   size: 16
-  Swap: {fileID: 0}
