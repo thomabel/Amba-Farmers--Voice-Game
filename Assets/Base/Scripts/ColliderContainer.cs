@@ -5,16 +5,17 @@ using UnityEngine;
 public class ColliderContainer : MonoBehaviour
 {
     public Collider RecentlyAdded;
-    private HashSet<Collider> colliders = new HashSet<Collider>();
-    public HashSet<Collider> Colliders { get { return colliders; } }
-
     public StringVariable NearByObjectName;
+
+    private HashSet<Collider> colliders = new HashSet<Collider>();
+
 
     private void OnTriggerEnter(Collider other)
     {
         colliders.Add(other); //hashset automatically handles duplicates
+
+        // For UI
         RecentlyAdded = other;
-        Debug.Log(other.gameObject.CompareTag("Plant"));
         if (other.gameObject.CompareTag("Plant"))
             NearByObjectName.Value = other.gameObject.name;
         else
@@ -27,10 +28,32 @@ public class ColliderContainer : MonoBehaviour
         colliders.Remove(other);
     }
 
+    public bool Add(Collider target)
+    {
+        return colliders.Add(target);
+    }
+    public void Add(Collider[] targets)
+    {
+        foreach (Collider c in targets)
+        {
+            colliders.Add(c);
+        }
+    }
+    public bool Remove(Collider target)
+    {
+        return colliders.Remove(target);
+    }
+    public void Remove(Collider[] targets)
+    {
+        foreach (Collider c in targets)
+        {
+            colliders.Remove(c);
+        }
+    }
     public Collider GetClosest(Vector3 pos, float maximum)
     {
         Collider closest = null;
-        foreach (Collider collider in Colliders)
+        foreach (Collider collider in colliders)
         {
             if (collider == null)
             {

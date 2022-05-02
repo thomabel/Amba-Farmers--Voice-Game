@@ -1,38 +1,112 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(
-    fileName = "market",
-    menuName = "Financials/Market"
-    )]
-public class Market : ScriptableObject
+public class Market : MonoBehaviour
 {
-    public List<MarketWrapper> Plants;
-    public List<MarketWrapper> Animals;
-    public List<MarketWrapper> Tools;
-
+    public Account player_checking;
+    public Inventory player_inventory;
     public List<Inventory> Inventories;
-    public List<GameObject> Sellables;
+    public List<MarketWrapper> Reference;
+    public Dictionary<Base.GoodType, MarketWrapper> Comparator;
+
+    public struct Sellable
+    {
+        public Inventory inv;
+        public int index;
+        public MarketWrapper wrap;
+
+        public Sellable(Inventory inv, int index, MarketWrapper wrap)
+        {
+            this.inv = inv;
+            this.index = index;
+            this.wrap = wrap;
+        }
+    }
+    public List<Sellable> Sellables;
+
+    public bool BuyItem(MarketWrapper item, float quantity)
+    {
+        var cost = Mathf.Round(item.PriceOf() * quantity);
+        if (cost > player_checking.Balance())
+        {
+            return false;
+        }
+
+        if (FreeSpace() == 0)
+        {
+            return false;
+        }
+
+        player_checking.Debit((int)cost);
+        var obj = Instantiate(item.item_prefab);
+
+        foreach (Inventory i in Inventories)
+        {
+            if (i.Add(obj) >= 0)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool SellItem(Sellable item, float quantity)
+    {
+        if (quantity > item.inv[item.index].quantity)
+        {
+            return false;
+        }
+
+        player_checking.Credit((int)(item.wrap.PriceOf() * quantity));
+
+        var obj = item.inv.Remove(item.index);
+        Destroy(obj.obj);
+        Sellables.Remove(item);
+
+        return true;
+    }
+
+    public int FreeSpace()
+    {
+        int free = 0;
+        foreach (Inventory i in Inventories)
+        {
+            free += i.FreeSpace;
+        }
+        return free;
+    }
 
     public void PopulateSellables()
     {
-        foreach (Inventory i in Inventories)
+        foreach (Inventory inv in Inventories)
         {
-            foreach (GameObject g in i)
+            for(int i = 0; i < inv.Size; i++)
             {
-                var s = g.GetComponent<Plant>();
-                if (s != null)
-                {
-                    Sellables.Add(g);
+                var item = inv[i];
+                if (item == null)
+                    continue;
 
-                    // Check enum here to match type?
-                }
+                var type = item.obj.GetComponent<TypeLabel>();
+                if (type == null)
+                    continue;
+
+                MarketWrapper wrap;
+                if (!Comparator.TryGetValue(type.Type, out wrap))
+                    continue;
+
+                Sellables.Add(new Sellable(inv, i, wrap));
             }
         }
     }
 
-    public struct a
+    private void Start()
     {
-        float r;
+        Comparator = new Dictionary<Base.GoodType, MarketWrapper>();
+        Sellables = new List<Sellable>();
+        foreach (MarketWrapper wrap in Reference)
+        {
+            Comparator.Add(wrap.type, wrap);
+        }
     }
 }

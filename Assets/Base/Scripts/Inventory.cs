@@ -1,66 +1,130 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class Inventory : MonoBehaviour, IEnumerable, IInteractable
+[CreateAssetMenu(
+    menuName = "SO Variables/Inventory",
+    fileName = "inventory"
+    )]
+public class Inventory : ScriptableObject, IEnumerable
 {
-    [SerializeField] int size;
-    [SerializeField]
-    GameObject[] items;
+    public int size;
+    private Item[] items;
 
-    public int Size
-    {
-        get { return size; }
-    }
-
-    private void Start()
+    // PRIVATE
+    private void OnEnable()
     {
         if (items == null)
         {
-            items = new GameObject[size];
+            items = new Item[size];
         }
     }
-
-    IEnumerator IEnumerable.GetEnumerator()
+    private bool check_index(int index)
     {
-        return items.GetEnumerator();
+        return index >= 0 && index < items.Length;
     }
-    void IInteractable.Interact()
+    private bool check_duplicates(GameObject item)
     {
-
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (items[i] != null && items[i].obj == item)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
+
+    // PUBLIC
+    public int Size { get { return items.Length; } }
+    public Item this[int i] { get { return items[i].obj == null ? null : items[i]; } }
+    IEnumerator IEnumerable.GetEnumerator() { return items.GetEnumerator(); }
+    /// <summary>
+    /// Returns the amount of free spaces in the inventory.
+    /// </summary>
+    public int FreeSpace
+    {
+        get {
+            int free = 0;
+            foreach (Item i in items)
+            {
+                if (i == null || i.obj == null)
+                {
+                    free++;
+                }
+            }
+            return free;
+        }
+    }
+   
+    /// <summary>
+    /// Creates an Item from a GameObject and adds to the array.
+    /// </summary>
+    /// <returns>>0 as an index, -1 if not valid.</returns>
     public int Add(GameObject item)
     {
-        for (int i = 0; i < size; i++)
+        return Add(new Item(item));
+    }
+    /// <summary>
+    /// Adds an Item to the first available free spot.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns>>0 as an index, -1 if not valid.</returns>
+    public int Add(Item item)
+    {
+        if (FreeSpace > 0)
         {
-            if (items[i] == null)
+            for (int i = 0; i < items.Length; i++)
             {
-                items[i] = item;
-                return i;
+                if (items[i] == null)
+                {
+                    items[i] = item;
+                    item.obj.SetActive(false);
+                    return i;
+                }
             }
         }
         return -1;
     }
-    public bool Insert(int index, GameObject item)
+    /// <summary>
+    /// Adds to array at specified location.
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    public bool Insert(int index, Item item)
     {
         if (check_index(index) && items[index] == null)
         {
             items[index] = item;
+            item.obj.SetActive(false);
             return true;
         }
         return false;
     }
-    public GameObject Remove(int index)
+    /// <summary>
+    /// Removes the Item at the indexed location.
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    public Item Remove(int index)
     {
         if (check_index(index))
         {
             var item = items[index];
             items[index] = null;
+            item.obj.SetActive(true);
             return item;
         }
         return null;
     }
-    public GameObject Retrieve(int index)
+    /// <summary>
+    /// Returns the Item object from specified index.
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    public Item Retrieve(int index)
     {
         if (check_index(index))
         {
@@ -68,9 +132,51 @@ public class Inventory : MonoBehaviour, IEnumerable, IInteractable
         }
         return null;
     }
-    
-    public bool check_index(int index)
+    /// <summary>
+    /// Checks for duplicate items when adding.
+    /// </summary>
+    /// <param name="ItemType"></param>
+    /// <param name="Quantity"></param>
+    /// <returns></returns>
+    public bool DuplicateItems(Base.GoodType ItemType, float Quantity)
     {
-        return index >= 0 && index < size;
+        for (int i = 0; i < items.Length; i++)
+        {
+            var type = items[i].obj.GetComponent<TypeLabel>().Type;
+
+            if (items[i] != null && type == ItemType)
+            {
+                items[i].quantity += Quantity;
+                items[i].obj.GetComponent<Quantity>().Value += Quantity;
+                return true;
+            }
+        }
+        return false;
+
     }
+
+    // Build editor to show array.
+    //private void OnInspectorGUI()
+    //{
+    //    serializedObject.Update();
+
+    //    ClipArray.isExpanded = EditorGUILayout.Foldout(ClipArray.isExpanded, ClipArray.name);
+    //    if (ClipArray.isExpanded)
+    //    {
+    //        EditorGUI.indentLevel++;
+
+    //        // The field for item count
+    //        ClipArray.arraySize = EditorGUILayout.IntField("size", ClipArray.arraySize);
+
+    //        // draw item fields
+    //        for (var i = 0; i < ClipArray.arraySize; i++)
+    //        {
+    //            var item = ClipArray.GetArrayElementAtIndex(i);
+    //            EditorGUILayout.PropertyField(item, new GUIContent($"Element {i}");
+    //        }
+
+    //        EditorGUI.indentLevel--;
+    //    }
+    //    serializedObject.ApplyModifiedProperties();
+    //}
 }
