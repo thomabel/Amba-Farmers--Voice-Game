@@ -25,12 +25,12 @@ public class Interact : MonoBehaviour
     // Try to interact with some game object.
     public bool Try(GameObject item)
     {
-        Debug.Log("Try interacting with " + item.name);
         if (item == null)
         {
             last_interacted = null;
             return false;
         }
+        Debug.Log("Try interacting with " + item.name);
 
         var inter = item.GetComponent<IInteractable>();
         if (inter == null)
