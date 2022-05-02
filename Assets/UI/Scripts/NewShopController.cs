@@ -324,7 +324,7 @@ public class NewShopController : MonoBehaviour
             Price.AddToClassList("Price");
 
             InventoryName = new Label();
-            InventoryName.text = ItemCards[i].inv.gameObject.name + "\n" + "Inventory";
+            InventoryName.text = ItemCards[i].inv.name + "\n" + "Inventory";
             InventoryName.AddToClassList("InventoryName");
 
             InfoContainer.Add(Name);

@@ -1,14 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Fruit : MonoBehaviour, IEquippable
+[RequireComponent(
+    typeof(Quantity), 
+    typeof(TypeLabel)
+    )]
+public class Fruit : MonoBehaviour, IInteractable, IEquippable
 {
-    public float fruitMass;
-    public string fruitName;
+    public Quantity qty;
+    public TypeLabel tl;
 
+    private void Start()
+    {
+        qty = GetComponent<Quantity>();
+        tl = GetComponent<TypeLabel>();
+    }
+    void IInteractable.Interact()
+    {
+        Debug.Log("Interact with " + name);
+    }
     void IEquippable.Use()
     {
-        Debug.Log("Use Fruit Box");
+        Debug.Log("Equipped " + name);
     }
 }

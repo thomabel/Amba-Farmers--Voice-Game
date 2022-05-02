@@ -49,7 +49,7 @@ public class InventoryController : MonoBehaviour
         EquippedItem = root.Q<Button>("EquippedItem");
         EquippedItem.clickable.clickedWithEventInfo += ItemClicked;
 
-        findItemAndDisplay(PlayerEquipment.item_obj, ref EquippedItem);
+        findItemAndDisplay(PlayerEquipment.eitem, ref EquippedItem);
 
         addInvButton = root.Q<Button>("AddInvButton");
         addInvButton.clicked += addInvClicked;
@@ -111,7 +111,7 @@ public class InventoryController : MonoBehaviour
 
     void addInvClicked()
     {
-        int index = player.Add(PlayerEquipment.item_obj);
+        int index = player.Add(PlayerEquipment.eitem);
         if (index == -1)
         {
             root.Q<VisualElement>("SpaceErrorWarning").style.display = DisplayStyle.Flex;
@@ -119,7 +119,7 @@ public class InventoryController : MonoBehaviour
             return;
         }
         EquippedItem.style.backgroundImage = null;
-        PlayerEquipment.item_obj = null;
+        PlayerEquipment.eitem = null;
         EquippedItem.style.opacity = (StyleFloat).5;
 
         Button InvIndexToChange = root.Q<Button>(index.ToString());
@@ -177,7 +177,7 @@ public class InventoryController : MonoBehaviour
         int index = int.Parse(currentPressedItem.name);
         //PlayerEquipment.EquipTool(Instantiate(inventory.FindCardIndex(int.Parse(currentPressedItem.name)).item_prefab));
 
-        Item previousItem = PlayerEquipment.item_obj;
+        Item previousItem = PlayerEquipment.eitem;
         PlayerEquipment.inventory = player;
         PlayerEquipment.EquipItem(index);
         player.Remove(index);
@@ -188,7 +188,7 @@ public class InventoryController : MonoBehaviour
         findItemAndDisplay(player.Retrieve(index), ref currentPressedItem);
         //currentPressedItem.style.backgroundImage = null;
 
-        findItemAndDisplay(PlayerEquipment.item_obj, ref EquippedItem);
+        findItemAndDisplay(PlayerEquipment.eitem, ref EquippedItem);
 
         currentPressedItem.style.opacity = (StyleFloat).5;
         currentPressedItem = null;
@@ -227,7 +227,7 @@ public class InventoryController : MonoBehaviour
         bool isequippable = button.name.Equals("EquippedItem");
 
         Item CurrentCard;
-        if (isequippable) CurrentCard = PlayerEquipment.item_obj;
+        if (isequippable) CurrentCard = PlayerEquipment.eitem;
         else
         {
             index = int.Parse(currentPressedItem.name);
