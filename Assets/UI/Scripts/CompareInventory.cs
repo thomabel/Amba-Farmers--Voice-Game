@@ -153,8 +153,8 @@ public class CompareInventory : MonoBehaviour
         Debug.Log(InventoryOne.Size);
 
 
-        root.Q<Label>("Label1").text = InventoryOne.gameObject.name;
-        root.Q<Label>("Label2").text = InventoryTwo.gameObject.name;
+        root.Q<Label>("Label1").text = InventoryOne.name;
+        root.Q<Label>("Label2").text = InventoryTwo.name;
 
         Display(InventoryOne, ScrollViewOne, "1");
         Display(InventoryTwo, ScrollViewTwo, "2");
@@ -198,21 +198,21 @@ public class CompareInventory : MonoBehaviour
 
         if (button.name.Equals("ItemPlayerInventory"))
         {
-            Item itemObj = PlayerEquipment.item_obj;
+            Item itemObj = PlayerEquipment.eitem;
             if (itemObj != null)
             {
-                if (InventoryOne.Add(PlayerEquipment.item_obj) == -1) return;
-                PlayerEquipment.item_obj = null;
+                if (InventoryOne.Add(PlayerEquipment.eitem) == -1) return;
+                PlayerEquipment.eitem = null;
             }
         }
         else
         {
-            Item itemobj = PlayerEquipment.item_obj;
+            Item itemobj = PlayerEquipment.eitem;
             if (itemobj != null)
             {
 
-                if (InventoryTwo.Add(PlayerEquipment.item_obj) == -1) return;
-                PlayerEquipment.item_obj = null;
+                if (InventoryTwo.Add(PlayerEquipment.eitem) == -1) return;
+                PlayerEquipment.eitem = null;
             }
 
         }
@@ -228,10 +228,10 @@ public class CompareInventory : MonoBehaviour
     }
     void SendtoInventoryTwo()
     {
-        if (PlayerEquipment.tool_obj != null)
+        if (PlayerEquipment.etool != null)
         {
-            if(InventoryTwo.Add(PlayerEquipment.tool_obj) == -1) return;
-            PlayerEquipment.tool_obj = null;
+            if(InventoryTwo.Add(PlayerEquipment.etool) == -1) return;
+            PlayerEquipment.etool = null;
             Display(InventoryOne, ScrollViewOne, "1");
             Display(InventoryTwo, ScrollViewTwo, "2");
             DisplayEquippable();
@@ -258,7 +258,7 @@ public class CompareInventory : MonoBehaviour
             equipItemPressed = true;
             if (name.Equals("Tool"))
             {
-                InfoboxDisplay(PlayerEquipment.tool_obj);
+                InfoboxDisplay(PlayerEquipment.etool);
                 EquipItemButton.style.opacity = (StyleFloat).6;
                 ToolInfoContainer.style.display = DisplayStyle.Flex;
                 ItemContainerButtons.style.display = DisplayStyle.None;
@@ -266,7 +266,7 @@ public class CompareInventory : MonoBehaviour
             }
             else
             {
-                InfoboxDisplay(PlayerEquipment.item_obj);
+                InfoboxDisplay(PlayerEquipment.eitem);
                 EquipToolButton.style.opacity = (StyleFloat).6;
                 ToolInfoContainer.style.display = DisplayStyle.None;
                 ItemContainerButtons.style.display = DisplayStyle.Flex;
@@ -277,21 +277,21 @@ public class CompareInventory : MonoBehaviour
     }
     void DisplayEquippable()
     {
-        Debug.Log(PlayerEquipment.item_obj);
-        if (PlayerEquipment.tool_obj != null)
+        Debug.Log(PlayerEquipment.eitem);
+        if (PlayerEquipment.etool != null)
         {
             MarketWrapper toolvalue;
-            if (market.Comparator.TryGetValue(PlayerEquipment.tool_obj.obj.GetComponent<TypeLabel>().Type, out toolvalue))
+            if (market.Comparator.TryGetValue(PlayerEquipment.etool.obj.GetComponent<TypeLabel>().Type, out toolvalue))
             {
                 EquipToolButton.style.backgroundImage = new StyleBackground(toolvalue.picture);
             }
             else
                 EquipToolButton.style.backgroundImage = new StyleBackground();
         }
-        if (PlayerEquipment.item_obj != null)
+        if (PlayerEquipment.eitem != null)
         {
             MarketWrapper itemvalue;
-            if (market.Comparator.TryGetValue(PlayerEquipment.item_obj.obj.GetComponent<TypeLabel>().Type, out itemvalue))
+            if (market.Comparator.TryGetValue(PlayerEquipment.eitem.obj.GetComponent<TypeLabel>().Type, out itemvalue))
             {
                 EquipItemButton.style.backgroundImage = new StyleBackground(itemvalue.picture);
             }
@@ -386,7 +386,7 @@ public class CompareInventory : MonoBehaviour
     {
         if (getTypeLabel(Item1.type) == "Seed")
         {
-            Item PreviousEquipItem = PlayerEquipment.item_obj;
+            Item PreviousEquipItem = PlayerEquipment.eitem;
             PlayerEquipment.inventory = Item1.inventory;
             PlayerEquipment.EquipItem(Item1.index);
             Item1.inventory.Remove(Item1.index);
@@ -395,7 +395,7 @@ public class CompareInventory : MonoBehaviour
             Item1.InvNum = 0;
 
             currentEquip = "Item";
-            InfoboxDisplay(PlayerEquipment.item_obj);
+            InfoboxDisplay(PlayerEquipment.eitem);
             ToolInfoContainer.style.display = DisplayStyle.None;
             ItemContainerButtons.style.display = DisplayStyle.Flex;
             EquipButton.style.display = DisplayStyle.None;
@@ -407,25 +407,25 @@ public class CompareInventory : MonoBehaviour
         else if (getTypeLabel(Item1.type) == "Tool" || getTypeLabel(Item1.type) == "Fruit")
         {
 
-            Item PreviousEquipTool = PlayerEquipment.tool_obj;
+            Item PreviousEquipTool = PlayerEquipment.etool;
             Debug.Log("ToolEquip = ");
             //Debug.Log(PlayerEquipment.tool_obj);
             //Debug.Log(Item1.inventory.Retrieve(Item1.index).obj);
             if (PreviousEquipTool == null)
             {
-                PlayerEquipment.tool_obj = Item1.inventory.Retrieve(Item1.index);
+                PlayerEquipment.etool = Item1.inventory.Retrieve(Item1.index);
                 //PlayerEquipment.tool_obj.obj.SetActive(true);
             }
             else PlayerEquipment.EquipTool(Item1.inventory.Retrieve(Item1.index).obj);
             Debug.Log("ToolEquip = ");
-            Debug.Log(PlayerEquipment.tool_obj);
+            Debug.Log(PlayerEquipment.etool);
             Item1.inventory.Remove(Item1.index);
             Item1.inventory.Insert(Item1.index, PreviousEquipTool);
             Item1.index = -1;
             Item1.InvNum = 0;
 
             currentEquip = "Tool";
-            InfoboxDisplay(PlayerEquipment.tool_obj);
+            InfoboxDisplay(PlayerEquipment.etool);
             ToolInfoContainer.style.display = DisplayStyle.Flex;
             ItemContainerButtons.style.display = DisplayStyle.None;
             EquipButton.style.display = DisplayStyle.None;
@@ -526,12 +526,12 @@ public class CompareInventory : MonoBehaviour
             button.style.opacity = (StyleFloat).5;
             if (currentEquip.Equals("Tool"))
             {
-                InfoboxDisplay(PlayerEquipment.tool_obj);
+                InfoboxDisplay(PlayerEquipment.etool);
                 EquipItemButton.style.opacity = (StyleFloat).6;
             }
             else
             {
-                InfoboxDisplay(PlayerEquipment.item_obj);
+                InfoboxDisplay(PlayerEquipment.eitem);
                 EquipToolButton.style.opacity = (StyleFloat).6;
             }
 
@@ -552,12 +552,12 @@ public class CompareInventory : MonoBehaviour
 
             if (currentEquip.Equals("Tool"))
             {
-                InfoboxDisplay(PlayerEquipment.tool_obj);
+                InfoboxDisplay(PlayerEquipment.etool);
                 EquipItemButton.style.opacity = (StyleFloat).6;
             }
             else
             {
-                InfoboxDisplay(PlayerEquipment.item_obj);
+                InfoboxDisplay(PlayerEquipment.eitem);
                 EquipToolButton.style.opacity = (StyleFloat).6;
             }
             /*

@@ -316,17 +316,18 @@ public class Plant: MonoBehaviour, IInteractable
 
     void Harvest()
     {
-        Debug.Log("Harvest");
         if (currentGrowthStage != growthStages.Harvest)
         {
             return;
         }
+        Debug.Log("Harvest");
         Vector3 fruitPlacement = new Vector3();
         fruitPlacement = transform.position;
         fruitPlacement += new Vector3(-1.0F, 0F, -1.0F);
         Fruit newFruitbasket = Instantiate(Resources.Load("Fruit", typeof(Fruit)), fruitPlacement, Quaternion.identity) as Fruit;
-        newFruitbasket.fruitMass = 5f;
-        newFruitbasket.fruitName = "Corn";
+        newFruitbasket.qty.Value = 5f;
+        newFruitbasket.tl.Type = Base.GoodType.Fruit_Corn;
+        newFruitbasket.name = "Corn";
         Destroy(gameObject);
     }
 }
