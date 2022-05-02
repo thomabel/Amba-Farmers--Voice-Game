@@ -10,14 +10,11 @@ public class DisplayTime : MonoBehaviour
     public int startSecond;
     public int startMinute;
     public float accumulator;
-<<<<<<< HEAD
-=======
-    
+   
     //public Text text;
     public IntVariable hours;
     public IntVariable minutes;
     public IntVariable seconds;
->>>>>>> refs/remotes/origin/dateTime
 
     public int startDate;
     public int startMonth;
@@ -31,7 +28,11 @@ public class DisplayTime : MonoBehaviour
     public IntVariable month;
     public IntVariable year; 
 //    [31, 28, 31]
-    public string[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+    public string[] months = 
+    			    {"Jan", "Feb", "Mar",
+			     "Apr", "May", "Jun", 
+			     "Jul", "Aug", "Sep", 
+			     "Oct", "Nov", "Dec"};
     public int[] daysInMonth = {31, 28, 31, 30, 31, 30, 31, 31,30, 31, 30, 31}
     public float timeScale;
     // Start is called before the first frame update
@@ -40,16 +41,14 @@ public class DisplayTime : MonoBehaviour
 	hours.Value = startHour;
 	minutes.Value = startSecond;
 	seconds.Value = startMinute;	
-<<<<<<< HEAD
+
 	date.Value = startDate;
 	month.Value = startMonth;
 	year.Value = startYear;
         text.text = "" + year.Value.ToString("D4") + ":" + months[month.Value-1].ToString("D2")+ ":" date.Value.ToString("D2");
 	text.text = "" + hours.Value + ":" + minutes.Value + ":" + seconds.Value.ToString("D2"); 
 	
-=======
 	//text.text = "" + hours.Value + ":" + minutes.Value + ":" + seconds.Value.ToString("D2"); 
->>>>>>> refs/remotes/origin/dateTime
 	//timeDisplay.GetComponent<Text>().text = "" + hour + ":" + minutes + ":" + seconds;
    	accumulator = 0; 
     }
@@ -86,15 +85,14 @@ public class DisplayTime : MonoBehaviour
 			month.Value = 0;
 		}
 		accumulator-=1;
-<<<<<<< HEAD
+
 	}
 	text.text = "" + year.Value.ToString("D4") + ":" + months[month.Value-1].ToString("D2")+ ":" date.Value.ToString("D2");	
 	text.text = "" + hours.Value + ":" + minutes.Value.ToString("D2") + ":" + seconds.Value.ToString("D2"); 	
-=======
 	}	
 	//text.text = "" + hours.Value + ":" + minutes.Value.ToString("D2") + ":" + seconds.Value.ToString("D2"); 
 	
->>>>>>> refs/remotes/origin/dateTime
+
     }
 
 	public string TimeDisplay() {
