@@ -7,74 +7,54 @@ public class Interact : MonoBehaviour
     public FloatReference ray_distance;
     public FloatReference interact_distance;
     public Color debug_color;
+    public GameObject last_interacted = null;
 
-    public GameObject last_interacted;
-    private RaycastHit hit;
-
-    private void Awake()
+    // Try to interact with the closest game object.
+    public void try_closest()
     {
-        last_interacted = null;
-        hit = new RaycastHit();
+        Try(get_closest());
     }
 
-    /// <summary>
-    /// Uses the closest item.
-    /// </summary>
-    /// <returns>The item that was used.</returns>
-    public GameObject Use()
-    {
-        var interact = get_closest();
-        check_interact(interact);
-        return interact;
-    }
-    /// <summary>
-    /// Uses the item hit by a ray.
-    /// </summary>
-    /// <param name="ray"></param>
-    /// <returns>The item that was hit.</returns>
-    public GameObject Use(Ray ray)
-    {
-        var interact = get_pointed(ray);
-        check_interact(interact);
-        return interact;
-    }
-
-
-    // Find the closest gameobject.
-    private GameObject get_closest()
+    // Find the closest game object.
+    public GameObject get_closest()
     {
         var closest = container.GetClosest(transform.position, interact_distance.Value);
-        if (closest != null)
-        {
-            return closest.gameObject;
-        }
-        return null;
+        return closest == null ? null : closest.gameObject;
     }
-    // Use ray to find a gameobject.
-    private GameObject get_pointed(Ray ray)
-    {
-        Debug.DrawRay(ray.origin, ray.direction * ray_distance.Value, debug_color, 3);
 
-        if (Physics.Raycast(ray.origin, ray.direction, out hit, ray_distance.Value))
-        {
-            return hit.collider.gameObject;
-        }
-        return null;
-    }
-    // Check that the object is interactable.
-    private IInteractable check_interact(GameObject check)
+    // Try to interact with some game object.
+    public bool Try(GameObject item)
     {
-        if (check != null)
+        if (item == null)
         {
-            var inter = check.GetComponent<IInteractable>();
-            if (inter != null)
-            {
-                inter.Interact();
-                last_interacted = check;
-                Debug.Log("interact: " + last_interacted.name);
-                return inter;
-            }
+            last_interacted = null;
+            return false;
         }
-        return null;
+        Debug.Log("Try interacting with " + item.name);
+
+        var inter = item.GetComponent<IInteractable>();
+        if (inter == null)
+        {
+            last_interacted = null;
+            return false;
+        }
+
+        inter.Interact();
+        last_interacted = item;
+        Debug.Log("Interacted with " + last_interacted.name + '.');
+        return true;
     }
+
+    // Use ray to find a gameobject.
+    //private GameObject get_pointed(Ray ray)
+    //{
+    //    Debug.DrawRay(ray.origin, ray.direction * ray_distance.Value, debug_color, 3);
+
+    //    if (Physics.Raycast(ray.origin, ray.direction, out hit, ray_distance.Value))
+    //    {
+    //        return hit.collider.gameObject;
+    //    }
+    //    return null;
+    //}
+    //interact.Use(cam.ScreenPointToRay(Mouse.current.position.ReadValue()));
 }
