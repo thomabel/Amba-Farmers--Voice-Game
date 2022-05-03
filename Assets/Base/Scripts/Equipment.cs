@@ -13,7 +13,11 @@ public class Equipment : MonoBehaviour
     public Item eitem;
     public IStorable Item;
 
-
+    private bool hasItem;
+    private void Awake()
+    {
+        hasItem = false;
+    }
     /// <summary>
     /// General method for picking up inventory items.
     /// </summary>
@@ -22,6 +26,14 @@ public class Equipment : MonoBehaviour
     {
         if (thing == null)
         {
+            return;
+        }
+
+        if (hasItem)
+        {
+            Debug.Log("Dropping");
+            DropTool();
+            hasItem = false;
             return;
         }
 
@@ -52,6 +64,7 @@ public class Equipment : MonoBehaviour
         Item = eitem.obj.GetComponent<IStorable>();
         eitem.obj.transform.parent = transform;
         item_index = index;
+        
         return true;
     }
 
@@ -99,7 +112,8 @@ public class Equipment : MonoBehaviour
         etool = new Item(tool);
         Tool = equip;
         position_tool(transform, true, tool_offset);
-
+        hasItem = true;
+        Debug.Log("Picked");
         return true;
     }
    
