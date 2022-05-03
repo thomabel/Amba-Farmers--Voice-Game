@@ -22,6 +22,7 @@ public class BucketPickUp : MonoBehaviour
     public void bucketDrop(GameObject BucketNeedToDrop)
     {
         BucketNeedToDrop.GetComponent<Rigidbody>().isKinematic = false;
+        BucketNeedToDrop.transform.rotation = bucket.transform.rotation;
         BucketNeedToDrop.transform.parent = bucket.transform;
         
     }
