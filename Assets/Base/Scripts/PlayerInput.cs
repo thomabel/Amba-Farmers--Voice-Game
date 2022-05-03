@@ -10,6 +10,7 @@ public class PlayerInput : MonoBehaviour
     public InventoryHolder bag;
     public Equipment equipment;
     public Inventory house;
+    public UseTool useTool;
 
     private Vector2 move_input;
     private bool moving;
@@ -69,6 +70,7 @@ public class PlayerInput : MonoBehaviour
             {
                 equipment.Tool.Use();
             }
+            useTool.use();
         }
     }
     public void OnItemUse(InputAction.CallbackContext context)

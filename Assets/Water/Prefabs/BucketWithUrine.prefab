@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 7761370821318549756}
   - component: {fileID: 3009231471484484180}
   - component: {fileID: -7147988585467164841}
+  - component: {fileID: 5928219592917968542}
   m_Layer: 0
   m_Name: BucketWithUrine
   m_TagString: Bucket
@@ -144,6 +145,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &5928219592917968542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7761370821320556092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0195a790e14e4cc6aed1a5bb3598d30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2205508378564424299
 PrefabInstance:
   m_ObjectHideFlags: 0

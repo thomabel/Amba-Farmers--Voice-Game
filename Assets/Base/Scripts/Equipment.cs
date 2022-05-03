@@ -13,22 +13,51 @@ public class Equipment : MonoBehaviour
     public Item eitem;
     public IStorable Item;
 
-
+    private bool hasItem;
+    private bool hasBucket;
+    public BucketPickUp bucket;
+    private void Awake()
+    {
+        hasItem = false;
+    }
     /// <summary>
     /// General method for picking up inventory items.
     /// </summary>
     /// <param name="thing"></param>
     public void Pickup(GameObject thing)
     {
+
+        if (hasItem)
+        {
+            if (hasBucket)
+            {
+                Debug.Log("Dropping");
+                bucket.bucketDrop(thing);
+                hasBucket = false;
+                hasItem = false;
+            }
+            else
+            {
+                Debug.Log("Aleady Holding A Tool");
+            }
+
+            return;
+        }
+
         if (thing == null)
         {
             return;
         }
 
-
         if (thing.GetComponent<IStorable>() != null)
         {
             pickup_item(thing);
+        }
+        else if(thing.gameObject.tag == "Bucket")
+        {
+            bucket.bucketPickup(thing);
+            hasBucket = true;
+            hasItem = true;
         }
         else
         {
@@ -101,8 +130,8 @@ public class Equipment : MonoBehaviour
         etool = new Item(tool);
         Tool = equip;
         position_tool(transform, true, tool_offset);
-
-        
+        hasItem = true;
+        Debug.Log("Picked");
         return true;
     }
    
@@ -169,5 +198,17 @@ public class Equipment : MonoBehaviour
             tool.localPosition = position;
             tool.rotation = parent.rotation;
         }
+    }
+
+
+    public bool ifHasItem()
+    {
+        return hasItem;
+
+    }
+    public bool ifHasBucket()
+    {
+        return hasBucket;
+
     }
 }
