@@ -30,7 +30,15 @@ public class FullWater : MonoBehaviour
 
         animator = myHands.GetComponent<Animator>();
         animator.SetBool("Pour", false);
+        //AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
 
+        //if (info.normalizedTime >= 1.0f)
+
+        //{
+
+        //    afterPour();
+
+        //}
 
     }
 
@@ -68,6 +76,8 @@ public class FullWater : MonoBehaviour
         BucketHolding.GetComponent<Rigidbody>().isKinematic = true;
 
     }
+
+    
 
     private void OnTriggerEnter(Collider other)
     {
