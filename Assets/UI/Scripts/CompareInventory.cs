@@ -30,6 +30,8 @@ public class CompareInventory : MonoBehaviour
     [SerializeField]
     private Market market;
 
+    [SerializeField]
+    private GameObject phone;
 
     [SerializeField]
     private Equipment PlayerEquipment;
@@ -112,6 +114,7 @@ public class CompareInventory : MonoBehaviour
         equipItemPressed = false;
         currentEquip = "empty";
 
+        
         /*
         Item tmp = new Item();
 
@@ -142,7 +145,6 @@ public class CompareInventory : MonoBehaviour
 
 
         root = GetComponent<UIDocument>().rootVisualElement;
-
 
         ScrollViewOne = root.Q<ScrollView>("ScrollView1");
         ScrollViewOne.Clear();
@@ -190,7 +192,16 @@ public class CompareInventory : MonoBehaviour
         //ItemHouseInventory.text = "Add " + "\n" + InventoryTwo.gameObject.name + " Inventory";
         ItemHouseInventory.text = "Add\n >";
 
+        root.Q<Button>("BackButton").clicked += GoBack;
+        root.Focus();
+        phone.SetActive(false);
 
+
+    }
+    void GoBack()
+    {
+        phone.SetActive(true);
+        this.gameObject.SetActive(false);
     }
     void AddtoInventory(EventBase obj)
     {
@@ -335,6 +346,7 @@ public class CompareInventory : MonoBehaviour
 
                 tmpType = findReference(inventory.Retrieve(i).obj.GetComponent<TypeLabel>().Type);
                 InventoryItem.style.backgroundImage = tmpType.picture;
+                InventoryItem.text = inventory.Retrieve(i).obj.GetComponent<Quantity>().Value.ToString();
 
             }
             else InventoryItem.style.backgroundImage = null;
@@ -417,8 +429,7 @@ public class CompareInventory : MonoBehaviour
                 //PlayerEquipment.tool_obj.obj.SetActive(true);
             }
             else PlayerEquipment.EquipTool(Item1.inventory.Retrieve(Item1.index).obj);
-            Debug.Log("ToolEquip = ");
-            Debug.Log(PlayerEquipment.etool);
+
             Item1.inventory.Remove(Item1.index);
             Item1.inventory.Insert(Item1.index, PreviousEquipTool);
             Item1.index = -1;
@@ -501,22 +512,7 @@ public class CompareInventory : MonoBehaviour
 
             }
             else root.Q<VisualElement>("QuanInfoContainer").style.display = DisplayStyle.None;
-            /*
-            if (InvNum != 3)
-            {
-                Item itemClicked = Item1.inventory.Retrieve(IndexNum);
-                if (itemClicked != null)
-                {
-                    Item1.type = itemClicked.obj.GetComponent<TypeLabel>().Type;
-                    root.Q<VisualElement>("QuanInfoContainer").style.display = DisplayStyle.Flex;
-                    MarketWrapper value;
-                    market.Comparator.TryGetValue(Item1.inventory.Retrieve(IndexNum).obj.GetComponent<TypeLabel>().Type, out value);
-                    root.Q<Label>("NameOfItem").text = value.display_name;
-                    root.Q<Label>("QuantityValue").text = Item1.inventory.Retrieve(IndexNum).obj.GetComponent<Quantity>().Value.ToString();
-                }
-                else root.Q<VisualElement>("QuanInfoContainer").style.display = DisplayStyle.None;
-            }
-            */
+
         }
         else if (Item1.index == IndexNum && Item1.InvNum == InvNum)
         {
@@ -560,17 +556,7 @@ public class CompareInventory : MonoBehaviour
                 InfoboxDisplay(PlayerEquipment.eitem);
                 EquipToolButton.style.opacity = (StyleFloat).6;
             }
-            /*
-            if (InvNum != 3)
-            {
-                Item itemClicked = Item2.inventory.Retrieve(IndexNum);
-                if (itemClicked != null)
-                {
-                    Item2.type = itemClicked.obj.GetComponent<TypeLabel>().Type;
-                }
-                CheckAcceptableTransfer();
-            }
-            */
+
         }
         else if (Item2.index == IndexNum && Item2.InvNum == InvNum)
         {
@@ -590,16 +576,7 @@ public class CompareInventory : MonoBehaviour
         }
         Item.InvNum = 2;
         return InventoryTwo;
-        /*
-        else if (InvNum == 2)
-        {
-            Item.InvNum = 2;
-            return InventoryTwo;
-        }
-
-        Item.InvNum = 3;
-        return null;
-        */
+  
     }
 
 
@@ -609,17 +586,12 @@ public class CompareInventory : MonoBehaviour
     }
     bool CheckAcceptableTransfer()
     {
-        Debug.Log("OUT");
-        Debug.Log(Item1.InvNum);
-        Debug.Log(Item1.type);
-        Debug.Log(Item2.InvNum);
-        Debug.Log(Item2.type);
+
         if ((Item1.InvNum == 1 || Item2.InvNum == 1) &&
             (Item1.type > Base.GoodType.Tool_Start && Item1.type < Base.GoodType.Tool_End ||
             (Item2.type > Base.GoodType.Tool_Start && Item2.type < Base.GoodType.Tool_End)))
 
         {
-            Debug.Log("IN");
             Item1.index = -1;
             Item2.index = -1;
             Item1.InvNum = 0;
@@ -639,28 +611,6 @@ public class CompareInventory : MonoBehaviour
     }
     private void Update()
     {
-        root.Focus();
-        /*
-        if (Item1.index != -1 && Item2.index != -1)
-        {
-            //if(Item1)
-
-            Item swap1 = Item1.inventory.Remove(Item1.index);
-            Item swap2 = Item2.inventory.Remove(Item2.index);
-            Item1.inventory.Insert(Item1.index, swap2);
-            Item2.inventory.Insert(Item2.index, swap1);
-
-            ScrollViewOne.Clear();
-            ScrollViewTwo.Clear();
-            Display(InventoryOne, ScrollViewOne, "1");
-            Display(InventoryTwo, ScrollViewTwo, "2");
-            Item1.index = -1;
-            Item2.index = -1;
-            Item1.InvNum = 0;
-            Item2.InvNum = 0;
-        }
-        */
-
         if (Item1.index == -1 && !equipItemPressed) //else if(Item1.index == -1)
         {
             root.Q<VisualElement>("QuanInfoContainer").style.display = DisplayStyle.None;
@@ -670,10 +620,9 @@ public class CompareInventory : MonoBehaviour
     }
 
     void swapItems() {
+
         if (Item1.index != -1 && Item2.index != -1)
         {
-            //if(Item1)
-
             Item swap1 = Item1.inventory.Remove(Item1.index);
             Item swap2 = Item2.inventory.Remove(Item2.index);
             Item1.inventory.Insert(Item1.index, swap2);

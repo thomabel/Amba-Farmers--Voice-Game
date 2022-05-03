@@ -195,9 +195,10 @@ public class NewShopController : MonoBehaviour
             }
             
         }
-        market.PopulateSellables();
+
+        //market.PopulateSellables();
         
-        Debug.Log(market.Sellables.Count);
+        //Debug.Log(market.Sellables.Count);
     }
     public void roothide()
     {
@@ -362,10 +363,15 @@ public class NewShopController : MonoBehaviour
     void Update()
     {
         //root = GetComponent<UIDocument>().rootVisualElement;
-        MoneyLabel.text = player.Balance().ToString();
-        SubtotalLabel.text = total.ToString();
-        SoldSubtotalLabel.text = SellTotal.ToString();
-        CheckoutMoneyLabel.text = player.Balance().ToString();
+
+        if (MoneyLabel != null && SubtotalLabel != null &&
+            SoldSubtotalLabel != null && CheckoutMoneyLabel != null)
+        {
+            MoneyLabel.text = player.Balance().ToString();
+            SubtotalLabel.text = total.ToString();
+            SoldSubtotalLabel.text = SellTotal.ToString();
+            CheckoutMoneyLabel.text = player.Balance().ToString();
+        }
     }
 
 

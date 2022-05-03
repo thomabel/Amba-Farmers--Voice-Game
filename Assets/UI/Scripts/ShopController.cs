@@ -107,7 +107,6 @@ public class ShopController : MonoBehaviour
         AddToLists();
 
         root = GetComponent<UIDocument>().rootVisualElement;
-        root.Focus();
 
 
         MoneyLabel = root.Q<Label>("MoneyLabel");
@@ -157,6 +156,8 @@ public class ShopController : MonoBehaviour
         CheckoutBackButton = root.Q<Button>("CheckoutBackButton");
         CheckoutBackButton.clicked += CheckoutBackButtonPressed;
 
+        root.Focus();
+
     }
     void AddToLists()
     {
@@ -176,54 +177,44 @@ public class ShopController : MonoBehaviour
             }
 
         }
+        market.Sellables.Clear();
+        market.PopulateSellables();
+
+        /*
         if(market.Sellables.Count == 0)
             market.PopulateSellables();
+        */
 
         Debug.Log(market.Sellables.Count);
     }
-    /*
-    void BuyOrSellTabClicked(EventBase BuyOrSellModeClicked)
+
+
+    void BuyOrSellTabClicked(Visibility VisibleOrHidden,Button hideButton, Button ShowButton, string TypeOfCardToDisplay)
     {
-        var button = (Button)BuyOrSellModeClicked.target;
-
-        if (isBuy)
-        {
-            root.Q<VisualElement>("TabButtonContainer").style.visibility = Visibility.Hidden;
-            DisplayCards("S");
-            isBuy = false;
-        }
-        else
-        {
-
-        }
+        root.Q<VisualElement>("TabButtonContainer").style.visibility = VisibleOrHidden;
+        DisplayCards(TypeOfCardToDisplay);
+        ShowButton.RemoveFromClassList("ButtonUnActive");
+        hideButton.AddToClassList("ButtonUnActive");
 
     }
-    */
+    
 
     void BuyButtonPressed()
     {
         if (isBuy) return;
 
-        root.Q<VisualElement>("TabButtonContainer").style.visibility = Visibility.Visible;
         isBuy = true;
-        DisplayCards(currentTab[0].ToString());
-
-        buyButton.RemoveFromClassList("ButtonUnActive");
-        sellButton.AddToClassList("ButtonUnActive");
+        BuyOrSellTabClicked(Visibility.Visible,sellButton,buyButton, currentTab[0].ToString());
 
     }
     void SellButtonPressed()
     {
         if (!isBuy) return;
 
-        ScrollViewSection.Clear();
-        root.Q<VisualElement>("TabButtonContainer").style.visibility = Visibility.Hidden;
-        DisplayCards(null, SellList, false);
         isBuy = false;
-
-        sellButton.RemoveFromClassList("ButtonUnActive");
-        buyButton.AddToClassList("ButtonUnActive");
+        BuyOrSellTabClicked(Visibility.Hidden, buyButton, sellButton, "S");
     }
+
     void DisplayCards(string ItemsToDisplay)
     {
         ScrollViewSection.Clear();
@@ -239,6 +230,7 @@ public class ShopController : MonoBehaviour
         if (IsBuyMode) length = ItemCards.Count;
         else length = market.Sellables.Count;
 
+        Label SellableQuantity = null;
 
         for (int i = 0; i < length; ++i)
         {
@@ -247,9 +239,15 @@ public class ShopController : MonoBehaviour
             else
             {
                 item = market.Sellables[i].wrap;
+                SellableQuantity = new Label();
+                SellableQuantity.text = "Q: " + market.Sellables[i].inv.Retrieve(market.Sellables[i].index).obj.GetComponent<Quantity>().Value.ToString();
+                SellableQuantity.AddToClassList("InventoryName");
+                /*
                 InventoryName = new Label();
-                InventoryName.text = market.Sellables[i].inv.gameObject.name + "\n" + "Inventory";
+                InventoryName.text = market.Sellables[i].inv.name + "\n" + "Inventory";
                 InventoryName.AddToClassList("InventoryName");
+                */
+
             }
 
             CardButton = new Button();
@@ -278,7 +276,7 @@ public class ShopController : MonoBehaviour
 
             InfoContainer.Add(Name);
             InfoContainer.Add(Price);
-            if(!IsBuyMode) InfoContainer.Add(InventoryName);
+            if(!IsBuyMode) InfoContainer.Add(SellableQuantity);//InfoContainer.Add(InventoryName);
 
             StatusContainer = new VisualElement();
             StatusContainer.AddToClassList("Status");
@@ -313,10 +311,14 @@ public class ShopController : MonoBehaviour
     void Update()
     {
         //root = GetComponent<UIDocument>().rootVisualElement;
-        MoneyLabel.text = player.Balance().ToString();
-        SubtotalLabel.text = total.ToString();
-        SoldSubtotalLabel.text = SellTotal.ToString();
-        CheckoutMoneyLabel.text = player.Balance().ToString();
+        if (MoneyLabel != null && SubtotalLabel != null &&
+           SoldSubtotalLabel != null && CheckoutMoneyLabel != null)
+        {
+            MoneyLabel.text = player.Balance().ToString();
+            SubtotalLabel.text = total.ToString();
+            SoldSubtotalLabel.text = SellTotal.ToString();
+            CheckoutMoneyLabel.text = player.Balance().ToString();
+        }
     }
 
 
@@ -443,8 +445,13 @@ public class ShopController : MonoBehaviour
 
             VisualElement CheckoutItemInfoContainer = new VisualElement();
             CheckoutItemInfoContainer.AddToClassList("CheckoutItemNameContainer");
+
             Label CheckoutItemInfoLabel = new Label();
-            CheckoutItemInfoLabel.text = ChosenType + " " + item.display_name + " " + "$" + item.PriceOf().ToString();
+            string quantityValue = market.Sellables[i].inv.
+                Retrieve(market.Sellables[i].index).obj.
+                GetComponent<Quantity>().Value.ToString();
+            CheckoutItemInfoLabel.text = ChosenType + " " + item.display_name
+                + " " + "$" + item.PriceOf().ToString() + "\n" + "Q: " + quantityValue;
             CheckoutItemInfoLabel.AddToClassList("CheckoutItemInfoLabel");
             CheckoutItemInfoContainer.Add(CheckoutItemInfoLabel);
 
@@ -531,7 +538,7 @@ public class ShopController : MonoBehaviour
         }
 
         buyorSellList.Remove(num);
-        Debug.Log(button.GetFirstAncestorOfType<VisualElement>().name);
+
         VisualElement tmp = button.GetFirstAncestorOfType<VisualElement>();
         VisualElement CheckoutScrollView = root.Q<VisualElement>("CheckoutScrollViewList");
         CheckoutScrollView.Remove(tmp);
@@ -570,11 +577,10 @@ public class ShopController : MonoBehaviour
     }
 
 
-    void Checkout(List<int> BoughtList, List<MarketWrapper> BoughtCardInfo, Dictionary<int, int> QuantityMap, int StartInventory)
+    void Checkout(List<int> BoughtList, List<MarketWrapper> BoughtCardInfo, Dictionary<int, int> QuantityMap)
     {
         foreach (int element in BoughtList)
             market.BuyItem(BoughtCardInfo[element], QuantityMap[element]);
-
     }
 
     void checkoutSell()
@@ -596,8 +602,8 @@ public class ShopController : MonoBehaviour
             root.Q<Label>("CheckoutMessage").style.display = DisplayStyle.None;
 
 
-            Checkout(PlantBuyList, Plants, PlantQuantity, 0);
-            Checkout(ToolBuyList, Tools, ToolQuantity, 1);
+            Checkout(PlantBuyList, Plants, PlantQuantity);
+            Checkout(ToolBuyList, Tools, ToolQuantity);
             checkoutSell();
             //addtoInventory(LivestockBuyList, Animals,LiveStockQuantity);
 

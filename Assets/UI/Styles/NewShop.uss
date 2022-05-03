@@ -736,6 +736,7 @@
     color: rgb(0, 0, 0);
     font-size: 20px;
     white-space: normal;
+    -unity-font-style: bold;
 }
 
 .CheckoutCard:active {

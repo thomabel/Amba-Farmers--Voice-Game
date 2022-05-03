@@ -3,7 +3,7 @@
     <ui:VisualElement name="Container" class="Container">
         <ui:VisualElement name="Inventories" class="InventoryContainer">
             <ui:VisualElement name="Header" class="HeaderContainer" style="flex-direction: row;">
-                <ui:Button display-tooltip-when-elided="true" style="width: 5%; height: 90%; border-left-color: rgba(255, 255, 255, 0); border-right-color: rgba(255, 255, 255, 0); border-top-color: rgba(255, 255, 255, 0); border-bottom-color: rgba(255, 255, 255, 0); background-color: rgba(88, 88, 88, 0); background-image: url(&apos;/Assets/UI/Textures/Back.png&apos;);" />
+                <ui:Button display-tooltip-when-elided="true" name="BackButton" class="BackButton" />
                 <ui:Label text="Inventories" display-tooltip-when-elided="true" style="width: 95%; height: 100%; -unity-text-align: upper-center; font-size: 36px; -unity-font-style: bold; color: rgb(255, 255, 255); padding-right: 15%;" />
             </ui:VisualElement>
             <ui:VisualElement name="Body" class="InventoryBody">
@@ -12,7 +12,7 @@
                     <ui:ScrollView mode="Vertical" horizontal-scroller-visibility="Auto" vertical-scroller-visibility="AlwaysVisible" name="ScrollView1" class="InventoryScrollView" style="flex-direction: column; align-items: flex-start; height: 100%;">
                         <ui:VisualElement class="Row">
                             <ui:Button text="Button" display-tooltip-when-elided="true" class="SlotIcon ItemButton SmallerItemButton" />
-                            <ui:Button text="Button" display-tooltip-when-elided="true" class="SlotIcon ItemButton SmallerItemButton" />
+                            <ui:Button text="Button" display-tooltip-when-elided="true" class="SlotIcon ItemButton SmallerItemButton" style="-unity-text-align: lower-right;" />
                         </ui:VisualElement>
                     </ui:ScrollView>
                 </ui:VisualElement>
