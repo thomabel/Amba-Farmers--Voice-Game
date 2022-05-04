@@ -67,7 +67,7 @@ public class PlayerInput : MonoBehaviour
         {
             if (equipment.Tool != null)
             {
-                equipment.Tool.Use();
+                equipment.Tool.Use(null);
             }
         }
     }

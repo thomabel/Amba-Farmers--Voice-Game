@@ -8,8 +8,7 @@ public class Seed : MonoBehaviour, IStorable, IInteractable
     {
         Instantiate(plant, transform.position, Quaternion.identity, null);
     }
-
-    void IInteractable.Interact()
+    void IInteractable.Interact(GameObject with)
     {
 
     }

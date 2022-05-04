@@ -309,7 +309,7 @@ public class Plant: MonoBehaviour, IInteractable
         nutrientLevel = 50;
     }
 
-    void IInteractable.Interact()
+    void IInteractable.Interact(GameObject with)
     {
         Harvest();
     }
