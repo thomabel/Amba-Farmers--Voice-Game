@@ -17,7 +17,7 @@ public class DisplayTime : MonoBehaviour
     public float accumulator;
 	public int timeMultiplier = 1;
 	public int minMultiplier = 1;
-	public int maxMultiplier = 10;
+	public int maxMultiplier = 4096;
     
     //public Text text;
     public IntVariable hours;
@@ -69,14 +69,14 @@ public class DisplayTime : MonoBehaviour
 	public void incrementMultiplier()
 	{
 		if (timeMultiplier < maxMultiplier)
-			timeMultiplier += 1;
+			timeMultiplier *= 2;
 	}
 
 	public void decrementMultiplier()
 	{
 		if (timeMultiplier > minMultiplier)
 		{
-			timeMultiplier -= 1;
+			timeMultiplier /= 2;
 		}
 	}
 
