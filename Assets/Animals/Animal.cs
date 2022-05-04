@@ -97,8 +97,8 @@ public class Animal : MonoBehaviour, IInteractable
 
     void Eat()
     {
-        float foodValue = 20f;
-        float fillValue = 40f;
+        float foodValue = 20f;  // magic number - will be changed when food is properly implemented
+        float fillValue = 40f;  // magic number - will be changed when food is properly implemented
         // Debug.Log(id + " - Attempting to eat from shelter");
         lastTimeEaten = (int) seconds.Value;
         if (shelter != null)
