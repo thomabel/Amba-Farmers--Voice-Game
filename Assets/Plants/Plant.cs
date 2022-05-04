@@ -5,6 +5,8 @@ public class Plant: MonoBehaviour, IInteractable
 {
     // The position of the sun
     private Transform sunPosition;
+    // Terrain Data
+    private GameObject terrain;
 
     // Variables for the timed function
     private float timeAccumulator = 0.0f;
@@ -34,9 +36,9 @@ public class Plant: MonoBehaviour, IInteractable
     private int[] goodWaterRange = { 25, 75 };
     private int[] goodNutrientRange = { 25, 75 };
     // Current levels for this plant
-    public int lightLevel;
-    public int waterLevel;
-    public int nutrientLevel;
+    public float lightLevel;
+    public float waterLevel;
+    public float nutrientLevel;
 
     // -- PLANT GROWTH -- 
     // Plant Growth Stages
@@ -58,6 +60,7 @@ public class Plant: MonoBehaviour, IInteractable
     void Start()
     {
         sunPosition = GameObject.Find("Directional Light").transform;
+        terrain = GameObject.Find("Terrain");
         CheckEnvironment();
         UpdateHealthStatus();
         UpdateGrowthStage();
@@ -276,8 +279,7 @@ public class Plant: MonoBehaviour, IInteractable
     void CheckEnvironment()
     {
         GetSunLevel();
-        GetWaterLevel();
-        GetNutrientLevel();
+        GetTerrainData();
     }
 
     // Get level of sunlight. 
@@ -296,20 +298,14 @@ public class Plant: MonoBehaviour, IInteractable
     }
 
     //Water Level of area 
-    // 0 - 100, 0 = dry, 100 = innundated
-    void GetWaterLevel()
+    void GetTerrainData()
     {
-        waterLevel = 50;
+        TerrainData.Data currentConditions = terrain.GetComponent<TerrainData>().GetTileData(gameObject.transform.position);
+        waterLevel = currentConditions.water;
+        nutrientLevel = currentConditions.nutrients;
     }
 
-    //Nutrient Level of area 
-    // 0 - 100, 0 = none, 100 = max concentration
-    void GetNutrientLevel()
-    {
-        nutrientLevel = 50;
-    }
-
-    void IInteractable.Interact()
+    void IInteractable.Interact(GameObject with)
     {
         Harvest();
     }
