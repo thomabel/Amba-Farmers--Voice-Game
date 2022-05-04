@@ -2,8 +2,9 @@
     <Style src="/Assets/UI/Styles/Inventory.uss" />
     <ui:VisualElement name="Container2" class="Container" style="display: flex;">
         <ui:VisualElement name="Inventory2" class="InventoryContainer" style="width: 100%; height: 100%; flex-grow: 1;">
-            <ui:VisualElement name="HeaderContainer" class="HeaderContainer">
-                <ui:Label text="Inventory" display-tooltip-when-elided="true" name="Header2" style="font-size: 30px; color: rgb(255, 197, 0); margin-bottom: 10px; border-bottom-color: rgb(64, 74, 82); border-bottom-width: 0; -unity-font-style: bold; -unity-text-align: middle-center; height: 100%; width: 100%;" />
+            <ui:VisualElement name="HeaderContainer" class="HeaderContainer" style="flex-direction: row;">
+                <ui:Button display-tooltip-when-elided="true" name="BackButton" class="BackButton" />
+                <ui:Label text="Inventory" display-tooltip-when-elided="true" name="Header2" style="font-size: 30px; color: rgb(255, 197, 0); margin-bottom: 10px; border-bottom-color: rgb(64, 74, 82); border-bottom-width: 0; -unity-font-style: bold; -unity-text-align: middle-center; height: 100%; width: 95%;" />
             </ui:VisualElement>
             <ui:VisualElement name="InventoryBody" class="InventoryBody" style="flex-direction: column;">
                 <ui:VisualElement style="flex-direction: row; width: 100%; height: 70%;">

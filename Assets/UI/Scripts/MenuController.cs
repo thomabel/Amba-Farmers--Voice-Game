@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 using System;
 
-public class UIController : MonoBehaviour
+public class MenuController : MonoBehaviour
 {
     public Button StartButton;
 

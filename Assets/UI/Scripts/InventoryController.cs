@@ -30,6 +30,9 @@ public class InventoryController : MonoBehaviour
 
     private Button addInvButton;
 
+    [SerializeField]
+    private GameObject Phone;
+
     //private Button FocusedButton;
     // Start is called before the first frame update
 
@@ -53,6 +56,8 @@ public class InventoryController : MonoBehaviour
 
         addInvButton = root.Q<Button>("AddInvButton");
         addInvButton.clicked += addInvClicked;
+
+        root.Q<Button>("BackButton").clicked += backbutton;
         /*
         if(value != null)
             EquippedItem.style.backgroundImage = new StyleBackground(value.picture);
@@ -108,7 +113,11 @@ public class InventoryController : MonoBehaviour
         }
 
     }
-
+    void backbutton()
+    {
+        Phone.SetActive(true);
+        this.gameObject.SetActive(false);
+    }
     void addInvClicked()
     {
         int index = player.Add(PlayerEquipment.eitem);

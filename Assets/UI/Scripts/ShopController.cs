@@ -5,6 +5,8 @@ using UnityEngine.UIElements;
 
 public class ShopController : MonoBehaviour
 {
+    private MainUI mainUI;
+
     private VisualElement ScrollViewSection;
     private Button CardButton;
     private VisualElement PictureContainer;
@@ -90,6 +92,29 @@ public class ShopController : MonoBehaviour
     void OnEnable()
     {
 
+        Initialize();
+        AddToLists();
+
+        root = GetComponent<UIDocument>().rootVisualElement;
+        assignUItoVariables();
+        assignButtonsToFunctions();
+
+        currentTab = "ToolTab";
+        root.Q<Button>("ToolTab").style.opacity = 1;
+        sellButton.name = "Sell";
+        buyButton.name = "Buy";
+        root.Q<Label>("MoneyLabel").text = player.Balance().ToString();
+
+        DisplayCards("T");
+
+        isBuy = true;
+
+        root.Focus();
+
+    }
+    void Initialize()
+    {
+        mainUI = new MainUI();
         PlantQuantity = new Dictionary<int, int>();
         ToolQuantity = new Dictionary<int, int>();
         LiveStockQuantity = new Dictionary<int, int>();
@@ -104,11 +129,9 @@ public class ShopController : MonoBehaviour
         Animals = new List<MarketWrapper>();
         Tools = new List<MarketWrapper>();
 
-        AddToLists();
-
-        root = GetComponent<UIDocument>().rootVisualElement;
-
-
+    }
+    void assignUItoVariables()
+    {
         MoneyLabel = root.Q<Label>("MoneyLabel");
         SubtotalLabel = root.Q<Label>("SubtotalLabel");
         SoldSubtotalLabel = root.Q<Label>("SoldSubtotalLabel");
@@ -116,47 +139,27 @@ public class ShopController : MonoBehaviour
 
         SuccessPurchase = root.Q<VisualElement>("ItemsPurchased");
         ItemsInCheckout = root.Q<VisualElement>("ItemsListContainer");
+        sellButton = root.Q<Button>("SellButton");
+        buyButton = root.Q<Button>("BuyButton");
+        ScrollViewSection = root.Q<VisualElement>("ScrollView");
+        checkout = root.Q<Button>("CheckoutButton");
+        CheckoutBackButton = root.Q<Button>("CheckoutBackButton");
+    }
 
-        currentTab = "ToolTab";
-
-        root.Q<Button>("ToolTab").style.opacity = 1;
+    void assignButtonsToFunctions()
+    {
         root.Q<Button>("ToolTab").clickable.clickedWithEventInfo += ClickedTabs;
 
         root.Q<Button>("PlantTab").clickable.clickedWithEventInfo += ClickedTabs;
 
         root.Q<Button>("LivestockTab").clickable.clickedWithEventInfo += ClickedTabs;
-
-
-        sellButton = root.Q<Button>("SellButton");
-        sellButton.name = "Sell";
-        //sellButton.clickable.clickedWithEventInfo += BuyOrSellTabClicked;
         sellButton.clicked += SellButtonPressed;
-
-        buyButton = root.Q<Button>("BuyButton");
-        buyButton.name = "Buy";
-        //buyButton.clickable.clickedWithEventInfo += BuyOrSellTabClicked;
-
         buyButton.clicked += BuyButtonPressed;
-
-        //Setting up clickedTabs
-
         root.Q<Button>("CheckoutActualButton").clicked += CheckoutOperation;
 
         root.Q<Button>("BackButtonToFarm").clicked += BackButtonToFarm;
-
-        ScrollViewSection = root.Q<VisualElement>("ScrollView");
-
-        root.Q<Label>("MoneyLabel").text = player.Balance().ToString();
-
-        DisplayCards("T");
-        isBuy = true;
-        checkout = root.Q<Button>("CheckoutButton");
         checkout.clicked += CheckoutButtonPressed;
-
-        CheckoutBackButton = root.Q<Button>("CheckoutBackButton");
         CheckoutBackButton.clicked += CheckoutBackButtonPressed;
-
-        root.Focus();
 
     }
     void AddToLists()
@@ -179,11 +182,6 @@ public class ShopController : MonoBehaviour
         }
         market.Sellables.Clear();
         market.PopulateSellables();
-
-        /*
-        if(market.Sellables.Count == 0)
-            market.PopulateSellables();
-        */
 
         Debug.Log(market.Sellables.Count);
     }
@@ -239,9 +237,7 @@ public class ShopController : MonoBehaviour
             else
             {
                 item = market.Sellables[i].wrap;
-                SellableQuantity = new Label();
-                SellableQuantity.text = "Q: " + market.Sellables[i].inv.Retrieve(market.Sellables[i].index).obj.GetComponent<Quantity>().Value.ToString();
-                SellableQuantity.AddToClassList("InventoryName");
+                mainUI.createLabel(ref SellableQuantity, "InventoryName", null, null, "Q: " + market.Sellables[i].inv.Retrieve(market.Sellables[i].index).obj.GetComponent<Quantity>().Value.ToString());
                 /*
                 InventoryName = new Label();
                 InventoryName.text = market.Sellables[i].inv.name + "\n" + "Inventory";
@@ -250,44 +246,34 @@ public class ShopController : MonoBehaviour
 
             }
 
-            CardButton = new Button();
-            CardButton.name = i.ToString();
-            CardButton.AddToClassList("CardButton");
-            CardButton.clickable.clickedWithEventInfo += Pressed;
 
-            PictureContainer = new VisualElement();
-            PictureContainer.AddToClassList("PictureContainer");
+            mainUI.createButton(ref CardButton, "CardButton", null, i.ToString(), null);
 
-            Picture = new Label();
-            Picture.AddToClassList("Picture");
-            Picture.style.backgroundImage = item.picture;
+            CardButton.clickable.clickedWithEventInfo += ShopItemPressed;
+
+
+            mainUI.createVisualElement(ref PictureContainer, "PictureContainer", null, null, null);
+
+            mainUI.createLabel(ref Picture, "Picture", item.picture, null, null);
+
             PictureContainer.Add(Picture);
+            
 
-            InfoContainer = new VisualElement();
-            InfoContainer.AddToClassList("InfoContainer");
+            mainUI.createVisualElement(ref InfoContainer, "InfoContainer", null, null, null);
 
-            Name = new Label();
-            Name.text = item.display_name;
-            Name.AddToClassList("Name");
+            mainUI.createLabel(ref Name, "Name", null, null, item.display_name);
+            mainUI.createLabel(ref Price, "Price", null, null, "$" + item.PriceOf().ToString());
 
-            Price = new Label();
-            Price.text = "$" + item.PriceOf().ToString();
-            Price.AddToClassList("Price");
 
             InfoContainer.Add(Name);
             InfoContainer.Add(Price);
+
             if(!IsBuyMode) InfoContainer.Add(SellableQuantity);//InfoContainer.Add(InventoryName);
 
-            StatusContainer = new VisualElement();
-            StatusContainer.AddToClassList("Status");
+            mainUI.createVisualElement(ref StatusContainer, "Status", null, null, null);
+            mainUI.createLabel(ref inCartLabel, "InCartLabel", null, null, "In Cart");
+            mainUI.createLabel(ref StatusPicture, "StatusPicture", null, "Status" + i.ToString(), null);
 
-            inCartLabel = new Label();
-            inCartLabel.text = "In Cart";
-            inCartLabel.AddToClassList("InCartLabel");
-
-            StatusPicture = new Label();
-            StatusPicture.name = "Status" + i.ToString();
-            StatusPicture.AddToClassList("StatusPicture");
 
             if (BuyOrSellList.Contains(i))
                 StatusPicture.style.backgroundImage = Checkmark;
@@ -322,25 +308,27 @@ public class ShopController : MonoBehaviour
     }
 
 
-    void Pressed(EventBase obj)
+    void ShopItemPressed(EventBase obj)
     {
         var button = (Button)obj.target;
 
         if (!isBuy)
         {
-            Pressed(SellList, button.name, SellQuantity);
+            ShopItemPressed(SellList, button.name, SellQuantity);
             return;
         }
 
-        if (currentTab.Equals("PlantTab")) Pressed(PlantBuyList, button.name, PlantQuantity);
-        else if (currentTab.Equals("ToolTab")) Pressed(ToolBuyList, button.name, ToolQuantity);
-        else Pressed(LivestockBuyList, button.name, LiveStockQuantity);
+        if (currentTab.Equals("PlantTab")) ShopItemPressed(PlantBuyList, button.name, PlantQuantity);
+        else if (currentTab.Equals("ToolTab")) ShopItemPressed(ToolBuyList, button.name, ToolQuantity);
+        else ShopItemPressed(LivestockBuyList, button.name, LiveStockQuantity);
 
     }
 
-    void Pressed(List<int> ItemType, string itemName, Dictionary<int, int> QuantityMap)
+    void ShopItemPressed(List<int> ItemType, string itemName, Dictionary<int, int> QuantityMap)
     {
         Label Status = root.Q<Label>("Status" + int.Parse(itemName));
+
+        //Change Status Image
         if (Status.style.backgroundImage == X)
         {
             Status.style.backgroundImage = Checkmark;
@@ -357,17 +345,26 @@ public class ShopController : MonoBehaviour
 
     void CheckNoItems()
     {
+        VisualElement CheckoutContent = root.Q<VisualElement>("CheckoutContent");
+        VisualElement NoItemMessage = root.Q<VisualElement>("NoItems");
+
         if (PlantBuyList.Count == 0 && ToolBuyList.Count == 0
             && LivestockBuyList.Count == 0 && SellList.Count == 0)
         {
+            mainUI.ShowOrHideVisualElements(ref NoItemMessage, ref CheckoutContent);
+            /*
             root.Q<VisualElement>("CheckoutContent").style.display = DisplayStyle.None;
             root.Q<VisualElement>("NoItems").style.display = DisplayStyle.Flex;
+            */
 
         }
         else
         {
+            mainUI.ShowOrHideVisualElements(ref CheckoutContent, ref NoItemMessage);
+            /*
             root.Q<VisualElement>("NoItems").style.display = DisplayStyle.None;
             root.Q<VisualElement>("CheckoutContent").style.display = DisplayStyle.Flex;
+            */
 
         }
     }
@@ -380,6 +377,7 @@ public class ShopController : MonoBehaviour
         CheckNoItems();
 
         Debug.Log(PlantBuyList.Count);
+
         total = 0;
         SellTotal = 0;
         CheckoutItemWrapper();
@@ -392,8 +390,10 @@ public class ShopController : MonoBehaviour
     //Back Button to go back to Main shop
     void CheckoutBackButtonPressed()
     {
+
         root.Q<VisualElement>("CheckoutPage").style.display = DisplayStyle.None;
         root.Q<VisualElement>("MainContainer").style.display = DisplayStyle.Flex;
+        
 
         VisualElement CheckoutScrollView = root.Q<VisualElement>("CheckoutScrollViewList");
         Debug.Log(total);
@@ -401,8 +401,12 @@ public class ShopController : MonoBehaviour
 
         if (isBuy) DisplayCards(currentTab[0].ToString());
         else DisplayCards("S");
+
+        mainUI.ShowOrHideVisualElements(ref ItemsInCheckout, ref SuccessPurchase);
+        /*
         ItemsInCheckout.style.display = DisplayStyle.Flex;
         SuccessPurchase.style.display = DisplayStyle.None;
+        */
 
 
     }
@@ -429,43 +433,42 @@ public class ShopController : MonoBehaviour
         {
             MarketWrapper item = null;
             if (isBuyMode) item = items[ListType[i]];
-            else item = market.Sellables[i].wrap;
+            else item = market.Sellables[ListType[i]].wrap;
 
             CheckoutScrollView.AddToClassList("CheckoutScrollViewList");
 
-            VisualElement checkoutCard = new VisualElement();
-            checkoutCard.AddToClassList("CheckoutCard");
+            VisualElement checkoutCard = null;
+            mainUI.createVisualElement(ref checkoutCard, "CheckoutCard", null, null, null);
 
-            Button RemoveItem = new Button();
-            RemoveItem.text = "X";
-            RemoveItem.AddToClassList("RemoveItemButton");
-            RemoveItem.name = BuyOrSell + typeofItem + ListType[i];
+            Button RemoveItem = null;
+            mainUI.createButton(ref RemoveItem, "RemoveItemButton", null, BuyOrSell + typeofItem + ListType[i], "X");
             RemoveItem.clickable.clickedWithEventInfo += CancelCheckoutItem;
             checkoutCard.Add(RemoveItem);
 
-            VisualElement CheckoutItemInfoContainer = new VisualElement();
-            CheckoutItemInfoContainer.AddToClassList("CheckoutItemNameContainer");
+            VisualElement CheckoutItemInfoContainer = null;
+            mainUI.createVisualElement(ref CheckoutItemInfoContainer, "CheckoutItemNameContainer", null, null, null);
 
-            Label CheckoutItemInfoLabel = new Label();
-            string quantityValue = market.Sellables[i].inv.
-                Retrieve(market.Sellables[i].index).obj.
-                GetComponent<Quantity>().Value.ToString();
-            CheckoutItemInfoLabel.text = ChosenType + " " + item.display_name
-                + " " + "$" + item.PriceOf().ToString() + "\n" + "Q: " + quantityValue;
-            CheckoutItemInfoLabel.AddToClassList("CheckoutItemInfoLabel");
+            Label CheckoutItemInfoLabel =  null;
+            string quantityValue = "";
+
+            if (!isBuyMode)
+            {
+                quantityValue = "Q: " + market.Sellables[ListType[i]].inv.
+                    Retrieve(market.Sellables[ListType[i]].index).obj.
+                    GetComponent<Quantity>().Value.ToString();
+            }
+            mainUI.createLabel(ref CheckoutItemInfoLabel, "CheckoutItemInfoLabel", null, null, ChosenType + " " + item.display_name
+                + " " + "$" + item.PriceOf().ToString() + "\n" + quantityValue);
+
             CheckoutItemInfoContainer.Add(CheckoutItemInfoLabel);
-
             checkoutCard.Add(CheckoutItemInfoContainer);
 
-            VisualElement QuantityContainer = new VisualElement();
-            QuantityContainer.AddToClassList("QuantityContainer");
+            VisualElement QuantityContainer = null;
+            mainUI.createVisualElement(ref QuantityContainer, "QuantityContainer", null, null, null);
 
-            TextField Quantity = new TextField();
-            Quantity.AddToClassList("Quantity");
-            Quantity.maxLength = 4;
-            //Quantity.value = "1";
-            Quantity.value = QuantityMap[ListType[i]].ToString();
-            Quantity.name = "Q" + typeofItem + ListType[i];
+            TextField Quantity = null;
+            mainUI.createTextField(ref Quantity, "Quantity", 4, QuantityMap[ListType[i]].ToString(), "Q" + typeofItem + ListType[i]);
+
             Quantity.RegisterValueChangedCallback((evt) => {
 
                 int totaltmp = 0;
@@ -609,22 +612,28 @@ public class ShopController : MonoBehaviour
 
             if (total != 0 || SellTotal != 0)
             {
+                mainUI.ShowOrHideVisualElements(ref SuccessPurchase, ref ItemsInCheckout);
+                /*
                 ItemsInCheckout.style.display = DisplayStyle.None;
                 SuccessPurchase.style.display = DisplayStyle.Flex;
+                */
             }
 
-            PlantBuyList.Clear();
-            ToolBuyList.Clear();
-            LivestockBuyList.Clear();
-            SellList.Clear();
-
-            LiveStockQuantity.Clear();
-            PlantQuantity.Clear();
-            ToolQuantity.Clear();
-            SellQuantity.Clear();
-
-
+            clearAllLists();
         }
+    }
+
+    void clearAllLists()
+    {
+        PlantBuyList.Clear();
+        ToolBuyList.Clear();
+        LivestockBuyList.Clear();
+        SellList.Clear();
+        LiveStockQuantity.Clear();
+        PlantQuantity.Clear();
+        ToolQuantity.Clear();
+        SellQuantity.Clear();
+
     }
 
     void BackButtonToFarm()

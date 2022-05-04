@@ -13,7 +13,11 @@ public class PhoneButtonController : MonoBehaviour
 
     private Button FinancialsApp;
 
-    public GameObject ShopApp;
+    [SerializeField]
+    private GameObject ShopApp;
+
+    [SerializeField]
+    private GameObject PersonalInventoryApp;
 
     private Label Time;
 
@@ -46,6 +50,8 @@ public class PhoneButtonController : MonoBehaviour
 
         Time = root.Q<Label>("Time");
 
+        root.Q<Button>("InventoryButton").clicked += InventoryButtonPressed;
+
     }
     private void Update()
     {
@@ -64,6 +70,11 @@ public class PhoneButtonController : MonoBehaviour
         
         Debug.Log(ShopApp);
         ShopApp.SetActive(true);
+        this.gameObject.SetActive(false);
+    }
+    void InventoryButtonPressed()
+    {
+        PersonalInventoryApp.SetActive(true);
         this.gameObject.SetActive(false);
     }
 

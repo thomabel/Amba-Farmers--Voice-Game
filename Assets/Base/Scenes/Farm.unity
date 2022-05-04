@@ -387,6 +387,7 @@ MonoBehaviour:
   player: {fileID: 11400000, guid: d3f57a5f20bb8f84a95a209984973a2c, type: 2}
   market: {fileID: 1666174810}
   PlayerEquipment: {fileID: 555023750}
+  Phone: {fileID: 2055118915}
 --- !u!1 &390597302
 GameObject:
   m_ObjectHideFlags: 0
@@ -1550,6 +1551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShopApp: {fileID: 1814474574}
+  PersonalInventoryApp: {fileID: 298318640}
   DateModule: {fileID: 555023758}
   player: {fileID: 11400000, guid: c7bdde6092d69164f8be235724038485, type: 2}
 --- !u!1001 &2107979450
