@@ -162,22 +162,7 @@ public class InventoryController : MonoBehaviour
         if (checkIfItemExists) button.style.backgroundImage = new StyleBackground(value.picture);
         else button.style.backgroundImage = null;
     }
-    /*
-    void findItemAndDisplay(Item FindObj, ref VisualElement button)
-    {
-        if (FindObj == null)
-        {
-            button.style.backgroundImage = null;
-            return;
-        }
 
-        MarketWrapper value;
-        bool checkIfItemExists = market.Comparator.TryGetValue(FindObj.obj.GetComponent<TypeLabel>().Type, out value);
-        if (checkIfItemExists) button.style.backgroundImage = new StyleBackground(value.picture);
-        else button.style.backgroundImage = null;
-    }
-
-    */
 
 
     void EquipButtonClicked(EventBase obj)

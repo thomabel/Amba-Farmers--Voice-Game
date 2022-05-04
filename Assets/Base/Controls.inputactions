@@ -120,6 +120,17 @@
                 },
                 {
                     "name": "",
+                    "id": "ff2d7f87-5ac4-4368-9a77-8f236baf3c8c",
+                    "path": "<AndroidJoystick>/stick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "30776e21-09d9-442c-8c91-05acee2db336",
                     "path": "<Keyboard>/u",
                     "interactions": "",
