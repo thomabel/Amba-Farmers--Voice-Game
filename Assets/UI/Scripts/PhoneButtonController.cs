@@ -12,6 +12,9 @@ public class PhoneButtonController : MonoBehaviour
     private Button ShopButton;
 
     private Button FinancialsApp;
+    private Button Rewind;
+    private Button FastForward;
+    private Button StartPause;
 
     [SerializeField]
     private GameObject ShopApp;
@@ -20,6 +23,7 @@ public class PhoneButtonController : MonoBehaviour
     private GameObject PersonalInventoryApp;
 
     private Label Time;
+    private Label TimeMultiplier;
 
     [SerializeField]
     private DisplayTime DateModule;
@@ -49,22 +53,30 @@ public class PhoneButtonController : MonoBehaviour
         root.Q<Button>("BackButtonToApps").clicked += BackButtonToAppsPressed;
 
         Time = root.Q<Label>("Time");
-
-        root.Q<Button>("InventoryButton").clicked += InventoryButtonPressed;
-
+        TimeMultiplier = root.Q<Label>("Multiplier");
+        Rewind = root.Q<Button>("BackTrack");
+        Rewind.clicked += RewindPressed;
+        FastForward = root.Q<Button>("FastForward");
+        FastForward.clicked += FastForwardPressed;
+        StartPause = root.Q<Button>("StartPause");
+        StartPause.clicked += StartPausePressed;
     }
+
     private void Update()
     {
         Time.text = DateModule.TimeDisplay();
     }
+
     void Pressed()
     {
         Phone.style.display = DisplayStyle.None;
     }
+
     void Pressed2()
     {
         Phone.style.display = DisplayStyle.Flex;
     }
+
     void ShopButtonPressed()
     {
         
@@ -102,5 +114,26 @@ public class PhoneButtonController : MonoBehaviour
 
         //AppScrollView.style.display = ScrollContainer;
 
+    }
+
+    void RewindPressed()
+    {
+        Debug.Log("Rewind");
+        DateModule.decrementMultiplier();
+        TimeMultiplier.text = DateModule.timeMultiplier.ToString();
+    }
+
+    void FastForwardPressed()
+    {
+        Debug.Log("Fast Forward");
+        DateModule.incrementMultiplier();
+        TimeMultiplier.text = DateModule.timeMultiplier.ToString();
+    }
+
+    void StartPausePressed()
+    {
+        Debug.Log("Start/Pause");
+        DateModule.resetMultiplier();
+        TimeMultiplier.text = DateModule.timeMultiplier.ToString();
     }
 }
