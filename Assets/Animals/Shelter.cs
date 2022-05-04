@@ -22,9 +22,9 @@ public class Shelter : MonoBehaviour, IInteractable
         waterStock = 0f;
     }
 
-    void IInteractable.Interact()
+    void IInteractable.Interact(GameObject other)
     {
-        
+
     }
 
     public List<Animal> GetPopulationList()

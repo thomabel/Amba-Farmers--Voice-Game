@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Animal : MonoBehaviour, IInteractable
 {
@@ -81,7 +82,7 @@ public class Animal : MonoBehaviour, IInteractable
         }
     }
 
-    void IInteractable.Interact() 
+    void IInteractable.Interact(GameObject x) 
     {
         float[] stats = GetStats();
         Debug.Log(id + " - Species: " + stats[(int) Stats.Species]);
@@ -132,7 +133,7 @@ public class Animal : MonoBehaviour, IInteractable
         }
     }
 
-    void DecayHungerAndThirst()
+    public void DecayHungerAndThirst()
     {
         hunger -= decayRateFood;
         if (hunger < 0f)

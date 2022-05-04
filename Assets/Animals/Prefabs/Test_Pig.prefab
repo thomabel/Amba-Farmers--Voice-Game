@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8743498675722269327}
   - component: {fileID: 8743498675722269326}
   - component: {fileID: 8743498675722269313}
+  - component: {fileID: 8076768200069479530}
   m_Layer: 0
   m_Name: Test_Pig
   m_TagString: Untagged
@@ -133,3 +134,31 @@ MonoBehaviour:
   lastTimeDrank: 0
   shelter: {fileID: 0}
   seconds: {fileID: 11400000, guid: 88c2409642309774f8e945d5469b73af, type: 2}
+--- !u!114 &8076768200069479530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8743498675722269312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96a325c29958217419c783504cabafa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: e866dfac8b933487a8b1ef453bc7fead, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8743498675722269313}
+        m_TargetAssemblyTypeName: Animal, AssembelyDefinitions
+        m_MethodName: DecayHungerAndThirst
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
