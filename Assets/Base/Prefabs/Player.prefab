@@ -112,11 +112,12 @@ GameObject:
   - component: {fileID: 8288165898822397585}
   - component: {fileID: 6256269239915840408}
   - component: {fileID: 5881731333814138759}
-  - component: {fileID: 1372538282953322442}
   - component: {fileID: 68358369854966711}
+  - component: {fileID: 2525275652084838455}
+  - component: {fileID: 555023758}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Plant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -279,8 +280,10 @@ MonoBehaviour:
   cam: {fileID: 0}
   movement: {fileID: 8288165898822397585}
   interact: {fileID: 5881731333814138759}
-  inventory: {fileID: 1372538282953322442}
+  bag: {fileID: 2525275652084838455}
   equipment: {fileID: 68358369854966711}
+  house: {fileID: 11400000, guid: 58cadb33980f70a44a5d2a204c6bf00e, type: 2}
+  listen: {fileID: 0}
 --- !u!114 &8288165898822397585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,6 +313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RecentlyAdded: {fileID: 0}
+  NearByObjectName: {fileID: 11400000, guid: fa252bc2e0e0048d7858aa283713d9e3, type: 2}
 --- !u!114 &5881731333814138759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,6 +326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b30db413921c82240b2f03f93c3e73e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swap: {fileID: 0}
   container: {fileID: 6256269239915840408}
   ray_distance:
     UseConstant: 1
@@ -333,19 +338,6 @@ MonoBehaviour:
     Variable: {fileID: 0}
   debug_color: {r: 0, g: 0.6901961, b: 0.6431373, a: 1}
   last_interacted: {fileID: 0}
---- !u!114 &1372538282953322442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5000978703520966211}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 159455164520834419d4456a0a1e9844, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 4
 --- !u!114 &68358369854966711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,10 +350,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e93de2c4d37baa41b7fde6827ce57fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 1372538282953322442}
+  inventory: {fileID: 11400000, guid: d3f57a5f20bb8f84a95a209984973a2c, type: 2}
+  container: {fileID: 6256269239915840408}
   tool_offset: {x: 0.3, y: 0.75, z: 0.3}
-  item: {fileID: 0}
-  tool: {fileID: 0}
+  item_index: 0
+--- !u!114 &2525275652084838455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5000978703520966211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9718386c0d2d845399db14af811f8208, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 11400000, guid: d3f57a5f20bb8f84a95a209984973a2c, type: 2}
+--- !u!114 &555023758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5000978703520966211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc411c71d25dccda93470b215fdbf84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startHour: 0
+  startSecond: 0
+  startMinute: 0
+  accumulator: 0
+  hours: {fileID: 11400000, guid: 0f635fc52d4ff162c9afb295625868be, type: 2}
+  minutes: {fileID: 11400000, guid: c7616399032d8122ebbde1147989ef7f, type: 2}
+  seconds: {fileID: 11400000, guid: 96c82ae3e108bfe4b9cc6b7d6f87fa5d, type: 2}
 --- !u!1 &7731066316369718267
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,14 +3,16 @@ using UnityEngine;
 public class Equipment : MonoBehaviour
 {
     public Inventory inventory;
+    public ColliderContainer container;
+
     public Vector3 tool_offset;
-
-    public Item item_obj;
-    public IStorable Item;
-    public int item_index;
-
-    public Item tool_obj;
+    public Item etool;
     public IEquippable Tool;
+
+    public int item_index;
+    public Item eitem;
+    public IStorable Item;
+
 
     /// <summary>
     /// General method for picking up inventory items.
@@ -23,15 +25,9 @@ public class Equipment : MonoBehaviour
             return;
         }
 
-        var store = thing.GetComponent<IStorable>();
-        if (store != null)
+        if (thing.GetComponent<IStorable>() != null)
         {
-            int i = inventory.Add(thing);
-            if (item_obj == null)
-            {
-                EquipItem(i);
-            }
-
+            pickup_item(thing);
         }
         else
         {
@@ -47,14 +43,14 @@ public class Equipment : MonoBehaviour
     /// <returns>Success of equip</returns>
     public bool EquipItem(int index)
     {
-        item_obj = inventory.Retrieve(index);
-        if (item_obj == null)
+        eitem = inventory.Retrieve(index);
+        if (eitem == null)
         {
             return false;
         }
 
-        Item = item_obj.obj.GetComponent<IStorable>();
-        item_obj.obj.transform.parent = transform;
+        Item = eitem.obj.GetComponent<IStorable>();
+        eitem.obj.transform.parent = transform;
         item_index = index;
         return true;
     }
@@ -65,7 +61,7 @@ public class Equipment : MonoBehaviour
     /// <returns>Success of drop.</returns>
     public bool DropItem()
     {
-        if (item_obj == null)
+        if (eitem == null)
         {
             return false;
         }
@@ -95,14 +91,14 @@ public class Equipment : MonoBehaviour
             return false;
         }
 
-        if (tool_obj != null && tool != tool_obj.obj)
+        if (etool != null && tool != etool.obj)
         {
             DropTool();
         }
 
-        tool_obj = inventory.create_item(tool);
+        etool = new Item(tool);
         Tool = equip;
-        equip_position(transform, true, tool_offset);
+        position_tool(transform, true, tool_offset);
 
         return true;
     }
@@ -113,44 +109,62 @@ public class Equipment : MonoBehaviour
     /// <returns>Success of drop.</returns>
     public bool DropTool()
     {
-        if (tool_obj != null)
+        if (etool != null)
         {
             return false;
         }
         
-        equip_position(null, false, transform.position + tool_offset);
-        tool_obj = null;
+        position_tool(null, false, transform.position + tool_offset);
+        etool = null;
         Tool = null;
 
         return true;
     }
 
-    // Sets up the positioning of the tool.
-    private void equip_position(Transform parent, bool kinematic, Vector3 position)
+
+    private void pickup_item(GameObject item)
     {
+        int i = inventory.Add(item);
+        item.transform.parent = transform;
+        var col = item.GetComponents<Collider>();
+        container.Remove(col);
+        Debug.Log("add to inv " + i + " " + item.name);
+
+        if (eitem == null && i >= 0)
+        {
+            EquipItem(i);
+        }
+    }
+
+    // Sets up the positioning of the tool.
+    private void position_tool(Transform parent, bool kinematic, Vector3 position)
+    {
+        // Controls if item is moving with physics.
+        etool.obj.GetComponent<Rigidbody>().isKinematic = kinematic;
+
         // Disables collision.
-        var col = tool_obj.obj.GetComponentsInChildren<Collider>();
+        var col = etool.obj.GetComponents<Collider>();
         foreach (Collider c in col)
         {
-            c.isTrigger = kinematic;
+            c.enabled = !kinematic;
+            if (kinematic)
+            {
+                container.Remove(c);
+            }
+            else
+            {
+                container.Add(c);
+            }
         }
 
-        // Controls if item is moving with physics.
-        var rig = tool_obj.obj.GetComponent<Rigidbody>();
-        rig.isKinematic = kinematic;
 
         // Changes position of tool.
-        var trn = tool_obj.obj.transform;
+        var tool = etool.obj.transform;
+        tool.parent = parent;
         if (parent != null)
         {
-            trn.parent = parent;
-            trn.localPosition = position;
-            trn.rotation = parent.rotation;
+            tool.localPosition = position;
+            tool.rotation = parent.rotation;
         }
-        else
-        {
-            trn.parent = parent;
-        }
-
     }
 }

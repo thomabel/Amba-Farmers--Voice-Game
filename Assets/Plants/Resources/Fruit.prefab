@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 213377910279140728}
   - component: {fileID: 7393525891368342468}
   - component: {fileID: 3722297102936811522}
+  - component: {fileID: 8630281842563527610}
+  - component: {fileID: -6864621781826019653}
   - component: {fileID: 3423433803777345039}
   - component: {fileID: 6279160370382834818}
-  - component: {fileID: -6864621781826019653}
   m_Layer: 0
   m_Name: Fruit
   m_TagString: Untagged
@@ -97,8 +98,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60f6e0061ff3ea1448530713290bb586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fruitMass: 0
-  fruitName: 
+  qty: {fileID: 8630281842563527610}
+  tl: {fileID: -6864621781826019653}
+--- !u!114 &8630281842563527610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500338019832079509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a9c4033303f8144d8d8cb7b62edfd69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 0
+--- !u!114 &-6864621781826019653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500338019832079509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfde4d85b794e7e4c9035ccc9e4a9a43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 13
 --- !u!65 &3423433803777345039
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -128,16 +155,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 3
---- !u!114 &-6864621781826019653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 500338019832079509}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfde4d85b794e7e4c9035ccc9e4a9a43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 13

@@ -7,7 +7,7 @@ public class PlayerInput : MonoBehaviour
     public Camera cam;
     public Movement movement;
     public Interact interact;
-    public Inventory inventory;
+    public InventoryHolder bag;
     public Equipment equipment;
     public Inventory house;
 
@@ -43,29 +43,22 @@ public class PlayerInput : MonoBehaviour
     {
         if (context.performed)
         {
-            var obj = interact.Use();
-            //interact.Use(cam.ScreenPointToRay(Mouse.current.position.ReadValue()));
+            interact.try_closest();
 
-            if (obj == null)
+            var last = interact.last_interacted;
+            if (last == null)
             {
                 return;
             }
-            Debug.Log(obj.name);
-
-            var fruit = obj.GetComponent<Fruit>();
+            
+            var fruit = last.GetComponent<Fruit>();
             if (fruit != null)
             {
-                house.Add(obj);
-            }
-
-            var inv = obj.GetComponent<Inventory>();
-            if (inv != null)
-            {
-                // Call UI inventory swap.
-                Debug.Log("Inventory Swap");
+                house.Add(last);
                 return;
             }
-            equipment.Pickup(obj);
+
+            equipment.Pickup(last);
         }
     }
     public void OnToolUse(InputAction.CallbackContext context)

@@ -72,7 +72,7 @@ public class Market : MonoBehaviour
         int free = 0;
         foreach (Inventory i in Inventories)
         {
-            free += i.FreeSpace();
+            free += i.FreeSpace;
         }
         return free;
     }
