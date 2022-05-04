@@ -1,15 +1,27 @@
 using UnityEngine;
 
-public class Hoe : MonoBehaviour, IInteractable, IEquippable
+public class Hoe : MonoBehaviour, IEquippable, IInteractable
 {
-    void IInteractable.Interact()
+    void IEquippable.Use(GameObject with)
     {
-        Debug.Log("Interact with a hoe!");
+        if (with == null)
+        {
+            return;
+        }
+        var land = with.GetComponent<TerrainData>();
+        if (land != null)
+        {
+            land.SetTilled(transform.position, true);
+        }
+        else
+        {
+            land = Terrain.activeTerrain.GetComponent<TerrainData>();
+            land.SetTilled(transform.position, true);
+        }
     }
-    void IEquippable.Use()
+
+    void IInteractable.Interact(GameObject with)
     {
-        Vector3 tile = this.gameObject.transform.position;
-        Terrain.activeTerrain.GetComponent<TerrainData>().SetTilled(tile, true);
-        Debug.Log("USE[Hoe]: " + tile);
+
     }
 }

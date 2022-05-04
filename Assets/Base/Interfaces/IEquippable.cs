@@ -1,4 +1,4 @@
 public interface IEquippable
 {
-    public void Use();
+    public void Use(UnityEngine.GameObject with);
 }

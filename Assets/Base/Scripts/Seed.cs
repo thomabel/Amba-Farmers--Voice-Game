@@ -17,8 +17,7 @@ public class Seed : MonoBehaviour, IStorable, IInteractable
         }
 
     }
-
-    void IInteractable.Interact()
+    void IInteractable.Interact(GameObject with)
     {
     }
 
