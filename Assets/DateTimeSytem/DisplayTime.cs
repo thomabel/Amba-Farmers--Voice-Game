@@ -33,7 +33,7 @@ public class DisplayTime : MonoBehaviour
 			     "Apr", "May", "Jun", 
 			     "Jul", "Aug", "Sep", 
 			     "Oct", "Nov", "Dec"};
-    public int[] daysInMonth = {31, 28, 31, 30, 31, 30, 31, 31,30, 31, 30, 31}
+    public int[] daysInMonth = {31, 28, 31, 30, 31, 30, 31, 31,30, 31, 30, 31};
     public float timeScale;
     // Start is called before the first frame update
     void Start()
@@ -45,7 +45,7 @@ public class DisplayTime : MonoBehaviour
 	date.Value = startDate;
 	month.Value = startMonth;
 	year.Value = startYear;
-        text.text = "" + year.Value.ToString("D4") + ":" + months[month.Value-1].ToString("D2")+ ":" date.Value.ToString("D2");
+        text.text = "" + year.Value.ToString("D4") + ":" + months[month.Value-1].Value.ToString("D2")+ ":" + date.Value.ToString("D2");
 	text.text = "" + hours.Value + ":" + minutes.Value + ":" + seconds.Value.ToString("D2"); 
 	
 	//text.text = "" + hours.Value + ":" + minutes.Value + ":" + seconds.Value.ToString("D2"); 
@@ -87,14 +87,11 @@ public class DisplayTime : MonoBehaviour
 		accumulator-=1;
 
 	}
-	text.text = "" + year.Value.ToString("D4") + ":" + months[month.Value-1].ToString("D2")+ ":" date.Value.ToString("D2");	
+	text.text = "" + year.Value.ToString("D4") + ":" + months[month.Value-1].Value.ToString("D2")+ ":" + date.Value.ToString("D2");	
 	text.text = "" + hours.Value + ":" + minutes.Value.ToString("D2") + ":" + seconds.Value.ToString("D2"); 	
-	}	
+    }	
 	//text.text = "" + hours.Value + ":" + minutes.Value.ToString("D2") + ":" + seconds.Value.ToString("D2"); 
 	
-
-    }
-
 	public string TimeDisplay() {
 		return ("" + hours.Value + ":" + minutes.Value.ToString("D2") + ":" + seconds.Value.ToString("D2"));
 

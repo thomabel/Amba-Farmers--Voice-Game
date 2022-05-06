@@ -39,7 +39,7 @@ public class WeatherSystem: MonoBehaviour
 	this.currentWeather = Weather.SUNNY;
 	this.currentYear = 1;
 	
-//	this.seasonTime = currentSeason.duration;
+	this.seasonTime = this.springTime;
 	
 	this.defaultLightColor = this.sunLight.color;
 	this.defaultLightIntensity = this.sunLight.intensity;
@@ -96,6 +96,9 @@ public class WeatherSystem: MonoBehaviour
 //	yield return new WaitForSeconds(waitTime);
 	if (this.currentSeason == Season.SPRING)
 	{
+		LerpSunIntensity(this.sunLight, defaultLightIntensity);
+		LerpLightColor(this.sunLight, defaultLightColor);
+		
 		ChangeWeather(Weather.SUNNY);
 		if (this.seasonTime <= 0f)
 		{
@@ -105,6 +108,9 @@ public class WeatherSystem: MonoBehaviour
 	}
 	else if (this.currentSeason == Season.SUMMER)
 	{
+		LerpSunIntensity(this.sunLight, summerLightIntensity);
+		LerpLightColor(this.sunLight, summerColor);
+
 		ChangeWeather(Weather.HOTSUN);
 		if (this.seasonTime <= 0f)
 		{
@@ -115,6 +121,9 @@ public class WeatherSystem: MonoBehaviour
 	}
 	else if (this.currentSeason == Season.AUTUMN)
 	{
+		LerpSunIntensity(this.sunLight, autumnLightIntensity);
+		LerpLightColor(this.sunLight, autumnColor);
+
 		ChangeWeather(Weather.RAIN);
 		if (this.seasonTime <= 0f)
 		{
@@ -124,6 +133,9 @@ public class WeatherSystem: MonoBehaviour
 	}
 	else if (this.currentSeason == Season.WINTER)
 	{
+		LerpSunIntensity(this.sunLight, winterLightIntensity);
+		LerpLightColor(this.sunLight, winterColor);
+
 		ChangeWeather(Weather.SNOW);
 		if (this.seasonTime <= 0f)
 		{
@@ -133,4 +145,12 @@ public class WeatherSystem: MonoBehaviour
 		}
 	}
     }
+     private void LerpLightColor (Light light, Color c)
+     {
+     	light.color = Color.Lerp(light.color, c, 0.2f*Time.deltaTime);
+     }
+     private void LerpSunIntensity (Light light, float intensity)
+     {
+     	light.intensity = Mathf.Lerp(light.intensity, intensity, 0.2f*Time.deltaTime);
+     }
 }
