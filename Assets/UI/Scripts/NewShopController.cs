@@ -75,10 +75,6 @@ public class NewShopController : MonoBehaviour
     private List<MarketWrapper> Animals;
     private List<MarketWrapper> Tools;
 
-
-    [SerializeField]
-    private InventoryList Inventory;
-
     [SerializeField]
     private Inventory PlayerInv;
 
@@ -196,7 +192,7 @@ public class NewShopController : MonoBehaviour
             
         }
 
-        //market.PopulateSellables();
+        market.PopulateSellables();
         
         //Debug.Log(market.Sellables.Count);
     }

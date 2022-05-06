@@ -24,7 +24,10 @@
                 <ui:Button text="SELL" display-tooltip-when-elided="true" name="SellButton" class="Button ButtonCurrent ButtonUnActive" style="height: 48%;" />
             </ui:VisualElement>
             <ui:VisualElement usage-hints="DynamicTransform" name="ScrollContainer" class="ScrollContainer">
-                <ui:ScrollView horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="AlwaysVisible" name="ScrollView" class="ScrollView" />
+                <ui:ScrollView horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="AlwaysVisible" name="ScrollView" class="ScrollView" style="display: none;" />
+                <ui:VisualElement name="EmptySellListContainer" class="ScrollView" style="align-items: center; display: flex;">
+                    <ui:Label text="No Items To Sell" display-tooltip-when-elided="true" name="EmptySellListLabel" class="ScrollView EmptySellList" style="display: flex; flex-wrap: wrap; -unity-text-align: middle-center; width: 90%; white-space: normal;" />
+                </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="CheckoutButtonContainer" class="CheckoutButtonContainer">
                 <ui:Button display-tooltip-when-elided="true" name="CheckoutButton" class="CheckoutButton" />

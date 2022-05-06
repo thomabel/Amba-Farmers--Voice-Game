@@ -83,8 +83,15 @@ public class InventoryController : MonoBehaviour
             InventoryItem.AddToClassList("SlotIcon");
             InventoryItem.AddToClassList("ItemButton");
             Item tmpobj = player.Retrieve(i);
-            if(tmpobj == null) InventoryItem.style.backgroundImage = null;
-            else InventoryItem.style.backgroundImage = findReference(tmpobj.obj.GetComponent<TypeLabel>().Type).picture;
+            
+            if (tmpobj == null) InventoryItem.style.backgroundImage = null;
+            else
+            {
+                MarketWrapper value;
+                market.Comparator.TryGetValue(tmpobj.obj.GetComponent<TypeLabel>().Type, out value);
+
+                InventoryItem.style.backgroundImage = value.picture;
+            }
             //InventoryItem.style.backgroundImage = null;
             Current.Add(InventoryItem);
             ScrollViewSection.Add(Current);
@@ -136,17 +143,6 @@ public class InventoryController : MonoBehaviour
         findItemAndDisplay(player.Retrieve(index), ref InvIndexToChange);
         ItemInfo.style.display = DisplayStyle.None;
 
-    }
-    MarketWrapper findReference(Base.GoodType tmp)
-    {
-        for (int i = 0; i < market.Reference.Count; ++i)
-        {
-            if (market.Reference[i].type == tmp)
-            {
-                return market.Reference[i];
-            }
-        }
-        return null;
     }
 
     void findItemAndDisplay(Item FindObj, ref Button button)

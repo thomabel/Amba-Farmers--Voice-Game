@@ -34,13 +34,16 @@ public class ShopController : MonoBehaviour
     [SerializeField]
     private Account player;
 
+
     private TextField quantityField;
 
-    private int total = 0;
-    private int SellTotal = 0;
+    private float total = 0;
+    private float SellTotal = 0;
 
     [SerializeField]
     private GameObject PhoneGameObject;
+    [SerializeField]
+    private GameObject controls;
 
     //public ScriptableObject player = ScriptableObject.CreateInstance("Account");
     private List<int> PlantBuyList;
@@ -50,10 +53,10 @@ public class ShopController : MonoBehaviour
     private List<int> SellList;
 
 
-    private Dictionary<int, int> PlantQuantity;
-    private Dictionary<int, int> ToolQuantity;
-    private Dictionary<int, int> LiveStockQuantity;
-    private Dictionary<int, int> SellQuantity;
+    private Dictionary<int, float> PlantQuantity;
+    private Dictionary<int, float> ToolQuantity;
+    private Dictionary<int, float> LiveStockQuantity;
+    private Dictionary<int, float> SellQuantity;
 
     [SerializeField]
     Market market;
@@ -62,9 +65,6 @@ public class ShopController : MonoBehaviour
     private List<MarketWrapper> Animals;
     private List<MarketWrapper> Tools;
 
-
-    [SerializeField]
-    private InventoryList Inventory;
 
     [SerializeField]
     private Inventory PlayerInv;
@@ -85,6 +85,8 @@ public class ShopController : MonoBehaviour
     private VisualElement SuccessPurchase;
 
     private VisualElement ItemsInCheckout;
+
+    private VisualElement emptySellMessage;
 
 
 
@@ -115,10 +117,10 @@ public class ShopController : MonoBehaviour
     void Initialize()
     {
         mainUI = new MainUI();
-        PlantQuantity = new Dictionary<int, int>();
-        ToolQuantity = new Dictionary<int, int>();
-        LiveStockQuantity = new Dictionary<int, int>();
-        SellQuantity = new Dictionary<int, int>();
+        PlantQuantity = new Dictionary<int, float>();
+        ToolQuantity = new Dictionary<int, float>();
+        LiveStockQuantity = new Dictionary<int, float>();
+        SellQuantity = new Dictionary<int, float>();
 
         PlantBuyList = new List<int>();
         ToolBuyList = new List<int>();
@@ -144,6 +146,8 @@ public class ShopController : MonoBehaviour
         ScrollViewSection = root.Q<VisualElement>("ScrollView");
         checkout = root.Q<Button>("CheckoutButton");
         CheckoutBackButton = root.Q<Button>("CheckoutBackButton");
+        emptySellMessage = root.Q<VisualElement>("EmptySellListContainer");
+
     }
 
     void assignButtonsToFunctions()
@@ -226,8 +230,18 @@ public class ShopController : MonoBehaviour
     {
         int length;
         if (IsBuyMode) length = ItemCards.Count;
-        else length = market.Sellables.Count;
+        else
+        {
+            length = market.Sellables.Count;
+            if(length == 0)
+            {
 
+                mainUI.ShowOrHideVisualElements(ref emptySellMessage, ref ScrollViewSection);
+                return;
+            }
+        }
+
+        mainUI.ShowOrHideVisualElements(ref ScrollViewSection, ref emptySellMessage);
         Label SellableQuantity = null;
 
         for (int i = 0; i < length; ++i)
@@ -237,7 +251,7 @@ public class ShopController : MonoBehaviour
             else
             {
                 item = market.Sellables[i].wrap;
-                mainUI.createLabel(ref SellableQuantity, "InventoryName", null, null, "Q: " + market.Sellables[i].inv.Retrieve(market.Sellables[i].index).obj.GetComponent<Quantity>().Value.ToString());
+                mainUI.createLabel(ref SellableQuantity, "InventoryName", null, null, "Q: " + market.Sellables[i].inv.Retrieve(market.Sellables[i].index).quantity);
                 /*
                 InventoryName = new Label();
                 InventoryName.text = market.Sellables[i].inv.name + "\n" + "Inventory";
@@ -311,7 +325,7 @@ public class ShopController : MonoBehaviour
     void ShopItemPressed(EventBase obj)
     {
         var button = (Button)obj.target;
-
+        Debug.Log(button.name);
         if (!isBuy)
         {
             ShopItemPressed(SellList, button.name, SellQuantity);
@@ -324,22 +338,22 @@ public class ShopController : MonoBehaviour
 
     }
 
-    void ShopItemPressed(List<int> ItemType, string itemName, Dictionary<int, int> QuantityMap)
+    void ShopItemPressed(List<int> ItemType, string itemName, Dictionary<int, float> QuantityMap)
     {
-        Label Status = root.Q<Label>("Status" + int.Parse(itemName));
-
+        int index = int.Parse(itemName);
+        Label Status = root.Q<Label>("Status" + index);
         //Change Status Image
         if (Status.style.backgroundImage == X)
         {
             Status.style.backgroundImage = Checkmark;
-            ItemType.Add(int.Parse(itemName));
-            QuantityMap.Add(int.Parse(itemName), 1);
+            ItemType.Add(index);
+            QuantityMap.Add(index, 1);
         }
         else
         {
             Status.style.backgroundImage = X;
-            ItemType.Remove(int.Parse(itemName));
-            QuantityMap.Remove(int.Parse(itemName));
+            ItemType.Remove(index);
+            QuantityMap.Remove(index);
         }
     }
 
@@ -352,20 +366,11 @@ public class ShopController : MonoBehaviour
             && LivestockBuyList.Count == 0 && SellList.Count == 0)
         {
             mainUI.ShowOrHideVisualElements(ref NoItemMessage, ref CheckoutContent);
-            /*
-            root.Q<VisualElement>("CheckoutContent").style.display = DisplayStyle.None;
-            root.Q<VisualElement>("NoItems").style.display = DisplayStyle.Flex;
-            */
 
         }
         else
         {
             mainUI.ShowOrHideVisualElements(ref CheckoutContent, ref NoItemMessage);
-            /*
-            root.Q<VisualElement>("NoItems").style.display = DisplayStyle.None;
-            root.Q<VisualElement>("CheckoutContent").style.display = DisplayStyle.Flex;
-            */
-
         }
     }
     //Button to go to checkout
@@ -375,8 +380,6 @@ public class ShopController : MonoBehaviour
         root.Q<VisualElement>("CheckoutPage").style.display = DisplayStyle.Flex;
 
         CheckNoItems();
-
-        Debug.Log(PlantBuyList.Count);
 
         total = 0;
         SellTotal = 0;
@@ -403,16 +406,12 @@ public class ShopController : MonoBehaviour
         else DisplayCards("S");
 
         mainUI.ShowOrHideVisualElements(ref ItemsInCheckout, ref SuccessPurchase);
-        /*
-        ItemsInCheckout.style.display = DisplayStyle.Flex;
-        SuccessPurchase.style.display = DisplayStyle.None;
-        */
-
 
     }
 
-    void checkoutItemsDisplay(List<int> ListType, string BuyOrSell, string typeofItem, List<MarketWrapper> items, Dictionary<int, int> QuantityMap)
+    void checkoutItemsDisplay(List<int> ListType, string BuyOrSell, string typeofItem, List<MarketWrapper> items, Dictionary<int, float> QuantityMap)
     {
+        ListType.Sort();
         VisualElement CheckoutScrollView = root.Q<VisualElement>("CheckoutScrollViewList");
         string ChosenType = "";
         bool isBuyMode;
@@ -454,8 +453,7 @@ public class ShopController : MonoBehaviour
             if (!isBuyMode)
             {
                 quantityValue = "Q: " + market.Sellables[ListType[i]].inv.
-                    Retrieve(market.Sellables[ListType[i]].index).obj.
-                    GetComponent<Quantity>().Value.ToString();
+                    Retrieve(market.Sellables[ListType[i]].index).quantity;
             }
             mainUI.createLabel(ref CheckoutItemInfoLabel, "CheckoutItemInfoLabel", null, null, ChosenType + " " + item.display_name
                 + " " + "$" + item.PriceOf().ToString() + "\n" + quantityValue);
@@ -471,23 +469,48 @@ public class ShopController : MonoBehaviour
 
             Quantity.RegisterValueChangedCallback((evt) => {
 
-                int totaltmp = 0;
-                if (!BuyOrSell.Equals("S")) totaltmp = total;
-                else totaltmp = SellTotal;
+                float totaltmp = 0;
+                float maxQuantity = 0;
+               
 
                 TextField tmp = (TextField)evt.target;
 
                 VisualElement parent1 = tmp.GetFirstAncestorOfType<VisualElement>();
                 VisualElement parent2 = parent1.GetFirstAncestorOfType<VisualElement>();
 
-                int n = 0;
+                float n = 0;
 
                 int num = int.Parse(tmp.name.Substring(2));
+                if (isBuyMode)
+                {
+                    totaltmp = total;
+                    maxQuantity = 99;
+                }
+                else
+                {
+                    totaltmp = SellTotal;
+                    Debug.Log("MAX " + num);
+                    maxQuantity = market.Sellables[num].inv.Retrieve(market.Sellables[num].index).quantity;
+                    Debug.Log(maxQuantity);
+                }
 
-                if (int.TryParse(tmp.value, out n))
+                if (float.TryParse(tmp.value, out n))
                 {
                     totaltmp -= (QuantityMap[num] * item.PriceOf());
-                    QuantityMap[num] = int.Parse(tmp.value);
+                    if (n > maxQuantity)
+                    {
+                        QuantityMap[num] = maxQuantity;
+                        tmp.value = maxQuantity.ToString();
+                    }
+                    else if (n < 0)
+                    {
+                        QuantityMap[num] = 0;
+                        tmp.value = "0";
+                    }
+                    else
+                    {
+                        QuantityMap[num] = float.Parse(tmp.value);
+                    }
                     totaltmp += (QuantityMap[num] * item.PriceOf());
 
                 }
@@ -497,7 +520,6 @@ public class ShopController : MonoBehaviour
                     QuantityMap[num] = 0;
                     if (!tmp.value.Equals(""))
                         tmp.value = "0";
-
 
                 }
 
@@ -526,7 +548,7 @@ public class ShopController : MonoBehaviour
 
     }
 
-    void CancelCheckoutItem(Button button, List<int> buyorSellList, List<MarketWrapper> typeOfItem, char type, Dictionary<int, int> QuantityMap)
+    void CancelCheckoutItem(Button button, List<int> buyorSellList, List<MarketWrapper> typeOfItem, char type, Dictionary<int, float> QuantityMap)
     {
         int num = int.Parse(button.name.Substring(2));
 
@@ -550,7 +572,6 @@ public class ShopController : MonoBehaviour
         else total -= typeOfItem[num].PriceOf() * QuantityMap[num];
 
         QuantityMap.Remove(num);
-
 
         CheckNoItems();
 
@@ -580,7 +601,7 @@ public class ShopController : MonoBehaviour
     }
 
 
-    void Checkout(List<int> BoughtList, List<MarketWrapper> BoughtCardInfo, Dictionary<int, int> QuantityMap)
+    void Checkout(List<int> BoughtList, List<MarketWrapper> BoughtCardInfo, Dictionary<int, float> QuantityMap)
     {
         foreach (int element in BoughtList)
             market.BuyItem(BoughtCardInfo[element], QuantityMap[element]);
@@ -588,8 +609,11 @@ public class ShopController : MonoBehaviour
 
     void checkoutSell()
     {
-        foreach (int element in SellList)
+        for (int i = SellList.Count - 1; i >= 0; i--)
+        {
+            int element = SellList[i];
             market.SellItem(market.Sellables[element], SellQuantity[element]);
+        }
     }
 
     void CheckoutOperation()
@@ -613,10 +637,6 @@ public class ShopController : MonoBehaviour
             if (total != 0 || SellTotal != 0)
             {
                 mainUI.ShowOrHideVisualElements(ref SuccessPurchase, ref ItemsInCheckout);
-                /*
-                ItemsInCheckout.style.display = DisplayStyle.None;
-                SuccessPurchase.style.display = DisplayStyle.Flex;
-                */
             }
 
             clearAllLists();
@@ -638,6 +658,7 @@ public class ShopController : MonoBehaviour
 
     void BackButtonToFarm()
     {
+        controls.SetActive(true);
         PhoneGameObject.SetActive(true);
         this.gameObject.SetActive(false);
     }

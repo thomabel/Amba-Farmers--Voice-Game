@@ -39,7 +39,7 @@
                             <ui:Label text="Label" display-tooltip-when-elided="true" name="QuantityValue" style="font-size: 24px;" />
                         </ui:VisualElement>
                         <ui:VisualElement name="ToolContainerButtons" style="width: 90%; height: 20%; display: none;">
-                            <ui:Button text="Send to Inventory" display-tooltip-when-elided="true" name="ToolButton" class="EquipButton ToolButtonSendInventory" />
+                            <ui:Button text="Send to Inventory" display-tooltip-when-elided="true" name="ToolButtonSend" class="EquipButton ToolButtonSendInventory" />
                         </ui:VisualElement>
                         <ui:Button text="Equip" display-tooltip-when-elided="true" name="Equip" class="EquipButton" style="width: 90%; height: 20%; display: none;" />
                         <ui:VisualElement name="ItemContainerButtons" style="width: 90%; height: 20%; flex-direction: row; justify-content: space-between;">

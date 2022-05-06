@@ -2250,6 +2250,7 @@ MonoBehaviour:
   X: {fileID: 2800000, guid: 5c97fd75f7cfe46cdaafc7ea20f0010f, type: 3}
   player: {fileID: 11400000, guid: c7bdde6092d69164f8be235724038485, type: 2}
   PhoneGameObject: {fileID: 2055118915}
+  controls: {fileID: 614949320}
   market: {fileID: 1666174810}
   Inventory: {fileID: 11400000, guid: 3e077b6989a0e4625be5c8bbcdfe50f9, type: 2}
   PlayerInv: {fileID: 11400000, guid: d3f57a5f20bb8f84a95a209984973a2c, type: 2}
@@ -2616,6 +2617,7 @@ MonoBehaviour:
   ShopApp: {fileID: 1814474574}
   PersonalInventoryApp: {fileID: 298318640}
   DateModule: {fileID: 555023758}
+  controls: {fileID: 614949320}
   player: {fileID: 11400000, guid: c7bdde6092d69164f8be235724038485, type: 2}
 --- !u!1001 &2107979450
 PrefabInstance:
