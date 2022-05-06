@@ -26,7 +26,7 @@ public class WeatherSystem: MonoBehaviour
     public float winterLightIntensity;
 
     public Color defaultLightColor;
-    public Color SummerColor;
+    public Color summerColor;
     public Color autumnColor;
     public Color winterColor;
    

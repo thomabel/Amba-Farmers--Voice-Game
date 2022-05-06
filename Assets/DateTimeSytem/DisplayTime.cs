@@ -12,9 +12,9 @@ public class DisplayTime : MonoBehaviour
     public float accumulator;
    
     //public Text text;
-    public IntVariable hours;
-    public IntVariable minutes;
-    public IntVariable seconds;
+    //public IntVariable hours;
+    //public IntVariable minutes;
+    //public IntVariable seconds;
 
     public int startDate;
     public int startMonth;
@@ -45,7 +45,7 @@ public class DisplayTime : MonoBehaviour
 	date.Value = startDate;
 	month.Value = startMonth;
 	year.Value = startYear;
-        text.text = "" + year.Value.ToString("D4") + ":" + months[month.Value-1].Value.ToString("D2")+ ":" + date.Value.ToString("D2");
+        text.text = "" + date.Value.ToString("D2") + "-" + months[month.Value-1] + "- " + year.Value.ToString("D4");
 	text.text = "" + hours.Value + ":" + minutes.Value + ":" + seconds.Value.ToString("D2"); 
 	
 	//text.text = "" + hours.Value + ":" + minutes.Value + ":" + seconds.Value.ToString("D2"); 
@@ -75,7 +75,7 @@ public class DisplayTime : MonoBehaviour
 			//date.Value = date.Value % 24;
 			hours.Value = 0;
 		}
-		while (date.Value >=daysInMonth[months[month.Value-1]]){
+		while (date.Value >=daysInMonth[month.Value-1]){
 			month.Value += 1;
 			//month.Value = month.Value %12;
 			date.Value = 0;
@@ -87,7 +87,7 @@ public class DisplayTime : MonoBehaviour
 		accumulator-=1;
 
 	}
-	text.text = "" + year.Value.ToString("D4") + ":" + months[month.Value-1].Value.ToString("D2")+ ":" + date.Value.ToString("D2");	
+        text.text = "" + date.Value.ToString("D2") + "-" + months[month.Value-1] + "- " + year.Value.ToString("D4");
 	text.text = "" + hours.Value + ":" + minutes.Value.ToString("D2") + ":" + seconds.Value.ToString("D2"); 	
     }	
 	//text.text = "" + hours.Value + ":" + minutes.Value.ToString("D2") + ":" + seconds.Value.ToString("D2"); 
