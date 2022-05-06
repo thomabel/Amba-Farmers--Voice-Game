@@ -42,12 +42,12 @@ public class DisplayTime : MonoBehaviour
 	minutes.Value = startSecond;
 	seconds.Value = startMinute;	
 
-	this.date.Value = this.startDate;
+	date.Value = startDate;
 	month.Value = startMonth;
 	year.Value = startYear;
         textDate.text = "" + date.Value.ToString("D2") + "-" + months[month.Value-1] + "-" + year.Value.ToString("D4") + " : "
 	       		+ hours.Value.ToString("D2") + ":" + minutes.Value.ToString("D2") + ":" + seconds.Value.ToString("D2"); 
-	
+		
 	//text.text = "" + hours.Value + ":" + minutes.Value + ":" + seconds.Value.ToString("D2"); 
 	//timeDisplay.GetComponent<Text>().text = "" + hour + ":" + minutes + ":" + seconds;
    	accumulator = 0; 
@@ -75,19 +75,22 @@ public class DisplayTime : MonoBehaviour
 			//date.Value = date.Value % 24;
 			hours.Value = 0;
 		}
-		while (date.Value >= daysInMonth[month.Value-1]){
+		while (date.Value >= daysInMonth[month.Value-1] +1){
 			month.Value += 1;
 			//month.Value = month.Value %12;
 			date.Value = 1;
 		}
-		while (month.Value >= 12){
+		while (month.Value > 12){
 			year.Value += 1;
 			month.Value = 1;
+			//accumlator = 0;
 		}
-		accumulator-=1;
-
+		accumulator-= 1;   
+		//text.text = "" + date.Value.ToString("D2") + "-" + months[month.Value-1] + "-" + year.Value.ToString("D4") + " : " + hours.Value.ToString("D2") + ":" + minutes.Value.ToString("D2") + ":" + seconds.Value.ToString("D2"); 	
+    	
 	}
-        text.text = "" + this.date.Value.ToString("D2") + "-" + months[month.Value-1] + "-" + year.Value.ToString("D4") + " : " 
+//
+	text.text = "" + date.Value.ToString("D2") + "-" + months[month.Value-1] + "-" + year.Value.ToString("D4") + " : " 
 			+ hours.Value.ToString("D2") + ":" + minutes.Value.ToString("D2") + ":" + seconds.Value.ToString("D2"); 	
     }	
 	//text.text = "" + hours.Value + ":" + minutes.Value.ToString("D2") + ":" + seconds.Value.ToString("D2"); 
