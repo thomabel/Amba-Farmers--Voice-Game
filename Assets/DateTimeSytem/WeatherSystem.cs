@@ -79,8 +79,7 @@ public class WeatherSystem: MonoBehaviour
 			break;
 		case Weather.HOTSUN:
 			currentWeather = Weather.HOTSUN;
-			break;
-		case Weather.RAIN:
+			break; case Weather.RAIN:
 			currentWeather = Weather.RAIN;
 			break;
 		case Weather.SNOW:

@@ -11,7 +11,7 @@ public class DisplayTime : MonoBehaviour
     public int startMinute;
     public float accumulator;
    
-    //public Text text;
+    public Text textDate;
     //public IntVariable hours;
     //public IntVariable minutes;
     //public IntVariable seconds;
@@ -42,11 +42,11 @@ public class DisplayTime : MonoBehaviour
 	minutes.Value = startSecond;
 	seconds.Value = startMinute;	
 
-	date.Value = startDate;
+	this.date.Value = this.startDate;
 	month.Value = startMonth;
 	year.Value = startYear;
-        text.text = "" + date.Value.ToString("D2") + "-" + months[month.Value-1] + "- " + year.Value.ToString("D4");
-	text.text = "" + hours.Value + ":" + minutes.Value + ":" + seconds.Value.ToString("D2"); 
+        textDate.text = "" + date.Value.ToString("D2") + "-" + months[month.Value-1] + "-" + year.Value.ToString("D4") + " : "
+	       		+ hours.Value.ToString("D2") + ":" + minutes.Value.ToString("D2") + ":" + seconds.Value.ToString("D2"); 
 	
 	//text.text = "" + hours.Value + ":" + minutes.Value + ":" + seconds.Value.ToString("D2"); 
 	//timeDisplay.GetComponent<Text>().text = "" + hour + ":" + minutes + ":" + seconds;
@@ -75,20 +75,20 @@ public class DisplayTime : MonoBehaviour
 			//date.Value = date.Value % 24;
 			hours.Value = 0;
 		}
-		while (date.Value >=daysInMonth[month.Value-1]){
+		while (date.Value >= daysInMonth[month.Value-1]){
 			month.Value += 1;
 			//month.Value = month.Value %12;
-			date.Value = 0;
+			date.Value = 1;
 		}
 		while (month.Value >= 12){
 			year.Value += 1;
-			month.Value = 0;
+			month.Value = 1;
 		}
 		accumulator-=1;
 
 	}
-        text.text = "" + date.Value.ToString("D2") + "-" + months[month.Value-1] + "- " + year.Value.ToString("D4");
-	text.text = "" + hours.Value + ":" + minutes.Value.ToString("D2") + ":" + seconds.Value.ToString("D2"); 	
+        text.text = "" + this.date.Value.ToString("D2") + "-" + months[month.Value-1] + "-" + year.Value.ToString("D4") + " : " 
+			+ hours.Value.ToString("D2") + ":" + minutes.Value.ToString("D2") + ":" + seconds.Value.ToString("D2"); 	
     }	
 	//text.text = "" + hours.Value + ":" + minutes.Value.ToString("D2") + ":" + seconds.Value.ToString("D2"); 
 	
