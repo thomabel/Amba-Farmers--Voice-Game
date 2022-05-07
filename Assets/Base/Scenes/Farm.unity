@@ -1428,8 +1428,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InventoryOne: {fileID: 11400000, guid: d3f57a5f20bb8f84a95a209984973a2c, type: 2}
   InventoryTwo: {fileID: 11400000, guid: 58cadb33980f70a44a5d2a204c6bf00e, type: 2}
-  PlayerInvList: {fileID: 11400000, guid: 3e077b6989a0e4625be5c8bbcdfe50f9, type: 2}
-  HouseInvList: {fileID: 11400000, guid: 30c1479d202354bfb8e72300994baff2, type: 2}
   market: {fileID: 1666174810}
   phone: {fileID: 2055118915}
   PlayerEquipment: {fileID: 555023750}
@@ -2252,7 +2250,6 @@ MonoBehaviour:
   PhoneGameObject: {fileID: 2055118915}
   controls: {fileID: 614949320}
   market: {fileID: 1666174810}
-  Inventory: {fileID: 11400000, guid: 3e077b6989a0e4625be5c8bbcdfe50f9, type: 2}
   PlayerInv: {fileID: 11400000, guid: d3f57a5f20bb8f84a95a209984973a2c, type: 2}
 --- !u!1 &1938882321
 GameObject:

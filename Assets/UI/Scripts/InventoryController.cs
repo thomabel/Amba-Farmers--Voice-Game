@@ -38,39 +38,43 @@ public class InventoryController : MonoBehaviour
 
     void OnEnable ()
     {
-        //int length = inventory.length();
         currentPressedItem = null;
+
+        assignUItoVariables();
+        root.Focus();
+        assignButtonsToFunctions();
+
+        findItemAndDisplay(PlayerEquipment.eitem, ref EquippedItem);
+        DisplayInventory();
+
+    }
+    void assignUItoVariables()
+    {
+        root = GetComponent<UIDocument>().rootVisualElement;
+        ItemInfo = root.Q<VisualElement>("ItemInfo");
+        EquippedItem = root.Q<Button>("EquippedItem");
+        addInvButton = root.Q<Button>("AddInvButton");
+        ScrollViewSection = root.Q<VisualElement>("InventoryScrollView");
+    }
+    void assignButtonsToFunctions()
+    {
+        root.Q<Button>("EquipButton").clicked += EquipButtonClicked;
+        EquippedItem.clickable.clickedWithEventInfo += ItemClicked;
+        addInvButton.clicked += addInvClicked;
+        root.Q<Button>("BackButton").clicked += backbutton;
+
+    }
+    void DisplayInventory()
+    {
         VisualElement Current = new VisualElement();
         Current.AddToClassList("Row");
 
-        root = GetComponent<UIDocument>().rootVisualElement;
-        root.Focus();
-
-        ItemInfo = root.Q<VisualElement>("ItemInfo");
-        root.Q<Button>("EquipButton").clickable.clickedWithEventInfo += EquipButtonClicked;
-        
-        EquippedItem = root.Q<Button>("EquippedItem");
-        EquippedItem.clickable.clickedWithEventInfo += ItemClicked;
-
-        findItemAndDisplay(PlayerEquipment.eitem, ref EquippedItem);
-
-        addInvButton = root.Q<Button>("AddInvButton");
-        addInvButton.clicked += addInvClicked;
-
-        root.Q<Button>("BackButton").clicked += backbutton;
-        /*
-        if(value != null)
-            EquippedItem.style.backgroundImage = new StyleBackground(value.picture);
-        */
-
-
-        ScrollViewSection = root.Q<VisualElement>("InventoryScrollView");
         int count = 0;
         int length = player.Size;
-        for(int i = 0; i < length; ++i)
+        for (int i = 0; i < length; ++i)
         {
 
-            if(i != 0 && count % 5 == 0)
+            if (i != 0 && count % 5 == 0)
             {
                 Current = new VisualElement();
                 Current.AddToClassList("Row");
@@ -78,12 +82,12 @@ public class InventoryController : MonoBehaviour
 
             Button InventoryItem = new Button();
             InventoryItem.clickable.clickedWithEventInfo += ItemClicked;
-            
+
             InventoryItem.name = i.ToString();
             InventoryItem.AddToClassList("SlotIcon");
             InventoryItem.AddToClassList("ItemButton");
             Item tmpobj = player.Retrieve(i);
-            
+
             if (tmpobj == null) InventoryItem.style.backgroundImage = null;
             else
             {
@@ -98,15 +102,15 @@ public class InventoryController : MonoBehaviour
 
             count += 1;
 
-            //PlayerInventory.Insert(i, inventory.FindCardIndex(i).item_prefab);
-
-
         }
-
         int extra = 0;
         if (length % 5 != 0)
             extra = 5 - (length % 5);
 
+        addExtraBoxes(extra, ref Current);
+    }
+    void addExtraBoxes(int extra, ref VisualElement Current)
+    {
         for (int i = 0; i < extra; ++i)
         {
 
@@ -159,13 +163,9 @@ public class InventoryController : MonoBehaviour
         else button.style.backgroundImage = null;
     }
 
-
-
-    void EquipButtonClicked(EventBase obj)
+    void EquipButtonClicked()
     {
-        var button = (Button)obj.target;
         int index = int.Parse(currentPressedItem.name);
-        //PlayerEquipment.EquipTool(Instantiate(inventory.FindCardIndex(int.Parse(currentPressedItem.name)).item_prefab));
 
         Item previousItem = PlayerEquipment.eitem;
         PlayerEquipment.inventory = player;
@@ -173,10 +173,7 @@ public class InventoryController : MonoBehaviour
         player.Remove(index);
         player.Insert(index, previousItem);
 
-
-        
         findItemAndDisplay(player.Retrieve(index), ref currentPressedItem);
-        //currentPressedItem.style.backgroundImage = null;
 
         findItemAndDisplay(PlayerEquipment.eitem, ref EquippedItem);
 
@@ -192,10 +189,6 @@ public class InventoryController : MonoBehaviour
         //FocusedButton = (Button)obj.target;
         var button = (Button)obj.target;
 
-        //Debug.Log(player.Add(inventory[int.Parse(button.name)]));
-
-        //Instantiate(inventory[int.Parse(button.name)].gameobject, player.transform);
-        //player.Equip(Inventory[int.Parse(button.name)].gameobject);
 
         if (currentPressedItem == null)
             currentPressedItem = button;
@@ -236,7 +229,7 @@ public class InventoryController : MonoBehaviour
                 Label QuantityNum = root.Q<Label>("QuantityNum");
                 Label ItemName = root.Q<Label>("ItemName");
                 ItemName.text = value.display_name;
-                QuantityNum.text = CurrentCard.obj.GetComponent<Quantity>().Value.ToString();
+                QuantityNum.text = CurrentCard.quantity.ToString();
                 if (isequippable)
                 {
                     root.Q<VisualElement>("ContainerButton").style.display = DisplayStyle.None;
