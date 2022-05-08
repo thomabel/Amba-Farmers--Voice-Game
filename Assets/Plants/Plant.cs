@@ -180,7 +180,7 @@ public class Plant: MonoBehaviour, IInteractable
                 plantTransitionTracker = plantStatusChangeThreshold;
             }
         }
-        ApplyHealthStatusVisuals();
+        //ApplyHealthStatusVisuals();
     }
 
     void UpdateGrowthStage()
@@ -213,7 +213,7 @@ public class Plant: MonoBehaviour, IInteractable
             ++currentGrowthStage;
             growthAccum = 0;
         }
-        ApplyGrowthLevelVisuals();
+        //ApplyGrowthLevelVisuals();
     }
 
     void ApplyGrowthLevelVisuals()
