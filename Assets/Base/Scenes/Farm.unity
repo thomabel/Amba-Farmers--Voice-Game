@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -277,6 +277,37 @@ MonoBehaviour:
   m_TrackedDeviceOrientationAction: {fileID: 5672074719034556991, guid: 737fd54312451534f905ef866f490c4f, type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
+--- !u!1 &292977090 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3338131928499158807, guid: 48a44350b6dbd4e46aedbca69e79c0f7, type: 3}
+  m_PrefabInstance: {fileID: 8790551838719090021}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &292977095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292977090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfde4d85b794e7e4c9035ccc9e4a9a43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 1
+--- !u!114 &292977096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292977090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a9c4033303f8144d8d8cb7b62edfd69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 2
 --- !u!1 &297230056
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,6 +466,7 @@ MonoBehaviour:
   player: {fileID: 11400000, guid: d3f57a5f20bb8f84a95a209984973a2c, type: 2}
   market: {fileID: 1666174810}
   PlayerEquipment: {fileID: 555023750}
+  Phone: {fileID: 2055118915}
 --- !u!1 &390597302
 GameObject:
   m_ObjectHideFlags: 0
@@ -1396,9 +1428,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InventoryOne: {fileID: 11400000, guid: d3f57a5f20bb8f84a95a209984973a2c, type: 2}
   InventoryTwo: {fileID: 11400000, guid: 58cadb33980f70a44a5d2a204c6bf00e, type: 2}
-  PlayerInvList: {fileID: 11400000, guid: 3e077b6989a0e4625be5c8bbcdfe50f9, type: 2}
-  HouseInvList: {fileID: 11400000, guid: 30c1479d202354bfb8e72300994baff2, type: 2}
   market: {fileID: 1666174810}
+  phone: {fileID: 2055118915}
   PlayerEquipment: {fileID: 555023750}
 --- !u!1 &917601504
 GameObject:
@@ -1557,7 +1588,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -6864621781826019653, guid: 020a454a91391d14d83a3a401f9bb4ad, type: 3}
       propertyPath: Type
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 500338019832079509, guid: 020a454a91391d14d83a3a401f9bb4ad, type: 3}
       propertyPath: m_Icon
@@ -1610,6 +1641,10 @@ PrefabInstance:
     - target: {fileID: 1672159210057005204, guid: 020a454a91391d14d83a3a401f9bb4ad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8630281842563527610, guid: 020a454a91391d14d83a3a401f9bb4ad, type: 3}
+      propertyPath: Value
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 020a454a91391d14d83a3a401f9bb4ad, type: 3}
@@ -2121,7 +2156,8 @@ MonoBehaviour:
   player_checking: {fileID: 11400000, guid: c7bdde6092d69164f8be235724038485, type: 2}
   player_inventory: {fileID: 0}
   Inventories:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: d3f57a5f20bb8f84a95a209984973a2c, type: 2}
+  - {fileID: 11400000, guid: 58cadb33980f70a44a5d2a204c6bf00e, type: 2}
   Reference:
   - {fileID: 11400000, guid: 64f6a7548f7bd4007b8d133b9118c04e, type: 2}
   - {fileID: 11400000, guid: acc1dfed09831490ea3af24ff8fd0246, type: 2}
@@ -2205,18 +2241,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1814474574}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b53b13f79cd44606b2b27dc4fd64198, type: 3}
+  m_Script: {fileID: 11500000, guid: 97307cef9888342da9bcc5fe1e98d865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Checkmark: {fileID: 2800000, guid: c7503fbf80f5c4869bb0bff93945c4d0, type: 3}
   X: {fileID: 2800000, guid: 5c97fd75f7cfe46cdaafc7ea20f0010f, type: 3}
   player: {fileID: 11400000, guid: c7bdde6092d69164f8be235724038485, type: 2}
-  SellCards:
-  - {fileID: 11400000, guid: df171af3c47f99d49962e5e400b45524, type: 2}
-  - {fileID: 11400000, guid: acc1dfed09831490ea3af24ff8fd0246, type: 2}
   PhoneGameObject: {fileID: 2055118915}
+  controls: {fileID: 614949320}
   market: {fileID: 1666174810}
-  Inventory: {fileID: 11400000, guid: 3e077b6989a0e4625be5c8bbcdfe50f9, type: 2}
   PlayerInv: {fileID: 11400000, guid: d3f57a5f20bb8f84a95a209984973a2c, type: 2}
 --- !u!1 &1938882321
 GameObject:
@@ -2579,7 +2612,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShopApp: {fileID: 1814474574}
+  PersonalInventoryApp: {fileID: 298318640}
   DateModule: {fileID: 555023758}
+  controls: {fileID: 614949320}
   player: {fileID: 11400000, guid: c7bdde6092d69164f8be235724038485, type: 2}
 --- !u!1001 &2107979450
 PrefabInstance:

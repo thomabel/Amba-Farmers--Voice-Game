@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 5
   display_name: Banana
   item_prefab: {fileID: 2682924143094785919, guid: 246182cdff5a8454dab2dff9544c05b0, type: 3}
-  value: 0
+  value: 2
   qty_type: 0
   picture: {fileID: 2800000, guid: cd857c3ec2dff430192519d99929782c, type: 3}
   supply: 0

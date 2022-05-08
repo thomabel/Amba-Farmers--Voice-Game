@@ -24,6 +24,7 @@
     border-right-width: 1px;
     border-top-width: 1px;
     border-bottom-width: 1px;
+    color: rgba(255, 255, 255, 255);
 }
 
 .SlotContainer {
@@ -65,6 +66,9 @@
     border-top-width: 1px;
     border-bottom-width: 1px;
     opacity: 0.5;
+    -unity-text-align: upper-left;
+    -unity-font-style: bold;
+    font-size: 24px;
 }
 
 .Row {
@@ -288,6 +292,7 @@
     -unity-background-scale-mode: scale-to-fit;
     background-image: none;
     width: 100px;
+    color: rgba(255, 255, 255, 255);
 }
 
 .InvnfoContainer {
@@ -377,11 +382,11 @@
 }
 
 .InfoButton {
-    border-left-color: rgba(255, 255, 255, 255);
-    border-right-color: rgba(255, 255, 255, 255);
-    border-top-color: rgba(255, 255, 255, 255);
-    border-bottom-color: rgba(255, 255, 255, 255);
-    background-color: rgba(176, 0, 0, 255);
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    background-color: rgb(176, 0, 0);
 }
 
 .EquipItemSlot:active {
@@ -397,5 +402,28 @@
     border-top-color: rgb(255, 255, 255);
     border-bottom-color: rgb(255, 255, 255);
     background-color: rgb(176, 0, 0);
+    opacity: 0.6;
+}
+
+.BackButton {
+    width: 5%;
+    height: 90%;
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
+    background-color: rgba(88, 88, 88, 0);
+    background-image: url('/Assets/UI/Textures/Back.png');
+}
+
+.BackButton:active {
+    width: 5%;
+    height: 90%;
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
+    background-color: rgba(88, 88, 88, 0);
+    background-image: url('/Assets/UI/Textures/Back.png');
     opacity: 0.6;
 }

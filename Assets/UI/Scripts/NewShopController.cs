@@ -75,10 +75,6 @@ public class NewShopController : MonoBehaviour
     private List<MarketWrapper> Animals;
     private List<MarketWrapper> Tools;
 
-
-    [SerializeField]
-    private InventoryList Inventory;
-
     [SerializeField]
     private Inventory PlayerInv;
 
@@ -195,9 +191,10 @@ public class NewShopController : MonoBehaviour
             }
             
         }
+
         market.PopulateSellables();
         
-        Debug.Log(market.Sellables.Count);
+        //Debug.Log(market.Sellables.Count);
     }
     public void roothide()
     {
@@ -362,10 +359,15 @@ public class NewShopController : MonoBehaviour
     void Update()
     {
         //root = GetComponent<UIDocument>().rootVisualElement;
-        MoneyLabel.text = player.Balance().ToString();
-        SubtotalLabel.text = total.ToString();
-        SoldSubtotalLabel.text = SellTotal.ToString();
-        CheckoutMoneyLabel.text = player.Balance().ToString();
+
+        if (MoneyLabel != null && SubtotalLabel != null &&
+            SoldSubtotalLabel != null && CheckoutMoneyLabel != null)
+        {
+            MoneyLabel.text = player.Balance().ToString();
+            SubtotalLabel.text = total.ToString();
+            SoldSubtotalLabel.text = SellTotal.ToString();
+            CheckoutMoneyLabel.text = player.Balance().ToString();
+        }
     }
 
 
