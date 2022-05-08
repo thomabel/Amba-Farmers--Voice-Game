@@ -14,11 +14,11 @@ public class Fruit : MonoBehaviour, IInteractable, IEquippable
         qty = GetComponent<Quantity>();
         tl = GetComponent<TypeLabel>();
     }
-    void IInteractable.Interact()
+    void IInteractable.Interact(GameObject with)
     {
         Debug.Log("Interact with " + name);
     }
-    void IEquippable.Use()
+    void IEquippable.Use(GameObject with)
     {
         Debug.Log("Equipped " + name);
     }

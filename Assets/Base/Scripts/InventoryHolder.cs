@@ -6,7 +6,7 @@ public class InventoryHolder : MonoBehaviour, IInteractable
     public GameEvent swap;
     public InventorySwap swap_storage;
 
-    void IInteractable.Interact()
+    void IInteractable.Interact(GameObject with)
     {
         Debug.Log("Swap");
         swap_storage.second = inventory;

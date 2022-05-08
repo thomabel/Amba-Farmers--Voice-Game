@@ -30,7 +30,7 @@ public class Interact : MonoBehaviour
             last_interacted = null;
             return false;
         }
-        Debug.Log("Try interacting with " + item.name);
+        //Debug.Log("Try interacting with " + item.name);
 
         var inter = item.GetComponent<IInteractable>();
         if (inter == null)
@@ -39,7 +39,7 @@ public class Interact : MonoBehaviour
             return false;
         }
 
-        inter.Interact();
+        inter.Interact(null);
         last_interacted = item;
         Debug.Log("Interacted with " + last_interacted.name + '.');
         return true;

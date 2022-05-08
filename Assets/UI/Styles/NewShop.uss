@@ -736,6 +736,7 @@
     color: rgb(0, 0, 0);
     font-size: 20px;
     white-space: normal;
+    -unity-font-style: bold;
 }
 
 .CheckoutCard:active {
@@ -755,4 +756,10 @@
     flex-direction: row;
     margin-bottom: 5px;
     opacity: 0.6;
+}
+
+.EmptySellList {
+    font-size: 120px;
+    -unity-font-style: bold-and-italic;
+    color: rgba(255, 255, 255, 255);
 }

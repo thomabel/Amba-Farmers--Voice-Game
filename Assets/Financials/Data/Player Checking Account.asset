@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4d4055688bae414c99df3efe359d778, type: 3}
   m_Name: Player Checking Account
   m_EditorClassIdentifier: 
-  balance: 4400
+  balance: 4403
   debt_floor: 0
   annual_rate: 0
   annual_periods: 0

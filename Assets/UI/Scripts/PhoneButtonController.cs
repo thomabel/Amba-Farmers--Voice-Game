@@ -10,15 +10,27 @@ public class PhoneButtonController : MonoBehaviour
     public Button PhoneButton;
 
     private Button ShopButton;
+    private Button InventoryButton;
 
     private Button FinancialsApp;
+    private Button Rewind;
+    private Button FastForward;
+    private Button StartPause;
 
-    public GameObject ShopApp;
+    [SerializeField]
+    private GameObject ShopApp;
+
+    [SerializeField]
+    private GameObject PersonalInventoryApp;
 
     private Label Time;
+    private Label TimeMultiplier;
 
     [SerializeField]
     private DisplayTime DateModule;
+
+    [SerializeField]
+    private GameObject controls;
 
 
     [SerializeField]
@@ -39,31 +51,50 @@ public class PhoneButtonController : MonoBehaviour
         ShopButton = root.Q<Button>("ShopApp");
         ShopButton.clicked += ShopButtonPressed;
 
+        InventoryButton = root.Q<Button>("InventoryButton");
+        InventoryButton.clicked += InventoryButtonPressed;
+
         FinancialsApp = root.Q<Button>("FinancialsApp");
         FinancialsApp.clicked += FinancialsAppPressed;
 
         root.Q<Button>("BackButtonToApps").clicked += BackButtonToAppsPressed;
 
         Time = root.Q<Label>("Time");
-
+        TimeMultiplier = root.Q<Label>("Multiplier");
+        Rewind = root.Q<Button>("BackTrack");
+        Rewind.clicked += RewindPressed;
+        FastForward = root.Q<Button>("FastForward");
+        FastForward.clicked += FastForwardPressed;
+        StartPause = root.Q<Button>("StartPause");
+        StartPause.clicked += StartPausePressed;
     }
+
     private void Update()
     {
         Time.text = DateModule.TimeDisplay();
     }
+
     void Pressed()
     {
         Phone.style.display = DisplayStyle.None;
     }
+
     void Pressed2()
     {
         Phone.style.display = DisplayStyle.Flex;
     }
+
     void ShopButtonPressed()
     {
         
         Debug.Log(ShopApp);
         ShopApp.SetActive(true);
+        this.gameObject.SetActive(false);
+        controls.SetActive(false);
+    }
+    void InventoryButtonPressed()
+    {
+        PersonalInventoryApp.SetActive(true);
         this.gameObject.SetActive(false);
     }
 
@@ -91,5 +122,26 @@ public class PhoneButtonController : MonoBehaviour
 
         //AppScrollView.style.display = ScrollContainer;
 
+    }
+
+    void RewindPressed()
+    {
+        Debug.Log("Rewind");
+        DateModule.decrementMultiplier();
+        TimeMultiplier.text = DateModule.timeMultiplier.ToString();
+    }
+
+    void FastForwardPressed()
+    {
+        Debug.Log("Fast Forward");
+        DateModule.incrementMultiplier();
+        TimeMultiplier.text = DateModule.timeMultiplier.ToString();
+    }
+
+    void StartPausePressed()
+    {
+        Debug.Log("Start/Pause");
+        DateModule.resetMultiplier();
+        TimeMultiplier.text = DateModule.timeMultiplier.ToString();
     }
 }

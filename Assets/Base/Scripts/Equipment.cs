@@ -13,6 +13,15 @@ public class Equipment : MonoBehaviour
     public Item eitem;
     public IStorable Item;
 
+    private void Start()
+    {
+        etool = null;
+        Tool = null;
+
+        item_index = -1;
+        eitem = null;
+        Item = null;
+    }
 
     /// <summary>
     /// General method for picking up inventory items.
@@ -91,7 +100,7 @@ public class Equipment : MonoBehaviour
             return false;
         }
 
-        if (etool != null && tool != etool.obj)
+        if (etool != null)
         {
             DropTool();
         }
@@ -109,11 +118,11 @@ public class Equipment : MonoBehaviour
     /// <returns>Success of drop.</returns>
     public bool DropTool()
     {
-        if (etool != null)
+        if (etool == null)
         {
             return false;
         }
-        
+
         position_tool(null, false, transform.position + tool_offset);
         etool = null;
         Tool = null;

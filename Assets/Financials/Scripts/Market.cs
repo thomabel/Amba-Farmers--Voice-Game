@@ -53,6 +53,7 @@ public class Market : MonoBehaviour
 
     public bool SellItem(Sellable item, float quantity)
     {
+        Debug.Log(item.Equals(null));
         if (quantity > item.inv[item.index].quantity)
         {
             return false;
@@ -62,6 +63,7 @@ public class Market : MonoBehaviour
 
         var obj = item.inv.Remove(item.index);
         Destroy(obj.obj);
+        //obj.obj = null;
         Sellables.Remove(item);
 
         return true;

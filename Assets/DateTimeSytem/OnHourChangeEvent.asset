@@ -9,11 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55c6dbff04b4a44e7b6b0947f22f6550, type: 3}
-  m_Name: Papaya
+  m_Script: {fileID: 11500000, guid: 07c04bfff1b01c94c89940ed6c936ae3, type: 3}
+  m_Name: OnHourChangeEvent
   m_EditorClassIdentifier: 
-  name: Papaya
-  cost: 600
-  quantity: 1
-  picture: {fileID: 2800000, guid: 9a4a558fc515d44f884a9bf66ea8aa27, type: 3}
-  gameobject: {fileID: 0}

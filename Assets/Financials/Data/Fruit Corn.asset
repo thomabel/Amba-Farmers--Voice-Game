@@ -16,7 +16,7 @@ MonoBehaviour:
   display_name: Corn
   item_prefab: {fileID: 8759900201963628373, guid: d2d4b0ea32435d042a919657caa878f4, type: 3}
   value: 5
-  qty_type: 0
+  qty_type: 1
   picture: {fileID: 2800000, guid: 2a97c8e606d9f4281be87eeb363eca25, type: 3}
   supply: 0
   demand: 0
