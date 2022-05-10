@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Linq;
 
 public class ShopController : MonoBehaviour
 {
@@ -38,8 +39,8 @@ public class ShopController : MonoBehaviour
 
     private TextField quantityField;
 
-    private float total = 0;
-    private float SellTotal = 0;
+    private decimal total = 0;
+    private decimal SellTotal = 0;
 
     [SerializeField]
     private GameObject PhoneGameObject;
@@ -476,7 +477,7 @@ public class ShopController : MonoBehaviour
             //When user presses quantity button and changes it then we enter this callback
             Quantity.RegisterValueChangedCallback((evt) => {
 
-                float totaltmp = 0;
+                decimal totaltmp = 0;
                 float maxQuantity = 0;
                
 
@@ -509,6 +510,25 @@ public class ShopController : MonoBehaviour
                     intType = value.qty_type == Base.QuantityType.Integer;
                 }
 
+                if (tmp.value != null && evt.previousValue.Contains("."))
+                {
+                    char ch = '.';
+                    //https://www.techiedelight.com/count-occurrences-of-character-within-string-csharp/
+                    int freq = evt.newValue.Count(x => (x == ch));
+
+                    if(freq > 1)
+                    {
+                        tmp.value = evt.previousValue;
+                    }
+                }
+                if(tmp.value == "")
+                {
+                    Debug.Log(float.TryParse(tmp.value, out n));
+                    Debug.Log("hi" + n);
+
+                }
+                //Debug.Log(tmp.value);
+                //Debug.Log(evt.newValue[evt.newValue.Length-1]);
                 //Check valid float
                 if (float.TryParse(tmp.value, out n))
                 {
@@ -518,11 +538,8 @@ public class ShopController : MonoBehaviour
                         n = (float)Math.Floor(n);
                         tmp.value = n.ToString();
                     }
-                    
 
-                    totaltmp -= (QuantityMap[num] * item.PriceOf());
-
-                    //Quantity entered over max
+                    totaltmp -= (Decimal)(QuantityMap[num] * item.PriceOf());
                     if (n > maxQuantity)
                     {
                         QuantityMap[num] = maxQuantity;
@@ -539,13 +556,15 @@ public class ShopController : MonoBehaviour
                     {
                         QuantityMap[num] = n;
                     }
-                    totaltmp += (QuantityMap[num] * item.PriceOf());
 
+                    totaltmp += (Decimal)(QuantityMap[num] * item.PriceOf());
                 }
                 //Not valid float then reset to 0
                 else
                 {
-                    totaltmp -= (QuantityMap[num] * item.PriceOf());
+                    Debug.Log("total = " + QuantityMap[num]);
+                    totaltmp -= (Decimal)(QuantityMap[num] * item.PriceOf());
+                    Debug.Log("total = " + totaltmp);
                     QuantityMap[num] = 0;
                     if (!tmp.value.Equals(""))
                         tmp.value = "0";
@@ -565,8 +584,8 @@ public class ShopController : MonoBehaviour
             checkoutCard.Add(QuantityContainer);
             CheckoutScrollView.Add(checkoutCard);
 
-            if (!BuyOrSell.Equals("S")) total += item.PriceOf() * QuantityMap[ListType[i]];
-            else SellTotal += item.PriceOf() * QuantityMap[ListType[i]];
+            if (!BuyOrSell.Equals("S")) total += (Decimal)(item.PriceOf() * QuantityMap[ListType[i]]);
+            else SellTotal += (Decimal) (item.PriceOf() * QuantityMap[ListType[i]]);
             UpdateMoneyBalance();
 
         }
@@ -603,8 +622,8 @@ public class ShopController : MonoBehaviour
         CheckoutScrollView.Remove(tmp);
 
         //Remove the item from total
-        if (type.Equals('S')) SellTotal -= market.Sellables[num].wrap.PriceOf() * QuantityMap[num];
-        else total -= typeOfItem[num].PriceOf() * QuantityMap[num];
+        if (type.Equals('S')) SellTotal -= (Decimal) (market.Sellables[num].wrap.PriceOf() * QuantityMap[num]);
+        else total -= (Decimal)(typeOfItem[num].PriceOf() * QuantityMap[num]);
 
         QuantityMap.Remove(num);
 

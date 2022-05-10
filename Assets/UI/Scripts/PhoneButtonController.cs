@@ -43,10 +43,10 @@ public class PhoneButtonController : MonoBehaviour
 
         Phone = root.Q<Button>("RealPhoneButtonContainer");
 
-        Phone.clicked += Pressed;
+        Phone.clicked += HidePhone;
 
         PhoneButton = root.Q<Button>("phoneButton");
-        PhoneButton.clicked += Pressed2;
+        PhoneButton.clicked += ShowPhone;
 
         ShopButton = root.Q<Button>("ShopApp");
         ShopButton.clicked += ShopButtonPressed;
@@ -73,13 +73,14 @@ public class PhoneButtonController : MonoBehaviour
     {
         Time.text = DateModule.TimeDisplay();
     }
-
-    void Pressed()
+    //When Phone is shown and user clicks something other than app
+    // Then close the phone
+    void HidePhone()
     {
         Phone.style.display = DisplayStyle.None;
     }
-
-    void Pressed2()
+    //Phone Button Pressed, show phone
+    void ShowPhone()
     {
         Phone.style.display = DisplayStyle.Flex;
     }
