@@ -59,7 +59,7 @@ public class TerrainData : MonoBehaviour
         {
             Data tile_data = terrain_data[i,k];
             int tilled = tile_data.tilled ? 1 : 0;
-            Debug.Log("GetTileData: " + tile + " [" + i + "," + k + "] : (" + tilled + "," + tile_data.water + "," + tile_data.nutrients + ")");
+            //Debug.Log("GetTileData: " + tile + " [" + i + "," + k + "] : (" + tilled + "," + tile_data.water + "," + tile_data.nutrients + ")");
 
             return terrain_data[i, k];
         }
