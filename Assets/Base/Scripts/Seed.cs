@@ -12,7 +12,7 @@ public class Seed : MonoBehaviour, IStorable, IInteractable
 
         if (isClear && isTilled)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
             Instantiate(plant, transform.position, Quaternion.identity, null);
         }
 
