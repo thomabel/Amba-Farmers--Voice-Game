@@ -3,6 +3,11 @@ using System.Collections.Generic;
 
 public class Plant: MonoBehaviour, IInteractable
 {
+    //The fruit that this plant produces
+    public Base.GoodType fruitType;
+    //The text name of the plant
+    public string plantName;
+
     // The position of the sun
     private Transform sunPosition;
     // Terrain Data
@@ -25,20 +30,21 @@ public class Plant: MonoBehaviour, IInteractable
     };
     // Current status of the plant
     public healthStatus currentHealthStatus = healthStatus.Fine;
-    // Steps to next plant status
-    public int plantTransitionTracker = 3;
-    // Threshold for plant to shift to new state
-    private int plantStatusChangeThreshold = 5;
+    private float healthAccumulator = 0.5f;
+    private float fruitAccumulator = 0f;
+    public float fruitWeightScale = 1f;
 
     // -- ENVIRONMENTAL CONDITIONS --
-    // Optimal ranges for this plant
-    private int[] goodLightRange = { 80, 100 };
-    private int[] goodWaterRange = { 25, 75 };
-    private int[] goodNutrientRange = { 25, 75 };
-    // Current levels for this plant
     public float lightLevel;
+    public bool lightLoving;
+
     public float waterLevel;
+    public float waterUpperLimit;
+    public float waterLowerLimit;
+
     public float nutrientLevel;
+    public float nutrientUpperLimit;
+    public float nutrientLowerLimit;
 
     // -- PLANT GROWTH -- 
     // Plant Growth Stages
@@ -53,17 +59,15 @@ public class Plant: MonoBehaviour, IInteractable
     };
 
     public growthStages currentGrowthStage = growthStages.Seedling;
-    public int growthAccum = 0;
-    public int growthLevelThreshold = 5;
+    public int growthTimeModifier = 5;
+    private float growthTimeAccumulator = 0f;
 
 
     void Start()
     {
         sunPosition = GameObject.Find("Directional Light").transform;
         terrain = GameObject.Find("Terrain");
-        CheckEnvironment();
-        UpdateHealthStatus();
-        UpdateGrowthStage();
+        TimedUpdate();
     }
 
     void Update()
@@ -76,204 +80,103 @@ public class Plant: MonoBehaviour, IInteractable
         }
     }
 
+    // Fires every <waitTime> seconds
     void TimedUpdate()
     {
         CheckEnvironment();
-        UpdateHealthStatus();
-        UpdateGrowthStage();
+        HealthUpdate();
+        GrowthUpdate();
     }
 
-    void ApplyHealthStatusVisuals()
+    private void HealthUpdate()
     {
-        Material newMaterial;
+        bool goodWater = false;
+        bool goodNutrients = false;
+        bool goodLight = false;
 
-        if (currentHealthStatus == healthStatus.Dead)
-        {
-            newMaterial = Resources.Load<Material>("Dead Plant");
-            gameObject.GetComponent<Renderer>().material = newMaterial;
-        }
-        else if (currentHealthStatus <= healthStatus.Fine)
-        {
-            newMaterial = Resources.Load<Material>("Unhealthy Plant");
-            gameObject.GetComponent<Renderer>().material = newMaterial;
-        }
-        else if (currentHealthStatus >= healthStatus.Healthy)
-        {
-            newMaterial = Resources.Load<Material>("Healthy Plant");
-            gameObject.GetComponent<Renderer>().material = newMaterial;
-        }
-        return;
-    }
+        float hitAmount = .1f;
 
-    void UpdateHealthStatus()
-    {
-        bool goodLight;
-        bool goodWater;
-        bool goodNutrient;
+        float healthIncrement = 0f;
 
-        // If lightLevel within goodLightRange
-        if ((lightLevel >= goodLightRange[0]) && (lightLevel <= goodLightRange[1]))
+        // Determine if this plant likes current water conditions
+        if (waterLevel >= waterLowerLimit)
         {
-            goodLight = true;
-        } 
-        else
-        {
-            goodLight = false;
+            if (waterLevel <= waterUpperLimit)
+            {
+                goodWater = true;
+            }
         }
 
-        // If waterLevel within goodWaterRange
-        if ((waterLevel >= goodWaterRange[0]) && (waterLevel <= goodWaterRange[1]))
+        // Determine if this plant likes current nutrient conditions
+        if (nutrientLevel >= nutrientLowerLimit)
         {
-            goodWater = true;
-        } 
-        else
-        {
-            goodWater = false;
+            if (nutrientLevel <= nutrientUpperLimit)
+            {
+                goodNutrients = true;
+            }
         }
 
-        // If nutrientLevel within goodNutrientRange
-        if ((nutrientLevel >= goodNutrientRange[0]) && (nutrientLevel <= goodNutrientRange[1]))
+        // Determine if this plant likes the current sunlight
+        if (lightLoving)
         {
-            goodNutrient = true;
-        } 
-        else
-        {
-            goodNutrient = false;
-        }
-
-        // If all environmental conditions are good, +1 to state change. Otherwise, -1
-        if (goodLight && goodNutrient && goodWater)
-        {
-            plantTransitionTracker += 1;
+            if (lightLevel > .75f)
+            {
+                goodLight = true;
+            }
         }
         else
         {
-            plantTransitionTracker -= 1;
+            if (lightLevel < .75f && lightLevel > .25f)
+            {
+                goodLight = true;
+            }
         }
 
-        // Transition Tracker greater than status change threshold
-        if (plantTransitionTracker >= plantStatusChangeThreshold)
-        {
-            // In "Optimal" State
-            if (currentHealthStatus >= healthStatus.Optimal)
-            {
-                currentHealthStatus = healthStatus.Optimal;
-                plantTransitionTracker = plantStatusChangeThreshold;
-            }
-            else
-            {
-                ++currentHealthStatus;
-                plantTransitionTracker = 1;
-            }
-        }
-        else if (plantTransitionTracker <= 0)
-        {
-            // In "dead" state
-            if (currentHealthStatus <= healthStatus.Dead)
-            {
-                currentHealthStatus = healthStatus.Dead;
-                plantTransitionTracker = 1;
-            }
-            else
-            {
-                --currentHealthStatus;
-                plantTransitionTracker = plantStatusChangeThreshold;
-            }
-        }
-        //ApplyHealthStatusVisuals();
-    }
+        // how much to increment health based on conditions
+        healthIncrement += goodWater ? hitAmount : -hitAmount; 
+        healthIncrement += goodNutrients ? hitAmount : -hitAmount; 
+        healthIncrement += goodLight ? hitAmount : -hitAmount;
 
-    void UpdateGrowthStage()
+        // effect plant's health and fruit weight
+        healthAccumulator += healthIncrement;
+        fruitAccumulator += healthIncrement;
+
+        // check if status needs changing
+        if (currentHealthStatus != healthStatus.Dead)
+        {
+            if (healthAccumulator < 0f)
+            {
+                currentHealthStatus--;
+                healthAccumulator = 0.9f;
+            }
+            else if (healthAccumulator > 1f)
+            {
+                if (currentHealthStatus != healthStatus.Optimal)
+                {
+                    currentHealthStatus++;
+                    healthAccumulator = 0.1f;
+                }
+            }
+        }
+    } 
+         
+    // TODO: link growth to time event system 
+    // Temporary: GrowthUpdate() increments the currentGrowthStage of the plant
+    // This function should be called from TimedUpdate() which fires after <waitTime> seconds
+    // <growthTimeModifier> will further scale the time it takes to transition between growth phases
+    void GrowthUpdate()
     {
-        int incrementAmount = 0;
-        // Increment growthAccum according to plant status
-        switch (currentHealthStatus)
+        growthTimeAccumulator += 1;
+
+        if (growthTimeAccumulator >= growthTimeModifier)
         {
-            case healthStatus.Optimal:
-                {
-                    incrementAmount = 3;
-                    break;
-                }
-            case healthStatus.Healthy:
-                {
-                    incrementAmount = 2;
-                    break;
-                }
-            case healthStatus.Fine:
-                {
-                    incrementAmount = 1;
-                    break;
-                }
+            if (currentGrowthStage != growthStages.Harvest)
+            {
+                currentGrowthStage++;
+                growthTimeAccumulator = 0f;
+            }
         }
 
-        growthAccum += incrementAmount;
-
-        if (growthAccum >= growthLevelThreshold)
-        {
-            ++currentGrowthStage;
-            growthAccum = 0;
-        }
-        //ApplyGrowthLevelVisuals();
-    }
-
-    void ApplyGrowthLevelVisuals()
-    {
-        switch (currentGrowthStage)
-        {
-            case growthStages.Seedling:
-                {
-                    float xPos = transform.position.x;
-                    float zPos = transform.position.z;
-                    float yPosNew = 0.1f;
-                    transform.localScale = new Vector3(0.1f, yPosNew, 0.1f);
-                    transform.position = new Vector3(xPos, yPosNew, zPos);
-                    break;
-                }
-            case growthStages.Vegetative1:
-                {
-                    float xPos = transform.position.x;
-                    float zPos = transform.position.z;
-                    float yPosNew = 0.1f;
-                    transform.localScale = new Vector3(0.1f, yPosNew, 0.1f);
-                    transform.position = new Vector3(xPos, yPosNew, zPos);
-                    break;
-                }
-            case growthStages.Flowering:
-                {
-                    float xPos = transform.position.x;
-                    float zPos = transform.position.z;
-                    float yPosNew = 0.5f;
-                    transform.localScale = new Vector3(0.1f, yPosNew, 0.1f);
-                    transform.position = new Vector3(xPos, yPosNew, zPos);
-                    break;
-                }
-            case growthStages.Fruiting:
-                {
-                    GameObject fruit = transform.GetChild(0).gameObject;
-                    fruit.SetActive(true);
-                    Material newMaterial = Resources.Load<Material>("Healthy Plant");
-                    fruit.GetComponent<Renderer>().material = newMaterial;
-                    float xPos = transform.position.x;
-                    float zPos = transform.position.z;
-                    float yPosNew = 0.9f;
-                    transform.localScale = new Vector3(0.1f, yPosNew, 0.1f);
-                    transform.position = new Vector3(xPos, yPosNew, zPos);
-                    break;
-                }
-            case growthStages.Harvest:
-                {
-                    GameObject fruit = transform.GetChild(0).gameObject;
-                    fruit.SetActive(true);
-                    Material newMaterial = Resources.Load<Material>("Corn");
-                    fruit.GetComponent<Renderer>().material = newMaterial;
-                    float xPos = transform.position.x;
-                    float zPos = transform.position.z;
-                    float yPosNew = 1.0f;
-                    transform.localScale = new Vector3(0.1f, yPosNew, 0.1f);
-                    transform.position = new Vector3(xPos, yPosNew, zPos);
-                    break;
-                }
-        }
     }
 
     void CheckEnvironment()
@@ -289,11 +192,11 @@ public class Plant: MonoBehaviour, IInteractable
         RaycastHit obstruction;
         if (Physics.Raycast(plantToSun, out obstruction))
         {
-            lightLevel = 50;
+            lightLevel = .5f;
         }
         else
         {
-            lightLevel = 100;
+            lightLevel = 1f;
         }
     }
 
@@ -317,13 +220,13 @@ public class Plant: MonoBehaviour, IInteractable
             return;
         }
         Debug.Log("Harvest");
-        Vector3 fruitPlacement = new Vector3();
+        Vector3 fruitPlacement;
         fruitPlacement = transform.position;
         fruitPlacement += new Vector3(-1.0F, 0F, -1.0F);
         Fruit newFruitbasket = Instantiate(Resources.Load("Fruit", typeof(Fruit)), fruitPlacement, Quaternion.identity) as Fruit;
-        newFruitbasket.qty.Value = 5f;
-        newFruitbasket.tl.Type = Base.GoodType.Fruit_Corn;
-        newFruitbasket.name = "Corn";
+        newFruitbasket.qty.Value = fruitAccumulator;
+        newFruitbasket.tl.Type = fruitType;
+        newFruitbasket.name = plantName; 
         Destroy(gameObject);
     }
 }
