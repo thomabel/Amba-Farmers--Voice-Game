@@ -501,7 +501,7 @@ Transform:
   - {fileID: 627355834}
   - {fileID: 851174411}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &555023750 stripped
 MonoBehaviour:
@@ -1215,7 +1215,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &792601059
 MonoBehaviour:
@@ -1547,7 +1547,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
 --- !u!114 &963194229
 MonoBehaviour:
@@ -1590,6 +1590,10 @@ PrefabInstance:
       propertyPath: equipment
       value: 
       objectReference: {fileID: 555023750}
+    - target: {fileID: -8319509426834037085, guid: 21760309e95044a41830c2f4eee260e5, type: 3}
+      propertyPath: EmptyBucket
+      value: 
+      objectReference: {fileID: 7908076157103775299, guid: 21760309e95044a41830c2f4eee260e5, type: 3}
     - target: {fileID: -8319509426834037085, guid: 21760309e95044a41830c2f4eee260e5, type: 3}
       propertyPath: BucketWithWater
       value: 
@@ -2303,7 +2307,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1748987786 stripped
 Transform:
@@ -2759,7 +2763,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4094665397092055625, guid: 522cd870d937d884dbfbf430df2810b5, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4094665397092055625, guid: 522cd870d937d884dbfbf430df2810b5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2966,7 +2970,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5734759510965973881, guid: 2daf1a462f906bb4993b5827ce7b3663, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5734759510965973881, guid: 2daf1a462f906bb4993b5827ce7b3663, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3027,7 +3031,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2643821229790413994, guid: 48a44350b6dbd4e46aedbca69e79c0f7, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2643821229790413994, guid: 48a44350b6dbd4e46aedbca69e79c0f7, type: 3}
       propertyPath: m_LocalPosition.x

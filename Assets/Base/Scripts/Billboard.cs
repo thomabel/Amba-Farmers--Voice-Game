@@ -17,18 +17,18 @@ public class Billboard : MonoBehaviour
         rend = GetComponent<Renderer>();
         rend.material = mat;
     }
-    private void OnEnable()
-    {
-        if (rend == null)
-        {
-            rend = GetComponent<Renderer>();
-        }
-        rend.material = mat;
-        transform.localScale = size;
-        var pos = transform.localPosition;
-        pos.y = size.y / 2;
-        transform.localPosition = pos;
-    }
+    //private void OnEnable()
+    //{
+    //    if (rend == null)
+    //    {
+    //        rend = GetComponent<Renderer>();
+    //    }
+    //    rend.material = mat;
+    //    transform.localScale = size;
+    //    var pos = transform.localPosition;
+    //    pos.y = size.y / 2;
+    //    transform.localPosition = pos;
+    //}
     private void Update()
     {
         transform.rotation = cam.transform.rotation;

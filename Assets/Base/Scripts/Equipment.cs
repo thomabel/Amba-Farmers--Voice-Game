@@ -43,7 +43,9 @@ public class Equipment : MonoBehaviour
         else
         {
             EquipTool(thing);
+            return;
         }
+ 
         return;
     }
 

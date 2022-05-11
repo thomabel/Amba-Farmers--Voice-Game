@@ -48,6 +48,11 @@ public class PlayerInput : MonoBehaviour
             var last = interact.last_interacted;
             if (last == null)
             {
+                if(equipment.etool != null)
+                {
+                    equipment.DropTool();
+                }
+
                 return;
             }
             
@@ -67,22 +72,29 @@ public class PlayerInput : MonoBehaviour
         {
             if (equipment.Tool != null)
             {
-                interact.try_closest();
-                var last = interact.last_interacted;
-                if (last == null)
+                if(equipment.etool.obj.tag == "Bucket")
                 {
-                    return;
-                }
+                    interact.try_closest();
+                    var last = interact.last_interacted;
 
-                if (last.GetComponent<Pool>())
-                {
-                    if (equipment.etool.obj.name == "EmptyBucket")
+                    if (last != null && last.GetComponent<Pool>())
                     {
+                        if (equipment.etool.obj.name == "EmptyBucket")
+                        {
+                            equipment.Tool.Use(equipment.etool.obj);
+                            return;
+                        }
+               
+                    }
+                    else if (last ==null && equipment.etool.obj.name == "BucketWithWater")
+                    {
+                        //Debug.Log(equipment.etool.obj.name + "Check from INPUT");
                         equipment.Tool.Use(equipment.etool.obj);
                         return;
                     }
-               
                 }
+
+               
                 
                 equipment.Tool.Use(null);
             }

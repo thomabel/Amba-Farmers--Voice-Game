@@ -156,3 +156,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0195a790e14e4cc6aed1a5bb3598d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BucketWithWater: {fileID: 7658547446279119697, guid: 6a66c3d08fb2b4dc891654e16244c131, type: 3}
+  EmptyBucket: {fileID: 5882448671471983631, guid: b8cd161c3c5c62a438ab3cad2334450e, type: 3}
+  equipment: {fileID: 0}
