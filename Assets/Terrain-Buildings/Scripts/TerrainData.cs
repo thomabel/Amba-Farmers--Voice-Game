@@ -112,7 +112,7 @@ public class TerrainData : MonoBehaviour
             terrain_data[i,k] = new Data(tile_data.tilled, new_data, tile_data.nutrients);
             tile_data = terrain_data[i, k];
 
-            Debug.Log("SetWater: " + tile + " [" + i + "," + k + "] : (" + tilled + "," + tile_data.water + "," + tile_data.nutrients + ")");
+            Debug.Log("SetWatered: " + tile + " [" + i + "," + k + "] : (" + tilled + "," + tile_data.water + "," + tile_data.nutrients + ")");
         }
     }
 

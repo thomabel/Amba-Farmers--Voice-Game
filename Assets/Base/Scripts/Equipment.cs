@@ -9,6 +9,7 @@ public class Equipment : MonoBehaviour
     public Item etool;
     public IEquippable Tool;
 
+    
     public int item_index;
     public Item eitem;
     public IStorable Item;
@@ -31,6 +32,7 @@ public class Equipment : MonoBehaviour
     {
         if (thing == null)
         {
+            //DropTool();
             return;
         }
 

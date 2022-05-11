@@ -67,6 +67,23 @@ public class PlayerInput : MonoBehaviour
         {
             if (equipment.Tool != null)
             {
+                interact.try_closest();
+                var last = interact.last_interacted;
+                if (last == null)
+                {
+                    return;
+                }
+
+                if (last.GetComponent<Pool>())
+                {
+                    if (equipment.etool.obj.name == "EmptyBucket")
+                    {
+                        equipment.Tool.Use(equipment.etool.obj);
+                        return;
+                    }
+               
+                }
+                
                 equipment.Tool.Use(null);
             }
         }

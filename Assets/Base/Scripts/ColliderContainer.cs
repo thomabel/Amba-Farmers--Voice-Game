@@ -55,16 +55,23 @@ public class ColliderContainer : MonoBehaviour
         Collider closest = null;
         foreach (Collider collider in colliders)
         {
+            
             if (collider == null)
             {
                 continue;
             }
             var dist = Vector3.Distance(pos, collider.transform.position);
+            if (collider.name == "Pool")
+            {
+                dist -= 3;
+            }
+            
             if (dist <= maximum)
             {
                 closest = collider;
                 maximum = dist;
             }
+
         }
         return closest;
     }
