@@ -164,6 +164,17 @@
                 },
                 {
                     "name": "",
+                    "id": "6e9ba6c1-9fcc-4155-8607-908b5c07683c",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Use Tool",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "bad74507-bc22-488c-ae46-4cd5dfe6545d",
                     "path": "<Keyboard>/k",
                     "interactions": "",
@@ -199,6 +210,39 @@
                     "name": "",
                     "id": "3da1356e-d7e6-4564-b149-118a614aa209",
                     "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Open Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8de302ca-c73a-4147-ba7f-874efc9ffbe2",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "54abf7ac-2ac8-43ed-a7f6-88b2ef27e833",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Plant Seed",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "995cc443-65ba-45ac-8e4c-6840ac04d643",
+                    "path": "<Touchscreen>/Press",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

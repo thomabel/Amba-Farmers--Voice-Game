@@ -405,7 +405,8 @@ public class CompareInventory : MonoBehaviour
             if (itemClicked != null)
             {
                 Item1.type = itemClicked.obj.GetComponent<TypeLabel>().Type;
-                InfoboxDisplay(itemClicked);
+                if(getTypeLabel(Item1.type) =="Fruit") InfoboxDisplay(itemClicked, DisplayStyle.None, DisplayStyle.None, DisplayStyle.None);
+                else InfoboxDisplay(itemClicked);
 
             }
             else root.Q<VisualElement>("QuanInfoContainer").style.display = DisplayStyle.None;
@@ -507,13 +508,14 @@ public class CompareInventory : MonoBehaviour
             Item1.inventory.Insert(Item1.index, swap2);
             Item2.inventory.Insert(Item2.index, swap1);
 
-
-            Display(InventoryOne, ScrollViewOne, "1");
-            Display(InventoryTwo, ScrollViewTwo, "2");
             Item1.index = -1;
             Item2.index = -1;
             Item1.InvNum = 0;
             Item2.InvNum = 0;
+
+            Display(InventoryOne, ScrollViewOne, "1");
+            Display(InventoryTwo, ScrollViewTwo, "2");
+
         }
     }
 }
