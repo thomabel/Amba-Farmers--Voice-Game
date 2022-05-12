@@ -47,7 +47,6 @@ public class ShopController : MonoBehaviour
     [SerializeField]
     private GameObject controls;
 
-    //public ScriptableObject player = ScriptableObject.CreateInstance("Account");
     private List<int> PlantBuyList;
     private List<int> ToolBuyList;
     private List<int> LivestockBuyList;
@@ -521,14 +520,7 @@ public class ShopController : MonoBehaviour
                         tmp.value = evt.previousValue;
                     }
                 }
-                if(tmp.value == "")
-                {
-                    Debug.Log(float.TryParse(tmp.value, out n));
-                    Debug.Log("hi" + n);
 
-                }
-                //Debug.Log(tmp.value);
-                //Debug.Log(evt.newValue[evt.newValue.Length-1]);
                 //Check valid float
                 if (float.TryParse(tmp.value, out n))
                 {
@@ -584,7 +576,7 @@ public class ShopController : MonoBehaviour
             checkoutCard.Add(QuantityContainer);
             CheckoutScrollView.Add(checkoutCard);
 
-            if (!BuyOrSell.Equals("S")) total += (Decimal)(item.PriceOf() * QuantityMap[ListType[i]]);
+            if (!BuyOrSell.Equals("S")) total += (Decimal) (item.PriceOf() * QuantityMap[ListType[i]]);
             else SellTotal += (Decimal) (item.PriceOf() * QuantityMap[ListType[i]]);
             UpdateMoneyBalance();
 
@@ -690,10 +682,14 @@ public class ShopController : MonoBehaviour
 
             UpdateMoneyBalance();
 
+            mainUI.ShowOrHideVisualElements(ref SuccessPurchase, ref ItemsInCheckout);
+            /*
             if (total != 0 || SellTotal != 0)
             {
                 mainUI.ShowOrHideVisualElements(ref SuccessPurchase, ref ItemsInCheckout);
             }
+
+            */
 
             clearAllLists();
         }

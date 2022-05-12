@@ -38,37 +38,38 @@ public class PhoneButtonController : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
-        root = GetComponent<UIDocument>().rootVisualElement;
+        assignUItoVariables();
         root.Focus();
-
+        assignButtonsToFunctions();
+    }
+    void assignUItoVariables()
+    {
+        root = GetComponent<UIDocument>().rootVisualElement;
         Phone = root.Q<Button>("RealPhoneButtonContainer");
-
-        Phone.clicked += HidePhone;
-
         PhoneButton = root.Q<Button>("phoneButton");
-        PhoneButton.clicked += ShowPhone;
-
         ShopButton = root.Q<Button>("ShopApp");
-        ShopButton.clicked += ShopButtonPressed;
-
         InventoryButton = root.Q<Button>("InventoryButton");
-        InventoryButton.clicked += InventoryButtonPressed;
-
         FinancialsApp = root.Q<Button>("FinancialsApp");
-        FinancialsApp.clicked += FinancialsAppPressed;
-
-        root.Q<Button>("BackButtonToApps").clicked += BackButtonToAppsPressed;
-
         Time = root.Q<Label>("Time");
         TimeMultiplier = root.Q<Label>("Multiplier");
         Rewind = root.Q<Button>("BackTrack");
-        Rewind.clicked += RewindPressed;
         FastForward = root.Q<Button>("FastForward");
-        FastForward.clicked += FastForwardPressed;
         StartPause = root.Q<Button>("StartPause");
-        StartPause.clicked += StartPausePressed;
     }
 
+    void assignButtonsToFunctions()
+    {
+        Phone.clicked += HidePhone;
+        PhoneButton.clicked += ShowPhone;
+        ShopButton.clicked += ShopButtonPressed;
+        InventoryButton.clicked += InventoryButtonPressed;
+        FinancialsApp.clicked += FinancialsAppPressed;
+        root.Q<Button>("BackButtonToApps").clicked += BackButtonToAppsPressed;
+        Rewind.clicked += RewindPressed;
+        FastForward.clicked += FastForwardPressed;
+        StartPause.clicked += StartPausePressed;
+
+    }
     private void Update()
     {
         Time.text = DateModule.TimeDisplay();
@@ -129,20 +130,20 @@ public class PhoneButtonController : MonoBehaviour
     {
         Debug.Log("Rewind");
         DateModule.decrementMultiplier();
-        TimeMultiplier.text = DateModule.timeMultiplier.ToString();
+        TimeMultiplier.text = DateModule.timeMultiplier.ToString() + "x";
     }
 
     void FastForwardPressed()
     {
         Debug.Log("Fast Forward");
         DateModule.incrementMultiplier();
-        TimeMultiplier.text = DateModule.timeMultiplier.ToString();
+        TimeMultiplier.text = DateModule.timeMultiplier.ToString() +"x";
     }
 
     void StartPausePressed()
     {
         Debug.Log("Start/Pause");
         DateModule.resetMultiplier();
-        TimeMultiplier.text = DateModule.timeMultiplier.ToString();
+        TimeMultiplier.text = DateModule.timeMultiplier.ToString() + "x";
     }
 }

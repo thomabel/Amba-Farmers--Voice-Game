@@ -148,7 +148,8 @@ public class CompareInventory : MonoBehaviour
         Display(InventoryOne, ScrollViewOne, "1");
         Display(InventoryTwo, ScrollViewTwo, "2");
         DisplayEquippable();
-        root.Q<VisualElement>("QuanInfoContainer").style.display = DisplayStyle.None;
+        if (Item1.index == -1)
+            root.Q<VisualElement>("QuanInfoContainer").style.display = DisplayStyle.None;
 
     }
     void SendtoInventoryTwo()
@@ -164,7 +165,8 @@ public class CompareInventory : MonoBehaviour
         EquipToolButton.style.opacity = (StyleFloat).6;
         EquipToolButton.style.backgroundImage = null;
         equipItemPressed = false;
-        root.Q<VisualElement>("QuanInfoContainer").style.display = DisplayStyle.None;
+        if(Item1.index == -1)
+            root.Q<VisualElement>("QuanInfoContainer").style.display = DisplayStyle.None;
     }
     void equipPressed(EventBase obj)
     {
@@ -175,6 +177,7 @@ public class CompareInventory : MonoBehaviour
         {
             button.style.opacity = (StyleFloat).6;
             equipItemPressed = false;
+            currentEquip = "empty";
             if (Item1.index != -1)
                 InfoboxDisplay(Item1.inventory.Retrieve(Item1.index));
             else InfoboxDisplay(null);
@@ -286,6 +289,13 @@ public class CompareInventory : MonoBehaviour
 
             InventoryItem.style.visibility = Visibility.Hidden;
             Current.Add(InventoryItem);
+        }
+
+        if(Item1.index != -1)
+        {
+            InfoboxDisplay(Item1.inventory.Retrieve(Item1.index));
+            Button PressedInventoryCard = root.Q<Button>(Item1.InvNum.ToString() + Item1.index.ToString());
+            PressedInventoryCard.style.opacity = 1;
         }
     }
     string getTypeLabel(Base.GoodType typeOfItem)
@@ -407,7 +417,6 @@ public class CompareInventory : MonoBehaviour
             Item1.index = -1;
             Item1.InvNum = 0;
             button.style.opacity = (StyleFloat).5;
-
             DisplayPressedEquipped();
 
         }
@@ -457,11 +466,12 @@ public class CompareInventory : MonoBehaviour
             InfoboxDisplay(PlayerEquipment.etool, DisplayStyle.Flex, DisplayStyle.None, DisplayStyle.None);
             EquipItemButton.style.opacity = (StyleFloat).6;
         }
-        else
+        else if (currentEquip.Equals("Item"))
         {
             InfoboxDisplay(PlayerEquipment.eitem, DisplayStyle.None, DisplayStyle.Flex, DisplayStyle.None);
             EquipToolButton.style.opacity = (StyleFloat).6;
         }
+        else InfoboxDisplay(null);
     }
 
     bool CheckAcceptableTransfer()
@@ -486,15 +496,6 @@ public class CompareInventory : MonoBehaviour
             
         }
         return true;
-    }
-    private void Update()
-    {
-        
-        if (Item1.index == -1 && !equipItemPressed) //else if(Item1.index == -1)
-        {
-            root.Q<VisualElement>("QuanInfoContainer").style.display = DisplayStyle.None;
-
-        }
     }
 
     void swapItems() {
