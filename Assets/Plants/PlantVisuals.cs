@@ -11,20 +11,27 @@ public class PlantVisuals : MonoBehaviour
     public Material fruitingMaterial;
     public Material harvestMaterial;
 
+    private Plant parentPlant;
+    private Billboard billboard;
     private Plant.growthStages currentGrowthStage = Plant.growthStages.Seedling;
     private bool firstTime = true;
-    
+
+    void Start()
+    {
+        billboard = GetComponent<Billboard>();
+        parentPlant = transform.parent.gameObject.GetComponent<Plant>();
+    }
     // Update is called once per frame
     void Update()
     {
         if(firstTime)
         {
-            currentGrowthStage = transform.parent.gameObject.GetComponent<Plant>().currentGrowthStage;
+            currentGrowthStage = parentPlant.currentGrowthStage;
             UpdateVisuals(currentGrowthStage);
             firstTime = false;
         }
 
-        Plant.growthStages newGrowthStage = transform.parent.gameObject.GetComponent<Plant>().currentGrowthStage;
+        Plant.growthStages newGrowthStage = parentPlant.currentGrowthStage;
 
         if (!newGrowthStage.Equals(currentGrowthStage))
         {
@@ -39,32 +46,32 @@ public class PlantVisuals : MonoBehaviour
         {
             case Plant.growthStages.Seedling:
                 {
-                    GetComponent<Billboard>().ChangeMaterial(seedlingMaterial);
+                    billboard.ChangeMaterial(seedlingMaterial);
                     break;
                 }
             case Plant.growthStages.Vegetative1:
                 {
-                    GetComponent<Billboard>().ChangeMaterial(vegetation1Material);
+                    billboard.ChangeMaterial(vegetation1Material);
                     break;
                 }
             case Plant.growthStages.Vegetative2:
                 {
-                    GetComponent<Billboard>().ChangeMaterial(vegetation2Material);
+                    billboard.ChangeMaterial(vegetation2Material);
                     break;
                 }
             case Plant.growthStages.Flowering:
                 {
-                    GetComponent<Billboard>().ChangeMaterial(floweringMaterial);
+                    billboard.ChangeMaterial(floweringMaterial);
                     break;
                 }
             case Plant.growthStages.Fruiting:
                 {
-                    GetComponent<Billboard>().ChangeMaterial(fruitingMaterial);
+                    billboard.ChangeMaterial(fruitingMaterial);
                     break;
                 }
             case Plant.growthStages.Harvest:
                 {
-                    GetComponent<Billboard>().ChangeMaterial(harvestMaterial);
+                    billboard.ChangeMaterial(harvestMaterial);
                     break;
                 }
         }
