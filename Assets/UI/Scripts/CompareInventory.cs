@@ -128,6 +128,8 @@ public class CompareInventory : MonoBehaviour
             {
                 if (InventoryOne.Add(PlayerEquipment.eitem) == -1) return;
                 PlayerEquipment.eitem = null;
+                PlayerEquipment.Item = null;
+
             }
         }
         else
@@ -138,6 +140,7 @@ public class CompareInventory : MonoBehaviour
 
                 if (InventoryTwo.Add(PlayerEquipment.eitem) == -1) return;
                 PlayerEquipment.eitem = null;
+                PlayerEquipment.Item = null;
             }
 
         }
@@ -158,6 +161,7 @@ public class CompareInventory : MonoBehaviour
         {
             if(InventoryTwo.Add(PlayerEquipment.etool) == -1) return;
             PlayerEquipment.etool = null;
+            PlayerEquipment.Tool = null;
             Display(InventoryOne, ScrollViewOne, "1");
             Display(InventoryTwo, ScrollViewTwo, "2");
             DisplayEquippable();
@@ -203,6 +207,7 @@ public class CompareInventory : MonoBehaviour
     void DisplayEquippable()
     {
         Debug.Log(PlayerEquipment.eitem);
+        Debug.Log(PlayerEquipment.etool);
         if (PlayerEquipment.etool != null)
         {
             DisplayEquipItemOrTool(ref PlayerEquipment.etool.obj, ref EquipToolButton);
@@ -256,15 +261,6 @@ public class CompareInventory : MonoBehaviour
                 market.Comparator.TryGetValue(inventory.Retrieve(i).obj.GetComponent<TypeLabel>().Type, out value);
                 InventoryItem.style.backgroundImage = value.picture;
                 InventoryItem.text = inventory.Retrieve(i).quantity.ToString();
-                /*
-                GameObject obj = inventory.Retrieve(i).obj;
-                if (obj != null)
-                {
-                    market.Comparator.TryGetValue(inventory.Retrieve(i).obj.GetComponent<TypeLabel>().Type, out value);
-                    InventoryItem.style.backgroundImage = value.picture;
-                    InventoryItem.text = inventory.Retrieve(i).quantity.ToString();
-                }
-                */
 
             }
             else InventoryItem.style.backgroundImage = null;
@@ -338,12 +334,14 @@ public class CompareInventory : MonoBehaviour
         {
 
             Item PreviousEquipTool = PlayerEquipment.etool;
-
+            /*
             if (PreviousEquipTool == null)
             {
                 PlayerEquipment.etool = Item1.inventory.Retrieve(Item1.index);
             }
             else PlayerEquipment.EquipTool(Item1.inventory.Retrieve(Item1.index).obj);
+            */
+            PlayerEquipment.EquipTool(Item1.inventory.Retrieve(Item1.index).obj);
 
             Item1.inventory.Remove(Item1.index);
             Item1.inventory.Insert(Item1.index, PreviousEquipTool);
@@ -405,8 +403,11 @@ public class CompareInventory : MonoBehaviour
             if (itemClicked != null)
             {
                 Item1.type = itemClicked.obj.GetComponent<TypeLabel>().Type;
+                InfoboxDisplay(itemClicked);
+                /*
                 if(getTypeLabel(Item1.type) =="Fruit") InfoboxDisplay(itemClicked, DisplayStyle.None, DisplayStyle.None, DisplayStyle.None);
                 else InfoboxDisplay(itemClicked);
+                */
 
             }
             else root.Q<VisualElement>("QuanInfoContainer").style.display = DisplayStyle.None;

@@ -180,12 +180,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7121238648760518459}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90815d1ccb2b637419c4ee1a503febba, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a706d61a320aa74f8b831e94ab91575, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seedlingMaterial: {fileID: 2100000, guid: 626c789f4d5b7ea469e66abf52449bfe, type: 2}
-  vegetation1Material: {fileID: 2100000, guid: 4d954441c81bd6e4590a5db0f5a38f6e, type: 2}
-  vegetation2Material: {fileID: 2100000, guid: 40287b8a5dcae0d4eb004658470aa3db, type: 2}
-  floweringMaterial: {fileID: 2100000, guid: 2a63c9d5e85f065418ed09b5b71c3237, type: 2}
-  fruitingMaterial: {fileID: 2100000, guid: d942080045b7ede4c9d2bd38fe7c0356, type: 2}
-  harvestMaterial: {fileID: 2100000, guid: 146e0918f42d85c4d81adc824748c057, type: 2}
+  size: {x: 0, y: 0}
+  mat: {fileID: 0}
+  rend: {fileID: 0}
+  cam: {fileID: 0}

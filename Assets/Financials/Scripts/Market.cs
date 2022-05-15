@@ -40,6 +40,10 @@ public class Market : MonoBehaviour
         player_checking.Debit((int)cost);
         var obj = Instantiate(item.item_prefab);
 
+        obj.AddComponent<TypeLabel>();
+        TypeLabel tmpLabel = obj.GetComponent<TypeLabel>();
+        tmpLabel.Type = item.type;
+
         foreach (Inventory i in Inventories)
         {
             if (i.Add(obj) >= 0)

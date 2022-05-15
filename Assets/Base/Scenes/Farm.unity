@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -660,6 +660,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 564427716}
   m_CullTransparentMesh: 1
+--- !u!1 &602146963
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 5755419149136521195, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
+  m_PrefabInstance: {fileID: 1468116033}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 602146964}
+  m_Layer: 0
+  m_Name: 'Corn (Missing Prefab with guid: ab8030125d738994b9f837a51fe7428f)'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &602146964
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4325634544893020933, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
+  m_PrefabInstance: {fileID: 1468116033}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602146963}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1671486471}
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &614651380
 GameObject:
   m_ObjectHideFlags: 0
@@ -889,7 +920,7 @@ RectTransform:
   - {fileID: 688502703}
   - {fileID: 1467842325}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1431,6 +1462,11 @@ MonoBehaviour:
   market: {fileID: 1666174810}
   phone: {fileID: 2055118915}
   PlayerEquipment: {fileID: 555023750}
+--- !u!1 &907998218 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2682924143094785919, guid: 246182cdff5a8454dab2dff9544c05b0, type: 3}
+  m_PrefabInstance: {fileID: 2682924142800138493}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &917601504
 GameObject:
   m_ObjectHideFlags: 0
@@ -1465,17 +1501,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &927335752 stripped
+--- !u!114 &927335752
 MonoBehaviour:
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 4700762893281174335, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
   m_PrefabInstance: {fileID: 1468116033}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1671486470}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb98494fb9598d149989f16fd4dac441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fruitType: 0
+  plantName: 
+  currentHealthStatus: 3
+  fruitWeightScale: 1
+  lightLevel: 0
+  lightLoving: 0
+  waterLevel: 0
+  waterUpperLimit: 0
+  waterLowerLimit: 0
+  nutrientLevel: 0
+  nutrientUpperLimit: 0
+  nutrientLowerLimit: 0
+  currentGrowthStage: 0
+  growthTimeModifier: 5
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2185,6 +2236,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Corn
       objectReference: {fileID: 0}
+    - target: {fileID: 5755419149136521195, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6727733167930865540, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
       propertyPath: m_Size.x
       value: 2.37
@@ -2295,6 +2350,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1671486470
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 9223372036854775807, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
+  m_PrefabInstance: {fileID: 1468116033}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1671486471}
+  - component: {fileID: 927335752}
+  m_Layer: 0
+  m_Name: Placeholder for referenced MonoBehaviour in Prefab instance (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1671486471
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 9223372036854775806, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
+  m_PrefabInstance: {fileID: 1468116033}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671486470}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 602146964}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1748987786 stripped
 Transform:
@@ -2787,7 +2873,11 @@ PrefabInstance:
     - target: {fileID: 2682924143094785918, guid: 246182cdff5a8454dab2dff9544c05b0, type: 3}
       propertyPath: plant
       value: 
-      objectReference: {fileID: 927335752}
+      objectReference: {fileID: 0}
+    - target: {fileID: 2682924143094785918, guid: 246182cdff5a8454dab2dff9544c05b0, type: 3}
+      propertyPath: plantToGrow
+      value: 
+      objectReference: {fileID: 907998218}
     - target: {fileID: 2682924143094785919, guid: 246182cdff5a8454dab2dff9544c05b0, type: 3}
       propertyPath: m_Name
       value: Seed
@@ -2881,6 +2971,10 @@ PrefabInstance:
       propertyPath: listen
       value: 
       objectReference: {fileID: 1544115358}
+    - target: {fileID: 5796186942019268451, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
+      propertyPath: equipment
+      value: 
+      objectReference: {fileID: 555023750}
     - target: {fileID: 5881731333814138759, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
       propertyPath: swap
       value: 
