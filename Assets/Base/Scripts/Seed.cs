@@ -4,6 +4,10 @@ public class Seed : MonoBehaviour, IStorable, IInteractable
 {
     public GameObject plantToGrow;
 
+    public GameObject plantCorn;
+    public GameObject plantTomato;
+    public GameObject plantOnion;
+
     void IStorable.Use()
     {
         PlantSeed();
@@ -18,7 +22,17 @@ public class Seed : MonoBehaviour, IStorable, IInteractable
         {
             case Base.GoodType.Seed_Corn:
                 {
-                    plantToGrow = Resources.Load("PlantPrefabs/Corn.prefab", typeof(GameObject)) as GameObject;
+                    plantToGrow = plantCorn;
+                    return true;
+                }
+            case Base.GoodType.Seed_Onion:
+                {
+                    plantToGrow = plantOnion;
+                    return true;
+                }
+            case Base.GoodType.Seed_Tomato:
+                {
+                    plantToGrow = plantTomato;
                     return true;
                 }
             default:

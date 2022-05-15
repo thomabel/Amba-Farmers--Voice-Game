@@ -229,6 +229,11 @@ public class Plant: MonoBehaviour, IInteractable
         newFruitbasket.name = plantName; 
         Destroy(gameObject);
     }
+
+    public void YellAtHour()
+    {
+        Debug.Log("HOURRRR INVOKE");
+    }
 }
 
 
