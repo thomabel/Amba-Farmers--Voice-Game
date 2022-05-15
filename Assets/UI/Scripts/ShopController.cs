@@ -370,6 +370,7 @@ public class ShopController : MonoBehaviour
             && LivestockBuyList.Count == 0 && SellList.Count == 0)
         {
             mainUI.ShowOrHideVisualElements(ref NoItemMessage, ref CheckoutContent);
+            CheckoutMoneyLabel.text = player.Balance().ToString();
 
         }
         else
@@ -389,8 +390,11 @@ public class ShopController : MonoBehaviour
         total = 0;
         SellTotal = 0;
         CheckoutItemWrapper();
+        UpdateMoneyBalance();
+        /*
         SubtotalLabel.text = total.ToString();
         SoldSubtotalLabel.text = SellTotal.ToString();
+        */
 
 
     }

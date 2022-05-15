@@ -140,7 +140,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10adb69a8d558134aab9ad4306d8ae46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plant: {fileID: 4094665397092055618, guid: 522cd870d937d884dbfbf430df2810b5, type: 3}
+  plantToGrow: {fileID: 0}
+  plantCorn: {fileID: 5755419149136521195, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
+  plantTomato: {fileID: 741922505298151880, guid: 76ae3d893aea26643b48dc96dbb7d01a, type: 3}
+  plantOnion: {fileID: 4881054833026041909, guid: e9bc4a54a6f6dbd44898fa3dc62c4448, type: 3}
 --- !u!114 &2682924143094785911
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3,7 +3,8 @@ guid: 10adb69a8d558134aab9ad4306d8ae46
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - plantToGrow: {fileID: 5755419149136521195, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
