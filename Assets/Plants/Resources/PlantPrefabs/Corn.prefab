@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4325634544893020933}
   - component: {fileID: 4700762893281174335}
   - component: {fileID: 4923028307458688226}
+  - component: {fileID: 7281002823166359556}
   m_Layer: 0
   m_Name: Corn
   m_TagString: Untagged
@@ -72,6 +73,34 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &7281002823166359556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5755419149136521195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96a325c29958217419c783504cabafa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: eeb0257e87c1ba34081517bbe3330fed, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4700762893281174335}
+        m_TargetAssemblyTypeName: Plant, AssembelyDefinitions
+        m_MethodName: yellAtHour
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7121238648760518459
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a706d61a320aa74f8b831e94ab91575, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 1, y: 1}
+  size: {x: 2, y: 2}
   mat: {fileID: 0}
   rend: {fileID: 8113407585501009857}
   cam: {fileID: 0}
@@ -183,9 +212,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90815d1ccb2b637419c4ee1a503febba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seedlingMaterial: {fileID: 2100000, guid: 626c789f4d5b7ea469e66abf52449bfe, type: 2}
-  vegetation1Material: {fileID: 2100000, guid: 4d954441c81bd6e4590a5db0f5a38f6e, type: 2}
-  vegetation2Material: {fileID: 2100000, guid: 40287b8a5dcae0d4eb004658470aa3db, type: 2}
-  floweringMaterial: {fileID: 2100000, guid: 2a63c9d5e85f065418ed09b5b71c3237, type: 2}
-  fruitingMaterial: {fileID: 2100000, guid: d942080045b7ede4c9d2bd38fe7c0356, type: 2}
-  harvestMaterial: {fileID: 2100000, guid: 146e0918f42d85c4d81adc824748c057, type: 2}
+  seedlingMaterial: {fileID: 2100000, guid: 18a1f6b0cfb8daa47838e6c1e2760520, type: 2}
+  vegetation1Material: {fileID: 2100000, guid: 793b5984c98ab9c45b8f5a900faeb309, type: 2}
+  vegetation2Material: {fileID: 2100000, guid: 86464b714cd238c4687c98a862e33784, type: 2}
+  floweringMaterial: {fileID: 2100000, guid: 8d21579873a77184799d9a6e13d5571b, type: 2}
+  fruitingMaterial: {fileID: 2100000, guid: 8d21579873a77184799d9a6e13d5571b, type: 2}
+  harvestMaterial: {fileID: 2100000, guid: e358c357349dd37419c2ea69a0fb17f9, type: 2}
