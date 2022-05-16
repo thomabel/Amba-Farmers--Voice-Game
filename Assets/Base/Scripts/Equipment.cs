@@ -6,13 +6,42 @@ public class Equipment : MonoBehaviour
     public ColliderContainer container;
 
     public Vector3 tool_offset;
-    public Item etool;
+
+    private Item _etool;
+    public Item etool
+    {
+        get
+        {
+            return _etool;
+        }
+        set
+        {
+            _etool = value;
+            if(_etool != null) hudbuttons.AddToolImage(_etool.obj);
+            else hudbuttons.AddToolImage(null);
+        }
+    }
     public IEquippable Tool;
 
     public int item_index;
-    public Item eitem;
+
+    private Item _eitem;
+    public Item eitem
+    {
+        get
+        {
+            return _eitem;
+        }
+        set
+        {
+            _eitem = value;
+            if (_eitem != null) hudbuttons.AddItemImage(_eitem.obj);
+            else hudbuttons.AddItemImage(null);
+        }
+    }
     public IStorable Item;
 
+    public HUDButtons hudbuttons;
     private void Start()
     {
         etool = null;

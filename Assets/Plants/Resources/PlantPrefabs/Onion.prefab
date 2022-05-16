@@ -59,15 +59,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 128248854248477541}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90815d1ccb2b637419c4ee1a503febba, type: 3}
+  m_Script: {fileID: 11500000, guid: 86eeb85af279249389b38063814b6e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seedlingMaterial: {fileID: 2100000, guid: d0b81021b95fec04b96bd581b7cbb6b5, type: 2}
-  vegetation1Material: {fileID: 2100000, guid: 9cfd4c1a31e63d9409b9d615160bd04d, type: 2}
-  vegetation2Material: {fileID: 2100000, guid: a6c04308ef494e34ea869534c92f8130, type: 2}
-  floweringMaterial: {fileID: 2100000, guid: 8d18aab507b45d447a7cc9444774322b, type: 2}
-  fruitingMaterial: {fileID: 2100000, guid: 8d18aab507b45d447a7cc9444774322b, type: 2}
-  harvestMaterial: {fileID: 2100000, guid: 8afd1976119825e4a953ccfd9b4f6ecc, type: 2}
+  seedlingMaterial: {fileID: 2100000, guid: 151b5de8fde354e4492dd50f5394c7f5, type: 2}
+  vegetation1Material: {fileID: 2100000, guid: 63a610da317394160bfbd1132f979177, type: 2}
+  vegetation2Material: {fileID: 2100000, guid: 02f730a28b90b4cad96840cf04b66d83, type: 2}
+  floweringMaterial: {fileID: 2100000, guid: f4099b6257d8d4dcebd59db4945c02e9, type: 2}
+  fruitingMaterial: {fileID: 2100000, guid: e1be94dfbf8b74ff3b365ef8ff9b8306, type: 2}
+  harvestMaterial: {fileID: 0}
 --- !u!33 &1528463142336596081
 MeshFilter:
   m_ObjectHideFlags: 0
