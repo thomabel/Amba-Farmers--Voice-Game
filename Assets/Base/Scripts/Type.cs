@@ -23,6 +23,7 @@ namespace Base
         Fruit_Corn,
         Fruit_Tomato,
         Fruit_Onion,
+        Fruit_Pepper,
         Fruit_End,
     }
 }
