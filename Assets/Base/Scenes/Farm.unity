@@ -2303,6 +2303,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7281002823166359556, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 927335752}
+    - target: {fileID: 7281002823166359556, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
       propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 1
       objectReference: {fileID: 0}
@@ -2967,6 +2971,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 555023758, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
+      propertyPath: onDayChange
+      value: 
+      objectReference: {fileID: 11400000, guid: 03c86adfaa7217c4dbe2f75663949d01, type: 2}
+    - target: {fileID: 555023758, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
+      propertyPath: onHourChange
+      value: 
+      objectReference: {fileID: 11400000, guid: eeb0257e87c1ba34081517bbe3330fed, type: 2}
     - target: {fileID: 5000978702549307974, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
       propertyPath: m_RootOrder
       value: 6
