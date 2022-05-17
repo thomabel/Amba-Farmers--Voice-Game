@@ -260,6 +260,42 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: e4e18ed2-2337-4e9c-b080-7abf5667d1cf
     m_ActionName: Main/Open Inventory[/Keyboard/i]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 46bf4879-95d2-4a59-9077-255e57d96e0d
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f536a6c6-4aea-4935-a9e1-757b323869a1
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bee47800-87de-4f48-a829-d610a76b55f8
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0c90c9d4-63fa-4b76-ba95-17cdcd55a9b6
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b30630a2-b712-47c5-ad77-b2ceeb186101
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fe13062b-6c39-4605-a4cb-eeca053f5eaa
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 560d73ba-ca16-465a-930e-7b9fc45dc213
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 503c6ec5-7bb7-4c6f-8636-f32223ae6663
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 321b7860-35e7-4ed5-9936-883c034854a5
+    m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Main
@@ -283,7 +319,6 @@ MonoBehaviour:
   bag: {fileID: 2525275652084838455}
   equipment: {fileID: 68358369854966711}
   house: {fileID: 11400000, guid: 58cadb33980f70a44a5d2a204c6bf00e, type: 2}
-  listen: {fileID: 0}
 --- !u!114 &8288165898822397585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,7 +361,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b30db413921c82240b2f03f93c3e73e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swap: {fileID: 0}
   container: {fileID: 6256269239915840408}
   ray_distance:
     UseConstant: 1
@@ -367,6 +401,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: d3f57a5f20bb8f84a95a209984973a2c, type: 2}
+  swap: {fileID: 0}
+  swap_storage: {fileID: 0}
 --- !u!114 &555023758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,10 +415,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cc411c71d25dccda93470b215fdbf84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onHourChange: {fileID: 11400000, guid: eeb0257e87c1ba34081517bbe3330fed, type: 2}
+  onDayChange: {fileID: 11400000, guid: 03c86adfaa7217c4dbe2f75663949d01, type: 2}
   startHour: 0
   startSecond: 0
   startMinute: 0
   accumulator: 0
+  timeMultiplier: 1
+  minMultiplier: 1
+  maxMultiplier: 4096
   hours: {fileID: 11400000, guid: 0f635fc52d4ff162c9afb295625868be, type: 2}
   minutes: {fileID: 11400000, guid: c7616399032d8122ebbde1147989ef7f, type: 2}
   seconds: {fileID: 11400000, guid: 96c82ae3e108bfe4b9cc6b7d6f87fa5d, type: 2}
