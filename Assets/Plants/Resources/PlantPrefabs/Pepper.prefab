@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 9217613691797672466}
   - component: {fileID: 3219458760253792301}
   - component: {fileID: 167984628286711957}
+  - component: {fileID: 6778902705080961766}
+  - component: {fileID: 4780906509504543216}
   m_Layer: 0
   m_Name: Pepper
   m_TagString: Untagged
@@ -58,20 +60,81 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb98494fb9598d149989f16fd4dac441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fruitType: 0
-  plantName: 
+  fruitType: 17
+  plantName: Pepper
   currentHealthStatus: 3
   fruitWeightScale: 1
   lightLevel: 0
-  lightLoving: 0
+  lightLoving: 1
   waterLevel: 0
   waterUpperLimit: 1
   waterLowerLimit: 0
+  waterHourlyConsumption: 0.1
   nutrientLevel: 0
   nutrientUpperLimit: 1
   nutrientLowerLimit: 0
+  nutrientHourlyConsumption: 0.1
   currentGrowthStage: 0
-  growthTimeModifier: 2
+  daysUntilMaturity: 90
+  activateGrowthDemo: 0
+  demoGrowthTimeModifier: 0
+  activateDemoTerrainInit: 0
+--- !u!114 &6778902705080961766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811730888934120603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96a325c29958217419c783504cabafa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 03c86adfaa7217c4dbe2f75663949d01, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 167984628286711957}
+        m_TargetAssemblyTypeName: Plant, AssembelyDefinitions
+        m_MethodName: DailyUpdate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4780906509504543216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811730888934120603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96a325c29958217419c783504cabafa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: eeb0257e87c1ba34081517bbe3330fed, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 167984628286711957}
+        m_TargetAssemblyTypeName: Plant, AssembelyDefinitions
+        m_MethodName: HourlyUpdate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2989714009743982152
 GameObject:
   m_ObjectHideFlags: 0

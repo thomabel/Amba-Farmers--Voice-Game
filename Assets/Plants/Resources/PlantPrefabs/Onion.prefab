@@ -128,6 +128,8 @@ GameObject:
   - component: {fileID: 8456606131754610749}
   - component: {fileID: 8449122893976940062}
   - component: {fileID: 4379087214095187673}
+  - component: {fileID: 5305627167616605833}
+  - component: {fileID: 874773429707600688}
   m_Layer: 0
   m_Name: Onion
   m_TagString: Untagged
@@ -162,20 +164,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb98494fb9598d149989f16fd4dac441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fruitType: 0
-  plantName: 
+  fruitType: 16
+  plantName: Onion
   currentHealthStatus: 3
   fruitWeightScale: 1
   lightLevel: 0
-  lightLoving: 0
+  lightLoving: 1
   waterLevel: 0
-  waterUpperLimit: 0
+  waterUpperLimit: 1
   waterLowerLimit: 0
+  waterHourlyConsumption: 0.1
   nutrientLevel: 0
-  nutrientUpperLimit: 0
+  nutrientUpperLimit: 1
   nutrientLowerLimit: 0
+  nutrientHourlyConsumption: 0.1
   currentGrowthStage: 0
-  growthTimeModifier: 5
+  daysUntilMaturity: 55
+  activateGrowthDemo: 0
+  demoGrowthTimeModifier: 0
+  activateDemoTerrainInit: 0
 --- !u!65 &4379087214095187673
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -189,3 +196,59 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5305627167616605833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4881054833026041909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96a325c29958217419c783504cabafa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 03c86adfaa7217c4dbe2f75663949d01, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8449122893976940062}
+        m_TargetAssemblyTypeName: Plant, AssembelyDefinitions
+        m_MethodName: DailyUpdate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &874773429707600688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4881054833026041909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96a325c29958217419c783504cabafa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: eeb0257e87c1ba34081517bbe3330fed, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8449122893976940062}
+        m_TargetAssemblyTypeName: Plant, AssembelyDefinitions
+        m_MethodName: HourlyUpdate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
