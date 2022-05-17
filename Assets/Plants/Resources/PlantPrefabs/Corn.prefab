@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4700762893281174335}
   - component: {fileID: 4923028307458688226}
   - component: {fileID: 7281002823166359556}
+  - component: {fileID: 32021375285803428}
   m_Layer: 0
   m_Name: Corn
   m_TagString: Untagged
@@ -55,11 +56,16 @@ MonoBehaviour:
   waterLevel: 0
   waterUpperLimit: 1
   waterLowerLimit: 0
+  waterHourlyConsumption: 0.1
   nutrientLevel: 0
   nutrientUpperLimit: 1
   nutrientLowerLimit: 0
+  nutrientHourlyConsumption: 0.1
   currentGrowthStage: 0
-  growthTimeModifier: 5
+  daysUntilMaturity: 50
+  activateGrowthDemo: 0
+  demoGrowthTimeModifier: 3
+  activateDemoTerrainInit: 0
 --- !u!65 &4923028307458688226
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -91,7 +97,35 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4700762893281174335}
         m_TargetAssemblyTypeName: Plant, AssembelyDefinitions
-        m_MethodName: yellAtHour
+        m_MethodName: HourlyUpdate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &32021375285803428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5755419149136521195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96a325c29958217419c783504cabafa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 03c86adfaa7217c4dbe2f75663949d01, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4700762893281174335}
+        m_TargetAssemblyTypeName: Plant, AssembelyDefinitions
+        m_MethodName: DailyUpdate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
