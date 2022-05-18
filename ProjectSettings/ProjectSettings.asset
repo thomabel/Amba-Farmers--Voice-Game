@@ -156,6 +156,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.DefaultCompany.Amba
     Standalone: com.DefaultCompany.Amba
+    iPhone: com.DefaultCompany.Amba
   buildNumber:
     Standalone: 0
     iPhone: 0
