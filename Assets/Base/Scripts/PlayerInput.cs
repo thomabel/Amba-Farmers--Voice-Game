@@ -48,6 +48,10 @@ public class PlayerInput : MonoBehaviour
             var last = interact.last_interacted;
             if (last == null)
             {
+                if (equipment.etool != null)
+                {
+                    equipment.DropTool();
+                }
                 return;
             }
             
@@ -65,9 +69,15 @@ public class PlayerInput : MonoBehaviour
     {
         if (context.performed)
         {
-            if (equipment.Tool != null)
+
+            if (equipment.etool == null)
             {
-                equipment.Tool.Use(null);
+                return;
+            }
+            else
+            {
+                equipment.Tool.Use(equipment.etool.obj);
+
             }
         }
     }
