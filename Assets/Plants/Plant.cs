@@ -5,17 +5,14 @@ public class Plant: MonoBehaviour, IInteractable
 {
     //The fruit that this plant produces
     public Base.GoodType fruitType;
+
     //The text name of the plant
     public string plantName;
 
     // The position of the sun
     private Transform sunPosition;
     // Terrain Data
-    private GameObject terrain;
-
-    // Variables for the timed function
-    private float timeAccumulator = 0.0f;
-    private float waitTime = 5.0f;
+    private TerrainData terrain;
 
     // -- PLANT HEALTH --
     // List of possible health statuses for the plant
@@ -41,10 +38,12 @@ public class Plant: MonoBehaviour, IInteractable
     public float waterLevel;
     public float waterUpperLimit;
     public float waterLowerLimit;
+    public float waterHourlyConsumption;
 
     public float nutrientLevel;
     public float nutrientUpperLimit;
     public float nutrientLowerLimit;
+    public float nutrientHourlyConsumption;
 
     // -- PLANT GROWTH -- 
     // Plant Growth Stages
@@ -59,33 +58,60 @@ public class Plant: MonoBehaviour, IInteractable
     };
 
     public growthStages currentGrowthStage = growthStages.Seedling;
-    public int growthTimeModifier = 5;
-    private float growthTimeAccumulator = 0f;
+    private int daysSincePlanting = 0;
+    public int daysUntilMaturity;
+
+    // -- DEMO VARIABLES --
+    public bool activateGrowthDemo = false;
+    private float demoGrowthTimeAccumulator = 0;
+    public float demoGrowthTimeModifier;
+    // Variables for the time delay functionality
+    private float demoDelayTimeAccumulator = 0.0f;
+    private float demoSecondsBetweenUpdates = 5.0f;
+    // Water/Nutrient self-initialization
+    public bool activateDemoTerrainInit = false;
 
 
     void Start()
     {
         sunPosition = GameObject.Find("Directional Light").transform;
-        terrain = GameObject.Find("Terrain");
-        TimedUpdate();
+        terrain = GameObject.Find("Terrain").GetComponent<TerrainData>();
+
+        // Demo Terrain Initialization
+        if (activateDemoTerrainInit)
+        {
+            DemoTerrainInit();
+        }
+        // Growth Demo Mode
+        if (activateGrowthDemo)
+        {
+            DemoDelayedUpdate();
+        }
+
     }
 
     void Update()
     {
-        timeAccumulator += Time.deltaTime;
-        if(timeAccumulator >= waitTime)
+        // Growth Demo Mode
+        if (activateGrowthDemo)
         {
-            TimedUpdate();
-            timeAccumulator -= waitTime;
+            demoDelayTimeAccumulator += Time.deltaTime;
+            if(demoDelayTimeAccumulator  >= demoSecondsBetweenUpdates)
+            {
+                DemoDelayedUpdate();
+                demoDelayTimeAccumulator = 0;
+            }
         }
     }
 
+    // For use in the accelerated growtrh demo mode
     // Fires every <waitTime> seconds
-    void TimedUpdate()
+    void DemoDelayedUpdate()
     {
         CheckEnvironment();
         HealthUpdate();
-        GrowthUpdate();
+        ConsumeTerrainResources();
+        DemoAcceleratedGrowthUpdate();
     }
 
     private void HealthUpdate()
@@ -160,23 +186,36 @@ public class Plant: MonoBehaviour, IInteractable
         }
     } 
          
-    // TODO: link growth to time event system 
-    // Temporary: GrowthUpdate() increments the currentGrowthStage of the plant
-    // This function should be called from TimedUpdate() which fires after <waitTime> seconds
-    // <growthTimeModifier> will further scale the time it takes to transition between growth phases
-    void GrowthUpdate()
+    // -- Demo Accelerated Growth Update Function 
+    // Plants will grow at a rapid pace to demonstrate growth functionality
+    void DemoAcceleratedGrowthUpdate()
     {
-        growthTimeAccumulator += 1;
+        demoGrowthTimeAccumulator += 1;
 
-        if (growthTimeAccumulator >= growthTimeModifier)
+        if (demoGrowthTimeAccumulator >= demoGrowthTimeModifier)
         {
             if (currentGrowthStage != growthStages.Harvest)
             {
                 currentGrowthStage++;
-                growthTimeAccumulator = 0f;
+                demoGrowthTimeAccumulator = 0f;
             }
         }
 
+    }
+
+    // To be called daily
+    void GrowthUpdate()
+    {
+        daysSincePlanting += 1;
+
+        //Update growth stage every (daysUntilMaturity/ 5) days
+        if (daysSincePlanting % (daysUntilMaturity / 5) == 0)
+        {
+            if (currentGrowthStage != growthStages.Harvest)
+            {
+                currentGrowthStage += 1;
+            }
+        }
     }
 
     void CheckEnvironment()
@@ -203,9 +242,21 @@ public class Plant: MonoBehaviour, IInteractable
     //Water Level of area 
     void GetTerrainData()
     {
-        TerrainData.Data currentConditions = terrain.GetComponent<TerrainData>().GetTileData(gameObject.transform.position);
+        TerrainData.Data currentConditions = terrain.GetTileData(gameObject.transform.position);
         waterLevel = currentConditions.water;
         nutrientLevel = currentConditions.nutrients;
+    }
+
+    void ConsumeTerrainResources()
+    {
+        terrain.SetNutrients(gameObject.transform.position, waterLevel - waterHourlyConsumption);
+        terrain.SetWater(gameObject.transform.position, nutrientLevel - nutrientHourlyConsumption);
+    }
+
+    void DemoTerrainInit()
+    {
+        terrain.SetNutrients(gameObject.transform.position, 1);
+        terrain.SetWater(gameObject.transform.position, 1);
     }
 
     void IInteractable.Interact(GameObject with)
@@ -230,9 +281,22 @@ public class Plant: MonoBehaviour, IInteractable
         Destroy(gameObject);
     }
 
-    public void YellAtHour()
+    public void HourlyUpdate()
     {
-        Debug.Log("HOURRRR INVOKE");
+        // If event calls this function with Growth Demo Mode activated, just quit
+        if (activateGrowthDemo) return; 
+
+        CheckEnvironment();
+        HealthUpdate();
+        ConsumeTerrainResources();
+    }
+
+    public void DailyUpdate()
+    {
+        // If event calls this function with Growth Demo Mode activated, just quit
+        if (activateGrowthDemo) return; 
+
+        GrowthUpdate();
     }
 }
 

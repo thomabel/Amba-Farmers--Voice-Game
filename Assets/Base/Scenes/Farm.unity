@@ -2543,12 +2543,32 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4700762893281174335, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
+      propertyPath: activateGrowthDemo
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700762893281174335, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
       propertyPath: currentGrowthStage
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4700762893281174335, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
       propertyPath: growthTimeModifier
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700762893281174335, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
+      propertyPath: demoGrowthTimeModifier
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700762893281174335, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
+      propertyPath: waterHourlyConsumption
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700762893281174335, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
+      propertyPath: activateDemoTerrainInit
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700762893281174335, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
+      propertyPath: nutrientHourlyConsumption
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5042387047738368134, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
       propertyPath: harvestMaterial
@@ -2578,6 +2598,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Corn
       objectReference: {fileID: 0}
+    - target: {fileID: 5755419149136521195, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
+      propertyPath: m_TagString
+      value: Plant
+      objectReference: {fileID: 0}
     - target: {fileID: 6727733167930865540, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
       propertyPath: m_Size.x
       value: 2.37
@@ -2600,7 +2624,7 @@ PrefabInstance:
       objectReference: {fileID: 927335752}
     - target: {fileID: 7281002823166359556, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
       propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7281002823166359556, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
       propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
