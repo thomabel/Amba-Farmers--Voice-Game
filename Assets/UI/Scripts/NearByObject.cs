@@ -11,6 +11,7 @@ public class NearByObject : MonoBehaviour
     [SerializeField]
     private Interact FindClosest;
 
+
     private GameObject closestObject;
 
     private void Start()

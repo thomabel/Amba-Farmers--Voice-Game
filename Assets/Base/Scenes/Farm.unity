@@ -1816,11 +1816,16 @@ MonoBehaviour:
   waterLevel: 0
   waterUpperLimit: 0
   waterLowerLimit: 0
+  waterHourlyConsumption: 0
   nutrientLevel: 0
   nutrientUpperLimit: 0
   nutrientLowerLimit: 0
+  nutrientHourlyConsumption: 0
   currentGrowthStage: 0
-  growthTimeModifier: 5
+  daysUntilMaturity: 0
+  activateGrowthDemo: 0
+  demoGrowthTimeModifier: 0
+  activateDemoTerrainInit: 0
 --- !u!1 &932376780
 GameObject:
   m_ObjectHideFlags: 0
@@ -3524,6 +3529,10 @@ PrefabInstance:
       propertyPath: onHourChange
       value: 
       objectReference: {fileID: 11400000, guid: eeb0257e87c1ba34081517bbe3330fed, type: 2}
+    - target: {fileID: 68358369854966711, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
+      propertyPath: hudbuttons
+      value: 
+      objectReference: {fileID: 932376782}
     - target: {fileID: 5000978702549307974, guid: 483c412539a0f784d87e13eb2895e969, type: 3}
       propertyPath: m_RootOrder
       value: 6
