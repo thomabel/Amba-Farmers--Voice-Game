@@ -523,11 +523,23 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8449122893976940062, guid: e9bc4a54a6f6dbd44898fa3dc62c4448, type: 3}
+      propertyPath: activateGrowthDemo
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8449122893976940062, guid: e9bc4a54a6f6dbd44898fa3dc62c4448, type: 3}
       propertyPath: growthTimeModifier
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8449122893976940062, guid: e9bc4a54a6f6dbd44898fa3dc62c4448, type: 3}
       propertyPath: nutrientUpperLimit
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8449122893976940062, guid: e9bc4a54a6f6dbd44898fa3dc62c4448, type: 3}
+      propertyPath: demoGrowthTimeModifier
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8449122893976940062, guid: e9bc4a54a6f6dbd44898fa3dc62c4448, type: 3}
+      propertyPath: activateDemoTerrainInit
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8456606131754610749, guid: e9bc4a54a6f6dbd44898fa3dc62c4448, type: 3}
@@ -2041,6 +2053,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1169309378}
   m_CullTransparentMesh: 1
+--- !u!1001 &1249303537
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 741922505298151880, guid: 76ae3d893aea26643b48dc96dbb7d01a, type: 3}
+      propertyPath: m_Name
+      value: Tomato
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577140170496073911, guid: 76ae3d893aea26643b48dc96dbb7d01a, type: 3}
+      propertyPath: activateGrowthDemo
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577140170496073911, guid: 76ae3d893aea26643b48dc96dbb7d01a, type: 3}
+      propertyPath: demoGrowthTimeModifier
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577140170496073911, guid: 76ae3d893aea26643b48dc96dbb7d01a, type: 3}
+      propertyPath: activateDemoTerrainInit
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086876473282059087, guid: 76ae3d893aea26643b48dc96dbb7d01a, type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086876473282059087, guid: 76ae3d893aea26643b48dc96dbb7d01a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 11.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086876473282059087, guid: 76ae3d893aea26643b48dc96dbb7d01a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086876473282059087, guid: 76ae3d893aea26643b48dc96dbb7d01a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086876473282059087, guid: 76ae3d893aea26643b48dc96dbb7d01a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086876473282059087, guid: 76ae3d893aea26643b48dc96dbb7d01a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086876473282059087, guid: 76ae3d893aea26643b48dc96dbb7d01a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086876473282059087, guid: 76ae3d893aea26643b48dc96dbb7d01a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086876473282059087, guid: 76ae3d893aea26643b48dc96dbb7d01a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086876473282059087, guid: 76ae3d893aea26643b48dc96dbb7d01a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086876473282059087, guid: 76ae3d893aea26643b48dc96dbb7d01a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 76ae3d893aea26643b48dc96dbb7d01a, type: 3}
 --- !u!1 &1359399175
 GameObject:
   m_ObjectHideFlags: 0
@@ -2196,7 +2277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4325634544893020933, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4325634544893020933, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
       propertyPath: m_LocalScale.x
@@ -2264,7 +2345,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4700762893281174335, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
       propertyPath: demoGrowthTimeModifier
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4700762893281174335, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
       propertyPath: waterHourlyConsumption
@@ -2385,6 +2466,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 167984628286711957, guid: dae62e2050ddf8d4a89489bc87e08e0b, type: 3}
+      propertyPath: activateGrowthDemo
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 167984628286711957, guid: dae62e2050ddf8d4a89489bc87e08e0b, type: 3}
+      propertyPath: demoGrowthTimeModifier
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 167984628286711957, guid: dae62e2050ddf8d4a89489bc87e08e0b, type: 3}
+      propertyPath: activateDemoTerrainInit
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 811730888934120603, guid: dae62e2050ddf8d4a89489bc87e08e0b, type: 3}
       propertyPath: m_Name
       value: Pepper
