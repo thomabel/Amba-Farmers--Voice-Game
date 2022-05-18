@@ -60,10 +60,6 @@ public class ColliderContainer : MonoBehaviour
                 continue;
             }
             var dist = Vector3.Distance(pos, collider.transform.position);
-            if (collider.GetComponent<Pool>())
-            {
-                dist -= 3;
-            }
             if (dist <= maximum)
             {
                 closest = collider;
