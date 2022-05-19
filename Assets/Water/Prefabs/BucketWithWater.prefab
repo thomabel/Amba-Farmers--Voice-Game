@@ -43,7 +43,8 @@ GameObject:
   - component: {fileID: 7658547446277193105}
   - component: {fileID: 2900245475235440441}
   - component: {fileID: -4561987834840361546}
-  - component: {fileID: 5688825727033941666}
+  - component: {fileID: 8928842466119597700}
+  - component: {fileID: -8847753491109191874}
   m_Layer: 6
   m_Name: BucketWithWater
   m_TagString: BucketWithWater
@@ -145,7 +146,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &5688825727033941666
+--- !u!114 &8928842466119597700
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,12 +155,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 7658547446279119697}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0613efb5114d446bebff50ccc78c5a6c, type: 3}
+  m_Script: {fileID: 11500000, guid: 41bf8c3ba503644cca0a21a95da2017f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   EmptyBucket: {fileID: 7908076157103775299, guid: 21760309e95044a41830c2f4eee260e5, type: 3}
-  interact: {fileID: 0}
-  WaterVolume: 0
+--- !u!114 &-8847753491109191874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7658547446279119697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfde4d85b794e7e4c9035ccc9e4a9a43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 1
 --- !u!1001 &2262715627509608198
 PrefabInstance:
   m_ObjectHideFlags: 0

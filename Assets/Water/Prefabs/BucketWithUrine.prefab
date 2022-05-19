@@ -43,7 +43,8 @@ GameObject:
   - component: {fileID: 7761370821318549756}
   - component: {fileID: 3009231471484484180}
   - component: {fileID: -7147988585467164841}
-  - component: {fileID: -8036418375003567017}
+  - component: {fileID: -2767291583409393740}
+  - component: {fileID: 7294436886640549281}
   m_Layer: 6
   m_Name: BucketWithUrine
   m_TagString: BucketWithUrine
@@ -145,7 +146,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &-8036418375003567017
+--- !u!114 &-2767291583409393740
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,11 +155,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 7761370821320556092}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd87058e5423a44b998caa44cbd6a11d, type: 3}
+  m_Script: {fileID: 11500000, guid: b8b7ba906d61747b1805ae539d28ac4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EmptyBucket: {fileID: 7761370821320556092}
-  UrineVolume: 0
+  EmptyBucket: {fileID: 7908076157103775299, guid: 21760309e95044a41830c2f4eee260e5, type: 3}
+--- !u!114 &7294436886640549281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7761370821320556092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfde4d85b794e7e4c9035ccc9e4a9a43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 1
 --- !u!1001 &2205508378564424299
 PrefabInstance:
   m_ObjectHideFlags: 0
