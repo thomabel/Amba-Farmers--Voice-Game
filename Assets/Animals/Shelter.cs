@@ -73,19 +73,16 @@ public class Shelter : MonoBehaviour, IInteractable
         return population.Capacity;
     }
 
-    public bool CheckShelterFull() 
+    public int GetShelterSpace() 
     {
-        if (population.Capacity == animalCapacity)
-            return true;
-        else
-            return false;
+        return population.Capacity - animalCapacity;
     }
 
     public bool AddAnimal(Animal animal)
     {
         bool success = false;
 
-        if (CheckShelterFull() == true)
+        if (GetShelterSpace() > 0)
         {
             if (animal.species == species)
             {

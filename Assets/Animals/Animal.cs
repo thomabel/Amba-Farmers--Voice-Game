@@ -33,7 +33,7 @@ public class Animal : MonoBehaviour, IInteractable
     [SerializeField] public int timesToEatPerDay;
     [SerializeField] public int timesToDrinkPerDay;
 
-    [SerializeField] public Financials.GoodType goodType;   // Good type for market
+    [SerializeField] public Base.GoodType goodType;         // Good type for market
     [SerializeField] public Species species;                // Species of this animal
     [SerializeField] public Sex sex;                        // Sex of this animal
     [SerializeField] public int age;                        // Animal's current age in days

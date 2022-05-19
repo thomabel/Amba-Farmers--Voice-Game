@@ -3,7 +3,12 @@ guid: 04005baba285c834ca4cc24bea05f6c7
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: m_pig
+    second: {fileID: 2100000, guid: 4842260ff9d4f994d8694cc5aca6490a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
