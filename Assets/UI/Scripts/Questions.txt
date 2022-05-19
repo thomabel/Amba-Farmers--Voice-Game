@@ -1,0 +1,19 @@
+{
+    "Questions": [
+        {
+            "Actual_Question": "How old are you?",
+            "Correct_Answer": "2",
+            "Wrong_Answer1": "3",
+            "Wrong_Answer2": "4",
+            "Wrong_Answer3": "5"
+        },
+        {
+            "Actual_Question": "How many tomatos you have?",
+            "Correct_Answer": "5",
+            "Wrong_Answer1": "6",
+            "Wrong_Answer2": "7",
+            "Wrong_Answer3": "8"
+        }
+
+    ]
+}

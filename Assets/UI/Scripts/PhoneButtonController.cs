@@ -11,6 +11,7 @@ public class PhoneButtonController : MonoBehaviour
 
     private Button ShopButton;
     private Button InventoryButton;
+    private Button TriviaButton;
 
     private Button FinancialsApp;
     private Button Rewind;
@@ -23,6 +24,9 @@ public class PhoneButtonController : MonoBehaviour
     [SerializeField]
     private GameObject PersonalInventoryApp;
 
+    [SerializeField]
+    private GameObject QuestionReader;
+
     private Label Time;
     private Label TimeMultiplier;
 
@@ -31,6 +35,8 @@ public class PhoneButtonController : MonoBehaviour
 
     [SerializeField]
     private GameObject controls;
+
+    private string[] AnswerLabels = new string[] { "FirstAnswer", "SecondAnswer", "ThirdAnswer", "FourthAnswer" };
 
 
     [SerializeField]
@@ -55,6 +61,8 @@ public class PhoneButtonController : MonoBehaviour
         Rewind = root.Q<Button>("BackTrack");
         FastForward = root.Q<Button>("FastForward");
         StartPause = root.Q<Button>("StartPause");
+        TriviaButton = root.Q<Button>("TriviaButton");
+
     }
 
     void assignButtonsToFunctions()
@@ -68,6 +76,15 @@ public class PhoneButtonController : MonoBehaviour
         Rewind.clicked += RewindPressed;
         FastForward.clicked += FastForwardPressed;
         StartPause.clicked += StartPausePressed;
+        TriviaButton.clicked += TriviaButtonPressed;
+        for(int i= 0; i<AnswerLabels.Length;++i)
+            root.Q<Button>(AnswerLabels[i]).clickable.clickedWithEventInfo += AnswerClicked;
+        /*
+        root.Q<Button>("FirstAnswer").clickable.clickedWithEventInfo += AnswerClicked;
+        root.Q<Button>("SecondAnswer").clickable.clickedWithEventInfo += AnswerClicked;
+        root.Q<Button>("ThirdAnswer").clickable.clickedWithEventInfo += AnswerClicked;
+        root.Q<Button>("FourthAnswer").clickable.clickedWithEventInfo += AnswerClicked;
+        */
 
     }
     private void Update()
@@ -85,7 +102,52 @@ public class PhoneButtonController : MonoBehaviour
     {
         Phone.style.display = DisplayStyle.Flex;
     }
+    void TriviaButtonPressed()
+    {
+        reshuffle(AnswerLabels);
+        Debug.Log(AnswerLabels[0]);
+        TriviaQuestions getTriviaList = QuestionReader.GetComponent<TriviaQuestions>();
+        int numOfQuestions = getTriviaList.TriviaList.Questions.Length;
+        int r = Random.Range(0, numOfQuestions-1);
+        TriviaQuestions.question RandomQuestionAsked = getTriviaList.TriviaList.Questions[r];
 
+        root.Q<Label>("Question").text = RandomQuestionAsked.Actual_Question;
+        root.Q<Label>(AnswerLabels[0] + "Label").text = RandomQuestionAsked.Correct_Answer;
+        root.Q<Label>(AnswerLabels[1] + "Label").text = RandomQuestionAsked.Wrong_Answer1;
+        root.Q<Label>(AnswerLabels[2] + "Label").text = RandomQuestionAsked.Wrong_Answer2;
+        root.Q<Label>(AnswerLabels[3] + "Label").text = RandomQuestionAsked.Wrong_Answer3;
+        StyleSetTrivia(DisplayStyle.Flex, DisplayStyle.None);
+
+        root.Q<Label>("AppsLabel").text = "Trivia";
+    }
+    void AnswerClicked(EventBase obj)
+    {
+        var button = (Button)obj.target;
+        changeAnswerBackground(new Color(1f, .84f, 0f), Color.red);
+    }
+    void changeAnswerBackground(Color CorrectAnswer, Color WrongAnswer)
+    {
+        root.Q<Button>(AnswerLabels[0]).style.backgroundColor = CorrectAnswer;
+        for (int i = 1; i < AnswerLabels.Length; ++i)
+        {
+            root.Q<Button>(AnswerLabels[i]).style.backgroundColor = WrongAnswer;
+
+        }
+
+
+    }
+
+    void reshuffle(string[] texts)
+    {
+        // Knuth shuffle algorithm :: courtesy of Wikipedia :)
+        for (int t = 0; t < texts.Length; t++)
+        {
+            string tmp = texts[t];
+            int r = Random.Range(t, texts.Length);
+            texts[t] = texts[r];
+            texts[r] = tmp;
+        }
+    }
     void ShopButtonPressed()
     {
 
@@ -103,6 +165,8 @@ public class PhoneButtonController : MonoBehaviour
     void BackButtonToAppsPressed()
     {
         StyleSet(DisplayStyle.None, DisplayStyle.Flex);
+        StyleSetTrivia(DisplayStyle.None, DisplayStyle.Flex);
+        changeAnswerBackground(Color.white, Color.white);
         root.Q<Label>("AppsLabel").text = "Apps";
     }
     void FinancialsAppPressed()
@@ -121,6 +185,17 @@ public class PhoneButtonController : MonoBehaviour
         root.Q<VisualElement>("BackButtonContainer").style.display = Financial;
 
         root.Q<VisualElement>("FinancialContent").style.display = Financial;
+
+        //AppScrollView.style.display = ScrollContainer;
+
+    }
+    void StyleSetTrivia(DisplayStyle Trivia, DisplayStyle ScrollContainer)
+    {
+        root.Q<ScrollView>("RealPhoneScrollView").style.display = ScrollContainer;
+
+        root.Q<VisualElement>("BackButtonContainer").style.display = Trivia;
+
+        root.Q<VisualElement>("TriviaContent").style.display = Trivia;
 
         //AppScrollView.style.display = ScrollContainer;
 
