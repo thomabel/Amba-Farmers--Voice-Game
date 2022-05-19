@@ -38,7 +38,7 @@ public class Inventory : ScriptableObject, IEnumerable
 
     // PUBLIC
     public int Size { get { return items.Length; } }
-    public Item this[int i] { get { return items[i].obj == null ? null : items[i]; } }
+    public Item this[int i] { get { return items[i] == null ? null : items[i]; } }
     IEnumerator IEnumerable.GetEnumerator() { return items.GetEnumerator(); }
     /// <summary>
     /// Returns the amount of free spaces in the inventory.
@@ -80,7 +80,7 @@ public class Inventory : ScriptableObject, IEnumerable
                 if (items[i] == null)
                 {
                     items[i] = item;
-                    item.obj.SetActive(false);
+                    if(item != null) item.obj.SetActive(false);
                     return i;
                 }
             }
@@ -98,7 +98,7 @@ public class Inventory : ScriptableObject, IEnumerable
         if (check_index(index) && items[index] == null)
         {
             items[index] = item;
-            item.obj.SetActive(false);
+            if (item != null) item.obj.SetActive(false);
             return true;
         }
         return false;
@@ -114,7 +114,7 @@ public class Inventory : ScriptableObject, IEnumerable
         {
             var item = items[index];
             items[index] = null;
-            item.obj.SetActive(true);
+            if(item != null) item.obj.SetActive(true);
             return item;
         }
         return null;

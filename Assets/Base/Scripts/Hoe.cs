@@ -6,16 +6,14 @@ public class Hoe : MonoBehaviour, IEquippable, IInteractable
     {
         if (with == null)
         {
-            return;
-        }
-        var land = with.GetComponent<TerrainData>();
-        if (land != null)
-        {
+            var land = Terrain.activeTerrain.GetComponent<TerrainData>();
             land.SetTilled(transform.position, true);
         }
         else
         {
-            land = Terrain.activeTerrain.GetComponent<TerrainData>();
+            //var land = with.GetComponent<TerrainData>();
+            //land.SetTilled(transform.position, true);
+            var land = Terrain.activeTerrain.GetComponent<TerrainData>();
             land.SetTilled(transform.position, true);
         }
     }
