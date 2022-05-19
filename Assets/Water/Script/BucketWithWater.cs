@@ -48,7 +48,7 @@ public class BucketWithWater : MonoBehaviour, IInteractable, IEquippable
 
 
 
-   public float useWater(GameObject with)
+    public float useWater(GameObject with)
     {
         GameObject needToBeDestroyed;
         needToBeDestroyed = with;
@@ -58,12 +58,12 @@ public class BucketWithWater : MonoBehaviour, IInteractable, IEquippable
             WaterVolume -= 1.0f;
             Debug.Log("Current Water Volume: " + WaterVolume);
 
-            if(WaterVolume == 0.0)
+            if (WaterVolume == 0.0)
             {
                 Debug.Log("It is empty ");
                 GameObject.Destroy(needToBeDestroyed);
                 newBucket = Instantiate(EmptyBucket, with.transform.position, Quaternion.identity, with.transform.parent) as GameObject;
-   
+
             }
             return 1.0f;
         }
@@ -72,7 +72,7 @@ public class BucketWithWater : MonoBehaviour, IInteractable, IEquippable
             Debug.Log("Something Wrong in useWater");
             return 0.0f;
         }
-       
+
     }
 
 
