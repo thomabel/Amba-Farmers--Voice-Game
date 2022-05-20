@@ -1,0 +1,182 @@
+.CorrectAnswer {
+    width: 45%;
+    height: 80%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    background-color: rgb(38, 217, 38);
+    margin-right: 20px;
+}
+
+.AnswerButton {
+    width: 45%;
+    height: 80%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    background-color: rgb(255, 255, 255);
+    margin-right: 20px;
+}
+
+.AnswerButton:active {
+    width: 45%;
+    height: 80%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    background-color: rgb(255, 255, 255);
+    margin-right: 20px;
+    opacity: 0.5;
+}
+
+.TwoAnswerContainer {
+    width: 80%;
+    height: 50%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.AnswerLetter {
+    width: 15%;
+    height: 80%;
+    -unity-text-align: middle-right;
+    -unity-font-style: bold;
+    font-size: 30px;
+    color: rgb(27, 47, 214);
+}
+
+.AnswersContainer {
+    width: 100%;
+    height: 312px;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 50px;
+    padding-right: 10px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.QuestionScroll {
+    -unity-text-align: middle-center;
+    white-space: normal;
+    font-size: 32px;
+    width: 80%;
+    height: 80%;
+    -unity-font-style: bold;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.QuestionContainer {
+    width: 100%;
+    height: 25%;
+    align-items: center;
+    justify-content: center;
+}
+
+.ValueOfQuestionLabel {
+    width: 100%;
+    height: 15%;
+    -unity-text-align: middle-center;
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold-and-italic;
+    font-size: 36px;
+}
+
+.HeaderContainer {
+    width: 100%;
+    height: 10%;
+    flex-direction: row;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-bottom-width: 2px;
+}
+
+.GameShowContainer {
+    width: 80%;
+    height: 85%;
+    background-color: rgb(0, 0, 51);
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-left-width: 5px;
+    border-right-width: 5px;
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+}
+
+.Container {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.NextQuestionButton {
+    width: 30%;
+    height: 80%;
+    background-color: rgba(255, 215, 0, 255);
+    -unity-font-style: bold;
+    font-size: 24px;
+    color: rgba(0, 0, 0, 255);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.NextQuestionButton:active {
+    width: 30%;
+    height: 80%;
+    background-color: rgb(255, 215, 0);
+    -unity-font-style: bold;
+    font-size: 24px;
+    color: rgb(0, 0, 0);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    opacity: 0.5;
+}
+
+.DoneButton:active {
+    margin-right: 1px;
+    background-color: rgba(217, 15, 24, 255);
+    color: rgba(255, 255, 255, 255);
+    font-size: 30px;
+    opacity: 0.5;
+}
+
+.DoneButton {
+    background-color: rgba(221, 7, 7, 255);
+}

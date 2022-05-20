@@ -38,6 +38,8 @@ public class PhoneButtonController : MonoBehaviour
 
     private string[] AnswerLabels = new string[] { "FirstAnswer", "SecondAnswer", "ThirdAnswer", "FourthAnswer" };
 
+    private bool UserAnsweredQuestion;
+
 
     [SerializeField]
     private Account player;
@@ -104,11 +106,12 @@ public class PhoneButtonController : MonoBehaviour
     }
     void TriviaButtonPressed()
     {
+        UserAnsweredQuestion = false;
         reshuffle(AnswerLabels);
         Debug.Log(AnswerLabels[0]);
         TriviaQuestions getTriviaList = QuestionReader.GetComponent<TriviaQuestions>();
         int numOfQuestions = getTriviaList.TriviaList.Questions.Length;
-        int r = Random.Range(0, numOfQuestions-1);
+        int r = Random.Range(0, numOfQuestions);
         TriviaQuestions.question RandomQuestionAsked = getTriviaList.TriviaList.Questions[r];
 
         root.Q<Label>("Question").text = RandomQuestionAsked.Actual_Question;
@@ -122,9 +125,18 @@ public class PhoneButtonController : MonoBehaviour
     }
     void AnswerClicked(EventBase obj)
     {
-        var button = (Button)obj.target;
-        changeAnswerBackground(new Color(1f, .84f, 0f), Color.red);
+        if (!UserAnsweredQuestion)
+        {
+            UserAnsweredQuestion = true;
+            var button = (Button)obj.target;
+            root.Q<Button>(AnswerLabels[0]).style.backgroundColor = Color.green;
+            if (!button.name.Equals(AnswerLabels[0]))
+                button.style.backgroundColor = new Color(1f, .84f, 0f);
+        }
+
+        //changeAnswerBackground(new Color(1f, .84f, 0f), Color.red);
     }
+    /*
     void changeAnswerBackground(Color CorrectAnswer, Color WrongAnswer)
     {
         root.Q<Button>(AnswerLabels[0]).style.backgroundColor = CorrectAnswer;
@@ -136,6 +148,18 @@ public class PhoneButtonController : MonoBehaviour
 
 
     }
+    */
+    void resetAnswerBackgroundColor(Color DefaultColor)
+    {
+        for (int i = 0; i < AnswerLabels.Length; ++i)
+        {
+            root.Q<Button>(AnswerLabels[i]).style.backgroundColor = DefaultColor;
+
+        }
+
+
+    }
+
 
     void reshuffle(string[] texts)
     {
@@ -166,7 +190,7 @@ public class PhoneButtonController : MonoBehaviour
     {
         StyleSet(DisplayStyle.None, DisplayStyle.Flex);
         StyleSetTrivia(DisplayStyle.None, DisplayStyle.Flex);
-        changeAnswerBackground(Color.white, Color.white);
+        resetAnswerBackgroundColor(Color.white);
         root.Q<Label>("AppsLabel").text = "Apps";
     }
     void FinancialsAppPressed()
