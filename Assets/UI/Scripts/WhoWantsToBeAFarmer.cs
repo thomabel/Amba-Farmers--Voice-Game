@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.IO;
+
 
 public class WhoWantsToBeAFarmer : MonoBehaviour
 {
@@ -15,24 +17,55 @@ public class WhoWantsToBeAFarmer : MonoBehaviour
 
     private Label ValueOfQuestion;
     private VisualElement NextQuestionContainer;
+    private VisualElement WrongAnswerContainer;
     private Button NextQuestionButton;
     private Button SaveResultsButton;
+    private TriviaQuestions getTriviaList;
+    private Label highscoreLabel;
+
+    [SerializeField]
+    private GameObject controls;
+    [SerializeField]
+    private GameObject PhoneGameObject;
+    [SerializeField]
+    private GameObject canvasControls;
 
     private long QuestionAmount;
     private long points;
+    private Button BackButton;
+    private Button RestartButton;
 
+    private VisualElement Body;
+    private VisualElement NewHighScoreMessage;
+
+    private long StartingHighScore;
+
+    private bool newhighScoreOccured;
+
+
+
+    
     void OnEnable()
     {
-        points = 0;
-        QuestionAmount = 50;
+        getTriviaList = QuestionReader.GetComponent<TriviaQuestions>();
 
         assignUItoVariables();
         root.Focus();
         assignButtonsToFunctions();
+        initialize();
+        StartingHighScore = getTriviaList.highscore;
 
+    }
+    void initialize()
+    {
+        points = 0;
+        QuestionAmount = 50;
+        newhighScoreOccured = false;
         PointsScored.text = "0";
         ValueOfQuestion.text = QuestionAmount.ToString() + " Point Question";
+        highscoreLabel.text = getTriviaList.highscoreString;
         QuestionGenerated();
+
     }
     void assignUItoVariables()
     {
@@ -42,6 +75,12 @@ public class WhoWantsToBeAFarmer : MonoBehaviour
         NextQuestionContainer = root.Q<VisualElement>("NextQuestionContainer");
         NextQuestionButton = root.Q<Button>("NextQuestionButton");
         SaveResultsButton = root.Q<Button>("SaveResultsButton");
+        highscoreLabel = root.Q<Label>("HighScore");
+        BackButton = root.Q<Button>("BackButton");
+        WrongAnswerContainer = root.Q<VisualElement>("WrongAnswerContainer");
+        RestartButton = root.Q<Button>("RestartButton");
+        Body = root.Q<VisualElement>("Body");
+        NewHighScoreMessage = root.Q<VisualElement>("NewHighScoreMessage");
     }
 
     void assignButtonsToFunctions()
@@ -50,7 +89,17 @@ public class WhoWantsToBeAFarmer : MonoBehaviour
         for (int i = 0; i < AnswerLabels.Length; ++i)
             root.Q<Button>(AnswerLabels[i]).clickable.clickedWithEventInfo += AnswerClicked;
         NextQuestionButton.clicked += NextQuestionClicked;
-        SaveResultsButton.clicked += SaveResultsClicked;
+        SaveResultsButton.clicked += EndGame;
+        BackButton.clicked += EndGame;
+        RestartButton.clicked += RestartButtonPressed;
+    }
+    void RestartButtonPressed()
+    {
+        ValueOfQuestion.style.display = DisplayStyle.Flex;
+        NextQuestionContainer.style.display = DisplayStyle.None;
+        WrongAnswerContainer.style.display = DisplayStyle.None;
+        initialize();
+
     }
     void NextQuestionClicked()
     {
@@ -62,9 +111,21 @@ public class WhoWantsToBeAFarmer : MonoBehaviour
         QuestionGenerated();
 
     }
-    void SaveResultsClicked()
-    {
+    
 
+    IEnumerator showHighscoreMessage()
+    {
+        if (!newhighScoreOccured)
+        {
+            MainUI mainUI = new MainUI();
+            mainUI.ShowOrHideVisualElements(ref NewHighScoreMessage, ref Body);
+            BackButton.style.visibility = Visibility.Hidden;
+            yield return new WaitForSeconds(2);
+            mainUI.ShowOrHideVisualElements(ref Body, ref NewHighScoreMessage);
+            BackButton.style.visibility = Visibility.Visible;
+
+            newhighScoreOccured = true;
+        }
     }
     void AnswerClicked(EventBase obj)
     {
@@ -74,13 +135,28 @@ public class WhoWantsToBeAFarmer : MonoBehaviour
             var button = (Button)obj.target;
             root.Q<Button>(AnswerLabels[0]).style.backgroundColor = Color.green;
             if (!button.name.Equals(AnswerLabels[0]))
+            {
                 button.style.backgroundColor = new Color(1f, .84f, 0f);
+                ValueOfQuestion.style.display = DisplayStyle.None;
+                NextQuestionContainer.style.display = DisplayStyle.None;
+                WrongAnswerContainer.style.display = DisplayStyle.Flex;
+
+            }
             else
             {
                 points += QuestionAmount;
                 QuestionAmount += 50;
                 PointsScored.text = points.ToString();
                 ValueOfQuestion.text = QuestionAmount.ToString() + " Point Question";
+
+                if (points > getTriviaList.highscore)
+                {
+                    StartCoroutine(showHighscoreMessage());
+                    highscoreLabel.text = points.ToString();
+                    getTriviaList.highscore = points;
+                    getTriviaList.highscoreString = points.ToString();
+                }
+
 
                 //Show buttons for next and done
                 //Hide question point value label
@@ -93,12 +169,12 @@ public class WhoWantsToBeAFarmer : MonoBehaviour
 
     void reshuffle(string[] texts)
     {
-        // Knuth shuffle algorithm :: courtesy of Wikipedia :)
-        for (int t = 0; t < texts.Length; t++)
+        // Knuth shuffle algorithm :: From Unity Forum
+        for (int i = 0; i < texts.Length; i++)
         {
-            string tmp = texts[t];
-            int r = Random.Range(t, texts.Length);
-            texts[t] = texts[r];
+            string tmp = texts[i];
+            int r = Random.Range(i, texts.Length);
+            texts[i] = texts[r];
             texts[r] = tmp;
         }
     }
@@ -121,7 +197,7 @@ public class WhoWantsToBeAFarmer : MonoBehaviour
         reshuffle(AnswerLabels);
         Debug.Log(AnswerLabels[0]);
 
-        TriviaQuestions getTriviaList = QuestionReader.GetComponent<TriviaQuestions>();
+        //TriviaQuestions getTriviaList = QuestionReader.GetComponent<TriviaQuestions>();
         int numOfQuestions = getTriviaList.TriviaList.Questions.Length;
         int r = Random.Range(0, numOfQuestions);
         TriviaQuestions.question RandomQuestionAsked = getTriviaList.TriviaList.Questions[r];
@@ -131,6 +207,25 @@ public class WhoWantsToBeAFarmer : MonoBehaviour
         root.Q<Label>(AnswerLabels[1] + "Label").text = RandomQuestionAsked.Wrong_Answer1;
         root.Q<Label>(AnswerLabels[2] + "Label").text = RandomQuestionAsked.Wrong_Answer2;
         root.Q<Label>(AnswerLabels[3] + "Label").text = RandomQuestionAsked.Wrong_Answer3;
+    }
+
+    void SaveResults()
+    {
+        if (points > StartingHighScore)
+        {
+            getTriviaList.WriteTextFile(points.ToString());
+            getTriviaList.highscore = points;
+            getTriviaList.highscoreString = points.ToString();
+        }
+    }
+    void EndGame()
+    {
+        SaveResults();
+        canvasControls.SetActive(true);
+        controls.SetActive(true);
+        PhoneGameObject.SetActive(true);
+        this.gameObject.SetActive(false);
+        PhoneGameObject.GetComponent<PhoneButtonController>().ShowPhone();
     }
 
 }

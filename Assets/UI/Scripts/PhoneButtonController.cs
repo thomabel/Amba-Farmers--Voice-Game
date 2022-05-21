@@ -22,6 +22,9 @@ public class PhoneButtonController : MonoBehaviour
     private GameObject ShopApp;
 
     [SerializeField]
+    private GameObject TriviaWindow;
+
+    [SerializeField]
     private GameObject PersonalInventoryApp;
 
     [SerializeField]
@@ -100,12 +103,16 @@ public class PhoneButtonController : MonoBehaviour
         Phone.style.display = DisplayStyle.None;
     }
     //Phone Button Pressed, show phone
-    void ShowPhone()
+    public void ShowPhone()
     {
         Phone.style.display = DisplayStyle.Flex;
     }
     void TriviaButtonPressed()
     {
+        TriviaWindow.SetActive(true);
+        this.gameObject.SetActive(false);
+        controls.SetActive(false);
+        /*
         UserAnsweredQuestion = false;
         reshuffle(AnswerLabels);
         Debug.Log(AnswerLabels[0]);
@@ -122,6 +129,7 @@ public class PhoneButtonController : MonoBehaviour
         StyleSetTrivia(DisplayStyle.Flex, DisplayStyle.None);
 
         root.Q<Label>("AppsLabel").text = "Trivia";
+        */
     }
     void AnswerClicked(EventBase obj)
     {

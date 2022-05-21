@@ -597,6 +597,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textJSON: {fileID: 4900000, guid: 33704854786ea491689bc4a1b7e02f9e, type: 3}
+  highscore: 0
+  highscoreString: 
   TriviaList:
     Questions: []
 --- !u!1 &333345139
@@ -2453,6 +2455,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   QuestionReader: {fileID: 322102833}
+  controls: {fileID: 333345139}
+  PhoneGameObject: {fileID: 2055118915}
+  canvasControls: {fileID: 614949320}
 --- !u!1 &1146765976
 GameObject:
   m_ObjectHideFlags: 0
@@ -3805,6 +3810,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShopApp: {fileID: 1814474574}
+  TriviaWindow: {fileID: 1141078563}
   PersonalInventoryApp: {fileID: 298318640}
   QuestionReader: {fileID: 322102833}
   DateModule: {fileID: 555023758}

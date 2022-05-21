@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System.Net;
 
 public class TriviaQuestions : MonoBehaviour
 {
@@ -22,17 +24,61 @@ public class TriviaQuestions : MonoBehaviour
         public question[] Questions;
     }
 
+    public long highscore = 0;
+    public string highscoreString = "";
+
+
+    private string highscoreFolder = "Assets/UI/TextFiles/HighScore.txt";
+
     public QuestionsList TriviaList = new QuestionsList();
     // Start is called before the first frame update
     void Start()
     {
-        TriviaList = JsonUtility.FromJson<QuestionsList>(textJSON.text);
+        try
+        {
+            WebClient wc = new WebClient();
+            var json = wc.DownloadString("https://mo-amin.github.io/hostJsonPrac/Questions.txt");
+            Debug.Log(json);
+            TriviaList = JsonUtility.FromJson<QuestionsList>(json);
+        }
+        catch
+        {
+            TriviaList = JsonUtility.FromJson<QuestionsList>(textJSON.text);
+        }
+        
         Debug.Log(TriviaList.Questions[TriviaList.Questions.Length - 1].Actual_Question);
+
+        readTextFile(highscoreFolder);
+        //WriteTextFile("128", highscoreFolder);
+        readTextFile(highscoreFolder);
+
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+    public void readTextFile(string filePath = "Assets/UI/TextFiles/HighScore.txt")
+    {
+        StreamReader read = new StreamReader(filePath);
+        while (!read.EndOfStream)
+        {
+            highscoreString = read.ReadLine();
+            highscore = long.Parse(highscoreString);
+            Debug.Log(highscoreString);
+        }
+
+        read.Close();
+
+    }
+
+    public void WriteTextFile(string information, string filePath = "Assets/UI/TextFiles/HighScore.txt")
+    {
+        File.WriteAllText(filePath, information);
+        /*
+        StreamWriter writetext = new StreamWriter(filepath);
+        writetext.WriteLine(information);
+        */
     }
 }
