@@ -85,7 +85,9 @@ public class Shelter : MonoBehaviour, IInteractable
 
         if (GetShelterSpace() > 0)
         {
-            Instantiate(animalPrefab, new Vector3(0,0,0), Quaternion.identity);
+            Vector3 spawnPos = new Vector3(Random.Range(-2.5f, 2.5f), 0, Random.Range(-1, 1));
+            GameObject newPig = Instantiate(animalPrefab, transform.position + spawnPos, Quaternion.identity);
+            newPig.GetComponent<Animal>().InitAnimal(0);
             success = true;
         }
 

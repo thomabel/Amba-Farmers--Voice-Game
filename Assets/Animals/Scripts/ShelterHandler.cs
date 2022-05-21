@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShelterHandler : MonoBehaviour
 {
-    List<Shelter> shelters;
+    public List<Shelter> shelters;
     int populationCapacityPigs;
     int populationCurrentPigs;
     int shelterSpacesAvailablePigs;

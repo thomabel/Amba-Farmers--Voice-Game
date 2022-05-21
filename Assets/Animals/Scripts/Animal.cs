@@ -30,11 +30,10 @@ public class Animal : MonoBehaviour, IInteractable
     [SerializeField] public float decayRateWater;           // How quickly does this animal get thirsty?
     [SerializeField] public float consumptionRateFood;      // How much does this animal eat per day in kg?
     [SerializeField] public float consumptionRateWater;     // How much does this animal drink per day in liters?
-    [SerializeField] public int timesToEatPerDay;
-    [SerializeField] public int timesToDrinkPerDay;
+    [SerializeField] public int timesToEatPerDay;           // How often should this animal eat?
+    [SerializeField] public int timesToDrinkPerDay;         // How often should this animal drink?
 
-    [SerializeField] public Base.GoodType species;         // Good type for market
-    // [SerializeField] public Species species;                // Species of this animal
+    [SerializeField] public Base.GoodType species;          // Species of this animal
     [SerializeField] public Sex sex;                        // Sex of this animal
     [SerializeField] public int age;                        // Animal's current age in days
     [SerializeField] public float hunger;                   // Animal's current hunger
@@ -57,7 +56,9 @@ public class Animal : MonoBehaviour, IInteractable
         lastTimeDrank = seconds.Value;
     }
 
-    // InitAnimal()
+    // InitAnimal is used to set the starting values of the animal.
+    // givenAge sets the animal's age in days
+    // givenSex sets the animal's sex. This is optional and will be randomly assigned if not selected.
     public void InitAnimal(int givenAge, int givenSex = -1)
     {
         if (givenSex == 0 || givenSex == 1)
@@ -71,6 +72,7 @@ public class Animal : MonoBehaviour, IInteractable
         happiness = 100f;
     }
 
+    // Update is used to decay the animal's hunger and thirst
     void Update()
     {
         if (seconds.Value - lastTimeEaten > 5f)
