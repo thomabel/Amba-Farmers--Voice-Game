@@ -27,11 +27,14 @@ public class HUDButtons : MonoBehaviour
         {
             ToolbuttonImage.gameObject.SetActive(true);
             ToolbuttonImage.texture = value.picture;
-
+            
             //useToolButton.style.backgroundImage = new StyleBackground(value.picture);
         }
         else
             ToolbuttonImage.gameObject.SetActive(false);
+            
+        
+            
     }
 
     public void AddItemImage(GameObject obj)

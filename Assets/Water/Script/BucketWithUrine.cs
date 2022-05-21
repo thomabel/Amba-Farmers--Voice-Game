@@ -30,7 +30,7 @@ public class BucketWithUrine : MonoBehaviour, IInteractable, IEquippable
         var last = interact.last_interacted;
 
 
-        if (with.GetComponent<BucketWithWater>())
+        if (with.GetComponent<BucketWithUrine>())
         {
 
             if (last != null && last.GetComponent<Plant>())

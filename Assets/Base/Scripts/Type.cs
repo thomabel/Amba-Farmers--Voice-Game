@@ -18,6 +18,8 @@ namespace Base
         Seed_End,
         Animal_Start,
         Animal_Pig,
+        Animal_Goat,
+        Animal_Chicken,
         Animal_End,
         Fruit_Start,
         Fruit_Corn,
