@@ -5,9 +5,17 @@ using UnityEngine;
 public class ShelterHandler : MonoBehaviour
 {
     List<Shelter> shelters;
-    int populationCapacity;
-    int populationCurrent;
-    int shelterSpacesAvailable;
+    int populationCapacityPigs;
+    int populationCurrentPigs;
+    int shelterSpacesAvailablePigs;
+
+    int populationCapacityGoats;
+    int populationCurrentGoats;
+    int shelterSpacesAvailableGoats;
+
+    int populationCapacityChickens;
+    int populationCurrentChickens;
+    int shelterSpacesAvailableChickens;
 
     void Start()
     {
@@ -19,31 +27,84 @@ public class ShelterHandler : MonoBehaviour
     {
         foreach(Shelter s in shelters)
         {
-            populationCapacity += s.animalCapacity;
-            populationCurrent += s.GetShelterPop();
-            shelterSpacesAvailable += s.GetShelterSpace();
+            if (s.species == Base.GoodType.Animal_Pig)
+            {
+                populationCapacityPigs += s.animalCapacity;
+                populationCurrentPigs += s.GetShelterPop();
+                shelterSpacesAvailablePigs += s.GetShelterSpace();
+            }
+            else if (s.species == Base.GoodType.Animal_Goat)
+            {
+                populationCapacityGoats += s.animalCapacity;
+                populationCurrentGoats += s.GetShelterPop();
+                shelterSpacesAvailableGoats += s.GetShelterSpace();
+            }
+            else if (s.species == Base.GoodType.Animal_Chicken)
+            {
+                populationCapacityChickens += s.animalCapacity;
+                populationCurrentChickens += s.GetShelterPop();
+                shelterSpacesAvailableChickens += s.GetShelterSpace();
+            }
         }
     }
 
-    public int GetCapacity()
+    public int GetCapacity(Base.GoodType animal)
     {
-        return populationCapacity;
+        switch(animal)
+        {
+            case Base.GoodType.Animal_Pig:
+                return populationCapacityPigs;
+            case Base.GoodType.Animal_Goat:
+                return populationCapacityGoats;
+            case Base.GoodType.Animal_Chicken:
+                return populationCapacityChickens;
+            default:
+                Debug.Log("ShelterHandler.GetCapacity(): No animal specified");
+                return -1;
+        }
     }
 
-    public int GetPopulation()
+    public int GetPopulation(Base.GoodType animal)
     {
-        return populationCurrent;
+        switch(animal)
+        {
+            case Base.GoodType.Animal_Pig:
+                return populationCurrentPigs;
+            case Base.GoodType.Animal_Goat:
+                return populationCurrentGoats;
+            case Base.GoodType.Animal_Chicken:
+                return populationCurrentChickens;
+            default:
+                Debug.Log("ShelterHandler.GetPopulation(): No animal specified");
+                return -1;
+        }
     }
 
-    public bool PlaceAnimal(Animal animal)
+    public int GetSpace(Base.GoodType animal)
+    {
+        switch(animal)
+        {
+            case Base.GoodType.Animal_Pig:
+                return shelterSpacesAvailablePigs;
+            case Base.GoodType.Animal_Goat:
+                return shelterSpacesAvailableGoats;
+            case Base.GoodType.Animal_Chicken:
+                return shelterSpacesAvailableChickens;
+            default:
+                Debug.Log("ShelterHandler.GetSpace(): No animal specified");
+                return -1;
+        }
+    }
+
+    public bool PlaceAnimal(Base.GoodType animal)
     {
         bool success = false;
 
         foreach(Shelter s in shelters)
         {
-            if (s.GetShelterSpace() > 0)
+            if (s.GetShelterSpace() > 0 && s.species == animal)
             {
-                if (s.AddAnimal(animal))
+                if (s.AddAnimal())
                 {
                     success = true;
                     break;
@@ -54,11 +115,20 @@ public class ShelterHandler : MonoBehaviour
         return success;
     }
 
-    public bool RemoveAnimal(Animal animal)
+    public bool RemoveAnimal(GameObject animal)
     {
         bool success = false;
 
-
+        foreach(Shelter s in shelters)
+        {
+            if(RemoveAnimal(animal))
+            {
+                success = true;
+                break;
+            }
+        }
+        if (success == false)
+            Debug.Log("RemoveAnimal(): Animal not found.");
 
         return success;
     }

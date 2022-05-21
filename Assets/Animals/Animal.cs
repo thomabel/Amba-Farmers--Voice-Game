@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class Animal : MonoBehaviour, IInteractable
 {
-    public enum Species { Pig, Goat, Chicken, Rabbit };
+    //public enum Species { Pig, Goat, Chicken, Rabbit };
     public enum Diet { Herbivore, Omnivore }
     public enum Sex { Female, Male };
     public enum Age { Baby, Adolescent, Adult };
@@ -33,8 +33,8 @@ public class Animal : MonoBehaviour, IInteractable
     [SerializeField] public int timesToEatPerDay;
     [SerializeField] public int timesToDrinkPerDay;
 
-    [SerializeField] public Base.GoodType goodType;         // Good type for market
-    [SerializeField] public Species species;                // Species of this animal
+    [SerializeField] public Base.GoodType species;         // Good type for market
+    // [SerializeField] public Species species;                // Species of this animal
     [SerializeField] public Sex sex;                        // Sex of this animal
     [SerializeField] public int age;                        // Animal's current age in days
     [SerializeField] public float hunger;                   // Animal's current hunger
@@ -57,6 +57,7 @@ public class Animal : MonoBehaviour, IInteractable
         lastTimeDrank = seconds.Value;
     }
 
+    // InitAnimal()
     public void InitAnimal(int givenAge, int givenSex = -1)
     {
         if (givenSex == 0 || givenSex == 1)
@@ -64,8 +65,8 @@ public class Animal : MonoBehaviour, IInteractable
         else
             sex = (Sex) Random.Range(0, 1);
         age = givenAge;
-        hunger = 100f;
-        thirst = 100f;
+        hunger = Random.Range(50f, 100f);
+        thirst = Random.Range(50f, 100f);
         health = 100f;
         happiness = 100f;
     }
@@ -104,7 +105,7 @@ public class Animal : MonoBehaviour, IInteractable
         if (shelter != null)
         {
             // Debug.Log(id + " - Eating from shelter " + shelter.GetInstanceID());
-            float eaten = shelter.ConsumeFood(consumptionRateFood);     // amount of food actually eaten
+            float eaten = shelter.RemoveFood(consumptionRateFood);     // amount of food actually eaten
             if (eaten > 0)
             {
                 hunger += (eaten / foodValue) * fillValue;
@@ -123,7 +124,7 @@ public class Animal : MonoBehaviour, IInteractable
         if (shelter != null)
         {
             // Debug.Log(id + " - Drinking from shelter " + shelter.GetInstanceID());
-            float drank = shelter.ConsumeWater(consumptionRateWater);     // amount of water actually drank
+            float drank = shelter.RemoveWater(consumptionRateWater);     // amount of water actually drank
             if (drank > 0)
             {
                 thirst += drank;
