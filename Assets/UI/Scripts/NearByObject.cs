@@ -28,7 +28,11 @@ public class NearByObject : MonoBehaviour
         {
             Debug.Log(closestObject);
             root.Q<VisualElement>("HoverContainer").style.display = DisplayStyle.Flex;
-            root.Q<Label>("ObjectName").text = closestObject.name;
+            Plant plant = closestObject.GetComponent<Plant>();
+            string healthStatus = plant.daysUntilMaturity.ToString();
+            root.Q<Label>("ObjectName").text = closestObject.name +'\n' +
+                "Days till \n Mature: " + healthStatus;
+
 
         }
 
