@@ -7,8 +7,8 @@ using UnityEngine.Events;
 public class DisplayTime : MonoBehaviour
 {	
 	// Time-Based Events
-	public UnityEvent onHourChange;
-	public UnityEvent onDayChange;
+	public GameEvent onHourChange;
+	public GameEvent onDayChange;
 
 //    public GameObject timeDisplay;
     public int startHour;
@@ -49,11 +49,11 @@ public class DisplayTime : MonoBehaviour
 		if (minutes.Value >=60){
 			hours.Value += 1;
 			minutes.Value = 0;
-			onHourChange.Invoke();
+			onHourChange.raise();
 		}
 		if (hours.Value >=24){
 			hours.Value = 0;
-			onDayChange.Invoke();
+			onDayChange.raise();
 		}
 		accumulator-=1;
 	}	

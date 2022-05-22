@@ -8,18 +8,32 @@ public class NearByObject : MonoBehaviour
     VisualElement root;
     public StringVariable Name;
 
+    [SerializeField]
+    private Interact FindClosest;
+
+    private GameObject closestObject;
+
     private void Start()
     {
         root = GetComponent<UIDocument>().rootVisualElement;
-       
+        closestObject = null;
+
+
     }
-    private void Update()
+    private void FixedUpdate()
     {
-        if (Name.Value != null)
+        //Debug.Log(FindClosest.get_closest());
+        closestObject = FindClosest.get_closest();
+        if (closestObject != null && closestObject.tag.Equals("Plant"))
         {
+            Debug.Log(closestObject);
             root.Q<VisualElement>("HoverContainer").style.display = DisplayStyle.Flex;
-            root.Q<Label>("ObjectName").text = Name.Value;
-            
+            Plant plant = closestObject.GetComponent<Plant>();
+            string healthStatus = plant.daysUntilMaturity.ToString();
+            root.Q<Label>("ObjectName").text = closestObject.name +'\n' +
+                "Days till \n Mature: " + healthStatus;
+
+
         }
 
         else

@@ -1,0 +1,62 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="/Assets/UI/Styles/Trivia.uss" />
+    <ui:VisualElement name="Container" class="Container">
+        <ui:VisualElement name="GameShowContainer" class="GameShowContainer">
+            <ui:VisualElement name="Header" class="HeaderContainer" style="padding-bottom: 5px; border-bottom-width: 0;">
+                <ui:Button display-tooltip-when-elided="true" name="BackButton" class="BackButton" />
+                <ui:VisualElement style="height: 100%; width: 92%; flex-direction: row;">
+                    <ui:Label text="Who Wants to Be a Farmer?" display-tooltip-when-elided="true" style="width: 28%; height: 90%; -unity-text-align: middle-center; white-space: normal; -unity-font-style: bold; font-size: 18px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-right-width: 2px; color: rgb(255, 255, 255);" />
+                    <ui:VisualElement name="HighScoreContainer" style="width: 35%; height: 100%; flex-direction: row; margin-right: 8px; margin-bottom: 0; padding-bottom: 2px; padding-right: 5px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-right-width: 0;">
+                        <ui:Label text="High Score" display-tooltip-when-elided="true" style="width: 30%; -unity-text-align: middle-center; height: 100%; color: rgb(255, 255, 255); -unity-font-style: bold; font-size: 18px; white-space: normal;" />
+                        <ui:Label text="100000" display-tooltip-when-elided="true" name="HighScore" style="width: 70%; height: 100%; -unity-text-align: middle-center; background-color: rgb(255, 255, 255); font-size: 26px; color: rgb(180, 152, 0); -unity-font-style: bold; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="width: 35%; height: 100%; flex-direction: row; margin-right: 5px; margin-bottom: 0; padding-bottom: 2px; padding-right: 2px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 2px;">
+                        <ui:Label text="Points" display-tooltip-when-elided="true" style="width: 30%; -unity-text-align: middle-center; height: 100%; color: rgb(255, 255, 255); -unity-font-style: bold; font-size: 18px;" />
+                        <ui:Label text="100000" display-tooltip-when-elided="true" name="PointsScored" style="width: 70%; height: 100%; -unity-text-align: middle-center; background-color: rgb(255, 255, 255); font-size: 26px; color: rgb(180, 152, 0); -unity-font-style: bold; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Body" class="BodyContainer" style="display: flex;">
+                <ui:VisualElement name="QuestionContainer" class="QuestionContainer" style="border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 0; border-left-width: 0; border-right-width: 0; border-bottom-width: 0;">
+                    <ui:ScrollView name="QuestionScrollView" class="QuestionScroll">
+                        <ui:Label text="Who are you?" display-tooltip-when-elided="true" name="Question" style="padding-top: 0; white-space: normal; width: 90%; margin-right: 0; margin-left: 50px; margin-top: 25px;" />
+                    </ui:ScrollView>
+                </ui:VisualElement>
+                <ui:VisualElement name="AnswersContainer" class="AnswersContainer">
+                    <ui:VisualElement name="FirstAndSecondAnswer" class="TwoAnswerContainer">
+                        <ui:Button display-tooltip-when-elided="true" name="FirstAnswer" class="AnswerButton">
+                            <ui:Label text="A" display-tooltip-when-elided="true" name="FirstAnswerLetter" class="AnswerLetter" />
+                            <ui:Label text="Label" display-tooltip-when-elided="true" name="FirstAnswerLabel" style="width: 85%; height: 80%; white-space: normal; color: rgb(0, 0, 0); font-size: 20px; -unity-font-style: normal; -unity-text-align: middle-center;" />
+                        </ui:Button>
+                        <ui:Button display-tooltip-when-elided="true" name="SecondAnswer" class="AnswerButton">
+                            <ui:Label text="B" display-tooltip-when-elided="true" name="SecondAnswerLetter" class="AnswerLetter" style="width: 15%; height: 80%; -unity-text-align: middle-right; -unity-font-style: bold; font-size: 30px; color: rgb(27, 47, 214);" />
+                            <ui:Label text="Label" display-tooltip-when-elided="true" name="SecondAnswerLabel" style="width: 85%; height: 80%; white-space: normal; color: rgb(0, 0, 0); font-size: 20px; -unity-font-style: normal; -unity-text-align: middle-center;" />
+                        </ui:Button>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="ThirdAndFourthAnswer" class="TwoAnswerContainer" style="width: 80%; height: 50%; flex-direction: row; align-items: center; justify-content: center;">
+                        <ui:Button display-tooltip-when-elided="true" name="ThirdAnswer" class="AnswerButton" style="width: 45%; height: 80%; flex-direction: row; justify-content: center; align-items: center; border-top-left-radius: 30px; border-bottom-left-radius: 30px; border-top-right-radius: 30px; border-bottom-right-radius: 30px; background-color: rgb(255, 255, 255); margin-right: 20px;">
+                            <ui:Label text="C" display-tooltip-when-elided="true" name="ThirdAnswerLetter" class="AnswerLetter" style="width: 15%; height: 80%; -unity-text-align: middle-right; -unity-font-style: bold; font-size: 30px; color: rgb(27, 47, 214);" />
+                            <ui:Label text="Label" display-tooltip-when-elided="true" name="ThirdAnswerLabel" style="width: 85%; height: 80%; white-space: normal; color: rgb(0, 0, 0); font-size: 20px; -unity-font-style: normal; -unity-text-align: middle-center;" />
+                        </ui:Button>
+                        <ui:Button display-tooltip-when-elided="true" name="FourthAnswer" class="AnswerButton" style="width: 45%; height: 80%; flex-direction: row; justify-content: center; align-items: center; border-top-left-radius: 30px; border-bottom-left-radius: 30px; border-top-right-radius: 30px; border-bottom-right-radius: 30px; background-color: rgb(255, 255, 255); margin-right: 20px;">
+                            <ui:Label text="D" display-tooltip-when-elided="true" name="FourthAnswerLetter" class="AnswerLetter" style="width: 15%; height: 80%; -unity-text-align: middle-right; -unity-font-style: bold; font-size: 30px; color: rgb(27, 47, 214);" />
+                            <ui:Label text="Label" display-tooltip-when-elided="true" name="FourthAnswerLabel" style="width: 85%; height: 80%; white-space: normal; color: rgb(0, 0, 0); font-size: 20px; -unity-font-style: normal; -unity-text-align: middle-center;" />
+                        </ui:Button>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:Label text="500 Point Question" display-tooltip-when-elided="true" name="ValueOfQuestion" class="ValueOfQuestionLabel" style="display: flex;" />
+                <ui:VisualElement name="NextQuestionContainer" style="width: 100%; height: 15%; align-items: center; justify-content: center; flex-direction: row; padding-left: 30px; padding-right: 0; padding-top: 0; padding-bottom: 0; display: none;">
+                    <ui:Button text="Keep Going!!!!!! " display-tooltip-when-elided="true" name="NextQuestionButton" class="NextQuestionButton" style="border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); margin-right: 40px; font-size: 30px;" />
+                    <ui:Button text="Done" display-tooltip-when-elided="true" name="SaveResultsButton" class="NextQuestionButton DoneButton" style="font-size: 30px; color: rgb(255, 255, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255);" />
+                </ui:VisualElement>
+                <ui:VisualElement name="WrongAnswerContainer" style="width: 100%; height: 15%; flex-direction: row; align-items: center; justify-content: center; padding-bottom: 10px; display: none;">
+                    <ui:Label text="Incorrect! You have lost ALL your Points!!! " display-tooltip-when-elided="true" style="width: 80%; height: 100%; -unity-text-align: middle-center; font-size: 36px; -unity-font-style: bold-and-italic; color: rgb(255, 0, 0);" />
+                    <ui:Button display-tooltip-when-elided="true" name="RestartButton" class="RestartButton" style="-unity-background-scale-mode: scale-to-fit; background-image: url(&apos;/Assets/UI/Textures/RedRestartButton.png&apos;);" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="NewHighScoreMessage" class="BodyContainer" style="display: none; align-items: center; justify-content: center;">
+                <ui:Label text="New High Score!!!!" display-tooltip-when-elided="true" name="HighScoreMessageLabel" style="width: 70%; height: 80%; -unity-text-align: middle-center; background-image: url(&apos;/Assets/UI/Textures/MessageBubble.png&apos;); font-size: 40px; -unity-background-scale-mode: scale-to-fit; -unity-font-style: bold; color: rgb(0, 0, 0);" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

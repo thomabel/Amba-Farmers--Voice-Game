@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 11
   display_name: Pig
-  item_prefab: {fileID: 4094665397092055618, guid: 522cd870d937d884dbfbf430df2810b5, type: 3}
+  item_prefab: {fileID: 4404814370515652443, guid: b2548d70651155b44ba1d4a9e17c3c16, type: 3}
   value: 0
   qty_type: 1
   picture: {fileID: 2800000, guid: 0d413f00e472246439873efd57956def, type: 3}

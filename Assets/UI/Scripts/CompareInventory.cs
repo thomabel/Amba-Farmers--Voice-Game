@@ -128,6 +128,8 @@ public class CompareInventory : MonoBehaviour
             {
                 if (InventoryOne.Add(PlayerEquipment.eitem) == -1) return;
                 PlayerEquipment.eitem = null;
+                PlayerEquipment.Item = null;
+
             }
         }
         else
@@ -138,6 +140,7 @@ public class CompareInventory : MonoBehaviour
 
                 if (InventoryTwo.Add(PlayerEquipment.eitem) == -1) return;
                 PlayerEquipment.eitem = null;
+                PlayerEquipment.Item = null;
             }
 
         }
@@ -148,15 +151,17 @@ public class CompareInventory : MonoBehaviour
         Display(InventoryOne, ScrollViewOne, "1");
         Display(InventoryTwo, ScrollViewTwo, "2");
         DisplayEquippable();
-        root.Q<VisualElement>("QuanInfoContainer").style.display = DisplayStyle.None;
+        if (Item1.index == -1)
+            root.Q<VisualElement>("QuanInfoContainer").style.display = DisplayStyle.None;
 
     }
     void SendtoInventoryTwo()
     {
         if (PlayerEquipment.etool != null)
         {
-            if(InventoryTwo.Add(PlayerEquipment.etool) == -1) return;
+            if (InventoryTwo.Add(PlayerEquipment.etool) == -1) return;
             PlayerEquipment.etool = null;
+            PlayerEquipment.Tool = null;
             Display(InventoryOne, ScrollViewOne, "1");
             Display(InventoryTwo, ScrollViewTwo, "2");
             DisplayEquippable();
@@ -164,7 +169,8 @@ public class CompareInventory : MonoBehaviour
         EquipToolButton.style.opacity = (StyleFloat).6;
         EquipToolButton.style.backgroundImage = null;
         equipItemPressed = false;
-        root.Q<VisualElement>("QuanInfoContainer").style.display = DisplayStyle.None;
+        if (Item1.index == -1)
+            root.Q<VisualElement>("QuanInfoContainer").style.display = DisplayStyle.None;
     }
     void equipPressed(EventBase obj)
     {
@@ -175,6 +181,7 @@ public class CompareInventory : MonoBehaviour
         {
             button.style.opacity = (StyleFloat).6;
             equipItemPressed = false;
+            currentEquip = "empty";
             if (Item1.index != -1)
                 InfoboxDisplay(Item1.inventory.Retrieve(Item1.index));
             else InfoboxDisplay(null);
@@ -200,6 +207,7 @@ public class CompareInventory : MonoBehaviour
     void DisplayEquippable()
     {
         Debug.Log(PlayerEquipment.eitem);
+        Debug.Log(PlayerEquipment.etool);
         if (PlayerEquipment.etool != null)
         {
             DisplayEquipItemOrTool(ref PlayerEquipment.etool.obj, ref EquipToolButton);
@@ -253,15 +261,6 @@ public class CompareInventory : MonoBehaviour
                 market.Comparator.TryGetValue(inventory.Retrieve(i).obj.GetComponent<TypeLabel>().Type, out value);
                 InventoryItem.style.backgroundImage = value.picture;
                 InventoryItem.text = inventory.Retrieve(i).quantity.ToString();
-                /*
-                GameObject obj = inventory.Retrieve(i).obj;
-                if (obj != null)
-                {
-                    market.Comparator.TryGetValue(inventory.Retrieve(i).obj.GetComponent<TypeLabel>().Type, out value);
-                    InventoryItem.style.backgroundImage = value.picture;
-                    InventoryItem.text = inventory.Retrieve(i).quantity.ToString();
-                }
-                */
 
             }
             else InventoryItem.style.backgroundImage = null;
@@ -286,6 +285,13 @@ public class CompareInventory : MonoBehaviour
 
             InventoryItem.style.visibility = Visibility.Hidden;
             Current.Add(InventoryItem);
+        }
+
+        if (Item1.index != -1)
+        {
+            InfoboxDisplay(Item1.inventory.Retrieve(Item1.index));
+            Button PressedInventoryCard = root.Q<Button>(Item1.InvNum.ToString() + Item1.index.ToString());
+            PressedInventoryCard.style.opacity = 1;
         }
     }
     string getTypeLabel(Base.GoodType typeOfItem)
@@ -328,12 +334,14 @@ public class CompareInventory : MonoBehaviour
         {
 
             Item PreviousEquipTool = PlayerEquipment.etool;
-
+            /*
             if (PreviousEquipTool == null)
             {
                 PlayerEquipment.etool = Item1.inventory.Retrieve(Item1.index);
             }
             else PlayerEquipment.EquipTool(Item1.inventory.Retrieve(Item1.index).obj);
+            */
+            PlayerEquipment.EquipTool(Item1.inventory.Retrieve(Item1.index).obj);
 
             Item1.inventory.Remove(Item1.index);
             Item1.inventory.Insert(Item1.index, PreviousEquipTool);
@@ -345,7 +353,7 @@ public class CompareInventory : MonoBehaviour
 
             EquipToolButton.style.opacity = 1;
             EquipItemButton.style.opacity = (StyleFloat).6;
-            
+
         }
 
         Display(InventoryOne, ScrollViewOne, "1");
@@ -356,7 +364,7 @@ public class CompareInventory : MonoBehaviour
     }
 
 
-   void InfoboxDisplay(Item itemClicked, DisplayStyle toolInfoDisplayMode = DisplayStyle.None, DisplayStyle ItemContainerDisplayMode = DisplayStyle.None, DisplayStyle EquipButtonDisplayMode = DisplayStyle.Flex)
+    void InfoboxDisplay(Item itemClicked, DisplayStyle toolInfoDisplayMode = DisplayStyle.None, DisplayStyle ItemContainerDisplayMode = DisplayStyle.None, DisplayStyle EquipButtonDisplayMode = DisplayStyle.Flex)
     {
         if (itemClicked != null)
         {
@@ -383,10 +391,10 @@ public class CompareInventory : MonoBehaviour
         int InvNum = int.Parse(button.name[0].ToString());
 
         int IndexNum = int.Parse(button.name.Substring(1));
-        
+
         //First item pressed
         if (Item1.index == -1)
-        {            
+        {
             Item1.index = IndexNum;
             button.style.opacity = 1;
             Item1.inventory = findInventory(InvNum, ref Item1);
@@ -396,6 +404,10 @@ public class CompareInventory : MonoBehaviour
             {
                 Item1.type = itemClicked.obj.GetComponent<TypeLabel>().Type;
                 InfoboxDisplay(itemClicked);
+                /*
+                if(getTypeLabel(Item1.type) =="Fruit") InfoboxDisplay(itemClicked, DisplayStyle.None, DisplayStyle.None, DisplayStyle.None);
+                else InfoboxDisplay(itemClicked);
+                */
 
             }
             else root.Q<VisualElement>("QuanInfoContainer").style.display = DisplayStyle.None;
@@ -407,14 +419,13 @@ public class CompareInventory : MonoBehaviour
             Item1.index = -1;
             Item1.InvNum = 0;
             button.style.opacity = (StyleFloat).5;
-
             DisplayPressedEquipped();
 
         }
         //If second item pressed then swap Item1 with Item2
         else if (Item2.index == -1)
         {
-            
+
             Item2.index = IndexNum;
             Item2.inventory = findInventory(InvNum, ref Item2);
             Item itemClicked = Item2.inventory.Retrieve(IndexNum);
@@ -445,7 +456,7 @@ public class CompareInventory : MonoBehaviour
         }
         Item.InvNum = 2;
         return InventoryTwo;
-  
+
     }
 
     void DisplayPressedEquipped()
@@ -457,11 +468,12 @@ public class CompareInventory : MonoBehaviour
             InfoboxDisplay(PlayerEquipment.etool, DisplayStyle.Flex, DisplayStyle.None, DisplayStyle.None);
             EquipItemButton.style.opacity = (StyleFloat).6;
         }
-        else
+        else if (currentEquip.Equals("Item"))
         {
             InfoboxDisplay(PlayerEquipment.eitem, DisplayStyle.None, DisplayStyle.Flex, DisplayStyle.None);
             EquipToolButton.style.opacity = (StyleFloat).6;
         }
+        else InfoboxDisplay(null);
     }
 
     bool CheckAcceptableTransfer()
@@ -483,21 +495,13 @@ public class CompareInventory : MonoBehaviour
             Display(InventoryOne, ScrollViewOne, "1");
             Display(InventoryTwo, ScrollViewTwo, "2");
             return false;
-            
+
         }
         return true;
     }
-    private void Update()
+
+    void swapItems()
     {
-        
-        if (Item1.index == -1 && !equipItemPressed) //else if(Item1.index == -1)
-        {
-            root.Q<VisualElement>("QuanInfoContainer").style.display = DisplayStyle.None;
-
-        }
-    }
-
-    void swapItems() {
 
         if (Item1.index != -1 && Item2.index != -1)
         {
@@ -506,13 +510,14 @@ public class CompareInventory : MonoBehaviour
             Item1.inventory.Insert(Item1.index, swap2);
             Item2.inventory.Insert(Item2.index, swap1);
 
-
-            Display(InventoryOne, ScrollViewOne, "1");
-            Display(InventoryTwo, ScrollViewTwo, "2");
             Item1.index = -1;
             Item2.index = -1;
             Item1.InvNum = 0;
             Item2.InvNum = 0;
+
+            Display(InventoryOne, ScrollViewOne, "1");
+            Display(InventoryTwo, ScrollViewTwo, "2");
+
         }
     }
 }

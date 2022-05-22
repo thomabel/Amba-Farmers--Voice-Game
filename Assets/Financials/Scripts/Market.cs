@@ -27,7 +27,7 @@ public class Market : MonoBehaviour
     public bool BuyItem(MarketWrapper item, float quantity)
     {
         var cost = Mathf.Round(item.PriceOf() * quantity);
-        if (cost > player_checking.Balance())
+        if (quantity == 0 || cost > player_checking.Balance())
         {
             return false;
         }
@@ -39,6 +39,10 @@ public class Market : MonoBehaviour
 
         player_checking.Debit((int)cost);
         var obj = Instantiate(item.item_prefab);
+
+        obj.AddComponent<TypeLabel>();
+        TypeLabel tmpLabel = obj.GetComponent<TypeLabel>();
+        tmpLabel.Type = item.type;
 
         foreach (Inventory i in Inventories)
         {
@@ -53,8 +57,7 @@ public class Market : MonoBehaviour
 
     public bool SellItem(Sellable item, float quantity)
     {
-        Debug.Log(item.Equals(null));
-        if (quantity > item.inv[item.index].quantity)
+        if (quantity == 0 || quantity > item.inv[item.index].quantity)
         {
             return false;
         }
@@ -63,7 +66,6 @@ public class Market : MonoBehaviour
 
         var obj = item.inv.Remove(item.index);
         Destroy(obj.obj);
-        //obj.obj = null;
         Sellables.Remove(item);
 
         return true;
@@ -83,7 +85,7 @@ public class Market : MonoBehaviour
     {
         foreach (Inventory inv in Inventories)
         {
-            for(int i = 0; i < inv.Size; i++)
+            for (int i = 0; i < inv.Size; i++)
             {
                 var item = inv[i];
                 if (item == null)

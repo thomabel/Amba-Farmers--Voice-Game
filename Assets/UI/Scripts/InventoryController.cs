@@ -36,7 +36,7 @@ public class InventoryController : MonoBehaviour
     //private Button FocusedButton;
     // Start is called before the first frame update
 
-    void OnEnable ()
+    void OnEnable()
     {
         currentPressedItem = null;
 
@@ -140,6 +140,7 @@ public class InventoryController : MonoBehaviour
         }
         EquippedItem.style.backgroundImage = null;
         PlayerEquipment.eitem = null;
+        PlayerEquipment.Item = null;
         EquippedItem.style.opacity = (StyleFloat).5;
 
         Button InvIndexToChange = root.Q<Button>(index.ToString());
@@ -214,7 +215,7 @@ public class InventoryController : MonoBehaviour
         else
         {
             index = int.Parse(currentPressedItem.name);
-            CurrentCard = player.Retrieve(index);           
+            CurrentCard = player.Retrieve(index);
         }
 
         ItemInfo = root.Q<VisualElement>("ItemInfo");
