@@ -118,7 +118,7 @@ public class Market : MonoBehaviour
             }
         }
 
-        foreach(GameObject AnimalObj in shelters.GetEntirePopulationsList())
+        foreach(GameObject AnimalObj in shelters.GetEntirePopulationList())
             Sellables.Add(new Sellable(null,-1, Comparator[AnimalObj.GetComponent<Animal>().species], AnimalObj));
 
     }

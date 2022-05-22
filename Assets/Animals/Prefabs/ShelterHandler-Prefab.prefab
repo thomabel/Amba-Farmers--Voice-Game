@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5089199828211927454}
   - component: {fileID: 5089199828211927455}
   m_Layer: 0
-  m_Name: ShelterHandler
+  m_Name: ShelterHandler-Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
