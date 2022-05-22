@@ -6,10 +6,12 @@ public class Shelter : MonoBehaviour, IInteractable
 {
     public enum Cleanliness { Filthy, Poor, Okay, Good, Clean };
     [SerializeField] public GameObject animalPrefab;    // Prefab for animal
+
     [SerializeField] public Base.GoodType species;      // Type of animal housed in this shelter
     [SerializeField] public int animalCapacity;         // Number of animals this shelter can hold
     [SerializeField] public float foodCapacity;         // Amount of food this shelter can store
     [SerializeField] public float waterCapacity;        // Amount of water this shelter can store
+    [SerializeField] public List<(GameObject, bool)> spawnPositions;
 
     [SerializeField] public Inventory shelterInv;       // Inventory for this shelter
     [SerializeField] public List<GameObject> population;    // List of animals currently occupying this shelter
@@ -85,10 +87,16 @@ public class Shelter : MonoBehaviour, IInteractable
 
         if (GetShelterSpace() > 0)
         {
-            Vector3 spawnPos = new Vector3(Random.Range(-2.5f, 2.5f), 0, Random.Range(-1, 1));
-            GameObject newPig = Instantiate(animalPrefab, transform.position + spawnPos, Quaternion.identity);
-            newPig.GetComponent<Animal>().InitAnimal(0);
-            success = true;
+            foreach((GameObject spawnPos, bool occupied) in spawnPositions)
+            {
+                if (occupied == false)
+                {
+                    GameObject newAnimal = Instantiate(animalPrefab, spawnPos.transform.position, Quaternion.identity);
+                    newAnimal.GetComponent<Animal>().InitAnimal(0);
+                    success = true;
+                    break;
+                }
+            }
         }
 
         return success;

@@ -12,8 +12,10 @@ GameObject:
   - component: {fileID: 127508631739456068}
   - component: {fileID: 2747748986607677070}
   - component: {fileID: 3593980825811694088}
+  - component: {fileID: -6330819635073025394}
+  - component: {fileID: -2025042109041215395}
   m_Layer: 0
-  m_Name: pig
+  m_Name: Pig-Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,8 +107,7 @@ MonoBehaviour:
   consumptionRateWater: 5
   timesToEatPerDay: 10
   timesToDrinkPerDay: 5
-  goodType: 3
-  species: 0
+  species: 11
   sex: 0
   age: 2
   hunger: 100
@@ -119,3 +120,59 @@ MonoBehaviour:
   lastTimeDrank: 0
   shelter: {fileID: 0}
   seconds: {fileID: 11400000, guid: 88c2409642309774f8e945d5469b73af, type: 2}
+--- !u!114 &-6330819635073025394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4404814370515652443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96a325c29958217419c783504cabafa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: eeb0257e87c1ba34081517bbe3330fed, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3593980825811694088}
+        m_TargetAssemblyTypeName: Animal, AssembelyDefinitions
+        m_MethodName: HungerThirstCheck
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &-2025042109041215395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4404814370515652443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96a325c29958217419c783504cabafa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 03c86adfaa7217c4dbe2f75663949d01, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3593980825811694088}
+        m_TargetAssemblyTypeName: Animal, AssembelyDefinitions
+        m_MethodName: AgeUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

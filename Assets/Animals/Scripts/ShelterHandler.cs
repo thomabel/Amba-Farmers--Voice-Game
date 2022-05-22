@@ -20,10 +20,10 @@ public class ShelterHandler : MonoBehaviour
     void Start()
     {
         shelters = new List<Shelter>(FindObjectsOfType<Shelter>());
-        UpdateShelterNumbers();
+        GetPopulationInfo();
     }
 
-    void UpdateShelterNumbers()
+    void GetPopulationInfo()
     {
         foreach(Shelter s in shelters)
         {
@@ -48,9 +48,9 @@ public class ShelterHandler : MonoBehaviour
         }
     }
 
-    public int GetCapacity(Base.GoodType animal)
+    public int GetCapacity(Base.GoodType species)
     {
-        switch(animal)
+        switch(species)
         {
             case Base.GoodType.Animal_Pig:
                 return populationCapacityPigs;
@@ -64,9 +64,9 @@ public class ShelterHandler : MonoBehaviour
         }
     }
 
-    public int GetPopulation(Base.GoodType animal)
+    public int GetPopulation(Base.GoodType species)
     {
-        switch(animal)
+        switch(species)
         {
             case Base.GoodType.Animal_Pig:
                 return populationCurrentPigs;
@@ -80,9 +80,9 @@ public class ShelterHandler : MonoBehaviour
         }
     }
 
-    public int GetSpace(Base.GoodType animal)
+    public int GetSpace(Base.GoodType species)
     {
-        switch(animal)
+        switch(species)
         {
             case Base.GoodType.Animal_Pig:
                 return shelterSpacesAvailablePigs;
@@ -96,18 +96,34 @@ public class ShelterHandler : MonoBehaviour
         }
     }
 
-    public bool PlaceAnimal(Base.GoodType animal)
+    public bool PlaceAnimal(Base.GoodType species)
     {
         bool success = false;
 
         foreach(Shelter s in shelters)
         {
-            if (s.GetShelterSpace() > 0 && s.species == animal)
+            if (s.GetShelterSpace() > 0 && s.species == species)
             {
                 if (s.AddAnimal())
                 {
                     success = true;
-                    Debug.Log("PlaceAnimal():Animal placed successfully.");
+                    switch(s.species)
+                {
+                    case Base.GoodType.Animal_Pig:
+                        populationCurrentPigs += 1;
+                        shelterSpacesAvailablePigs -= 1;
+                        break;
+                    case Base.GoodType.Animal_Goat:
+                        populationCurrentGoats += 1;
+                        shelterSpacesAvailableGoats -= 1;
+                        break;
+                    case Base.GoodType.Animal_Chicken:
+                        populationCurrentChickens += 1;
+                        shelterSpacesAvailableChickens -= 1;
+                        break;
+                    default:
+                        break;
+                }
                     break;
                 }
             }
@@ -116,6 +132,21 @@ public class ShelterHandler : MonoBehaviour
             Debug.Log("PlaceAnimal(): Unable to place animal.");
 
         return success;
+    }
+
+    public List<GameObject> GetAnimals(Base.GoodType species)
+    {
+        List<GameObject> animals = new List<GameObject>();
+        foreach(Shelter s in shelters)
+        {
+            if (s.species == species)
+            {
+                foreach(GameObject a in s.GetPopulationList())
+                animals.Add(a);
+            }
+        }
+
+        return animals;
     }
 
     public bool RemoveAnimal(GameObject animal)
@@ -127,6 +158,23 @@ public class ShelterHandler : MonoBehaviour
             if(RemoveAnimal(animal))
             {
                 success = true;
+                switch(s.species)
+                {
+                    case Base.GoodType.Animal_Pig:
+                        populationCurrentPigs -= 1;
+                        shelterSpacesAvailablePigs += 1;
+                        break;
+                    case Base.GoodType.Animal_Goat:
+                        populationCurrentGoats -= 1;
+                        shelterSpacesAvailableGoats += 1;
+                        break;
+                    case Base.GoodType.Animal_Chicken:
+                        populationCurrentChickens -= 1;
+                        shelterSpacesAvailableChickens += 1;
+                        break;
+                    default:
+                        break;
+                }
                 break;
             }
         }
