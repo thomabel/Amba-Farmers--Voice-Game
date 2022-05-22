@@ -89,12 +89,13 @@ public class ShopController : MonoBehaviour
 
     private VisualElement emptySellMessage;
 
+    [SerializeField]
+    private ShelterHandler shelters;
 
 
     // Start is called before the first frame update
     void OnEnable()
     {
-
         Initialize();
         AddToLists();
 
@@ -656,7 +657,16 @@ public class ShopController : MonoBehaviour
         foreach (int element in BoughtList)
             market.BuyItem(BoughtCardInfo[element], QuantityMap[element]);
     }
-
+    void CheckoutLiveStock(List<int> BoughtList, List<MarketWrapper> BoughtCardInfo, Dictionary<int, float> QuantityMap)
+    {
+        foreach (int element in BoughtList)
+        {
+            int NumOfAnimalsBought = (int)QuantityMap[element];
+            for(int i = 0; i< NumOfAnimalsBought;++i)
+                shelters.PlaceAnimal(BoughtCardInfo[element].type);
+        }
+            //shelters.PlaceAnimal((int)QuantityMap[element]);
+    }
     void checkoutSell()
     {
         for (int i = SellList.Count - 1; i >= 0; i--)
@@ -681,6 +691,8 @@ public class ShopController : MonoBehaviour
 
             Checkout(PlantBuyList, Plants, PlantQuantity);
             Checkout(ToolBuyList, Tools, ToolQuantity);
+
+            CheckoutLiveStock(LivestockBuyList,Animals, LiveStockQuantity);
             checkoutSell();
             //addtoInventory(LivestockBuyList, Animals,LiveStockQuantity);
 

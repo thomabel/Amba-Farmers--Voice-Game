@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -363,6 +363,17 @@ MonoBehaviour:
   m_TrackedDeviceOrientationAction: {fileID: 5672074719034556991, guid: 737fd54312451534f905ef866f490c4f, type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
+--- !u!114 &278541625 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4103757534373545184, guid: 1f26f2eb69d1c4463b58079b7461285c, type: 3}
+  m_PrefabInstance: {fileID: 4103757535864970646}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68d76343789f539409985df650d5e464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &292977090 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3338131928499158807, guid: 48a44350b6dbd4e46aedbca69e79c0f7, type: 3}
@@ -3031,6 +3042,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pepper
       objectReference: {fileID: 0}
+    - target: {fileID: 811730888934120603, guid: dae62e2050ddf8d4a89489bc87e08e0b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9217613691797672466, guid: dae62e2050ddf8d4a89489bc87e08e0b, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -3118,6 +3133,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 48525f29256b3464b816a35de834158d, type: 2}
   - {fileID: 11400000, guid: 63ba414c542e248129965dc6f5d23ba9, type: 2}
   - {fileID: 11400000, guid: b3424d949e35c43bba4b0173ba43f83f, type: 2}
+  - {fileID: 11400000, guid: bbcb799fd23c64b44bdf2361972f4b9a, type: 2}
+  - {fileID: 11400000, guid: 4046ff77281de4bd097688eaec9f4497, type: 2}
+  - {fileID: 11400000, guid: e3ccddb2e2f7c462b95bf764582a1762, type: 2}
+  - {fileID: 11400000, guid: cd11b36731a33417e9252c58f39204ab, type: 2}
 --- !u!4 &1666174811
 Transform:
   m_ObjectHideFlags: 0
@@ -3204,6 +3223,7 @@ MonoBehaviour:
   controls: {fileID: 614949320}
   market: {fileID: 1666174810}
   PlayerInv: {fileID: 11400000, guid: d3f57a5f20bb8f84a95a209984973a2c, type: 2}
+  shelters: {fileID: 278541625}
 --- !u!1 &1855978316
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,6 +15,7 @@ public class Market : MonoBehaviour
         public int index;
         public MarketWrapper wrap;
 
+
         public Sellable(Inventory inv, int index, MarketWrapper wrap)
         {
             this.inv = inv;

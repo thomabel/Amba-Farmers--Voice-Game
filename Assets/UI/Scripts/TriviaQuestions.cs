@@ -28,12 +28,13 @@ public class TriviaQuestions : MonoBehaviour
     public string highscoreString = "";
 
 
-    private string highscoreFolder = "Assets/UI/TextFiles/HighScore.txt";
+    private string highscoreFolder; //= "Assets/UI/TextFiles/HighScore.txt";
 
     public QuestionsList TriviaList = new QuestionsList();
     // Start is called before the first frame update
     void Start()
     {
+        highscoreFolder = Application.persistentDataPath + "/HighScore.txt";
         try
         {
             WebClient wc = new WebClient();
@@ -48,9 +49,9 @@ public class TriviaQuestions : MonoBehaviour
         
         Debug.Log(TriviaList.Questions[TriviaList.Questions.Length - 1].Actual_Question);
 
-        readTextFile(highscoreFolder);
+        readTextFile();
         //WriteTextFile("128", highscoreFolder);
-        readTextFile(highscoreFolder);
+        readTextFile();
 
     }
 
@@ -59,9 +60,9 @@ public class TriviaQuestions : MonoBehaviour
     {
         
     }
-    public void readTextFile(string filePath = "Assets/UI/TextFiles/HighScore.txt")
+    public void readTextFile()
     {
-        StreamReader read = new StreamReader(filePath);
+        StreamReader read = new StreamReader(highscoreFolder);
         while (!read.EndOfStream)
         {
             highscoreString = read.ReadLine();
@@ -73,9 +74,9 @@ public class TriviaQuestions : MonoBehaviour
 
     }
 
-    public void WriteTextFile(string information, string filePath = "Assets/UI/TextFiles/HighScore.txt")
+    public void WriteTextFile(string information)
     {
-        File.WriteAllText(filePath, information);
+        File.WriteAllText(highscoreFolder, information);
         /*
         StreamWriter writetext = new StreamWriter(filepath);
         writetext.WriteLine(information);
