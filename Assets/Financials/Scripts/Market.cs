@@ -9,18 +9,28 @@ public class Market : MonoBehaviour
     public List<MarketWrapper> Reference;
     public Dictionary<Base.GoodType, MarketWrapper> Comparator;
 
+    public ShelterHandler shelters;
+    /*
+    public struct SellableAnimal
+    {
+
+    }
+    */
     public struct Sellable
     {
         public Inventory inv;
         public int index;
         public MarketWrapper wrap;
 
+        public GameObject Animal;
 
-        public Sellable(Inventory inv, int index, MarketWrapper wrap)
+
+        public Sellable(Inventory inv, int index, MarketWrapper wrap, GameObject Animal)
         {
             this.inv = inv;
             this.index = index;
             this.wrap = wrap;
+            this.Animal = Animal;
         }
     }
     public List<Sellable> Sellables;
@@ -58,15 +68,19 @@ public class Market : MonoBehaviour
 
     public bool SellItem(Sellable item, float quantity)
     {
-        if (quantity == 0 || quantity > item.inv[item.index].quantity)
+        if (item.Animal == null && (quantity == 0 || quantity > item.inv[item.index].quantity))
         {
             return false;
         }
 
         player_checking.Credit((int)(item.wrap.PriceOf() * quantity));
 
-        var obj = item.inv.Remove(item.index);
-        Destroy(obj.obj);
+        if (item.Animal == null)
+        {
+            var obj = item.inv.Remove(item.index);
+            Destroy(obj.obj);
+        }
+        else shelters.RemoveAnimal(item.Animal);
         Sellables.Remove(item);
 
         return true;
@@ -100,9 +114,13 @@ public class Market : MonoBehaviour
                 if (!Comparator.TryGetValue(type.Type, out wrap))
                     continue;
 
-                Sellables.Add(new Sellable(inv, i, wrap));
+                Sellables.Add(new Sellable(inv, i, wrap, null));
             }
         }
+
+        foreach(GameObject AnimalObj in shelters.GetEntirePopulationsList())
+            Sellables.Add(new Sellable(null,-1, Comparator[AnimalObj.GetComponent<Animal>().species], AnimalObj));
+
     }
 
     private void Start()

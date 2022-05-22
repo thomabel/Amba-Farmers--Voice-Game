@@ -257,7 +257,10 @@ public class ShopController : MonoBehaviour
             else
             {
                 item = market.Sellables[i].wrap;
-                mainUI.createLabel(ref SellableQuantity, "InventoryName", null, null, "Q: " + market.Sellables[i].inv.Retrieve(market.Sellables[i].index).quantity);
+                if(market.Sellables[i].Animal == null)
+                    mainUI.createLabel(ref SellableQuantity, "InventoryName", null, null, "Q: " + market.Sellables[i].inv.Retrieve(market.Sellables[i].index).quantity);
+                else
+                    mainUI.createLabel(ref SellableQuantity, "InventoryName", null, null, "W: " + market.Sellables[i].Animal.GetComponent<Animal>().weight);
                 /*
                 InventoryName = new Label();
                 InventoryName.text = market.Sellables[i].inv.name + "\n" + "Inventory";
@@ -461,10 +464,20 @@ public class ShopController : MonoBehaviour
             Label CheckoutItemInfoLabel = null;
             string quantityValue = "";
 
+            
             if (!isBuyMode)
             {
-                quantityValue = "Q: " + market.Sellables[ListType[i]].inv.
+                bool isAnimal = market.Sellables[ListType[i]].Animal != null;
+                if (!isAnimal)
+                {
+                    quantityValue = "Q: " + market.Sellables[ListType[i]].inv.
                     Retrieve(market.Sellables[ListType[i]].index).quantity;
+                }
+                else
+                {
+                    quantityValue = "W: " + market.Sellables[ListType[i]].Animal.
+                    GetComponent<Animal>().weight;
+                }
             }
             mainUI.createLabel(ref CheckoutItemInfoLabel, "CheckoutItemInfoLabel", null, null, ChosenType + " " + item.display_name
                 + " " + "$" + item.PriceOf().ToString() + "\n" + quantityValue);
@@ -472,119 +485,130 @@ public class ShopController : MonoBehaviour
             CheckoutItemInfoContainer.Add(CheckoutItemInfoLabel);
             checkoutCard.Add(CheckoutItemInfoContainer);
 
-            VisualElement QuantityContainer = null;
-            mainUI.createVisualElement(ref QuantityContainer, "QuantityContainer", null, null, null);
-
-            TextField Quantity = null;
-            mainUI.createTextField(ref Quantity, "Quantity", 4, QuantityMap[ListType[i]].ToString(), "Q" + typeofItem + ListType[i]);
-
-            //When user presses quantity button and changes it then we enter this callback
-            Quantity.RegisterValueChangedCallback((evt) => {
-
-                decimal totaltmp = 0;
-                float maxQuantity = 0;
+            if (isBuyMode || (!isBuyMode && market.Sellables[ListType[i]].Animal == null))
+            {
+                VisualElement QuantityContainer = null;
+                mainUI.createVisualElement(ref QuantityContainer, "QuantityContainer", null, null, null);
 
 
-                TextField tmp = (TextField)evt.target;
+                TextField Quantity = null;
+                mainUI.createTextField(ref Quantity, "Quantity", 4, QuantityMap[ListType[i]].ToString(), "Q" + typeofItem + ListType[i]);
 
-                VisualElement parent1 = tmp.GetFirstAncestorOfType<VisualElement>();
-                VisualElement parent2 = parent1.GetFirstAncestorOfType<VisualElement>();
-
-                float n = 0;
-
-                int num = int.Parse(tmp.name.Substring(2));
-                bool intType = false;
-
-                if (isBuyMode)
+                //When user presses quantity button and changes it then we enter this callback
+                Quantity.RegisterValueChangedCallback((evt) =>
                 {
-                    totaltmp = total;
-                    maxQuantity = 99;
 
-                    intType = items[num].qty_type == Base.QuantityType.Integer;
+                    decimal totaltmp = 0;
+                    float maxQuantity = 0;
 
-                }
-                else
-                {
-                    totaltmp = SellTotal;
 
-                    Item obj = market.Sellables[num].inv.Retrieve(market.Sellables[num].index);
-                    maxQuantity = obj.quantity;
-                    MarketWrapper value;
-                    market.Comparator.TryGetValue(obj.obj.GetComponent<TypeLabel>().Type, out value);
-                    intType = value.qty_type == Base.QuantityType.Integer;
-                }
+                    TextField tmp = (TextField)evt.target;
 
-                if (tmp.value != null && evt.previousValue.Contains("."))
-                {
-                    char ch = '.';
-                    //https://www.techiedelight.com/count-occurrences-of-character-within-string-csharp/
-                    int freq = evt.newValue.Count(x => (x == ch));
+                    VisualElement parent1 = tmp.GetFirstAncestorOfType<VisualElement>();
+                    VisualElement parent2 = parent1.GetFirstAncestorOfType<VisualElement>();
 
-                    if (freq > 1)
+                    float n = 0;
+
+                    int num = int.Parse(tmp.name.Substring(2));
+                    bool intType = false;
+
+                    if (isBuyMode)
                     {
-                        tmp.value = evt.previousValue;
-                    }
-                }
+                        totaltmp = total;
+                        maxQuantity = 99;
 
-                //Check valid float
-                if (float.TryParse(tmp.value, out n))
-                {
-                    //Quantity type is an Int
-                    if (intType)
-                    {
-                        n = (float)Math.Floor(n);
-                        tmp.value = n.ToString();
-                    }
+                        intType = items[num].qty_type == Base.QuantityType.Integer;
 
-                    totaltmp -= (Decimal)(QuantityMap[num] * item.PriceOf());
-                    if (n > maxQuantity)
-                    {
-                        QuantityMap[num] = maxQuantity;
-                        tmp.value = maxQuantity.ToString();
                     }
-                    //Quantity entered less than min
-                    else if (n < 0)
-                    {
-                        QuantityMap[num] = 0;
-                        tmp.value = "0";
-                    }
-                    // In between min and max
                     else
                     {
-                        QuantityMap[num] = n;
+                        totaltmp = SellTotal;
+
+                        Item obj = market.Sellables[num].inv.Retrieve(market.Sellables[num].index);
+                        maxQuantity = obj.quantity;
+                        MarketWrapper value;
+                        market.Comparator.TryGetValue(obj.obj.GetComponent<TypeLabel>().Type, out value);
+                        intType = value.qty_type == Base.QuantityType.Integer;
                     }
 
-                    totaltmp += (Decimal)(QuantityMap[num] * item.PriceOf());
-                }
-                //Not valid float then reset to 0
-                else
-                {
-                    Debug.Log("total = " + QuantityMap[num]);
-                    totaltmp -= (Decimal)(QuantityMap[num] * item.PriceOf());
-                    Debug.Log("total = " + totaltmp);
-                    QuantityMap[num] = 0;
-                    if (!tmp.value.Equals(""))
-                        tmp.value = "0";
+                    if (tmp.value != null && evt.previousValue.Contains("."))
+                    {
+                        char ch = '.';
+                        //https://www.techiedelight.com/count-occurrences-of-character-within-string-csharp/
+                        int freq = evt.newValue.Count(x => (x == ch));
 
-                }
+                        if (freq > 1)
+                        {
+                            tmp.value = evt.previousValue;
+                        }
+                    }
 
-                //Dependent on if item is sellable or buy card then add
-                //to appropriate total
-                if (!BuyOrSell.Equals("S")) total = totaltmp;
-                else SellTotal = totaltmp;
+                    //Check valid float
+                    if (float.TryParse(tmp.value, out n))
+                    {
+                        //Quantity type is an Int
+                        if (intType)
+                        {
+                            n = (float)Math.Floor(n);
+                            tmp.value = n.ToString();
+                        }
 
-                UpdateMoneyBalance();
-            });
+                        totaltmp -= (Decimal)(QuantityMap[num] * item.PriceOf());
+                        if (n > maxQuantity)
+                        {
+                            QuantityMap[num] = maxQuantity;
+                            tmp.value = maxQuantity.ToString();
+                        }
+                        //Quantity entered less than min
+                        else if (n < 0)
+                        {
+                            QuantityMap[num] = 0;
+                            tmp.value = "0";
+                        }
+                        // In between min and max
+                        else
+                        {
+                            QuantityMap[num] = n;
+                        }
 
-            QuantityContainer.Add(Quantity);
+                        totaltmp += (Decimal)(QuantityMap[num] * item.PriceOf());
+                    }
+                    //Not valid float then reset to 0
+                    else
+                    {
+                        Debug.Log("total = " + QuantityMap[num]);
+                        totaltmp -= (Decimal)(QuantityMap[num] * item.PriceOf());
+                        Debug.Log("total = " + totaltmp);
+                        QuantityMap[num] = 0;
+                        if (!tmp.value.Equals(""))
+                            tmp.value = "0";
 
-            checkoutCard.Add(QuantityContainer);
+                    }
+
+                    //Dependent on if item is sellable or buy card then add
+                    //to appropriate total
+                    if (!BuyOrSell.Equals("S")) total = totaltmp;
+                    else SellTotal = totaltmp;
+
+                    UpdateMoneyBalance();
+                });
+
+                QuantityContainer.Add(Quantity);
+
+                checkoutCard.Add(QuantityContainer);
+
+                if (!BuyOrSell.Equals("S")) total += (Decimal)(item.PriceOf() * QuantityMap[ListType[i]]);
+                else SellTotal += (Decimal)(item.PriceOf() * QuantityMap[ListType[i]]);
+                //UpdateMoneyBalance();
+            }
+
+            else
+            {
+                if (!BuyOrSell.Equals("S")) total += (Decimal)(item.PriceOf());
+                else SellTotal += (Decimal)(item.PriceOf());
+            }
             CheckoutScrollView.Add(checkoutCard);
-
-            if (!BuyOrSell.Equals("S")) total += (Decimal)(item.PriceOf() * QuantityMap[ListType[i]]);
-            else SellTotal += (Decimal)(item.PriceOf() * QuantityMap[ListType[i]]);
             UpdateMoneyBalance();
-
         }
 
     }

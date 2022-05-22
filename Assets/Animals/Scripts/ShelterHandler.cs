@@ -80,6 +80,17 @@ public class ShelterHandler : MonoBehaviour
         }
     }
 
+    public List<GameObject> GetEntirePopulationsList()
+    {
+        List<GameObject> EntirePopulation = new List<GameObject>();
+        foreach (Shelter s in shelters)
+        {
+            EntirePopulation.AddRange(s.population);
+
+        }
+        return EntirePopulation;
+    }
+
     public int GetSpace(Base.GoodType animal)
     {
         switch(animal)
@@ -121,7 +132,7 @@ public class ShelterHandler : MonoBehaviour
 
         foreach(Shelter s in shelters)
         {
-            if(RemoveAnimal(animal))
+            if(s.RemoveAnimal(animal))
             {
                 success = true;
                 break;

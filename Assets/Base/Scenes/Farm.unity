@@ -363,17 +363,6 @@ MonoBehaviour:
   m_TrackedDeviceOrientationAction: {fileID: 5672074719034556991, guid: 737fd54312451534f905ef866f490c4f, type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
---- !u!114 &278541625 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4103757534373545184, guid: 1f26f2eb69d1c4463b58079b7461285c, type: 3}
-  m_PrefabInstance: {fileID: 4103757535864970646}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68d76343789f539409985df650d5e464, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &292977090 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3338131928499158807, guid: 48a44350b6dbd4e46aedbca69e79c0f7, type: 3}
@@ -1839,6 +1828,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 813774581}
   m_CullTransparentMesh: 1
+--- !u!1 &850173237
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 850173239}
+  - component: {fileID: 850173238}
+  m_Layer: 0
+  m_Name: ShelterHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &850173238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850173237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f706a7d5197934511b16d3b57a3de427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shelters: []
+--- !u!4 &850173239
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850173237}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &851174409
 GameObject:
   m_ObjectHideFlags: 0
@@ -3137,6 +3170,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4046ff77281de4bd097688eaec9f4497, type: 2}
   - {fileID: 11400000, guid: e3ccddb2e2f7c462b95bf764582a1762, type: 2}
   - {fileID: 11400000, guid: cd11b36731a33417e9252c58f39204ab, type: 2}
+  shelters: {fileID: 850173238}
 --- !u!4 &1666174811
 Transform:
   m_ObjectHideFlags: 0
@@ -3223,7 +3257,7 @@ MonoBehaviour:
   controls: {fileID: 614949320}
   market: {fileID: 1666174810}
   PlayerInv: {fileID: 11400000, guid: d3f57a5f20bb8f84a95a209984973a2c, type: 2}
-  shelters: {fileID: 278541625}
+  shelters: {fileID: 850173238}
 --- !u!1 &1855978316
 GameObject:
   m_ObjectHideFlags: 0

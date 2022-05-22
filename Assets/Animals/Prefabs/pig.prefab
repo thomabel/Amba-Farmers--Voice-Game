@@ -105,8 +105,7 @@ MonoBehaviour:
   consumptionRateWater: 5
   timesToEatPerDay: 10
   timesToDrinkPerDay: 5
-  goodType: 3
-  species: 0
+  species: 11
   sex: 0
   age: 2
   hunger: 100
