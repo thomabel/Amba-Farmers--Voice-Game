@@ -72,16 +72,12 @@ public class Animal : MonoBehaviour, IInteractable
         happiness = 100f;
     }
 
-    // Update is used to decay the animal's hunger and thirst
+    // Update is used to decay the animal's hunger and thirst and 
     void Update()
     {
         if (seconds.Value - lastTimeEaten > 5f)
         {
             this.DecayHungerAndThirst();
-            if (GetHungerStatus() == Hunger.Hungry)
-                Eat();
-            if (GetThirstStatus() == Thirst.Thirsty)
-                Drink();
         }
     }
 
@@ -146,6 +142,19 @@ public class Animal : MonoBehaviour, IInteractable
             thirst = 0f;
     }
 
+    public void HungerThirstCheck()
+    {
+        if (GetHungerStatus() == Hunger.Hungry)
+            Eat();
+        if (GetThirstStatus() == Thirst.Thirsty)
+            Drink();
+    }
+
+    public void AgeUp()
+    {
+        age += 1;
+    }
+
     void Grow()
     {
         // change consumption rate based on current age and weight
@@ -155,6 +164,11 @@ public class Animal : MonoBehaviour, IInteractable
     {
         float[] stats = { (float) species, (float) sex, age, hunger, thirst, health, happiness, weight };
         return stats;
+    }
+
+    public float GetWeight()
+    {
+        return weight;
     }
 
     public Hunger GetHungerStatus()
