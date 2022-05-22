@@ -107,10 +107,13 @@ public class ShelterHandler : MonoBehaviour
                 if (s.AddAnimal())
                 {
                     success = true;
+                    Debug.Log("PlaceAnimal():Animal placed successfully.");
                     break;
                 }
             }
         }
+        if (success == false)
+            Debug.Log("PlaceAnimal(): Unable to place animal.");
 
         return success;
     }

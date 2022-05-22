@@ -76,7 +76,7 @@ public class Shelter : MonoBehaviour, IInteractable
 
     public int GetShelterSpace() 
     {
-        return population.Capacity - animalCapacity;
+        return animalCapacity - population.Capacity;
     }
 
     public bool AddAnimal()
