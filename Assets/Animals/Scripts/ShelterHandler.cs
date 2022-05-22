@@ -134,16 +134,13 @@ public class ShelterHandler : MonoBehaviour
         return success;
     }
 
-    public List<GameObject> GetAnimals(Base.GoodType species)
+    public List<GameObject> GetEntirePopulationList()
     {
         List<GameObject> animals = new List<GameObject>();
         foreach(Shelter s in shelters)
         {
-            if (s.species == species)
-            {
-                foreach(GameObject a in s.GetPopulationList())
-                animals.Add(a);
-            }
+            foreach(GameObject a in s.GetPopulationList())
+            animals.Add(a);
         }
 
         return animals;
@@ -155,7 +152,7 @@ public class ShelterHandler : MonoBehaviour
 
         foreach(Shelter s in shelters)
         {
-            if(RemoveAnimal(animal))
+            if(s.RemoveAnimal(animal))
             {
                 success = true;
                 switch(s.species)

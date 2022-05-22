@@ -91,7 +91,7 @@ public class Shelter : MonoBehaviour, IInteractable
             {
                 if (occupied == false)
                 {
-                    GameObject newAnimal = Instantiate(animalPrefab, spawnPos.transform.position, Quaternion.identity);
+                    GameObject newAnimal = Instantiate(animalPrefab, spawnPos.transform.position, Quaternion.Euler(-90,0,0));
                     newAnimal.GetComponent<Animal>().InitAnimal(0);
                     success = true;
                     break;
