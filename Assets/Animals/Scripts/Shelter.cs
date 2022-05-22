@@ -18,9 +18,11 @@ public class Shelter : MonoBehaviour, IInteractable
     [SerializeField] public float foodStock;            // Current food in shelter in kg
     [SerializeField] public float waterStock;           // Current water in shelter in liters
 
+    [SerializeField] public List<GameObject> Spawn;
     void Start()
     {
         population = new List<GameObject>();
+        spawnPositions = new List<(GameObject, bool)>();
         foodStock = 0f;
         waterStock = 0f;
     }
@@ -81,23 +83,39 @@ public class Shelter : MonoBehaviour, IInteractable
         return animalCapacity - population.Capacity;
     }
 
+    [System.Obsolete]
     public bool AddAnimal()
     {
         bool success = false;
 
         if (GetShelterSpace() > 0)
         {
+            foreach (GameObject Spawner in Spawn)
+            {
+                if (Spawner.active == false)
+                {
+                    Spawner.SetActive(true);
+                    GameObject newAnimal = Instantiate(animalPrefab, Spawner.transform.position, Quaternion.Euler(-90, 0, 0));
+                    newAnimal.GetComponent<Animal>().InitAnimal(0);
+                    population.Add(newAnimal);
+                    success = true;
+                    break;
+                }
+            }
+            /*
+            Debug.Log("spawnPositions " + spawnPositions.Count);
             foreach((GameObject spawnPos, bool occupied) in spawnPositions)
             {
                 if (occupied == false)
                 {
                     GameObject newAnimal = Instantiate(animalPrefab, spawnPos.transform.position, Quaternion.Euler(-90,0,0));
                     newAnimal.GetComponent<Animal>().InitAnimal(0);
-                    population.Add(newPig);
+                    population.Add(newAnimal);
                     success = true;
                     break;
                 }
             }
+            */
         }
 
         return success;
