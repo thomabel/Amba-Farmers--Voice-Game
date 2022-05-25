@@ -5,26 +5,34 @@ using UnityEngine;
 public class Shelter : MonoBehaviour, IInteractable
 {
     public enum Cleanliness { Filthy, Poor, Okay, Good, Clean };
-    [SerializeField] public GameObject animalPrefab;    // Prefab for animal
+    
+    [SerializeField] public List<GameObject> spawnPositions;
+    [SerializeField] public GameObject foodTrough;
+    [SerializeField] public GameObject waterTrough;
+    private Trough food;
+    private Trough water;
 
     [SerializeField] public Base.GoodType species;      // Type of animal housed in this shelter
+    [SerializeField] public GameObject animalPrefab;    // Prefab for animal
     [SerializeField] public int animalCapacity;         // Number of animals this shelter can hold
     [SerializeField] public float foodCapacity;         // Amount of food this shelter can store
     [SerializeField] public float waterCapacity;        // Amount of water this shelter can store
-    [SerializeField] public List<(GameObject, bool)> spawnPositions;
 
     [SerializeField] public Inventory shelterInv;       // Inventory for this shelter
-    [SerializeField] public List<GameObject> population;    // List of animals currently occupying this shelter
-    [SerializeField] public float foodStock;            // Current food in shelter in kg
-    [SerializeField] public float waterStock;           // Current water in shelter in liters
 
-    [SerializeField] public List<GameObject> Spawn;
+    [SerializeField] public int freeSpace;
+    [SerializeField] public int currentPopulation;
+    [SerializeField] public List<GameObject> population;    // List of animals currently occupying this shelter
+    
     void Start()
     {
         population = new List<GameObject>();
-        spawnPositions = new List<(GameObject, bool)>();
-        foodStock = 0f;
-        waterStock = 0f;
+        currentPopulation = GetShelterPop();
+        freeSpace = GetShelterSpace();
+        food = foodTrough.GetComponent<Trough>();
+        water = waterTrough.GetComponent<Trough>();
+        food.SetCapacity(foodCapacity);
+        water.SetCapacity(waterCapacity);
     }
 
     void IInteractable.Interact(GameObject other)
@@ -37,85 +45,66 @@ public class Shelter : MonoBehaviour, IInteractable
         return population;
     }
 
-    public float RemoveFood(float amountConsumed)
+    public float RemoveFood(float amount)
     {
-        float foodLeftover = foodStock - amountConsumed;
-        // check inventory for food type and amount
-        // remove required amount or as much as possible
-        // just using number in foodStock for now
-        if (foodLeftover >= 0)
-        {
-            foodStock -= amountConsumed;
-            return amountConsumed;
-        }
+        if (food)
+            return food.EmptyAmount(amount);
         else
         {
-            foodStock = 0;
-            return amountConsumed + foodLeftover;
+            Debug.Log("No food trough found for shelter " + this.GetInstanceID());
+            return 0;
         }
     }
 
-    public float RemoveWater(float amountConsumed)
+    public float RemoveWater(float amount)
     {
-        float waterLeftover = waterStock - amountConsumed;
-        // check inventory for food type and amount
-        // remove required amount or as much as possible
-        // just using number in foodStock for now
-        if (waterLeftover >= 0)
-        {
-            waterStock -= amountConsumed;
-            return amountConsumed;
-        }
+        if (water)
+            return water.EmptyAmount(amount);
         else
         {
-            waterStock = 0;
-            return amountConsumed + waterLeftover;
+            Debug.Log("No water trough found for shelter " + this.GetInstanceID());
+            return 0;
         }
     }
 
     public int GetShelterPop()
     {
-        return population.Capacity;
+        currentPopulation = 0;
+
+        foreach(GameObject animal in population)
+        {
+            currentPopulation += 1;
+        }
+
+        return currentPopulation;
     }
 
     public int GetShelterSpace() 
     {
-        return animalCapacity - population.Capacity;
+        return animalCapacity - currentPopulation;
     }
 
-    [System.Obsolete]
     public bool AddAnimal()
     {
         bool success = false;
 
         if (GetShelterSpace() > 0)
         {
-            foreach (GameObject Spawner in Spawn)
+            foreach (GameObject spawner in spawnPositions)
             {
-                if (Spawner.active == false)
+                if (spawner.active == false)
                 {
-                    Spawner.SetActive(true);
-                    GameObject newAnimal = Instantiate(animalPrefab, Spawner.transform.position, Quaternion.Euler(-90, 0, 0));
+                    spawner.SetActive(true);
+                    GameObject newAnimal = Instantiate(animalPrefab, spawner.transform.position, Quaternion.Euler(0, 90, 0));
                     newAnimal.GetComponent<Animal>().InitAnimal(0);
+                    newAnimal.transform.SetParent(spawner.transform);
                     population.Add(newAnimal);
+                    currentPopulation += 1;
+                    freeSpace -= 1;
                     success = true;
                     break;
                 }
             }
-            /*
-            Debug.Log("spawnPositions " + spawnPositions.Count);
-            foreach((GameObject spawnPos, bool occupied) in spawnPositions)
-            {
-                if (occupied == false)
-                {
-                    GameObject newAnimal = Instantiate(animalPrefab, spawnPos.transform.position, Quaternion.Euler(-90,0,0));
-                    newAnimal.GetComponent<Animal>().InitAnimal(0);
-                    population.Add(newAnimal);
-                    success = true;
-                    break;
-                }
-            }
-            */
         }
 
         return success;
@@ -127,7 +116,12 @@ public class Shelter : MonoBehaviour, IInteractable
         
         if(population.Remove(animal))
         {
+            GameObject spawner = animal.transform.parent.gameObject;
+            //animal.transform.SetParent(null);
             Destroy(animal);
+            spawner.SetActive(false);
+            currentPopulation -= 1;
+            freeSpace += 1;
             success = true;
         }
         
