@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24b3d64f807f7f419ab037d9d69a0f1, type: 3}
   m_Name: Fruit Onion
   m_EditorClassIdentifier: 
-  type: 18
+  type: 19
   display_name: Onion
   item_prefab: {fileID: 4881054833026041909, guid: e9bc4a54a6f6dbd44898fa3dc62c4448, type: 3}
   value: 8

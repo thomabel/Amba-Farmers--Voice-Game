@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24b3d64f807f7f419ab037d9d69a0f1, type: 3}
   m_Name: Seed Tomato
   m_EditorClassIdentifier: 
-  type: 6
+  type: 7
   display_name: Tomato
-  item_prefab: {fileID: 741922505298151880, guid: 76ae3d893aea26643b48dc96dbb7d01a, type: 3}
+  item_prefab: {fileID: 2682924143094785919, guid: 246182cdff5a8454dab2dff9544c05b0, type: 3}
   value: 10
   qty_type: 0
   picture: {fileID: 2800000, guid: 2821bbaf2711c4e53bc791d3d777ff59, type: 3}

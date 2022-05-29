@@ -8,6 +8,7 @@ namespace Base
     {
         Tool_Start,
         Tool_Hoe,
+        Tool_Bucket,
         Tool_End,
         Seed_Start,
         Seed_Avocado,
