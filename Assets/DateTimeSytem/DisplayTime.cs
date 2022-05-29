@@ -27,7 +27,7 @@ public class DisplayTime : MonoBehaviour
     public IntVariable date;
     public IntVariable month;
     public IntVariable year; 
-//    [31, 28, 31]
+    //[31, 28, 31]
     private string[] months = 
     			    {"Jan", "Feb", "Mar",
 			     "Apr", "May", "Jun", 
@@ -52,9 +52,9 @@ public class DisplayTime : MonoBehaviour
 	//timeDisplay.GetComponent<Text>().text = "" + hour + ":" + minutes + ":" + seconds;
    	accumulator = 0; 
     }
-
+     
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
 	// DeltaTime
 	// use while loop, ifs->while, 

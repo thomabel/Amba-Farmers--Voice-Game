@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465785, g: 0.49641252, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -353,11 +353,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 695329ea868a34a62b6bc65891f36506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Inventory:
-  - {fileID: 11400000, guid: cae29d4e224bc47fd9d6c9f4578eb3c7, type: 2}
-  - {fileID: 11400000, guid: 4b5e3b6249546416795cfdc9ada20348, type: 2}
-  - {fileID: 11400000, guid: bff88aeec629a4482a2482268d5d37c7, type: 2}
-  - {fileID: 11400000, guid: b0cd453f7b4494730a4d607c6e288335, type: 2}
+  player: {fileID: 0}
+  market: {fileID: 0}
+  PlayerEquipment: {fileID: 0}
 --- !u!1 &345468437
 GameObject:
   m_ObjectHideFlags: 0
@@ -1438,12 +1436,11 @@ MonoBehaviour:
   Checkmark: {fileID: 2800000, guid: c7503fbf80f5c4869bb0bff93945c4d0, type: 3}
   X: {fileID: 2800000, guid: 5c97fd75f7cfe46cdaafc7ea20f0010f, type: 3}
   player: {fileID: 11400000, guid: c7bdde6092d69164f8be235724038485, type: 2}
-  PlantCards:
-  - {fileID: 11400000, guid: 4b5e3b6249546416795cfdc9ada20348, type: 2}
-  - {fileID: 11400000, guid: cae29d4e224bc47fd9d6c9f4578eb3c7, type: 2}
-  - {fileID: 11400000, guid: bff88aeec629a4482a2482268d5d37c7, type: 2}
-  - {fileID: 11400000, guid: b0cd453f7b4494730a4d607c6e288335, type: 2}
-  total: 0
+  SellCards: []
+  PhoneGameObject: {fileID: 0}
+  market: {fileID: 0}
+  Inventory: {fileID: 0}
+  PlayerInv: {fileID: 0}
 --- !u!1 &1964340072
 GameObject:
   m_ObjectHideFlags: 0
@@ -1600,6 +1597,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShopApp: {fileID: 1814474574}
+  DateModule: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1001 &5000978703216393676
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1739,11 +1738,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2643821229790413994, guid: 48a44350b6dbd4e46aedbca69e79c0f7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.66
+      value: -2.8
       objectReference: {fileID: 0}
     - target: {fileID: 2643821229790413994, guid: 48a44350b6dbd4e46aedbca69e79c0f7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.88
+      value: 2.6
       objectReference: {fileID: 0}
     - target: {fileID: 2643821229790413994, guid: 48a44350b6dbd4e46aedbca69e79c0f7, type: 3}
       propertyPath: m_LocalPosition.z
