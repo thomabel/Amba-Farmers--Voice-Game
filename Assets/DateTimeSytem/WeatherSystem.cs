@@ -37,43 +37,26 @@ public class WeatherSystem: MonoBehaviour
 
     private int [] summerMonths = {10, 11, 12, 0, 1, 2, 3};
     private int [] winterMonths = {4, 5, 6, 7, 8, 9};
-    private void Start() {
-	Debug.Log("In start Weather");
-	//this.month.Value = 1; 
+    private void Start() {	
 	this.currentSeason = Season.SUMMER;
 	this.currentWeather = Weather.SUNNY;
 	this.rain.Stop();
 	this.currentYear = 1;
 	
-//	this.seasonTime = this.summerTime;
-	
 	this.defaultLightColor = this.sunLight.color;
 	this.defaultLightIntensity = this.sunLight.intensity;
         	
     }
-    // May - Oct, rainy, Nov - March Dry,  March - April Windy, 
     public void ChangeSeason (Season seasonType)
     {
 	if (seasonType != this.currentSeason)
 	{
 		switch (seasonType)
 		{
-	/*
-		case Season.SPRING:
-			this.rain.Stop();
-			currentSeason = Season.SPRING;
-			break;
-		*/
 		case Season.SUMMER:
 			this.rain.Stop();
 			currentSeason = Season.SUMMER;
 			break;
-			/*
-		case Season.AUTUMN:
-			this.rain.Stop();
-			currentSeason = Season.AUTUMN;
-			break;
-			*/
 		case Season.WINTER:
 			this.rain.Play();
 			currentSeason = Season.WINTER;
@@ -90,42 +73,15 @@ public class WeatherSystem: MonoBehaviour
 				currentWeather = Weather.SUNNY;	
 				this.rain.Stop();
 				break;
-	/*		case Weather.HOTSUN:
-				currentWeather = Weather.HOTSUN;
-				this.rain.Stop();
-				break;
-	*/
 			case Weather.RAINY:
 				currentWeather = Weather.RAINY;
 				this.rain.Play();
 				break;
-	/*		case Weather.SNOW:
-				currentWeather = Weather.SNOW;
-				this.rain.Stop();
-				break;
-	 */
       		}
 	}
     } 
     // May - Nov, rain, Nov - April
      private void Update(){ 
-	//Debug.Log("Update Weather");	
-//	this.seasonTime -= Time.deltaTime;
-//	yield return new WaitForSeconds(waitTime);
-	/*if (this.currentSeason == Season.SPRING)
-	{
-		LerpSunIntensity(this.sunLight, defaultLightIntensity);
-		LerpLightColor(this.sunLight, defaultLightColor);
-		
-		ChangeWeather(Weather.SUNNY);
-		//if (this.seasonTime <= 0f)
-		if (this.month 	
-		{
-		   ChangeSeason(Season.SUMMER);
-		   this.seasonTime = this.summerTime;
-		}
-	}
-	*/
 	if (this.currentSeason == Season.SUMMER)
 	{
 		LerpSunIntensity(this.sunLight, summerLightIntensity);
@@ -139,19 +95,6 @@ public class WeatherSystem: MonoBehaviour
 		}
 
 	}
-/*	else if (this.currentSeason == Season.AUTUMN)
-	{
-		LerpSunIntensity(this.sunLight, autumnLightIntensity);
-		LerpLightColor(this.sunLight, autumnColor);
-
-		ChangeWeather(Weather.RAIN);
-		if (this.seasonTime <= 0f)
-		{
-		   ChangeSeason(Season.WINTER);
-		   this.seasonTime = this.winterTime;
-		}
-	}
-	*/
 	else if (this.currentSeason == Season.WINTER)
 	{
 		LerpSunIntensity(this.sunLight, winterLightIntensity);

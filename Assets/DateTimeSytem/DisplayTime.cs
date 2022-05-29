@@ -50,7 +50,6 @@ public class DisplayTime : MonoBehaviour
      
     private void Update()
     {
-
 	accumulator += Time.deltaTime*timeScale;
 	while (accumulator >= 1){
 		seconds.Value +=1;
@@ -64,7 +63,6 @@ public class DisplayTime : MonoBehaviour
 		}
 		while (hours.Value >=24){
 			date.Value += 1;
-			//date.Value = date.Value % 24;
 			hours.Value = 0;
 		}
 		while (date.Value > daysInMonth[month.Value-1]){
