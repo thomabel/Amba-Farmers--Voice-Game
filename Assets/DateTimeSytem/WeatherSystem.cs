@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-//using System.Threading;
 
 public class WeatherSystem: MonoBehaviour
 {
@@ -14,23 +13,22 @@ public class WeatherSystem: MonoBehaviour
 
     [Header ("Time Settings")]
     public float seasonTime;
-//    public float springTime;
+
     public float summerTime;
- //   public float autumnTime;
     public float winterTime;
 
     [Header ("Light Settings")]
     public Light sunLight;
     private float defaultLightIntensity;
     public float summerLightIntensity;
-  //  public float autumnLightIntensity;
+
     public float winterLightIntensity;
 
     public ParticleSystem rain;
 
     private Color defaultLightColor;
     public Color summerColor;
-  //  public Color autumnColor;
+  
     public Color winterColor;
   
     public int currentYear = 0;
