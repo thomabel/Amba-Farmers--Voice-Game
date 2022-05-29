@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24b3d64f807f7f419ab037d9d69a0f1, type: 3}
   m_Name: Pig
   m_EditorClassIdentifier: 
-  type: 11
+  type: 12
   display_name: Pig
   item_prefab: {fileID: 4404814370515652443, guid: b2548d70651155b44ba1d4a9e17c3c16, type: 3}
   value: 2

@@ -29,22 +29,29 @@ public class TriviaQuestions : MonoBehaviour
 
 
     private string highscoreFolder; //= "Assets/UI/TextFiles/HighScore.txt";
+    private string QuestionFolder;
 
     public QuestionsList TriviaList = new QuestionsList();
     // Start is called before the first frame update
     void Start()
     {
         highscoreFolder = Application.persistentDataPath + "/HighScore.txt";
+        QuestionFolder = Application.persistentDataPath + "/Questions.txt";
+
         try
         {
             WebClient wc = new WebClient();
             var json = wc.DownloadString("https://mo-amin.github.io/hostJsonPrac/Questions.txt");
             Debug.Log(json);
             TriviaList = JsonUtility.FromJson<QuestionsList>(json);
+            Debug.Log(Application.persistentDataPath);
+
+            WriteQuestionTextFile(json.ToString());
         }
         catch
         {
-            TriviaList = JsonUtility.FromJson<QuestionsList>(textJSON.text);
+            TriviaList = JsonUtility.FromJson<QuestionsList>(File.ReadAllText(QuestionFolder));
+            //TriviaList = JsonUtility.FromJson<QuestionsList>(textJSON.text);
         }
         
         Debug.Log(TriviaList.Questions[TriviaList.Questions.Length - 1].Actual_Question);
@@ -55,11 +62,6 @@ public class TriviaQuestions : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void readTextFile()
     {
         StreamReader read = new StreamReader(highscoreFolder);
@@ -74,9 +76,18 @@ public class TriviaQuestions : MonoBehaviour
 
     }
 
-    public void WriteTextFile(string information)
+    public void WriteHighScoreTextFile(string information)
     {
         File.WriteAllText(highscoreFolder, information);
+        /*
+        StreamWriter writetext = new StreamWriter(filepath);
+        writetext.WriteLine(information);
+        */
+    }
+
+    public void WriteQuestionTextFile(string information)
+    {
+        File.WriteAllText(QuestionFolder, information);
         /*
         StreamWriter writetext = new StreamWriter(filepath);
         writetext.WriteLine(information);

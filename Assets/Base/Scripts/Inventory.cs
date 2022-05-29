@@ -155,6 +155,18 @@ public class Inventory : ScriptableObject, IEnumerable
 
     }
 
+    public float FindQuantity(Base.GoodType type)
+    {
+        foreach (Item i in items)
+        {
+            if (i != null && i.obj.GetComponent<TypeLabel>().Type == type)
+            {
+                return i.quantity;
+            }
+        }
+        return -1;
+    }
+
     // Build editor to show array.
     //private void OnInspectorGUI()
     //{
