@@ -44,6 +44,7 @@ public class WeatherSystem: MonoBehaviour
 	//this.month.Value = 1; 
 	this.currentSeason = Season.SUMMER;
 	this.currentWeather = Weather.SUNNY;
+	this.rain.Stop();
 	this.currentYear = 1;
 	
 //	this.seasonTime = this.summerTime;
