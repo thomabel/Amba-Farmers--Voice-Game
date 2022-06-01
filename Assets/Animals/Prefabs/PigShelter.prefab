@@ -98,7 +98,7 @@ MonoBehaviour:
   - {fileID: 1004943236749872724}
   foodTrough: {fileID: 2308407425255109411}
   waterTrough: {fileID: 4380988025923140743}
-  species: 11
+  species: 12
   animalPrefab: {fileID: 4404814370515652443, guid: b2548d70651155b44ba1d4a9e17c3c16, type: 3}
   animalCapacity: 8
   foodCapacity: 200

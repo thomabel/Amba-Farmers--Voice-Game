@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb98494fb9598d149989f16fd4dac441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fruitType: 16
+  fruitType: 19
   plantName: Onion
   currentHealthStatus: 3
   fruitWeightScale: 1

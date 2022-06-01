@@ -73,7 +73,7 @@ public class Inventory : ScriptableObject, IEnumerable
     /// <returns>>0 as an index, -1 if not valid.</returns>
     public int Add(Item item)
     {
-        if (FreeSpace > 0)
+        if (!DuplicateItems(item.obj.GetComponent<TypeLabel>().Type, item.quantity) && FreeSpace > 0)
         {
             for (int i = 0; i < items.Length; i++)
             {
@@ -140,15 +140,21 @@ public class Inventory : ScriptableObject, IEnumerable
     /// <returns></returns>
     public bool DuplicateItems(Base.GoodType ItemType, float Quantity)
     {
+        if (ItemType > Base.GoodType.Tool_Start && ItemType < Base.GoodType.Tool_End)
+            return false;
+
         for (int i = 0; i < items.Length; i++)
         {
-            var type = items[i].obj.GetComponent<TypeLabel>().Type;
-
-            if (items[i] != null && type == ItemType)
+            if (items[i] != null)
             {
-                items[i].quantity += Quantity;
-                items[i].obj.GetComponent<Quantity>().Value += Quantity;
-                return true;
+                var type = items[i].obj.GetComponent<TypeLabel>().Type;
+
+                if (type == ItemType)
+                {
+                    items[i].quantity += Quantity;
+                    //items[i].obj.GetComponent<Quantity>().Value += Quantity;
+                    return true;
+                }
             }
         }
         return false;

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   display_name: Bucket
-  item_prefab: {fileID: 5882448671471983631, guid: b8cd161c3c5c62a438ab3cad2334450e, type: 3}
+  item_prefab: {fileID: 7908076157103775299, guid: 21760309e95044a41830c2f4eee260e5, type: 3}
   value: 1
   qty_type: 0
   picture: {fileID: 2800000, guid: 5683e5d9c553b418cbecd932e1326161, type: 3}

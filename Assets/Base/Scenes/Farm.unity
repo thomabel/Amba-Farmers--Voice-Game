@@ -3655,6 +3655,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1004943236654355379, guid: ece408d4cc3094fadaf0d070bc53be85, type: 3}
+      propertyPath: species
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1004943236654355379, guid: ece408d4cc3094fadaf0d070bc53be85, type: 3}
+      propertyPath: population.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1004943236654355382, guid: ece408d4cc3094fadaf0d070bc53be85, type: 3}
       propertyPath: m_Name
       value: PigShelter
@@ -4341,6 +4349,7 @@ MonoBehaviour:
   DateModule: {fileID: 555023758}
   controls: {fileID: 614949320}
   player: {fileID: 11400000, guid: c7bdde6092d69164f8be235724038485, type: 2}
+<<<<<<< HEAD
 --- !u!1 &2065037969
 GameObject:
   m_ObjectHideFlags: 0
@@ -4420,6 +4429,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2065037969}
   m_CullTransparentMesh: 1
+=======
+--- !u!114 &2091391110 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1004943236654355379, guid: ece408d4cc3094fadaf0d070bc53be85, type: 3}
+  m_PrefabInstance: {fileID: 1694866614}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68d76343789f539409985df650d5e464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+>>>>>>> 4673926 (merge)
 --- !u!1001 &2113137399
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4714,6 +4736,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5089199828211927455, guid: fc52175a04c5e47cc891c3e062829111, type: 3}
+      propertyPath: shelters.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5089199828211927455, guid: fc52175a04c5e47cc891c3e062829111, type: 3}
+      propertyPath: populationCapacityPigs
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5089199828211927455, guid: fc52175a04c5e47cc891c3e062829111, type: 3}
+      propertyPath: shelters.Array.data[0]
+      value: 
+      objectReference: {fileID: 2091391110}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc52175a04c5e47cc891c3e062829111, type: 3}
 --- !u!1001 &5734759512473713604
