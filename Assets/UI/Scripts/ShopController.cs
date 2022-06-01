@@ -521,7 +521,9 @@ public class ShopController : MonoBehaviour
                         }
                         else
                         {
-                            maxQuantity = 99 - market.TotalNumberOfItems(items[num].type);
+                            if (market.TotalNumberOfItems(items[num].type) != -1)
+                                maxQuantity = 99 - market.TotalNumberOfItems(items[num].type);
+                            else maxQuantity = 99;
                             //maxQuantity = 99;
                         }
 
