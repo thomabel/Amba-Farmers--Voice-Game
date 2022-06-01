@@ -44,3 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shelters: []
+  populationCapacityPigs: 0
+  populationCurrentPigs: 0
+  shelterSpacesAvailablePigs: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24b3d64f807f7f419ab037d9d69a0f1, type: 3}
   m_Name: Fruit Tomato
   m_EditorClassIdentifier: 
-  type: 17
+  type: 18
   display_name: Tomato
   item_prefab: {fileID: 741922505298151880, guid: 76ae3d893aea26643b48dc96dbb7d01a, type: 3}
   value: 10

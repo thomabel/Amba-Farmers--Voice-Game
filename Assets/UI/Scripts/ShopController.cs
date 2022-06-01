@@ -515,7 +515,17 @@ public class ShopController : MonoBehaviour
                     if (isBuyMode)
                     {
                         totaltmp = total;
-                        maxQuantity = 99;
+                        if (items[num].type > Base.GoodType.Animal_Start && items[num].type < Base.GoodType.Animal_End)
+                        {
+                            maxQuantity = shelters.GetCapacity(items[num].type) - shelters.GetPopulation(items[num].type);
+                        }
+                        else
+                        {
+                            if (market.TotalNumberOfItems(items[num].type) != -1)
+                                maxQuantity = 99 - market.TotalNumberOfItems(items[num].type);
+                            else maxQuantity = 99;
+                            //maxQuantity = 99;
+                        }
 
                         intType = items[num].qty_type == Base.QuantityType.Integer;
 
@@ -688,6 +698,8 @@ public class ShopController : MonoBehaviour
             int NumOfAnimalsBought = (int)QuantityMap[element];
             for(int i = 0; i< NumOfAnimalsBought;++i)
                 shelters.PlaceAnimal(BoughtCardInfo[element].type);
+
+            player.Debit(BoughtCardInfo[element].value * NumOfAnimalsBought);
         }
             //shelters.PlaceAnimal((int)QuantityMap[element]);
     }

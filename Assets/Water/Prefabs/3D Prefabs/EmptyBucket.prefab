@@ -160,6 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BucketWithWater: {fileID: 7658547446279119697, guid: 6a66c3d08fb2b4dc891654e16244c131, type: 3}
   BucketWithUrine: {fileID: 7761370821320556092, guid: cac569225b9f94338943a2ddd624e439, type: 3}
+  canvas: {fileID: 0}
 --- !u!114 &-3094772484595126497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfde4d85b794e7e4c9035ccc9e4a9a43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  Type: 2
 --- !u!114 &-7029081664098236754
 MonoBehaviour:
   m_ObjectHideFlags: 0

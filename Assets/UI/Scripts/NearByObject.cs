@@ -20,6 +20,13 @@ public class NearByObject : MonoBehaviour
 
 
     }
+    private void OnEnable()
+    {
+        root = GetComponent<UIDocument>().rootVisualElement;
+        closestObject = null;
+
+
+    }
     private void FixedUpdate()
     {
         //Debug.Log(FindClosest.get_closest());

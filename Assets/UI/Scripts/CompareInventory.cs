@@ -313,7 +313,8 @@ public class CompareInventory : MonoBehaviour
     }
     void equip()
     {
-        if (getTypeLabel(Item1.type) == "Seed")
+        string typeOfItem = getTypeLabel(Item1.type);
+        if (typeOfItem == "Seed")
         {
             Item PreviousEquipItem = PlayerEquipment.eitem;
             PlayerEquipment.inventory = Item1.inventory;
@@ -330,7 +331,7 @@ public class CompareInventory : MonoBehaviour
             EquipItemButton.style.opacity = 1;
 
         }
-        else if (getTypeLabel(Item1.type) == "Tool" || getTypeLabel(Item1.type) == "Fruit")
+        else if (typeOfItem == "Tool" || typeOfItem == "Fruit")
         {
 
             Item PreviousEquipTool = PlayerEquipment.etool;
