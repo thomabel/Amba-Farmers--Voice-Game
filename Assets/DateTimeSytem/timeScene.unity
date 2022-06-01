@@ -4925,7 +4925,7 @@ Transform:
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &464873711
 GameObject:
@@ -5151,7 +5151,7 @@ MonoBehaviour:
   date: {fileID: 11400000, guid: 3dcd8c68c8477bcb5a8c7c9e5273d5fd, type: 2}
   month: {fileID: 11400000, guid: 1996aead3b2f2234d9f727ef60011dc7, type: 2}
   year: {fileID: 11400000, guid: c6a8479df5e423b90b38d6c89b381f68, type: 2}
-  timeScale: 10
+  timeScale: 100
 --- !u!4 &988026417
 Transform:
   m_ObjectHideFlags: 0
@@ -5181,17 +5181,13 @@ MonoBehaviour:
   currentSeason: 0
   currentWeather: 0
   seasonTime: 20
-  springTime: 20
   summerTime: 20
-  autumnTime: 20
   winterTime: 20
   sunLight: {fileID: 1854488466}
   summerLightIntensity: 1.5
-  autumnLightIntensity: 1.25
   winterLightIntensity: 1
   rain: {fileID: 298022568}
   summerColor: {r: 0.8301887, g: 0.4451333, b: 0.06657174, a: 0}
-  autumnColor: {r: 0.65814674, g: 0.60746706, b: 0.6886792, a: 0}
   winterColor: {r: 0.046858337, g: 0.33122802, b: 0.764151, a: 0}
   currentYear: 1
   month: {fileID: 11400000, guid: 1996aead3b2f2234d9f727ef60011dc7, type: 2}
@@ -5352,66 +5348,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1612139167
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1612139169}
-  - component: {fileID: 1612139168}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1612139168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1612139167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dae83e2cbab1b27b5aca43be0ac9d98c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentSeason: 0
-  currentWeather: 0
-  seasonTime: 0
-  springTime: 20
-  summerTime: 20
-  autumnTime: 20
-  winterTime: 20
-  sunLight: {fileID: 1854488466}
-  summerLightIntensity: 1.5
-  autumnLightIntensity: 1.2
-  winterLightIntensity: 1.1
-  rain: {fileID: 0}
-  summerColor: {r: 1, g: 0.24056602, b: 0.512403, a: 0}
-  autumnColor: {r: 0.8301887, g: 0.32501405, b: 0.06657174, a: 0}
-  winterColor: {r: 0.52812386, g: 0.73112345, b: 0.8679245, a: 0}
-  currentYear: 0
-  month: {fileID: 0}
---- !u!4 &1612139169
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1612139167}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1854488465
 GameObject:
