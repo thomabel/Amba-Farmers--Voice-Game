@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: -6912058480868303048}
   - component: {fileID: -8319509426834037085}
   - component: {fileID: -3094772484595126497}
+  - component: {fileID: -7029081664098236754}
   m_Layer: 6
   m_Name: EmptyBucket
   m_TagString: EmptyBucket
@@ -158,6 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BucketWithWater: {fileID: 7658547446279119697, guid: 6a66c3d08fb2b4dc891654e16244c131, type: 3}
+  BucketWithUrine: {fileID: 7761370821320556092, guid: cac569225b9f94338943a2ddd624e439, type: 3}
 --- !u!114 &-3094772484595126497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,3 +173,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 1
+--- !u!114 &-7029081664098236754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7908076157103775299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f98776484b404e5088f9f61567eb1cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 0

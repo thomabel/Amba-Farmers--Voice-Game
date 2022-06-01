@@ -11,10 +11,31 @@ public class BucketWithWater : MonoBehaviour, IInteractable, IEquippable
     private float WaterVolume;
     GameObject newBucket;
 
-    private void Start()
+    public GameObject canvas;
+    private Hint hint;
+    private VolumeBar volumeBar;
+
+    public void Start()
     {
         WaterVolume = 5.0f;
+        canvas = GameObject.Find("Canvas");
+        hint = canvas.GetComponent<Hint>();
+        volumeBar = canvas.GetComponent<VolumeBar>();
     }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        hint.OpenMessage("Use left button to pick up bucket");
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        hint.CloseMessage();
+    }
+
+
+
     void IInteractable.Interact(GameObject with)
     {
         return;
@@ -36,10 +57,15 @@ public class BucketWithWater : MonoBehaviour, IInteractable, IEquippable
             if (last != null && last.GetComponent<Plant>())
             //if (last == null)
             {
-
+                
                 useWater(with);
+                volumeBar.OpenBar(true, WaterVolume);
                 equipment.EquipTool(newBucket);
                 land.SetWater(transform.position, 1.0f);
+                if (WaterVolume == 0.0f)
+                {
+                    volumeBar.CloseBar();
+                }
             }
 
         }
