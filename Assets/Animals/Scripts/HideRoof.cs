@@ -9,6 +9,7 @@ public class HideRoof : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            Debug.Log("I'm in!");
             roof.SetActive(false);
         }
     }
@@ -17,6 +18,7 @@ public class HideRoof : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            Debug.Log("I'm out!");
             roof.SetActive(true);
         }
     }
