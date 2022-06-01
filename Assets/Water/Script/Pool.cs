@@ -4,11 +4,41 @@ using UnityEngine;
 
 public class Pool : MonoBehaviour, IInteractable
 {
+    public GameObject canvas;
+    private Hint hint;
+    private GameObject player;
+    public void Start()
+    {
+        player = GameObject.Find("Player");
+        canvas = GameObject.Find("Canvas");
+        hint = canvas.GetComponent<Hint>();
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (player.GetComponentInChildren<EmptyBucket>())
+        {
+            hint.OpenMessage("Use down button to full the water");
+        }
+        
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        hint.CloseMessage();
+    }
+
+  
+
     void IInteractable.Interact(GameObject with)
     {
-        //Debug.Log("Interact with a pool!");
+       
+ 
+        //hint.OpenMessage("");
+
     }
-   
+
 }
 
 
