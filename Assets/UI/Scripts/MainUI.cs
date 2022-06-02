@@ -55,4 +55,5 @@ public class MainUI
         HideElement.style.display = DisplayStyle.None;
 
     }
+
 }

@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 4379087214095187673}
   - component: {fileID: 5305627167616605833}
   - component: {fileID: 874773429707600688}
+  - component: {fileID: -2997563273543407856}
   m_Layer: 0
   m_Name: Onion
   m_TagString: Plant
@@ -252,3 +253,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &-2997563273543407856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4881054833026041909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfde4d85b794e7e4c9035ccc9e4a9a43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 19

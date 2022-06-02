@@ -1,7 +1,24 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement style="width: 100%; height: 100%; display: flex;">
-        <ui:VisualElement name="HoverContainer" style="width: 15%; height: 30%; left: 55%; position: relative; top: 15%; background-color: rgba(255, 255, 255, 0.57); opacity: 1; display: none; visibility: visible; overflow: visible; -unity-font-style: normal; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px;">
-            <ui:Label text="Label" display-tooltip-when-elided="true" name="ObjectName" style="-unity-text-align: upper-center; color: rgb(0, 0, 0); -unity-font-style: bold; font-size: 20px; -unity-background-image-tint-color: rgb(255, 255, 255);" />
+        <ui:VisualElement name="HoverContainer" style="width: 15%; height: 30%; left: 55%; position: relative; top: 15%; background-color: rgba(255, 255, 255, 0.57); opacity: 1; display: none; visibility: visible; overflow: visible; -unity-font-style: normal; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; align-items: center;">
+            <ui:VisualElement style="width: 100%; height: 20%; margin-top: 5%; flex-direction: row; align-items: center; justify-content: center; border-bottom-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
+                <ui:Label display-tooltip-when-elided="true" name="Picture" style="width: 30%; height: 100%; -unity-text-align: middle-center; background-image: url(&apos;/Assets/UI/Textures/Banana.png&apos;);" />
+                <ui:Label text="Label" display-tooltip-when-elided="true" name="ObjectName" style="-unity-text-align: middle-center; color: rgb(0, 0, 0); -unity-font-style: bold; font-size: 16px; -unity-background-image-tint-color: rgb(255, 255, 255); width: 60%; height: 100%; white-space: normal;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="height: 70%; width: 90%;">
+                <ui:VisualElement style="flex-direction: row; width: 100%; height: 30%; margin-top: 10px; border-bottom-color: rgb(0, 0, 0);">
+                    <ui:Label text="Days Left" display-tooltip-when-elided="true" name="DaysLeftLabel" style="-unity-font-style: bold; color: rgb(0, 0, 0); width: 40%; -unity-text-align: middle-center; height: 100%; white-space: normal; font-size: 14px;" />
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="DaysLeft" style="width: 60%; height: 100%; -unity-text-align: middle-center; font-size: 18px; -unity-font-style: bold; color: rgb(12, 0, 255); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-left-width: 1px; border-bottom-width: 1px;" />
+                </ui:VisualElement>
+                <ui:VisualElement style="flex-direction: row; width: 100%; height: 30%; margin-top: 10px;">
+                    <ui:Label text="Status" display-tooltip-when-elided="true" name="StatusLabel" style="-unity-font-style: bold; color: rgb(0, 0, 0); width: 40%; -unity-text-align: middle-center; height: 100%; white-space: normal; font-size: 14px;" />
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Status" style="width: 60%; height: 100%; -unity-text-align: middle-center; font-size: 18px; -unity-font-style: bold; color: rgb(12, 0, 255); border-left-width: 1px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-bottom-width: 1px;" />
+                </ui:VisualElement>
+                <ui:VisualElement style="flex-direction: row; width: 100%; height: 30%; margin-top: 10px;">
+                    <ui:Label text="Harvest?" display-tooltip-when-elided="true" name="ReadyLabel" style="-unity-font-style: bold; color: rgb(0, 0, 0); width: 40%; -unity-text-align: middle-center; height: 100%; white-space: normal; font-size: 14px;" />
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Ready" style="width: 60%; height: 100%; -unity-text-align: middle-center; font-size: 18px; -unity-font-style: bold; color: rgb(12, 0, 255); border-left-width: 1px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-bottom-width: 0;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
