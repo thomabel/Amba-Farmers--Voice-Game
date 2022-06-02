@@ -266,10 +266,21 @@ public class Plant: MonoBehaviour, IInteractable
 
     void Harvest()
     {
+        // Plant is not ready to harvest.
         if (currentGrowthStage != growthStages.Harvest)
         {
             return;
         }
+
+        Debug.Log("fruit Accum = " + fruitAccumulator);
+        // There is no fruit to harvest.
+        if (fruitAccumulator <= 0.0f)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        // Harvest is successful
         Debug.Log("Harvest");
         Vector3 fruitPlacement;
         fruitPlacement = transform.position;
@@ -278,6 +289,7 @@ public class Plant: MonoBehaviour, IInteractable
         newFruitbasket.qty.Value = fruitAccumulator;
         newFruitbasket.tl.Type = fruitType;
         newFruitbasket.name = plantName; 
+
         Destroy(gameObject);
     }
 

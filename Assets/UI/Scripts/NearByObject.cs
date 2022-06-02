@@ -57,7 +57,7 @@ public class NearByObject : MonoBehaviour
         closestObject = FindClosest.get_closest();
         if (closestObject != null && closestObject.tag.Equals("Plant"))
         {
-            Debug.Log(closestObject);
+            //Debug.Log(closestObject);
             root.Q<VisualElement>("HoverContainer").style.display = DisplayStyle.Flex;
 
             Plant plant = closestObject.GetComponent<Plant>();
