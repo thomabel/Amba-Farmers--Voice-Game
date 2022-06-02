@@ -73,14 +73,14 @@ public class Inventory : ScriptableObject, IEnumerable
     /// <returns>>0 as an index, -1 if not valid.</returns>
     public int Add(Item item)
     {
-        if (FreeSpace > 0)
+        if (FreeSpace > 0 && item != null)
         {
             for (int i = 0; i < items.Length; i++)
             {
                 if (items[i] == null)
                 {
                     items[i] = item;
-                    if(item != null) item.obj.SetActive(false);
+                    item.obj.SetActive(false);
                     return i;
                 }
             }
