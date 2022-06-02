@@ -22,8 +22,6 @@ public class Equipment : MonoBehaviour
     }
     public IEquippable Tool;
 
-    public int item_index;
-
     private Item _eitem;
     public Item eitem
     {
@@ -46,8 +44,6 @@ public class Equipment : MonoBehaviour
     {
         etool = null;
         Tool = null;
-
-        item_index = -1;
         eitem = null;
         Item = null;
     }
@@ -81,15 +77,27 @@ public class Equipment : MonoBehaviour
     /// <returns>Success of equip</returns>
     public bool EquipItem(int index)
     {
-        eitem = inventory.Retrieve(index);
-        if (eitem == null)
+        // Check to see if that item exists.
+        var check = inventory.Retrieve(index);
+        if (check == null)
         {
             return false;
         }
+        // Remove from inventory
+        inventory.Remove(index);
 
+        // Place current equip in inventory.
+        if (eitem != null)
+        {
+            inventory.Add(eitem);
+        }
+
+        // Equip item.
+        eitem = check;
         Item = eitem.obj.GetComponent<IStorable>();
         eitem.obj.transform.parent = transform;
-        item_index = index;
+        eitem.obj.transform.localPosition = Vector3.zero;
+        eitem.obj.SetActive(false);
         return true;
     }
 
@@ -104,9 +112,9 @@ public class Equipment : MonoBehaviour
             return false;
         }
 
-        var item = inventory.Remove(item_index);
-        item.obj.transform.parent = null;
-        item.obj.SetActive(true);
+        eitem.obj.transform.localPosition = Vector3.up;
+        eitem.obj.transform.parent = null;
+        eitem.obj.SetActive(true);
 
         return true;
     }
