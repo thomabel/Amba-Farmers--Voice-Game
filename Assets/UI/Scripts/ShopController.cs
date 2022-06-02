@@ -260,7 +260,7 @@ public class ShopController : MonoBehaviour
                 if (market.Sellables[i].Animal == null)
                 {
                     Item itemTmp = market.Sellables[i].inv.Retrieve(market.Sellables[i].index);
-                    itemTmp.quantity = (float).453221;
+                    //itemTmp.quantity = (float).453221;
                     if (itemTmp.quantity >= 100)
                         itemTmp.quantity = (float) Decimal.Round((Decimal)itemTmp.quantity, 1);
                     else if(itemTmp.quantity >= 10 && itemTmp.quantity < 100)
