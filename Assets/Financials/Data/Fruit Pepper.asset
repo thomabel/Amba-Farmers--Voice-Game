@@ -16,7 +16,7 @@ MonoBehaviour:
   display_name: Pepper
   item_prefab: {fileID: 811730888934120603, guid: dae62e2050ddf8d4a89489bc87e08e0b, type: 3}
   value: 3
-  qty_type: 0
+  qty_type: 1
   picture: {fileID: 2800000, guid: 5dca4c31f7c864b58a52ad775b8cf727, type: 3}
   supply: 0
   demand: 0
