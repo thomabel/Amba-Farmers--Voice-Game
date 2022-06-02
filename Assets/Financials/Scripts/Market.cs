@@ -55,9 +55,13 @@ public class Market : MonoBehaviour
         TypeLabel tmpLabel = obj.GetComponent<TypeLabel>();
         tmpLabel.Type = item.type;
 
+        Item tmp = new Item();
+        tmp.obj = obj;
+        tmp.quantity = quantity;
+
         foreach (Inventory i in Inventories)
         {
-            if (i.Add(obj) >= 0)
+            if (i.Add(tmp) >= 0)//i.Add(obj) >= 0)
             {
                 return true;
             }
@@ -123,6 +127,15 @@ public class Market : MonoBehaviour
 
     }
 
+    public float TotalNumberOfItems(Base.GoodType type)
+    {
+        foreach (Inventory inv in Inventories)
+        {
+            float quantity = inv.FindQuantity(type);
+            if (quantity != -1) return quantity;
+        }
+        return -1;
+    }
     private void Start()
     {
         Comparator = new Dictionary<Base.GoodType, MarketWrapper>();

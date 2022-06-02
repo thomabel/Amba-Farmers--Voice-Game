@@ -11,12 +11,34 @@ public class BucketWithUrine : MonoBehaviour, IInteractable, IEquippable
     private float UrineVolume;
     GameObject newBucket;
 
-    private void Start()
+    public GameObject canvas;
+    private Hint hint;
+    private VolumeBar volumeBar;
+
+    public void Start()
     {
         UrineVolume = 5.0f;
+        canvas = GameObject.Find("Canvas");
+        hint = canvas.GetComponent<Hint>();
+        volumeBar = canvas.GetComponent<VolumeBar>();
     }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        hint.OpenMessage("Use left button to pick up bucket");
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        hint.CloseMessage();
+    }
+
+
+
     void IInteractable.Interact(GameObject with)
     {
+        Debug.Log("From Water");
         return;
     }
     void IEquippable.Use(GameObject with)
@@ -36,10 +58,15 @@ public class BucketWithUrine : MonoBehaviour, IInteractable, IEquippable
             if (last != null && last.GetComponent<Plant>())
             //if (last == null)
             {
-
+                
                 useUrine(with);
+                volumeBar.OpenBar(false, UrineVolume);
                 equipment.EquipTool(newBucket);
                 land.SetNutrients(transform.position, 5.0f);
+                if(UrineVolume == 0.0f)
+                {
+                    volumeBar.CloseBar();
+                }
             }
 
         }

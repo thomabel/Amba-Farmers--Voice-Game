@@ -140,19 +140,37 @@ public class Inventory : ScriptableObject, IEnumerable
     /// <returns></returns>
     public bool DuplicateItems(Base.GoodType ItemType, float Quantity)
     {
+        if (ItemType > Base.GoodType.Tool_Start && ItemType < Base.GoodType.Tool_End)
+            return false;
+
         for (int i = 0; i < items.Length; i++)
         {
-            var type = items[i].obj.GetComponent<TypeLabel>().Type;
-
-            if (items[i] != null && type == ItemType)
+            if (items[i] != null)
             {
-                items[i].quantity += Quantity;
-                items[i].obj.GetComponent<Quantity>().Value += Quantity;
-                return true;
+                var type = items[i].obj.GetComponent<TypeLabel>().Type;
+
+                if (type == ItemType)
+                {
+                    items[i].quantity += Quantity;
+                    //items[i].obj.GetComponent<Quantity>().Value += Quantity;
+                    return true;
+                }
             }
         }
         return false;
 
+    }
+
+    public float FindQuantity(Base.GoodType type)
+    {
+        foreach (Item i in items)
+        {
+            if (i != null && i.obj.GetComponent<TypeLabel>().Type == type)
+            {
+                return i.quantity;
+            }
+        }
+        return -1;
     }
 
     // Build editor to show array.

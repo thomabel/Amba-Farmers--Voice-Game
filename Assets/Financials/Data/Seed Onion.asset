@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24b3d64f807f7f419ab037d9d69a0f1, type: 3}
   m_Name: Seed Onion
   m_EditorClassIdentifier: 
-  type: 7
+  type: 8
   display_name: Onion
-  item_prefab: {fileID: 4881054833026041909, guid: e9bc4a54a6f6dbd44898fa3dc62c4448, type: 3}
+  item_prefab: {fileID: 2682924143094785919, guid: 246182cdff5a8454dab2dff9544c05b0, type: 3}
   value: 8
   qty_type: 0
   picture: {fileID: 2800000, guid: fae9b71ac8971410989bdb8010d0a0f5, type: 3}

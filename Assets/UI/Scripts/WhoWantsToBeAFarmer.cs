@@ -42,7 +42,7 @@ public class WhoWantsToBeAFarmer : MonoBehaviour
 
     private bool newhighScoreOccured;
 
-
+    private bool IswrongAnswer;
 
     
     void OnEnable()
@@ -58,6 +58,7 @@ public class WhoWantsToBeAFarmer : MonoBehaviour
     }
     void initialize()
     {
+        IswrongAnswer = false;
         points = 0;
         QuestionAmount = 50;
         newhighScoreOccured = false;
@@ -140,6 +141,7 @@ public class WhoWantsToBeAFarmer : MonoBehaviour
                 ValueOfQuestion.style.display = DisplayStyle.None;
                 NextQuestionContainer.style.display = DisplayStyle.None;
                 WrongAnswerContainer.style.display = DisplayStyle.Flex;
+                IswrongAnswer = true;
 
             }
             else
@@ -152,12 +154,12 @@ public class WhoWantsToBeAFarmer : MonoBehaviour
                 if (points > getTriviaList.highscore)
                 {
                     StartCoroutine(showHighscoreMessage());
+                    /*
                     highscoreLabel.text = points.ToString();
                     getTriviaList.highscore = points;
                     getTriviaList.highscoreString = points.ToString();
+                    */
                 }
-
-
                 //Show buttons for next and done
                 //Hide question point value label
                 ValueOfQuestion.style.display = DisplayStyle.None;
@@ -211,9 +213,9 @@ public class WhoWantsToBeAFarmer : MonoBehaviour
 
     void SaveResults()
     {
-        if (points > StartingHighScore)
+        if (!IswrongAnswer && points > StartingHighScore)
         {
-            getTriviaList.WriteTextFile(points.ToString());
+            getTriviaList.WriteHighScoreTextFile(points.ToString());
             getTriviaList.highscore = points;
             getTriviaList.highscoreString = points.ToString();
         }

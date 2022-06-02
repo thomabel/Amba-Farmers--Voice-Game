@@ -102,7 +102,7 @@ MonoBehaviour:
   decayRateWater: 3.5
   consumptionRateFood: 2
   consumptionRateWater: 3
-  species: 11
+  species: 12
   sex: 0
   age: 0
   hunger: 100
