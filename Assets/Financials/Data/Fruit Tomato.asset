@@ -16,7 +16,7 @@ MonoBehaviour:
   display_name: Tomato
   item_prefab: {fileID: 741922505298151880, guid: 76ae3d893aea26643b48dc96dbb7d01a, type: 3}
   value: 10
-  qty_type: 0
+  qty_type: 1
   picture: {fileID: 2800000, guid: 2821bbaf2711c4e53bc791d3d777ff59, type: 3}
   supply: 0
   demand: 0

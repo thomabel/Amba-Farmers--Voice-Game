@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d24b3d64f807f7f419ab037d9d69a0f1, type: 3}
-  m_Name: Fruit Onion
+  m_Name: Seed Pepper
   m_EditorClassIdentifier: 
-  type: 19
-  display_name: Onion
-  item_prefab: {fileID: 4881054833026041909, guid: e9bc4a54a6f6dbd44898fa3dc62c4448, type: 3}
-  value: 8
-  qty_type: 1
-  picture: {fileID: 2800000, guid: fae9b71ac8971410989bdb8010d0a0f5, type: 3}
+  type: 0
+  display_name: 
+  item_prefab: {fileID: 0}
+  value: 0
+  qty_type: 0
+  picture: {fileID: 0}
   supply: 0
   demand: 0

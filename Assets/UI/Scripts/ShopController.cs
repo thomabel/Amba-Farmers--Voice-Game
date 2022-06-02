@@ -39,8 +39,8 @@ public class ShopController : MonoBehaviour
 
     private TextField quantityField;
 
-    private decimal total = 0;
-    private decimal SellTotal = 0;
+    private int total = 0;
+    private int SellTotal = 0;
 
     [SerializeField]
     private GameObject PhoneGameObject;
@@ -257,8 +257,19 @@ public class ShopController : MonoBehaviour
             else
             {
                 item = market.Sellables[i].wrap;
-                if(market.Sellables[i].Animal == null)
-                    mainUI.createLabel(ref SellableQuantity, "InventoryName", null, null, "Q: " + market.Sellables[i].inv.Retrieve(market.Sellables[i].index).quantity);
+                if (market.Sellables[i].Animal == null)
+                {
+                    Item itemTmp = market.Sellables[i].inv.Retrieve(market.Sellables[i].index);
+                    itemTmp.quantity = (float).453221;
+                    if (itemTmp.quantity >= 100)
+                        itemTmp.quantity = (float) Decimal.Round((Decimal)itemTmp.quantity, 1);
+                    else if(itemTmp.quantity >= 10 && itemTmp.quantity < 100)
+                        itemTmp.quantity = (float)Decimal.Round((Decimal)itemTmp.quantity, 2);
+                    else
+                        itemTmp.quantity = (float)Decimal.Round((Decimal)itemTmp.quantity, 3);
+                    mainUI.createLabel(ref SellableQuantity, "InventoryName", null, null, "Q: " + itemTmp.quantity.ToString());
+                    
+                }
                 else
                     mainUI.createLabel(ref SellableQuantity, "InventoryName", null, null, "W: " + market.Sellables[i].Animal.GetComponent<Animal>().weight);
                 /*
@@ -319,6 +330,11 @@ public class ShopController : MonoBehaviour
     //Updates text fields with balance changes
     void UpdateMoneyBalance()
     {
+        /*
+        SellTotal = Decimal.Floor(SellTotal);
+        total = Decimal.Floor(total);
+        */
+
         if (MoneyLabel != null && SubtotalLabel != null &&
             SoldSubtotalLabel != null && CheckoutMoneyLabel != null)
         {
@@ -335,17 +351,17 @@ public class ShopController : MonoBehaviour
 
         if (!isBuy)
         {
-            ShopItemPressed(SellList, button.name, SellQuantity);
+            ShopItemPressed(SellList, button.name, SellQuantity, 'S');
             return;
         }
 
-        if (currentTab.Equals("PlantTab")) ShopItemPressed(PlantBuyList, button.name, PlantQuantity);
-        else if (currentTab.Equals("ToolTab")) ShopItemPressed(ToolBuyList, button.name, ToolQuantity);
-        else ShopItemPressed(LivestockBuyList, button.name, LiveStockQuantity);
+        if (currentTab.Equals("PlantTab")) ShopItemPressed(PlantBuyList, button.name, PlantQuantity,'B');
+        else if (currentTab.Equals("ToolTab")) ShopItemPressed(ToolBuyList, button.name, ToolQuantity, 'B');
+        else ShopItemPressed(LivestockBuyList, button.name, LiveStockQuantity, 'B');
 
     }
 
-    void ShopItemPressed(List<int> ItemType, string itemName, Dictionary<int, float> QuantityMap)
+    void ShopItemPressed(List<int> ItemType, string itemName, Dictionary<int, float> QuantityMap, char BuyMode)
     {
         int index = int.Parse(itemName);
         Label Status = root.Q<Label>("Status" + index);
@@ -355,7 +371,8 @@ public class ShopController : MonoBehaviour
         {
             Status.style.backgroundImage = Checkmark;
             ItemType.Add(index);
-            QuantityMap.Add(index, 1);
+            float quantity = findQuantity(BuyMode, index, QuantityMap);
+            QuantityMap.Add(index, quantity);
         }
         else
         {
@@ -365,6 +382,34 @@ public class ShopController : MonoBehaviour
         }
     }
 
+    float findQuantity(char BuyMode, int index, Dictionary<int, float> QuantityMap)
+    {
+        if (BuyMode.Equals('S'))
+        {
+            float quantity = market.Sellables[index].inv.Retrieve(market.Sellables[index].index).quantity;
+            return quantity;
+            //QuantityMap.Add(index, quantity);
+        }
+        else
+        {
+            float quantity = 0;
+            if (currentTab.Equals("PlantTab"))
+                quantity = 99 - market.TotalNumberOfItems(Plants[index].type);
+
+            else if (currentTab.Equals("ToolTab"))
+                quantity = 99 - market.TotalNumberOfItems(Tools[index].type);
+            else
+            {
+                quantity = shelters.GetCapacity(Animals[index].type) - shelters.GetPopulation(Animals[index].type);
+
+            }
+
+            if(quantity <= 0)
+                return 0;
+
+            return 1;
+        }
+    }
     void CheckNoItems()
     {
         VisualElement CheckoutContent = root.Q<VisualElement>("CheckoutContent");
@@ -464,14 +509,13 @@ public class ShopController : MonoBehaviour
             Label CheckoutItemInfoLabel = null;
             string quantityValue = "";
 
-            
             if (!isBuyMode)
             {
                 bool isAnimal = market.Sellables[ListType[i]].Animal != null;
                 if (!isAnimal)
                 {
-                    quantityValue = "Q: " + market.Sellables[ListType[i]].inv.
-                    Retrieve(market.Sellables[ListType[i]].index).quantity;
+                    Item itemTmp = market.Sellables[ListType[i]].inv.Retrieve(market.Sellables[ListType[i]].index);
+                    quantityValue = "Q: " + itemTmp.quantity.ToString();
                 }
                 else
                 {
@@ -492,13 +536,14 @@ public class ShopController : MonoBehaviour
 
 
                 TextField Quantity = null;
-                mainUI.createTextField(ref Quantity, "Quantity", 4, QuantityMap[ListType[i]].ToString(), "Q" + typeofItem + ListType[i]);
+                
+                mainUI.createTextField(ref Quantity, "Quantity", 5, QuantityMap[ListType[i]].ToString(), "Q" + typeofItem + ListType[i]);
 
                 //When user presses quantity button and changes it then we enter this callback
                 Quantity.RegisterValueChangedCallback((evt) =>
                 {
 
-                    decimal totaltmp = 0;
+                    int totaltmp = 0;
                     float maxQuantity = 0;
 
 
@@ -563,7 +608,7 @@ public class ShopController : MonoBehaviour
                             tmp.value = n.ToString();
                         }
 
-                        totaltmp -= (Decimal)(QuantityMap[num] * item.PriceOf());
+                        totaltmp -= (int)(QuantityMap[num] * item.PriceOf());
                         if (n > maxQuantity)
                         {
                             QuantityMap[num] = maxQuantity;
@@ -581,13 +626,13 @@ public class ShopController : MonoBehaviour
                             QuantityMap[num] = n;
                         }
 
-                        totaltmp += (Decimal)(QuantityMap[num] * item.PriceOf());
+                        totaltmp += (int)(QuantityMap[num] * item.PriceOf());
                     }
                     //Not valid float then reset to 0
                     else
                     {
                         Debug.Log("total = " + QuantityMap[num]);
-                        totaltmp -= (Decimal)(QuantityMap[num] * item.PriceOf());
+                        totaltmp -= (int)(QuantityMap[num] * item.PriceOf());
                         Debug.Log("total = " + totaltmp);
                         QuantityMap[num] = 0;
                         if (!tmp.value.Equals(""))
@@ -607,15 +652,15 @@ public class ShopController : MonoBehaviour
 
                 checkoutCard.Add(QuantityContainer);
 
-                if (!BuyOrSell.Equals("S")) total += (Decimal)(item.PriceOf() * QuantityMap[ListType[i]]);
-                else SellTotal += (Decimal)(item.PriceOf() * QuantityMap[ListType[i]]);
+                if (!BuyOrSell.Equals("S")) total += (int)(item.PriceOf() * QuantityMap[ListType[i]]);
+                else SellTotal += (int)(item.PriceOf() * QuantityMap[ListType[i]]);
                 //UpdateMoneyBalance();
             }
 
             else
             {
-                if (!BuyOrSell.Equals("S")) total += (Decimal)(item.PriceOf());
-                else SellTotal += (Decimal)(item.PriceOf());
+                if (!BuyOrSell.Equals("S")) total += (int)(item.PriceOf());
+                else SellTotal += (int)(item.PriceOf());
             }
             CheckoutScrollView.Add(checkoutCard);
             UpdateMoneyBalance();
@@ -653,8 +698,8 @@ public class ShopController : MonoBehaviour
         CheckoutScrollView.Remove(tmp);
 
         //Remove the item from total
-        if (type.Equals('S')) SellTotal -= (Decimal)(market.Sellables[num].wrap.PriceOf() * QuantityMap[num]);
-        else total -= (Decimal)(typeOfItem[num].PriceOf() * QuantityMap[num]);
+        if (type.Equals('S')) SellTotal -= (int)(market.Sellables[num].wrap.PriceOf() * QuantityMap[num]);
+        else total -= (int)(typeOfItem[num].PriceOf() * QuantityMap[num]);
 
         QuantityMap.Remove(num);
 
