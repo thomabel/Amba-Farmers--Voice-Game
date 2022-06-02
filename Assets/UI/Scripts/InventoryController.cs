@@ -33,11 +33,15 @@ public class InventoryController : MonoBehaviour
     [SerializeField]
     private GameObject Phone;
 
+    [SerializeField]
+    private GameObject InfoUI;
+
     //private Button FocusedButton;
     // Start is called before the first frame update
 
     void OnEnable()
     {
+        InfoUI.SetActive(false);
         currentPressedItem = null;
 
         assignUItoVariables();
@@ -126,6 +130,7 @@ public class InventoryController : MonoBehaviour
     }
     void backbutton()
     {
+        InfoUI.SetActive(true);
         Phone.SetActive(true);
         this.gameObject.SetActive(false);
     }

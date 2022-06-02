@@ -36,6 +36,7 @@ public class TriviaQuestions : MonoBehaviour
     void Start()
     {
         highscoreFolder = Application.persistentDataPath + "/HighScore.txt";
+        Debug.Log(highscoreFolder);
         QuestionFolder = Application.persistentDataPath + "/Questions.txt";
 
         try
@@ -64,7 +65,16 @@ public class TriviaQuestions : MonoBehaviour
 
     public void readTextFile()
     {
-        StreamReader read = new StreamReader(highscoreFolder);
+        StreamReader read = null;
+        try
+        {
+            read = new StreamReader(highscoreFolder);
+        }
+        catch
+        {
+            WriteHighScoreTextFile("0");
+            return;
+        }
         while (!read.EndOfStream)
         {
             highscoreString = read.ReadLine();
