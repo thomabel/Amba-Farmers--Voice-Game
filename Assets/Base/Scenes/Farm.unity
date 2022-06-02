@@ -3652,6 +3652,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e3ccddb2e2f7c462b95bf764582a1762, type: 2}
   - {fileID: 11400000, guid: cd11b36731a33417e9252c58f39204ab, type: 2}
   - {fileID: 11400000, guid: aaace2be27fe347859b1d9e843d2bc8f, type: 2}
+  - {fileID: 11400000, guid: abd4644d4b8bb4e0db052b976265091f, type: 2}
   shelters: {fileID: 171502296}
 --- !u!4 &1666174811
 Transform:
