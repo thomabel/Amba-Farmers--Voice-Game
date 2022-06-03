@@ -71,6 +71,13 @@ public class Seed : MonoBehaviour, IStorable, IInteractable
             if (SeedToPlant(GetComponent<TypeLabel>().Type))
             {
                 Instantiate(plantToGrow, transform.position, Quaternion.identity, null);
+                Equipment equipment = GameObject.Find("Player").GetComponent<Equipment>();
+                --equipment.eitem.quantity;
+                if(equipment.eitem.quantity == 0)
+                {
+                    equipment.eitem = null;
+                    equipment.Item = null;
+                }
             }
         }
     }

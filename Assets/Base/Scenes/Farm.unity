@@ -4638,6 +4638,10 @@ PrefabInstance:
       propertyPath: plant
       value: 
       objectReference: {fileID: 927335752}
+    - target: {fileID: 2682924143094785918, guid: 246182cdff5a8454dab2dff9544c05b0, type: 3}
+      propertyPath: equipment
+      value: 
+      objectReference: {fileID: 555023750}
     - target: {fileID: 2682924143094785919, guid: 246182cdff5a8454dab2dff9544c05b0, type: 3}
       propertyPath: m_Name
       value: Seed
