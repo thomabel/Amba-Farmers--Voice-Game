@@ -31,6 +31,7 @@ public class PhoneButtonController : MonoBehaviour
     private GameObject QuestionReader;
 
     private Label Time;
+    private Label Date;
     private Label TimeMultiplier;
 
     [SerializeField]
@@ -43,6 +44,15 @@ public class PhoneButtonController : MonoBehaviour
 
     private bool UserAnsweredQuestion;
 
+    public GameEventListener onDayChange;
+    private int day = 1;
+    private int month = 4;
+    private int year = 2022;
+    string dayString = "01";
+    string monthString = "04";
+    string YearString = "2022";
+
+
 
     [SerializeField]
     private Account player;
@@ -52,6 +62,17 @@ public class PhoneButtonController : MonoBehaviour
         assignUItoVariables();
         root.Focus();
         assignButtonsToFunctions();
+        Date.text = YearString + "-" + monthString + "-" + dayString;
+
+
+    }
+    public void incrementDay()
+    {
+        ++day;
+        if (day < 10) dayString = "0" + day.ToString();
+        else dayString = day.ToString();
+
+        Date.text = YearString + "-" + monthString + "-" + dayString;
     }
     void assignUItoVariables()
     {
@@ -62,6 +83,7 @@ public class PhoneButtonController : MonoBehaviour
         InventoryButton = root.Q<Button>("InventoryButton");
         FinancialsApp = root.Q<Button>("FinancialsApp");
         Time = root.Q<Label>("Time");
+        Date = root.Q<Label>("Date");
         TimeMultiplier = root.Q<Label>("Multiplier");
         Rewind = root.Q<Button>("BackTrack");
         FastForward = root.Q<Button>("FastForward");
