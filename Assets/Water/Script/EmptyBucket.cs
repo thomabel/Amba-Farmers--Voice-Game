@@ -21,6 +21,7 @@ public class EmptyBucket : MonoBehaviour, IInteractable, IEquippable
 
     private void OnTriggerEnter(Collider other)
     {
+        hint = canvas.GetComponent<Hint>();
         hint.OpenMessage("Use left button to pick up bucket");
     }
 
