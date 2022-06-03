@@ -6,6 +6,7 @@ public class BucketWithWater : MonoBehaviour, IInteractable, IEquippable
 {
 
     public GameObject EmptyBucket;
+    public GameObject BucketWithUrine;
     private Equipment equipment;
     private Interact interact;
     private float WaterVolume;
@@ -13,19 +14,20 @@ public class BucketWithWater : MonoBehaviour, IInteractable, IEquippable
 
     public GameObject canvas;
     private Hint hint;
-    private VolumeBar volumeBar;
+
 
     public void Start()
     {
         WaterVolume = 5.0f;
         canvas = GameObject.Find("Canvas");
         hint = canvas.GetComponent<Hint>();
-        volumeBar = canvas.GetComponent<VolumeBar>();
+
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
+        hint = canvas.GetComponent<Hint>();
         hint.OpenMessage("Use left button to pick up bucket");
     }
 
@@ -54,19 +56,30 @@ public class BucketWithWater : MonoBehaviour, IInteractable, IEquippable
         if (with.GetComponent<BucketWithWater>())
         {
 
-            if (last != null && last.GetComponent<Plant>())
-            //if (last == null)
+            if (last != null)
             {
-                
-                useWater(with);
-                volumeBar.OpenBar(true, WaterVolume);
-                equipment.EquipTool(newBucket);
-                land.SetWater(transform.position, 1.0f);
-                if (WaterVolume == 0.0f)
+                if (last.GetComponent<Plant>())
+               
                 {
-                    volumeBar.CloseBar();
+                    useWater(with);   
+                    equipment.EquipTool(newBucket);
+                    land.SetWater(transform.position, 1.0f);
+   
+                }
+
+                else if (last.GetComponent<Pool>())
+                {
+                    WaterVolume = 5.0f;
+                }
+
+                else if (last.GetComponent<Restroom>())
+                {
+                    GameObject.Destroy(with);
+                    with = Instantiate(BucketWithUrine, with.transform.position, Quaternion.identity, player.transform) as GameObject;
+                    equipment.EquipTool(with);
                 }
             }
+
 
         }
 
