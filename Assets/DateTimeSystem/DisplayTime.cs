@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -15,9 +16,10 @@ public class DisplayTime : MonoBehaviour
     public int startSecond;
     public int startMinute;
     public float accumulator;
-	public int timeMultiplier = 1;
-	public int minMultiplier = 1;
-	public int maxMultiplier = 4096;
+	int previousHour;
+
+	public GameSpeed currentSpeed = GameSpeed.Normal;
+	public enum GameSpeed { Normal, Medium, Fast };
     
     //public Text text;
     public IntVariable hours;
@@ -38,27 +40,30 @@ public class DisplayTime : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-	   // DeltaTime
-	accumulator += Time.deltaTime;
-	if (accumulator >= 1){
-		seconds.Value += 1 * timeMultiplier;
-		if (seconds.Value >=60){
-			minutes.Value +=1;
-			seconds.Value = 0;
-		}
-		if (minutes.Value >=60){
-			hours.Value += 1;
-			minutes.Value = 0;
-			onHourChange.raise();
-		}
-		if (hours.Value >=24){
-			hours.Value = 0;
+	switch (currentSpeed) {
+		case GameSpeed.Medium:
+			accumulator += Time.deltaTime * 60;
+			break;
+		case GameSpeed.Fast:
+			accumulator += Time.deltaTime * 3600;
+			break;
+		default:
+			accumulator += Time.deltaTime;
+			break;
+	}
+
+	previousHour = hours.Value;
+	seconds.Value = (int) Math.Floor(accumulator) % 60;
+	minutes.Value = (int) Math.Floor(accumulator / 60) % 60;
+	hours.Value = (int) Math.Floor(accumulator / 3600) % 24;
+	if (Math.Abs(hours.Value - previousHour) > 0) {
+		onHourChange.raise();
+		previousHour = hours.Value;
+		if (hours.Value == 0) {
 			onDayChange.raise();
 		}
-		accumulator-=1;
-	}	
+	}
 	//text.text = "" + hours.Value + ":" + minutes.Value.ToString("D2") + ":" + seconds.Value.ToString("D2"); 
-	
     }
 
 	public string TimeDisplay() {
@@ -68,20 +73,20 @@ public class DisplayTime : MonoBehaviour
 
 	public void incrementMultiplier()
 	{
-		if (timeMultiplier < maxMultiplier)
-			timeMultiplier *= 2;
+		if (currentSpeed != GameSpeed.Fast) {
+			currentSpeed += 1;
+		}
 	}
 
 	public void decrementMultiplier()
 	{
-		if (timeMultiplier > minMultiplier)
-		{
-			timeMultiplier /= 2;
+		if (currentSpeed != GameSpeed.Normal) {
+			currentSpeed -= 1;
 		}
 	}
 
 	public void resetMultiplier()
 	{
-		timeMultiplier = minMultiplier;
+		currentSpeed = GameSpeed.Normal;
 	}
 }
