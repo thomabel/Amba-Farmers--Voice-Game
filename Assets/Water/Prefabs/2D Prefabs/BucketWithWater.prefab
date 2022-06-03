@@ -176,6 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EmptyBucket: {fileID: 748466888722094949, guid: 67296fba2b2b64249a71585f7bcb39f6, type: 3}
+  BucketWithUrine: {fileID: 8502872940768294610, guid: 2447b91d3142744628a0889f1f26f1cd, type: 3}
   canvas: {fileID: 0}
 --- !u!114 &4585449288328633805
 MonoBehaviour:
