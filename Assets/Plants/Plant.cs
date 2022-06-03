@@ -29,7 +29,7 @@ public class Plant: MonoBehaviour, IInteractable
     public healthStatus currentHealthStatus = healthStatus.Fine;
     private float healthAccumulator = 0.5f;
     private float fruitAccumulator = 0f;
-    public float fruitWeightScale = 1f;
+    public float fruitWeightScale = .1f;
 
     // -- ENVIRONMENTAL CONDITIONS --
     public float lightLevel;
@@ -120,7 +120,7 @@ public class Plant: MonoBehaviour, IInteractable
         bool goodNutrients = false;
         bool goodLight = false;
 
-        float hitAmount = .1f;
+        float hitAmount = .01f;
 
         float healthIncrement = 0f;
 
@@ -163,9 +163,8 @@ public class Plant: MonoBehaviour, IInteractable
         healthIncrement += goodNutrients ? hitAmount : -hitAmount; 
         healthIncrement += goodLight ? hitAmount : -hitAmount;
 
-        // effect plant's health and fruit weight
+        // effect plant's health
         healthAccumulator += healthIncrement;
-        fruitAccumulator += healthIncrement;
 
         // check if status needs changing
         if (currentHealthStatus != healthStatus.Dead)
@@ -183,6 +182,27 @@ public class Plant: MonoBehaviour, IInteractable
                     healthAccumulator = 0.1f;
                 }
             }
+        }
+
+        //Update fruit weight
+        switch(currentHealthStatus)
+        {
+            case healthStatus.Optimal:
+                {
+                    fruitAccumulator += 3 * fruitWeightScale;
+                    break;
+                }
+            case healthStatus.Healthy:
+                {
+                    fruitAccumulator += 2 * fruitWeightScale;
+                    break;
+                }
+            case healthStatus.Fine:
+                {
+                    fruitAccumulator += 1 * fruitWeightScale;
+                    break;
+                }
+            default: break;
         }
     } 
          

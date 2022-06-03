@@ -64,7 +64,7 @@ MonoBehaviour:
   fruitType: 18
   plantName: Tomato
   currentHealthStatus: 3
-  fruitWeightScale: 1
+  fruitWeightScale: 0.04
   lightLevel: 0
   lightLoving: 1
   waterLevel: 0
