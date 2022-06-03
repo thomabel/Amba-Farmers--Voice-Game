@@ -237,20 +237,38 @@ public class PhoneButtonController : MonoBehaviour
     {
         Debug.Log("Rewind");
         DateModule.decrementMultiplier();
-        TimeMultiplier.text = DateModule.timeMultiplier.ToString() + "x";
+        switch (DateModule.currentSpeed) {
+            case DisplayTime.GameSpeed.Normal:
+                TimeMultiplier.text = ">";
+                break;
+            case DisplayTime.GameSpeed.Medium:
+                TimeMultiplier.text = ">>";
+                break;
+            default:
+                break;
+        }
     }
 
     void FastForwardPressed()
     {
         Debug.Log("Fast Forward");
         DateModule.incrementMultiplier();
-        TimeMultiplier.text = DateModule.timeMultiplier.ToString() + "x";
+        switch (DateModule.currentSpeed) {
+            case DisplayTime.GameSpeed.Medium:
+                TimeMultiplier.text = ">>";
+                break;
+            case DisplayTime.GameSpeed.Fast:
+                TimeMultiplier.text = ">>>";
+                break;
+            default:
+                break;
+        }
     }
 
     void StartPausePressed()
     {
         Debug.Log("Start/Pause");
         DateModule.resetMultiplier();
-        TimeMultiplier.text = DateModule.timeMultiplier.ToString() + "x";
+        TimeMultiplier.text = ">";
     }
 }
