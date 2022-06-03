@@ -64,17 +64,17 @@ MonoBehaviour:
   fruitType: 20
   plantName: Pepper
   currentHealthStatus: 3
-  fruitWeightScale: 1
+  fruitWeightScale: 0.01
   lightLevel: 0
   lightLoving: 1
   waterLevel: 0
   waterUpperLimit: 1
   waterLowerLimit: 0
-  waterHourlyConsumption: 0.1
+  waterHourlyConsumption: 0.01
   nutrientLevel: 0
   nutrientUpperLimit: 1
   nutrientLowerLimit: 0
-  nutrientHourlyConsumption: 0.1
+  nutrientHourlyConsumption: 0.01
   currentGrowthStage: 0
   daysUntilMaturity: 90
   activateGrowthDemo: 0
