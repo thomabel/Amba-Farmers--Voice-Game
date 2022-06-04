@@ -386,7 +386,9 @@ public class ShopController : MonoBehaviour
     {
         if (BuyMode.Equals('S'))
         {
-            float quantity = market.Sellables[index].inv.Retrieve(market.Sellables[index].index).quantity;
+            float quantity = 1;
+            if (market.Sellables[index].Animal == null)
+                quantity = market.Sellables[index].inv.Retrieve(market.Sellables[index].index).quantity;
             return quantity;
             //QuantityMap.Add(index, quantity);
         }
