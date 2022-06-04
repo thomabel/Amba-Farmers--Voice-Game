@@ -218,7 +218,10 @@ public class ShopController : MonoBehaviour
         if (!isBuy) return;
 
         isBuy = false;
-        if (market.Sellables.Count == 0) market.PopulateSellables();
+
+        market.Sellables.Clear();
+        market.PopulateSellables();
+
         BuyOrSellTabClicked(Visibility.Hidden, buyButton, sellButton, "S");
     }
 
