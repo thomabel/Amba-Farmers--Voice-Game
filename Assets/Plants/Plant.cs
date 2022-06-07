@@ -114,6 +114,10 @@ public class Plant: MonoBehaviour, IInteractable
         DemoAcceleratedGrowthUpdate();
     }
 
+    public int DaysLeftTillHarvest()
+    {
+        return daysUntilMaturity - daysSincePlanting;
+    }
     private void HealthUpdate()
     {
         bool goodWater = false;

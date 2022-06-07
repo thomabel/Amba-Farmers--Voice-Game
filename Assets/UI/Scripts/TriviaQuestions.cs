@@ -42,7 +42,7 @@ public class TriviaQuestions : MonoBehaviour
         try
         {
             WebClient wc = new WebClient();
-            var json = wc.DownloadString("https://mo-amin.github.io/hostJsonPrac/Questions.txt");
+            var json = wc.DownloadString("https://mo-amin.github.io/AFVTriviaQuestions/Questions.txt");
             Debug.Log(json);
             TriviaList = JsonUtility.FromJson<QuestionsList>(json);
             Debug.Log(Application.persistentDataPath);

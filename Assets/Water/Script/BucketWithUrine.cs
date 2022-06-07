@@ -6,6 +6,7 @@ public class BucketWithUrine : MonoBehaviour, IInteractable, IEquippable
 {
 
     public GameObject EmptyBucket;
+    public GameObject BucketWithWater;
     private Equipment equipment;
     private Interact interact;
     private float UrineVolume;
@@ -13,19 +14,20 @@ public class BucketWithUrine : MonoBehaviour, IInteractable, IEquippable
 
     public GameObject canvas;
     private Hint hint;
-    private VolumeBar volumeBar;
+
 
     public void Start()
     {
         UrineVolume = 5.0f;
         canvas = GameObject.Find("Canvas");
         hint = canvas.GetComponent<Hint>();
-        volumeBar = canvas.GetComponent<VolumeBar>();
+
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
+        hint = canvas.GetComponent<Hint>();
         hint.OpenMessage("Use left button to pick up bucket");
     }
 
@@ -55,20 +57,30 @@ public class BucketWithUrine : MonoBehaviour, IInteractable, IEquippable
         if (with.GetComponent<BucketWithUrine>())
         {
 
-            if (last != null && last.GetComponent<Plant>())
-            //if (last == null)
+            if (last != null)
             {
-                
-                useUrine(with);
-                volumeBar.OpenBar(false, UrineVolume);
-                equipment.EquipTool(newBucket);
-                land.SetNutrients(transform.position, 5.0f);
-                if(UrineVolume == 0.0f)
+                if (last.GetComponent<Plant>())
+  
                 {
-                    volumeBar.CloseBar();
+                    useUrine(with);
+                    equipment.EquipTool(newBucket);
+                    land.SetNutrients(transform.position, 5.0f);
+
+                }
+
+                else if (last.GetComponent<Pool>())
+                {
+                    Destroy(with);
+                    with = Instantiate(BucketWithWater, with.transform.position, Quaternion.identity, player.transform) as GameObject;
+                    equipment.EquipTool(with);
+
+                }
+
+                else if (last.GetComponent<Restroom>())
+                {
+                    UrineVolume = 5.0f;
                 }
             }
-
         }
 
     }

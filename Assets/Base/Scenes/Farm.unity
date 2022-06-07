@@ -474,7 +474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a9c4033303f8144d8d8cb7b62edfd69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 2
+  Value: 1
 --- !u!1 &297230056
 GameObject:
   m_ObjectHideFlags: 0
@@ -4379,6 +4379,7 @@ GameObject:
   - component: {fileID: 2055118917}
   - component: {fileID: 2055118916}
   - component: {fileID: 2055118918}
+  - component: {fileID: 2055118919}
   m_Layer: 5
   m_Name: Phone
   m_TagString: Untagged
@@ -4434,7 +4435,36 @@ MonoBehaviour:
   QuestionReader: {fileID: 322102833}
   DateModule: {fileID: 555023758}
   controls: {fileID: 614949320}
+  onDayChange: {fileID: 0}
   player: {fileID: 11400000, guid: c7bdde6092d69164f8be235724038485, type: 2}
+--- !u!114 &2055118919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2055118915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96a325c29958217419c783504cabafa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 03c86adfaa7217c4dbe2f75663949d01, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2055118918}
+        m_TargetAssemblyTypeName: PhoneButtonController, AssembelyDefinitions
+        m_MethodName: incrementDay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2065037969
 GameObject:
   m_ObjectHideFlags: 0
@@ -4638,6 +4668,10 @@ PrefabInstance:
       propertyPath: plant
       value: 
       objectReference: {fileID: 927335752}
+    - target: {fileID: 2682924143094785918, guid: 246182cdff5a8454dab2dff9544c05b0, type: 3}
+      propertyPath: equipment
+      value: 
+      objectReference: {fileID: 555023750}
     - target: {fileID: 2682924143094785919, guid: 246182cdff5a8454dab2dff9544c05b0, type: 3}
       propertyPath: m_Name
       value: Seed

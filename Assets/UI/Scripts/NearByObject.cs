@@ -66,7 +66,7 @@ public class NearByObject : MonoBehaviour
             Picture.style.backgroundImage = objectWrapper.picture;
             ObjectName.text = objectWrapper.display_name;
 
-            DaysLeft.text = plant.daysUntilMaturity.ToString();
+            DaysLeft.text = plant.DaysLeftTillHarvest().ToString();
             Status.text = convertStatusToString(plant.currentHealthStatus);
 
             if (Plant.growthStages.Harvest == plant.currentGrowthStage)

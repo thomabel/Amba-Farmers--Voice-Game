@@ -32,6 +32,9 @@ public class CompareInventory : MonoBehaviour
     [SerializeField]
     private Equipment PlayerEquipment;
 
+
+    //Holds information of item/tool boxes that have
+    //been clicked.
     public struct InvAndIndexInfo
     {
         public Inventory inventory;
@@ -40,13 +43,17 @@ public class CompareInventory : MonoBehaviour
         public Base.GoodType type;
     };
 
-
+    //First item clicked by user
     InvAndIndexInfo Item1;
 
+    //Second item clicked by user
+    //and will be swapped by first item pressed
     InvAndIndexInfo Item2;
+
 
     bool equipItemPressed;
     string currentEquip;
+
 
     Button EquipToolButton;
     Button EquipItemButton;
@@ -342,18 +349,47 @@ public class CompareInventory : MonoBehaviour
             }
             else PlayerEquipment.EquipTool(Item1.inventory.Retrieve(Item1.index).obj);
             */
-            PlayerEquipment.EquipTool(Item1.inventory.Retrieve(Item1.index).obj);
 
-            Item1.inventory.Remove(Item1.index);
-            Item1.inventory.Insert(Item1.index, PreviousEquipTool);
-            Item1.index = -1;
-            Item1.InvNum = 0;
+            if (PreviousEquipTool == null|| (PreviousEquipTool.obj.GetComponent<TypeLabel>().Type != Item1.inventory.Retrieve(Item1.index).obj.GetComponent<TypeLabel>().Type))
+            {
+                Item toolEquip = new Item();
 
-            currentEquip = "Tool";
-            InfoboxDisplay(PlayerEquipment.etool, DisplayStyle.Flex, DisplayStyle.None, DisplayStyle.None);
+                MarketWrapper marketWrapper = market.Comparator[Item1.inventory.Retrieve(Item1.index).obj.GetComponent<TypeLabel>().Type];
+                toolEquip.obj = Instantiate(marketWrapper.item_prefab);
+                toolEquip.obj.AddComponent<TypeLabel>();
+                TypeLabel tmpLabel = toolEquip.obj.GetComponent<TypeLabel>();
+                tmpLabel.Type = marketWrapper.type;
+                toolEquip.quantity = 1;
+                 --Item1.inventory.Retrieve(Item1.index).quantity;
+                if (Item1.inventory.Retrieve(Item1.index).quantity==0)
+                {
+                    Destroy(toolEquip.obj);
+                    toolEquip = Item1.inventory.Remove(Item1.index);
+                }
+                
 
-            EquipToolButton.style.opacity = 1;
-            EquipItemButton.style.opacity = (StyleFloat).6;
+                InventoryTwo.Add(PreviousEquipTool);
+                PlayerEquipment.EquipTool(toolEquip.obj);
+
+
+                Debug.Log(PlayerEquipment.etool.obj);
+                Debug.Log(PlayerEquipment.Tool);
+                /*
+                PlayerEquipment.EquipTool(Item1.inventory.Retrieve(Item1.index).obj);
+                
+                Item1.inventory.Remove(Item1.index);
+                Item1.inventory.Insert(Item1.index, PreviousEquipTool);
+                */
+
+                Item1.index = -1;
+                Item1.InvNum = 0;
+
+                currentEquip = "Tool";
+                InfoboxDisplay(PlayerEquipment.etool, DisplayStyle.Flex, DisplayStyle.None, DisplayStyle.None);
+
+                EquipToolButton.style.opacity = 1;
+                EquipItemButton.style.opacity = (StyleFloat).6;
+            }
 
         }
 
