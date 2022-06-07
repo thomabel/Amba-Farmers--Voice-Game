@@ -32,6 +32,9 @@ public class CompareInventory : MonoBehaviour
     [SerializeField]
     private Equipment PlayerEquipment;
 
+
+    //Holds information of item/tool boxes that have
+    //been clicked.
     public struct InvAndIndexInfo
     {
         public Inventory inventory;
@@ -40,13 +43,17 @@ public class CompareInventory : MonoBehaviour
         public Base.GoodType type;
     };
 
-
+    //First item clicked by user
     InvAndIndexInfo Item1;
 
+    //Second item clicked by user
+    //and will be swapped by first item pressed
     InvAndIndexInfo Item2;
+
 
     bool equipItemPressed;
     string currentEquip;
+
 
     Button EquipToolButton;
     Button EquipItemButton;
