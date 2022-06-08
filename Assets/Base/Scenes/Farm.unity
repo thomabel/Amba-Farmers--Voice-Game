@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -777,7 +777,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4881054833026041909, guid: e9bc4a54a6f6dbd44898fa3dc62c4448, type: 3}
       propertyPath: m_Name
-      value: Onion
+      value: Demo Onion
       objectReference: {fileID: 0}
     - target: {fileID: 8449122893976940062, guid: e9bc4a54a6f6dbd44898fa3dc62c4448, type: 3}
       propertyPath: lightLoving
@@ -2886,7 +2886,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 741922505298151880, guid: 76ae3d893aea26643b48dc96dbb7d01a, type: 3}
       propertyPath: m_Name
-      value: Tomato
+      value: Demo Tomato
       objectReference: {fileID: 0}
     - target: {fileID: 5577140170496073911, guid: 76ae3d893aea26643b48dc96dbb7d01a, type: 3}
       propertyPath: activateGrowthDemo
@@ -3375,7 +3375,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 86464b714cd238c4687c98a862e33784, type: 2}
     - target: {fileID: 5755419149136521195, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
       propertyPath: m_Name
-      value: Corn
+      value: Demo Corn
       objectReference: {fileID: 0}
     - target: {fileID: 5755419149136521195, guid: ab8030125d738994b9f837a51fe7428f, type: 3}
       propertyPath: m_TagString
@@ -3554,7 +3554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 811730888934120603, guid: dae62e2050ddf8d4a89489bc87e08e0b, type: 3}
       propertyPath: m_Name
-      value: Pepper
+      value: Demo Pepper
       objectReference: {fileID: 0}
     - target: {fileID: 811730888934120603, guid: dae62e2050ddf8d4a89489bc87e08e0b, type: 3}
       propertyPath: m_IsActive
