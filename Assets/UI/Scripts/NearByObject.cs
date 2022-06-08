@@ -11,6 +11,7 @@ public class NearByObject : MonoBehaviour
     [SerializeField]
     private Interact FindClosest;
 
+    //Closest object to player
     private GameObject closestObject;
 
     [SerializeField]
@@ -55,13 +56,15 @@ public class NearByObject : MonoBehaviour
     {
         //Debug.Log(FindClosest.get_closest());
         closestObject = FindClosest.get_closest();
+        //If closest object is a plant then display the info bar
         if (closestObject != null && closestObject.tag.Equals("Plant"))
         {
-            //Debug.Log(closestObject);
             root.Q<VisualElement>("HoverContainer").style.display = DisplayStyle.Flex;
 
             Plant plant = closestObject.GetComponent<Plant>();
             MarketWrapper objectWrapper = market.Comparator[closestObject.GetComponent<TypeLabel>().Type];
+
+            //Display Plant info to the popup bar
 
             Picture.style.backgroundImage = objectWrapper.picture;
             ObjectName.text = objectWrapper.display_name;
@@ -73,12 +76,6 @@ public class NearByObject : MonoBehaviour
                 Ready.text = "Yes";
             else Ready.text = "No";
 
-            /*
-            string healthStatus = plant.daysUntilMaturity.ToString();
-            root.Q<Label>("ObjectName").text = closestObject.name +'\n' +
-                "Days till \n Mature: " + healthStatus;
-            */
-
 
         }
 
@@ -89,7 +86,7 @@ public class NearByObject : MonoBehaviour
 
     }
 
-    
+    //Convert enum statuses to simple strings
     string convertStatusToString(Plant.healthStatus status)
     {
         if (Plant.healthStatus.Fine == status || Plant.healthStatus.Healthy == status ||

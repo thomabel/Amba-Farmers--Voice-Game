@@ -94,6 +94,7 @@ public class WhoWantsToBeAFarmer : MonoBehaviour
         BackButton.clicked += EndGame;
         RestartButton.clicked += RestartButtonPressed;
     }
+
     void RestartButtonPressed()
     {
         ValueOfQuestion.style.display = DisplayStyle.Flex;
@@ -113,7 +114,7 @@ public class WhoWantsToBeAFarmer : MonoBehaviour
 
     }
     
-
+    //Show highscore message for 2 seconds
     IEnumerator showHighscoreMessage()
     {
         if (!newhighScoreOccured)
@@ -128,13 +129,20 @@ public class WhoWantsToBeAFarmer : MonoBehaviour
             newhighScoreOccured = true;
         }
     }
+    //Answer chosen
     void AnswerClicked(EventBase obj)
     {
+        //Once user answers question if they press on another question after
+        //results shown then this won't get triggered. Can enter if statement once
+        //per question
         if (!UserAnsweredQuestion)
         {
             UserAnsweredQuestion = true;
+
             var button = (Button)obj.target;
             root.Q<Button>(AnswerLabels[0]).style.backgroundColor = Color.green;
+
+            //Answered it incorrectly
             if (!button.name.Equals(AnswerLabels[0]))
             {
                 button.style.backgroundColor = new Color(1f, .84f, 0f);
@@ -144,6 +152,7 @@ public class WhoWantsToBeAFarmer : MonoBehaviour
                 IswrongAnswer = true;
 
             }
+            //Answered it correctly
             else
             {
                 points += QuestionAmount;
@@ -154,11 +163,7 @@ public class WhoWantsToBeAFarmer : MonoBehaviour
                 if (points > getTriviaList.highscore)
                 {
                     StartCoroutine(showHighscoreMessage());
-                    /*
-                    highscoreLabel.text = points.ToString();
-                    getTriviaList.highscore = points;
-                    getTriviaList.highscoreString = points.ToString();
-                    */
+                    
                 }
                 //Show buttons for next and done
                 //Hide question point value label
@@ -168,7 +173,7 @@ public class WhoWantsToBeAFarmer : MonoBehaviour
 
         }
     }
-
+    //Shuffle the questions within question bank
     void reshuffle(string[] texts)
     {
         // Knuth shuffle algorithm :: From Unity Forum
@@ -192,6 +197,8 @@ public class WhoWantsToBeAFarmer : MonoBehaviour
 
     }
 
+    //Once question is generated reshuffle the answers
+    //reset answer colors to white and add them to UI
     void QuestionGenerated()
     {
         resetAnswerBackgroundColor(Color.white);
@@ -211,6 +218,7 @@ public class WhoWantsToBeAFarmer : MonoBehaviour
         root.Q<Label>(AnswerLabels[3] + "Label").text = RandomQuestionAsked.Wrong_Answer3;
     }
 
+    //If we didn't end with wrong answer then we save our results
     void SaveResults()
     {
         if (!IswrongAnswer && points > StartingHighScore)
@@ -220,6 +228,7 @@ public class WhoWantsToBeAFarmer : MonoBehaviour
             getTriviaList.highscoreString = points.ToString();
         }
     }
+    //User wants to go back to phone
     void EndGame()
     {
         SaveResults();

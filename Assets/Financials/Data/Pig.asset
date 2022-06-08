@@ -16,7 +16,7 @@ MonoBehaviour:
   display_name: Pig
   item_prefab: {fileID: 4404814370515652443, guid: b2548d70651155b44ba1d4a9e17c3c16, type: 3}
   value: 2
-  qty_type: 1
+  qty_type: 0
   picture: {fileID: 2800000, guid: 0d413f00e472246439873efd57956def, type: 3}
   supply: 0
   demand: 0

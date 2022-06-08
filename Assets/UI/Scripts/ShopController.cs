@@ -24,6 +24,8 @@ public class ShopController : MonoBehaviour
 
     [SerializeField]
     private Texture2D Checkmark;
+
+    //Not purchased X icon image
     [SerializeField]
     private Texture2D X;
 
@@ -188,8 +190,7 @@ public class ShopController : MonoBehaviour
             }
 
         }
-        market.Sellables.Clear();
-        market.PopulateSellables();
+
 
         Debug.Log(market.Sellables.Count);
     }
@@ -205,6 +206,7 @@ public class ShopController : MonoBehaviour
 
     }
 
+    //Buy Tab on the left has been pressed
     void BuyButtonPressed()
     {
         if (isBuy) return;
@@ -213,6 +215,7 @@ public class ShopController : MonoBehaviour
         BuyOrSellTabClicked(Visibility.Visible, sellButton, buyButton, currentTab[0].ToString());
 
     }
+    //Sell Tab on the left has been pressed
     void SellButtonPressed()
     {
         if (!isBuy) return;
@@ -234,6 +237,9 @@ public class ShopController : MonoBehaviour
         else DisplayCards(null, SellList, false);
     }
 
+    //Display cards within the specified buy tab
+    //IsBuyMode determines if we display buy cards or sell cards
+    //Will Help to look at UI builder
     void DisplayCards(List<MarketWrapper> ItemCards, List<int> BuyOrSellList, bool IsBuyMode)
     {
         int length;
@@ -258,6 +264,7 @@ public class ShopController : MonoBehaviour
         {
             MarketWrapper item = null;
             if (IsBuyMode) item = ItemCards[i];
+            //If sellable card then add extra info
             else
             {
                 item = market.Sellables[i].wrap;
@@ -276,11 +283,6 @@ public class ShopController : MonoBehaviour
                 }
                 else
                     mainUI.createLabel(ref SellableQuantity, "InventoryName", null, null, "W: " + market.Sellables[i].Animal.GetComponent<Animal>().weight);
-                /*
-                InventoryName = new Label();
-                InventoryName.text = market.Sellables[i].inv.name + "\n" + "Inventory";
-                InventoryName.AddToClassList("InventoryName");
-                */
 
             }
 
@@ -306,13 +308,14 @@ public class ShopController : MonoBehaviour
             InfoContainer.Add(Name);
             InfoContainer.Add(Price);
 
-            if (!IsBuyMode) InfoContainer.Add(SellableQuantity);//InfoContainer.Add(InventoryName);
+            if (!IsBuyMode) InfoContainer.Add(SellableQuantity);
 
             mainUI.createVisualElement(ref StatusContainer, "Status", null, null, null);
             mainUI.createLabel(ref inCartLabel, "InCartLabel", null, null, "In Cart");
             mainUI.createLabel(ref StatusPicture, "StatusPicture", null, "Status" + i.ToString(), null);
 
-
+            //If BuyOrSellList has the item then show a checkmark
+            ///otherwise show an X for not purchased
             if (BuyOrSellList.Contains(i))
                 StatusPicture.style.backgroundImage = Checkmark;
             else StatusPicture.style.backgroundImage = X;
@@ -327,17 +330,12 @@ public class ShopController : MonoBehaviour
 
 
             ScrollViewSection.Add(CardButton);
-            //ItemCards[i].quantity = 1;
 
         }
     }
     //Updates text fields with balance changes
     void UpdateMoneyBalance()
     {
-        /*
-        SellTotal = Decimal.Floor(SellTotal);
-        total = Decimal.Floor(total);
-        */
 
         if (MoneyLabel != null && SubtotalLabel != null &&
             SoldSubtotalLabel != null && CheckoutMoneyLabel != null)
@@ -386,8 +384,10 @@ public class ShopController : MonoBehaviour
         }
     }
 
+    //Sees what quantity to start with
     float findQuantity(char BuyMode, int index, Dictionary<int, float> QuantityMap)
     {
+        //If sellable item then start with the maxiumum quantity
         if (BuyMode.Equals('S'))
         {
             float quantity = 1;
@@ -398,6 +398,7 @@ public class ShopController : MonoBehaviour
         }
         else
         {
+            //How much we can sell
             float quantity = 0;
             if (currentTab.Equals("PlantTab"))
                 quantity = 99 - market.TotalNumberOfItems(Plants[index].type);
@@ -410,12 +411,14 @@ public class ShopController : MonoBehaviour
 
             }
 
+            //If we cannot sell anything make sure quantity field starts with 0
             if(quantity <= 0)
                 return 0;
 
             return 1;
         }
     }
+    //Check if any items have been clicked and display appropriate message container
     void CheckNoItems()
     {
         VisualElement CheckoutContent = root.Q<VisualElement>("CheckoutContent");
@@ -446,10 +449,7 @@ public class ShopController : MonoBehaviour
         SellTotal = 0;
         CheckoutItemWrapper();
         UpdateMoneyBalance();
-        /*
-        SubtotalLabel.text = total.ToString();
-        SoldSubtotalLabel.text = SellTotal.ToString();
-        */
+
 
 
     }
@@ -476,6 +476,7 @@ public class ShopController : MonoBehaviour
     //Display checkout items either sellable or buy cards
     void checkoutItemsDisplay(List<int> ListType, string BuyOrSell, string typeofItem, List<MarketWrapper> items, Dictionary<int, float> QuantityMap)
     {
+        //Must sort in order for removal later on to work properly
         ListType.Sort();
         VisualElement CheckoutScrollView = root.Q<VisualElement>("CheckoutScrollViewList");
         string ChosenType = "";
@@ -493,6 +494,7 @@ public class ShopController : MonoBehaviour
 
         }
 
+        //Display Checkout cards
         for (int i = 0; i < ListType.Count; ++i)
         {
             MarketWrapper item = null;
@@ -535,6 +537,7 @@ public class ShopController : MonoBehaviour
             CheckoutItemInfoContainer.Add(CheckoutItemInfoLabel);
             checkoutCard.Add(CheckoutItemInfoContainer);
 
+            //Quantity field not applicable for Animal sold since we can only sell one animal
             if (isBuyMode || (!isBuyMode && market.Sellables[ListType[i]].Animal == null))
             {
                 VisualElement QuantityContainer = null;
@@ -555,14 +558,12 @@ public class ShopController : MonoBehaviour
 
                     TextField tmp = (TextField)evt.target;
 
-                    VisualElement parent1 = tmp.GetFirstAncestorOfType<VisualElement>();
-                    VisualElement parent2 = parent1.GetFirstAncestorOfType<VisualElement>();
-
                     float n = 0;
 
                     int num = int.Parse(tmp.name.Substring(2));
                     bool intType = false;
 
+                    //Set max quantity
                     if (isBuyMode)
                     {
                         totaltmp = total;
@@ -581,6 +582,7 @@ public class ShopController : MonoBehaviour
                         intType = items[num].qty_type == Base.QuantityType.Integer;
 
                     }
+                    //Set sell max quantity. Can only sell how much we have
                     else
                     {
                         totaltmp = SellTotal;
@@ -592,6 +594,7 @@ public class ShopController : MonoBehaviour
                         intType = value.qty_type == Base.QuantityType.Integer;
                     }
 
+                    //Only allow one '.' character
                     if (tmp.value != null && evt.previousValue.Contains("."))
                     {
                         char ch = '.';
@@ -660,7 +663,6 @@ public class ShopController : MonoBehaviour
 
                 if (!BuyOrSell.Equals("S")) total += (int)(item.PriceOf() * QuantityMap[ListType[i]]);
                 else SellTotal += (int)(item.PriceOf() * QuantityMap[ListType[i]]);
-                //UpdateMoneyBalance();
             }
 
             else
@@ -742,6 +744,7 @@ public class ShopController : MonoBehaviour
         foreach (int element in BoughtList)
             market.BuyItem(BoughtCardInfo[element], QuantityMap[element]);
     }
+
     void CheckoutLiveStock(List<int> BoughtList, List<MarketWrapper> BoughtCardInfo, Dictionary<int, float> QuantityMap)
     {
         foreach (int element in BoughtList)
@@ -752,7 +755,7 @@ public class ShopController : MonoBehaviour
 
             player.Debit(BoughtCardInfo[element].value * NumOfAnimalsBought);
         }
-            //shelters.PlaceAnimal((int)QuantityMap[element]);
+
     }
     void checkoutSell()
     {
@@ -781,18 +784,11 @@ public class ShopController : MonoBehaviour
 
             CheckoutLiveStock(LivestockBuyList,Animals, LiveStockQuantity);
             checkoutSell();
-            //addtoInventory(LivestockBuyList, Animals,LiveStockQuantity);
 
             UpdateMoneyBalance();
 
             mainUI.ShowOrHideVisualElements(ref SuccessPurchase, ref ItemsInCheckout);
-            /*
-            if (total != 0 || SellTotal != 0)
-            {
-                mainUI.ShowOrHideVisualElements(ref SuccessPurchase, ref ItemsInCheckout);
-            }
 
-            */
 
             clearAllLists();
         }
