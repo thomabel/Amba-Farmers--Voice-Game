@@ -14,6 +14,11 @@ public class HUDButtons : MonoBehaviour
     [SerializeField]
     private Market market;
 
+    //These functions get triggered when a Tool or Item
+    //has been set to equipment slots
+
+    //We have set a new tool, this function gets called
+    //and we replace Tool image on Tool control button
     public void AddToolImage(GameObject obj)
     {
         MarketWrapper value;
@@ -36,7 +41,8 @@ public class HUDButtons : MonoBehaviour
         
             
     }
-
+    //We have set a new Item, this function gets called
+    //and we replace Item image on Item control button
     public void AddItemImage(GameObject obj)
     {
         if (obj == null)

@@ -36,33 +36,30 @@ public class TriviaQuestions : MonoBehaviour
     void Start()
     {
         highscoreFolder = Application.persistentDataPath + "/HighScore.txt";
-        Debug.Log(highscoreFolder);
         QuestionFolder = Application.persistentDataPath + "/Questions.txt";
 
+        //Read from web and if error is thrown then catch it and display
+        //from questions file within our folder
         try
         {
             WebClient wc = new WebClient();
             var json = wc.DownloadString("https://mo-amin.github.io/AFVTriviaQuestions/Questions.txt");
-            Debug.Log(json);
+
             TriviaList = JsonUtility.FromJson<QuestionsList>(json);
-            Debug.Log(Application.persistentDataPath);
 
             WriteQuestionTextFile(json.ToString());
         }
         catch
         {
             TriviaList = JsonUtility.FromJson<QuestionsList>(File.ReadAllText(QuestionFolder));
-            //TriviaList = JsonUtility.FromJson<QuestionsList>(textJSON.text);
         }
         
-        Debug.Log(TriviaList.Questions[TriviaList.Questions.Length - 1].Actual_Question);
 
-        readTextFile();
-        //WriteTextFile("128", highscoreFolder);
         readTextFile();
 
     }
 
+    //Read text file here only used to read highscore folder
     public void readTextFile()
     {
         StreamReader read = null;
@@ -79,7 +76,6 @@ public class TriviaQuestions : MonoBehaviour
         {
             highscoreString = read.ReadLine();
             highscore = long.Parse(highscoreString);
-            Debug.Log(highscoreString);
         }
 
         read.Close();
@@ -89,18 +85,12 @@ public class TriviaQuestions : MonoBehaviour
     public void WriteHighScoreTextFile(string information)
     {
         File.WriteAllText(highscoreFolder, information);
-        /*
-        StreamWriter writetext = new StreamWriter(filepath);
-        writetext.WriteLine(information);
-        */
+
     }
 
     public void WriteQuestionTextFile(string information)
     {
         File.WriteAllText(QuestionFolder, information);
-        /*
-        StreamWriter writetext = new StreamWriter(filepath);
-        writetext.WriteLine(information);
-        */
+
     }
 }

@@ -68,6 +68,7 @@ public class InventoryController : MonoBehaviour
         root.Q<Button>("BackButton").clicked += backbutton;
 
     }
+    //Display items within player inventory
     void DisplayInventory()
     {
         VisualElement Current = new VisualElement();
@@ -107,12 +108,16 @@ public class InventoryController : MonoBehaviour
             count += 1;
 
         }
+        //Item box sizes are set to growth, so they adjust
+        //So we need to add extra boxes to ensure size is the same
         int extra = 0;
         if (length % 5 != 0)
             extra = 5 - (length % 5);
 
         addExtraBoxes(extra, ref Current);
     }
+    //Add extra boxes so that size for buttons stays the same
+    //Since they grow to fill the size of container.
     void addExtraBoxes(int extra, ref VisualElement Current)
     {
         for (int i = 0; i < extra; ++i)
@@ -134,9 +139,11 @@ public class InventoryController : MonoBehaviour
         Phone.SetActive(true);
         this.gameObject.SetActive(false);
     }
+    //Add equipped item back to player inventory
     void addInvClicked()
     {
         int index = player.Add(PlayerEquipment.eitem);
+        //Cannot add to inventory, not enough space
         if (index == -1)
         {
             root.Q<VisualElement>("SpaceErrorWarning").style.display = DisplayStyle.Flex;
@@ -154,7 +161,7 @@ public class InventoryController : MonoBehaviour
         ItemInfo.style.display = DisplayStyle.None;
 
     }
-
+    //Find the item to display to button
     void findItemAndDisplay(Item FindObj, ref Button button)
     {
         if (FindObj == null)
@@ -168,7 +175,8 @@ public class InventoryController : MonoBehaviour
         if (checkIfItemExists) button.style.backgroundImage = new StyleBackground(value.picture);
         else button.style.backgroundImage = null;
     }
-
+    //Equip button clicked so remove from inventory
+    //and add to player equipment item slot
     void EquipButtonClicked()
     {
         int index = int.Parse(currentPressedItem.name);
@@ -188,6 +196,7 @@ public class InventoryController : MonoBehaviour
         ItemInfo.style.display = DisplayStyle.None;
 
     }
+
     void ItemClicked(EventBase obj)
     {
         Debug.Log(obj);
@@ -195,9 +204,10 @@ public class InventoryController : MonoBehaviour
         //FocusedButton = (Button)obj.target;
         var button = (Button)obj.target;
 
-
+        //If nothing has been pressed set "global" pressedItem Tracker variable to null
         if (currentPressedItem == null)
             currentPressedItem = button;
+        //If we pressed same item then undo press and fix display to match all
         else if (currentPressedItem.name.Equals(button.name))
         {
             currentPressedItem.style.opacity = (StyleFloat).5;
@@ -206,6 +216,7 @@ public class InventoryController : MonoBehaviour
             return;
 
         }
+        //If new item has been pressed
         else
         {
             currentPressedItem.style.opacity = (StyleFloat).5;
@@ -216,6 +227,7 @@ public class InventoryController : MonoBehaviour
         bool isequippable = button.name.Equals("EquippedItem");
 
         Item CurrentCard;
+        //Assign current card and find where its located in equippable item slot or within inventory
         if (isequippable) CurrentCard = PlayerEquipment.eitem;
         else
         {
@@ -229,6 +241,8 @@ public class InventoryController : MonoBehaviour
             ItemInfo.style.display = DisplayStyle.Flex;
             MarketWrapper value;
             bool checkIfItemExists = market.Comparator.TryGetValue(CurrentCard.obj.GetComponent<TypeLabel>().Type, out value);
+
+            //If item exists display Side bar
             if (checkIfItemExists)
             {
                 currentPressedItem.style.opacity = 1;
@@ -236,6 +250,8 @@ public class InventoryController : MonoBehaviour
                 Label ItemName = root.Q<Label>("ItemName");
                 ItemName.text = value.display_name;
                 QuantityNum.text = CurrentCard.quantity.ToString();
+
+                //Display info to side bar, if equippable make sure that we have an add to inventory button
                 if (isequippable)
                 {
                     root.Q<VisualElement>("ContainerButton").style.display = DisplayStyle.None;
@@ -243,6 +259,7 @@ public class InventoryController : MonoBehaviour
                     root.Q<VisualElement>("SpaceErrorWarning").style.display = DisplayStyle.None;
                     addInvButton.style.display = DisplayStyle.Flex;
                 }
+                //If not equippable item slot pressed then make sure we have equip button in the side bar
                 else
                 {
                     root.Q<VisualElement>("ContainerButton").style.display = DisplayStyle.Flex;

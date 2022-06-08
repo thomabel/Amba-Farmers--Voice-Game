@@ -5,12 +5,18 @@ using UnityEngine.UIElements;
 
 public class CompareInventory : MonoBehaviour
 {
+    //Player Inventory
     public Inventory InventoryOne;
+
+    //House Inventory
     public Inventory InventoryTwo;
 
     private VisualElement root;
 
+    //Player Inv Scroll view
     private ScrollView ScrollViewOne;
+
+    //House Inv Scroll view
     private ScrollView ScrollViewTwo;
 
     private Button EquipButton;
@@ -64,6 +70,7 @@ public class CompareInventory : MonoBehaviour
 
         Item2 = new InvAndIndexInfo();
 
+        //If Item.index = -1 then nothing has been Pressed
         Item1.index = -1;
 
         Item2.index = -1;
@@ -93,6 +100,9 @@ public class CompareInventory : MonoBehaviour
 
     }
 
+
+    //Assign UI builder variables to
+    //script variables
     void assignUItoVariables()
     {
         root = GetComponent<UIDocument>().rootVisualElement;
@@ -119,51 +129,64 @@ public class CompareInventory : MonoBehaviour
         root.Q<Button>("BackButton").clicked += GoBack;
     }
 
+    //Back button, Go back to phone UI display
     void GoBack()
     {
         phone.SetActive(true);
         this.gameObject.SetActive(false);
     }
+    //Add item to either player or house inventory
+    //depending on button pressed.
     void AddtoInventory(EventBase obj)
     {
         var button = (Button)obj.target;
 
+        //Player wants to send to player inventory
         if (button.name.Equals("ItemPlayerInventory"))
         {
             Item itemObj = PlayerEquipment.eitem;
             if (itemObj != null)
             {
+                //Check player inventory if it has room to add
+                //If -1 no room exists so we cannot add
                 if (InventoryOne.Add(PlayerEquipment.eitem) == -1) return;
                 PlayerEquipment.eitem = null;
                 PlayerEquipment.Item = null;
 
             }
         }
+        //Player wants to send to House inventory
         else
         {
             Item itemobj = PlayerEquipment.eitem;
             if (itemobj != null)
             {
-
+                //Check House inventory if it has room to add
+                //If -1 no room exists so we cannot add
                 if (InventoryTwo.Add(PlayerEquipment.eitem) == -1) return;
                 PlayerEquipment.eitem = null;
                 PlayerEquipment.Item = null;
             }
 
         }
+        //Reset Equip Item button display
         EquipItemButton.style.opacity = (StyleFloat).6;
         EquipItemButton.style.backgroundImage = null;
         equipItemPressed = false;
 
+        //Display new info
         Display(InventoryOne, ScrollViewOne, "1");
         Display(InventoryTwo, ScrollViewTwo, "2");
         DisplayEquippable();
+        //If nothing is pressed remove quantity info
         if (Item1.index == -1)
             root.Q<VisualElement>("QuanInfoContainer").style.display = DisplayStyle.None;
 
     }
+    //Send Tools directly to House Inventory (Tools cannot be in player Inv)
     void SendtoInventoryTwo()
     {
+        //If tool is equipped
         if (PlayerEquipment.etool != null)
         {
             if (InventoryTwo.Add(PlayerEquipment.etool) == -1) return;
@@ -173,17 +196,21 @@ public class CompareInventory : MonoBehaviour
             Display(InventoryTwo, ScrollViewTwo, "2");
             DisplayEquippable();
         }
+        //Reset Equip Tool button display
         EquipToolButton.style.opacity = (StyleFloat).6;
         EquipToolButton.style.backgroundImage = null;
+
         equipItemPressed = false;
         if (Item1.index == -1)
             root.Q<VisualElement>("QuanInfoContainer").style.display = DisplayStyle.None;
     }
+    //Equip Item or tool button Pressed
     void equipPressed(EventBase obj)
     {
         var button = (Button)obj.target;
         string name = button.name;
 
+        //Equip Item button pressed, Display info box
         if (equipItemPressed && currentEquip.Equals(name))
         {
             button.style.opacity = (StyleFloat).6;
@@ -193,6 +220,7 @@ public class CompareInventory : MonoBehaviour
                 InfoboxDisplay(Item1.inventory.Retrieve(Item1.index));
             else InfoboxDisplay(null);
         }
+        //Equip Tool button pressed, Display info box
         else
         {
             currentEquip = name;
@@ -211,6 +239,7 @@ public class CompareInventory : MonoBehaviour
         }
 
     }
+    //Display equipped Item or Tool buttons with new info
     void DisplayEquippable()
     {
         Debug.Log(PlayerEquipment.eitem);
@@ -225,7 +254,7 @@ public class CompareInventory : MonoBehaviour
         }
 
     }
-
+    //Display equipped Item or Tool buttons with new info
     void DisplayEquipItemOrTool(ref GameObject equip, ref Button equipButton)
     {
         MarketWrapper value;
@@ -237,6 +266,8 @@ public class CompareInventory : MonoBehaviour
             equipButton.style.backgroundImage = new StyleBackground();
     }
 
+
+    //Display all inventory materials.
     void Display(Inventory inventory, ScrollView viewScroller, string InvNum)
     {
         viewScroller.Clear();
@@ -245,6 +276,7 @@ public class CompareInventory : MonoBehaviour
         Current.AddToClassList("Row");
 
         int count = 0;
+        //Display inventory
         for (int i = 0; i < inventory.Size; ++i)
         {
             if (i != 0 && count % 2 == 0)
@@ -278,6 +310,8 @@ public class CompareInventory : MonoBehaviour
             count += 1;
 
         }
+        //Add extra buttons to ensure that buttons are the same size.
+        //Since size fluctuates with # of buttons displayed
         int extra = 0;
         if (inventory.Size % 2 != 0)
             extra = 2 - (inventory.Size % 2);
@@ -301,6 +335,7 @@ public class CompareInventory : MonoBehaviour
             PressedInventoryCard.style.opacity = 1;
         }
     }
+    //Convert type label to string
     string getTypeLabel(Base.GoodType typeOfItem)
     {
         if (typeOfItem > Base.GoodType.Tool_Start && typeOfItem < Base.GoodType.Tool_End)
@@ -318,13 +353,18 @@ public class CompareInventory : MonoBehaviour
         return "Fruit";
 
     }
+
+    //Equip Item or tool to equipment slots
     void equip()
     {
         string typeOfItem = getTypeLabel(Item1.type);
+        //If seed gets equipped to item slot
         if (typeOfItem == "Seed")
         {
             Item PreviousEquipItem = PlayerEquipment.eitem;
             PlayerEquipment.inventory = Item1.inventory;
+            //Equip new item and replace item that had been equipped
+            //with new item that needs to be equipped
             PlayerEquipment.EquipItem(Item1.index);
             Item1.inventory.Remove(Item1.index);
             Item1.inventory.Insert(Item1.index, PreviousEquipItem);
@@ -338,30 +378,31 @@ public class CompareInventory : MonoBehaviour
             EquipItemButton.style.opacity = 1;
 
         }
+        //If Tool or Fruit gets equipped to Tool slot
         else if (typeOfItem == "Tool" || typeOfItem == "Fruit")
         {
 
             Item PreviousEquipTool = PlayerEquipment.etool;
-            /*
-            if (PreviousEquipTool == null)
-            {
-                PlayerEquipment.etool = Item1.inventory.Retrieve(Item1.index);
-            }
-            else PlayerEquipment.EquipTool(Item1.inventory.Retrieve(Item1.index).obj);
-            */
+
 
             if (PreviousEquipTool == null|| (PreviousEquipTool.obj.GetComponent<TypeLabel>().Type != Item1.inventory.Retrieve(Item1.index).obj.GetComponent<TypeLabel>().Type))
             {
+                Item PressedTool = Item1.inventory.Retrieve(Item1.index);
+                //Make a new item onto the scene that holds 1 quanitity
+                //Tool in scene MUST ONLY HAVE QUANTITY = 1
                 Item toolEquip = new Item();
-
-                MarketWrapper marketWrapper = market.Comparator[Item1.inventory.Retrieve(Item1.index).obj.GetComponent<TypeLabel>().Type];
+                MarketWrapper marketWrapper = market.Comparator[PressedTool.obj.GetComponent<TypeLabel>().Type];
                 toolEquip.obj = Instantiate(marketWrapper.item_prefab);
                 toolEquip.obj.AddComponent<TypeLabel>();
                 TypeLabel tmpLabel = toolEquip.obj.GetComponent<TypeLabel>();
                 tmpLabel.Type = marketWrapper.type;
                 toolEquip.quantity = 1;
-                 --Item1.inventory.Retrieve(Item1.index).quantity;
-                if (Item1.inventory.Retrieve(Item1.index).quantity==0)
+                //decrement quantity since we are removing a tool
+                 --PressedTool.quantity;
+
+                //If no more tools then we don't need tool that we allocated above
+                //remove existent tool from inventory and equip it to tool slot
+                if (PressedTool.quantity==0)
                 {
                     Destroy(toolEquip.obj);
                     toolEquip = Item1.inventory.Remove(Item1.index);
@@ -374,13 +415,8 @@ public class CompareInventory : MonoBehaviour
 
                 Debug.Log(PlayerEquipment.etool.obj);
                 Debug.Log(PlayerEquipment.Tool);
-                /*
-                PlayerEquipment.EquipTool(Item1.inventory.Retrieve(Item1.index).obj);
-                
-                Item1.inventory.Remove(Item1.index);
-                Item1.inventory.Insert(Item1.index, PreviousEquipTool);
-                */
 
+                //reset pressed variables
                 Item1.index = -1;
                 Item1.InvNum = 0;
 
@@ -400,7 +436,7 @@ public class CompareInventory : MonoBehaviour
         equipItemPressed = true;
     }
 
-
+    //Display info box when item is Pressed
     void InfoboxDisplay(Item itemClicked, DisplayStyle toolInfoDisplayMode = DisplayStyle.None, DisplayStyle ItemContainerDisplayMode = DisplayStyle.None, DisplayStyle EquipButtonDisplayMode = DisplayStyle.Flex)
     {
         if (itemClicked != null)
@@ -432,19 +468,17 @@ public class CompareInventory : MonoBehaviour
         //First item pressed
         if (Item1.index == -1)
         {
+            //Set the index within inventory
             Item1.index = IndexNum;
             button.style.opacity = 1;
+
+            //Find what inventory it belongs to
             Item1.inventory = findInventory(InvNum, ref Item1);
-            //button.style.opacity = 1;
             Item itemClicked = Item1.inventory.Retrieve(IndexNum);
             if (itemClicked != null)
             {
                 Item1.type = itemClicked.obj.GetComponent<TypeLabel>().Type;
                 InfoboxDisplay(itemClicked);
-                /*
-                if(getTypeLabel(Item1.type) =="Fruit") InfoboxDisplay(itemClicked, DisplayStyle.None, DisplayStyle.None, DisplayStyle.None);
-                else InfoboxDisplay(itemClicked);
-                */
 
             }
             else root.Q<VisualElement>("QuanInfoContainer").style.display = DisplayStyle.None;
@@ -475,6 +509,7 @@ public class CompareInventory : MonoBehaviour
             DisplayPressedEquipped();
 
         }
+        //Shouldn't ever be here but just safe case
         else if (Item2.index == IndexNum && Item2.InvNum == InvNum)
         {
             Item2.index = -1;
@@ -484,6 +519,7 @@ public class CompareInventory : MonoBehaviour
         }
 
     }
+    //Find what inventory item belonsg to and assign it to correct Inventory
     Inventory findInventory(int InvNum, ref InvAndIndexInfo Item)
     {
         if (InvNum == 1)
@@ -496,6 +532,7 @@ public class CompareInventory : MonoBehaviour
 
     }
 
+    //Displays equipped item that has been pressed
     void DisplayPressedEquipped()
     {
         //If user isn't pressing items inside inventory but had previously pressed
@@ -513,6 +550,8 @@ public class CompareInventory : MonoBehaviour
         else InfoboxDisplay(null);
     }
 
+    //Make sure we have an acceptable transfer
+    //Cannot MOVE tool to PLAYER INVENTORY
     bool CheckAcceptableTransfer()
     {
 
@@ -537,9 +576,11 @@ public class CompareInventory : MonoBehaviour
         return true;
     }
 
+    //Swap two items pressed
     void swapItems()
     {
-
+        //If two things have been pressed then enter
+        //and swap the items
         if (Item1.index != -1 && Item2.index != -1)
         {
             Item swap1 = Item1.inventory.Remove(Item1.index);
