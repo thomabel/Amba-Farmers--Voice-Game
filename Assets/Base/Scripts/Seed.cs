@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Seed item that can be bought and then planted to form new plants.
+/// </summary>
 public class Seed : MonoBehaviour, IStorable, IInteractable
 {
     public GameObject plantToGrow;

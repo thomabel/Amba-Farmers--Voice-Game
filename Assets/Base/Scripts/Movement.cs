@@ -1,9 +1,12 @@
 using UnityEngine;
 
+/// <summary>
+/// For moving the player. Potentially works with other entities.
+/// </summary>
 public class Movement : MonoBehaviour
 {
-    public FloatReference move_speed;
-    private Vector3 rotated;
+    public FloatReference move_speed; // Speed of object in m/s.
+    private Vector3 rotated; // Compensates for camera perspective/angle.
 
     private void Start()
     {
@@ -28,15 +31,15 @@ public class Movement : MonoBehaviour
     /// <summary>
     /// Move this gameobject by first converting stick input.
     /// </summary>
-    /// <param name="input"></param>
-    /// <param name="cameraYangle"></param>
+    /// <param name="input">From input device.</param>
+    /// <param name="cameraYangle">From camera transform.</param>
     public void Move(Vector2 input, float cameraYangle)
     {
         DetermineMoveVector(input, cameraYangle);
         Move(rotated);
     }
 
-    // 
+    // Combines input values into correct movement vector.
     private void DetermineMoveVector(Vector2 input, float cameraYangle)
     {
         rotated.x = input.x;

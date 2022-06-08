@@ -6,10 +6,10 @@ using UnityEngine;
 /// </summary>
 public class Billboard : MonoBehaviour
 {
-    public Vector2 size;
-    public Material mat;
-    public Renderer rend;
-    public Camera cam;
+    public Vector2 size; // The vertical and horizontal dimensions.
+    public Material mat; // Holds the actual sprite.
+    public Renderer rend; // Renderer for changing sprites.
+    public Camera cam; // Camera to turn toward.
 
     private void Start()
     {
@@ -23,6 +23,7 @@ public class Billboard : MonoBehaviour
         {
             rend = GetComponent<Renderer>();
         }
+        // Changes to the new sprite on enable.
         rend.material = mat;
         transform.localScale = size;
         var pos = transform.localPosition;

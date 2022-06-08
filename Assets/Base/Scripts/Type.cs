@@ -3,6 +3,9 @@ namespace Base
 {
     /// <summary>
     /// A list of all goods that can be bought or sold on the market.
+    /// Has the problem of changing prefab values if enum list is
+    /// added to in the middle of the list. May be necessary to change
+    /// approach to using ScriptableObjects instead.
     /// </summary>
     public enum GoodType
     {

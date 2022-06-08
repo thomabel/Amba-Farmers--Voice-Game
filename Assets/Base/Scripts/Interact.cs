@@ -1,6 +1,8 @@
 using UnityEngine;
 
-// For interacting with objects in the world.
+/// <summary>
+/// For interacting with objects in the world.
+/// </summary>
 public class Interact : MonoBehaviour
 {
     public ColliderContainer container;
@@ -9,20 +11,29 @@ public class Interact : MonoBehaviour
     public Color debug_color;
     public GameObject last_interacted = null;
 
-    // Try to interact with the closest game object.
+    /// <summary>
+    /// Try to interact with the closest game object.
+    /// </summary>
     public void try_closest()
     {
         Try(get_closest());
     }
 
-    // Find the closest game object.
+    /// <summary>
+    /// Find the closest game object.
+    /// </summary>
+    /// <returns>The object.</returns>
     public GameObject get_closest()
     {
         var closest = container.GetClosest(transform.position, interact_distance.Value);
         return closest == null ? null : closest.gameObject;
     }
 
-    // Try to interact with some game object.
+    /// <summary>
+    /// Try to interact with some game object in the world.
+    /// </summary>
+    /// <param name="item">The object to check.</param>
+    /// <returns>Success of interaction.</returns>
     public bool Try(GameObject item)
     {
         if (item == null)
