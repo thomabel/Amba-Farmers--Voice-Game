@@ -44,7 +44,6 @@ public class PhoneButtonController : MonoBehaviour
 
     private bool UserAnsweredQuestion;
 
-    public GameEventListener onDayChange;
     private int day = 1;
     private int month = 4;
     private int year = 2022;
