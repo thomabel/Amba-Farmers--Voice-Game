@@ -1,3 +1,7 @@
+/// <summary>
+/// Stores a reference to a FloatVariable scriptable object.
+/// Can also use a constant value.
+/// </summary>
 [System.Serializable]
 public class FloatReference
 {

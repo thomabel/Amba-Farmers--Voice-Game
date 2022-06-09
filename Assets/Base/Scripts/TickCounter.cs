@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Test timer that counts up in seconds.
+/// </summary>
 public class TickCounter : MonoBehaviour
 {
     public FloatVariable seconds_total;

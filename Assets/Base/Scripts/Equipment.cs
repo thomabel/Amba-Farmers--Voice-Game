@@ -1,10 +1,15 @@
 using UnityEngine;
 
+/// <summary>
+/// Holds tools and items in two special slots for the player to use on the world.
+/// </summary>
 public class Equipment : MonoBehaviour
 {
+    // Main references.
     public Inventory inventory;
     public ColliderContainer container;
 
+    // Tool references. Tools cannot go in inventory.
     public Vector3 tool_offset;
     private Item _etool;
     public Item etool
@@ -22,6 +27,7 @@ public class Equipment : MonoBehaviour
     }
     public IEquippable Tool;
 
+    // Item references. Items can go in inventory.
     private Item _eitem;
     public Item eitem
     {
@@ -38,6 +44,7 @@ public class Equipment : MonoBehaviour
     }
     public IStorable Item;
 
+    // UI
     public HUDButtons hudbuttons;
 
     private void Start()
@@ -51,7 +58,7 @@ public class Equipment : MonoBehaviour
     /// <summary>
     /// General method for picking up inventory items.
     /// </summary>
-    /// <param name="thing"></param>
+    /// <param name="thing">The object to check.</param>
     public void Pickup(GameObject thing)
     {
         if (thing == null)
@@ -73,7 +80,7 @@ public class Equipment : MonoBehaviour
     /// <summary>
     /// Equips the item at index into the item equip slot.
     /// </summary>
-    /// <param name="index"></param>
+    /// <param name="index">Index of item in inventory.</param>
     /// <returns>Success of equip</returns>
     public bool EquipItem(int index)
     {
@@ -122,7 +129,7 @@ public class Equipment : MonoBehaviour
     /// <summary>
     /// Assign the given equipment into the slot. Must have IEquippable.
     /// </summary>
-    /// <param name="tool"></param>
+    /// <param name="tool">The tool to equip.</param>
     /// <returns>Success of equip.</returns>
     public bool EquipTool(GameObject tool)
     {
@@ -167,7 +174,7 @@ public class Equipment : MonoBehaviour
         return true;
     }
 
-
+    // Picks up item off of ground and places in inventory.
     private void pickup_item(GameObject item)
     {
         int i = inventory.Add(item);

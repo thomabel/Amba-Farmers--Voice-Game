@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Holds a hash set of all nearby colliders to the game object.
+/// </summary>
 public class ColliderContainer : MonoBehaviour
 {
     public Collider RecentlyAdded;
@@ -50,6 +53,13 @@ public class ColliderContainer : MonoBehaviour
             colliders.Remove(c);
         }
     }
+
+    /// <summary>
+    /// Grabs the nearest collider to this object. Compares center of colliders to pos.
+    /// </summary>
+    /// <param name="pos">Compares to this position.</param>
+    /// <param name="maximum">Maximum distance away collider can be.</param>
+    /// <returns>The closest collider in the set.</returns>
     public Collider GetClosest(Vector3 pos, float maximum)
     {
         Collider closest = null;

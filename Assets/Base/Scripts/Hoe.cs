@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Tool that applies the tilled status to the ground at the current position.
+/// </summary>
 public class Hoe : MonoBehaviour, IEquippable, IInteractable
 {
     void IEquippable.Use(GameObject with)

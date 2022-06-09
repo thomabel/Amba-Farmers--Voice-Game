@@ -1,15 +1,17 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
+/// <summary>
+/// Store for items outside of the game world. Can store any object.
+/// </summary>
 [CreateAssetMenu(
     menuName = "SO Variables/Inventory",
     fileName = "inventory"
     )]
 public class Inventory : ScriptableObject, IEnumerable
 {
-    public int size;
-    private Item[] items;
+    public int size; // How many discrete slots there are.
+    private Item[] items; // Array that holds items.
 
     // PRIVATE
     private void OnEnable()
@@ -37,7 +39,15 @@ public class Inventory : ScriptableObject, IEnumerable
 
 
     // PUBLIC
+    /// <summary>
+    /// The number of usable slots the inventory has.
+    /// </summary>
     public int Size { get { return items.Length; } }
+    /// <summary>
+    /// Array accesory for referencing items in the inventory.
+    /// </summary>
+    /// <param name="i"></param>
+    /// <returns></returns>
     public Item this[int i] { get { return items[i] == null ? null : items[i]; } }
     IEnumerator IEnumerable.GetEnumerator() { return items.GetEnumerator(); }
     /// <summary>
@@ -169,6 +179,11 @@ public class Inventory : ScriptableObject, IEnumerable
 
     }
 
+    /// <summary>
+    /// Finds the quantity of a particular good type, if it exists.
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns>The quantity if true, if false -1.</returns>
     public float FindQuantity(Base.GoodType type)
     {
         foreach (Item i in items)

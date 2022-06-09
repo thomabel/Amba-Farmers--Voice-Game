@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// Processes player input.
+/// <summary>
+/// Player input master class.
+/// </summary>
 public class PlayerInput : MonoBehaviour
 {
+    // References that input controls.
     public Camera cam;
     public Movement movement;
     public Interact interact;
@@ -11,6 +14,7 @@ public class PlayerInput : MonoBehaviour
     public Equipment equipment;
     public Inventory house;
 
+    // Holds input values.
     private Vector2 move_input;
     private bool moving;
 
@@ -27,6 +31,7 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    // All OnAction methods connect via the Editor to the Input System.
     public void OnMove(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -43,6 +48,7 @@ public class PlayerInput : MonoBehaviour
     {
         if (context.performed)
         {
+            // Tries to interact with the closest object.
             interact.try_closest();
 
             var last = interact.last_interacted;
@@ -55,6 +61,7 @@ public class PlayerInput : MonoBehaviour
                 return;
             }
             
+            // Automatically stores collected fruit in house.
             var fruit = last.GetComponent<Fruit>();
             if (fruit != null)
             {
@@ -62,6 +69,7 @@ public class PlayerInput : MonoBehaviour
                 return;
             }
 
+            // Tries to pick item up.
             equipment.Pickup(last);
         }
     }

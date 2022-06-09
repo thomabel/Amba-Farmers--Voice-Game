@@ -1,6 +1,10 @@
 using UnityEngine;
 using System;
 
+/// <summary>
+/// A wrapper class for Inventory that stores an easily accessed quantity
+/// with each held game object.
+/// </summary>
 public class Item
 {
     public GameObject obj;
